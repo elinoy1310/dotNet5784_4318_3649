@@ -8,5 +8,5 @@ partial class Program
 	static partial void Welcome3649()
 	{
 		Console.WriteLine("Hi!");
-	};
+	}
 }
