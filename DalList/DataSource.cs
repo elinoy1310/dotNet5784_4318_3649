@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿
+namespace Dal;
 
-namespace Dal
+internal static class DataSource
 {
-    internal class DataSource
-    {
-    }
+    internal static List<DO.Engineer?> Engineers { get; } = new();
+    internal static List<DO.Dependency?> Dependencys { get; } = new();
 }
+
