@@ -5,7 +5,7 @@ namespace Dal;
 /// </summary>
 internal static class DataSource
 {
-    //A collection of entities of a certain type stored as lists in the internal memory 
+    //each entity saved in list in the internal memory 
     internal static List<DO.Engineer?> Engineers { get; } = new();
     internal static List<DO.Dependency?> Dependencys { get; } = new();
     internal static List<DO.Task?> Tasks { get; } = new();
@@ -15,10 +15,12 @@ internal static class DataSource
     /// </summary>
     internal static class Config
     {
+        //define running variable for Task.id
         internal const int startTaskId = 1;
         private static int nextTaskId = startTaskId;
         internal static int NextTaskId { get => nextTaskId++; }
-       
+
+        //define running variable for Dependency.id
         internal const int startDependencyId = 1;
         private static int nextDependencyId = startDependencyId;
         internal static int NextDependencyId { get => nextDependencyId++; }
