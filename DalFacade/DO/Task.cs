@@ -5,19 +5,19 @@ namespace DO;
 public record Task
 (
     int Id,
-    string Alias,
-    string Description,
-    DateTime CreatedInDate,
-    EngineerExperience Complexity,
-    TimeSpan RequiredEffortTime,
-    bool IsMileStone,
-    DateTime StartDate,
-    DateTime ScheduledDate,
-    DateTime Deadline,
-    DateTime CompleteDate,
-    string Deliverables,
-    string Remarks,
-    int EngineerId   
+    string? Alias=null,
+    string? Description=null,
+    bool IsMileStone=false, 
+    TimeSpan? RequiredEffortTime=null,
+    DateTime? CreatedInDate=null,   
+    DateTime? ScheduledDate=null,
+    DateTime? StartDate=null,   
+    DateTime? CompleteDate=null,
+    DateTime? Deadline=null,
+    string? Deliverables=null,
+    string? Remarks=null,
+    int? EngineerId=null,
+    EngineerExperience Complexity=EngineerExperience.Beginner
 )
 {
 
