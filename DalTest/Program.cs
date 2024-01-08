@@ -6,31 +6,29 @@ using System.Security.Cryptography;
 
 namespace DalTest
 {
-
     internal class Program
     {
         private static ITask? s_dalTask = new TaskImplementation();
         private static IEngineer? s_dalEngineer = new EngineerImplementation();
         private static IDependency? s_dalDependency = new DependencyImplementation();
-
-       
+     
         static void Main(string[] args)
         {
             try
             {
                 Initialization.Do(s_dalEngineer, s_dalTask, s_dalDependency);
                 PresentMainMenu();
-                
             }
-
             catch (Exception ex)
             {
-
                 Console.WriteLine(ex.Message);
             }
 
         }
-        //אם יהיה זמן להוריד את הסוויץ
+
+        /// <summary>
+        /// isplays the main menu and allows the user to select an entity to check or exit the program.
+        /// </summary>
         public static void PresentMainMenu()
         {
             try
@@ -39,66 +37,90 @@ namespace DalTest
                 while (flagExit)
                 {
                     Console.WriteLine("Select an entity you want to check\r\n0= Exit the main menu\r\n1= engineer\r\n2=dependency\r\n3=task");
-                    string chooseMainManu = Console.ReadLine()!;
-                    MainMenu optionMainMenu = (MainMenu)int.Parse(chooseMainManu);
-                    if(optionMainMenu!=MainMenu.Exit)
-                    PresentSubMenu(optionMainMenu);
+                    // Read user input for main menu option
+                    string chooseMainMenu = Console.ReadLine()!;
+                    MainMenu optionMainMenu = (MainMenu)int.Parse(chooseMainMenu);
+
+                    // Check if the user chose to exit the main menu
+                    if (optionMainMenu != MainMenu.Exit)
+                        // Present the submenu based on the selected main menu option
+                        PresentSubMenu(optionMainMenu);
                     else 
                         flagExit= false;
-                    //switch (optionMainManu)
-                    //{
-                    //    case MainMenu.Exit:
-                    //        flagExit = false;
-                    //        break;
-                    //    case MainMenu.Engineer:
-                    //        PresentSubMenu(MainMenu.Engineer);
-                    //        break;
-                    //    case MainMenu.Dependency:
-                    //        PresentSubMenu(MainMenu.Dependency);
-                    //        break;
-                    //    case MainMenu.Task:
-                    //        PresentSubMenu(MainMenu.Task);
-                    //        break;
-                    //    default:
-                    //        break;
-                    //}
+                    ///switch (optionMainManu)
+                    ///{
+                    ///    case MainMenu.Exit:
+                    ///        flagExit = false;
+                    ///        break;
+                    ///    case MainMenu.Engineer:
+                    ///        PresentSubMenu(MainMenu.Engineer);
+                    ///        break;
+                    ///    case MainMenu.Dependency:
+                    ///        PresentSubMenu(MainMenu.Dependency);
+                    ///        break;
+                    ///   case MainMenu.Task:
+                    ///        PresentSubMenu(MainMenu.Task);
+                    ///        break;
+                    ///    default:
+                    ///        break;
+                    ///}
                 }
             }
             catch(Exception ex)
             {
                 Console.WriteLine(ex.Message);
-            }
-           
-            
+            }  
         }
 
 
-
+        /// <summary>
+        ///  Displays a submenu based on the selected entity type(Engineer, Dependency, or Task) and allows the user to perform various operations.
+       /// </summary>
+        /// <param name="entity">The main menu option representing the entity type.</param>
         public static void PresentSubMenu(MainMenu entity)
         {
-            string chooseSubManu = Console.ReadLine()??"0";
-            SubMenu optionSubMain = (SubMenu)int.Parse(chooseSubManu);
-            bool flag = true;
-            while(flag)
+            try
             {
-                switch (optionSubMain)
+                // Displaying submenu options to the user
+                Console.WriteLine("Select the method you want to perform:\r\n0=Exit from main menu\r\n1=Adding a new object of the entity type to the list (Create)\r\n2=Display object by ID (Read)\r\n3=View the list of all objects of the entity type (ReadAll)\r\n4=Update existing object data (Update)\r\n5=Deleting an existing object from a list (Delete)");
+
+                // Reading user input for submenu option
+                string chooseSubMenu = Console.ReadLine() ?? "0";
+                SubMenu optionSubMenu = (SubMenu)int.Parse(chooseSubMenu);
+
+                bool flag = true;
+
+                // Continuously presenting submenu options until the user chooses to exit
+                while (flag)
                 {
-                    case SubMenu.exit:flag = false;
-                        break;
-                    case SubMenu.create: Create(entity);
-                        break;
-                    case SubMenu.read: ReadSubMenu(entity);
-                        break;
-                    case SubMenu.readAll: ReadAllSubMenu(entity);
-                        break;
-                    case SubMenu.update:UpdateSubMenu(entity);
-                        break;
-                    case SubMenu.delete:DeleteSubMenu(entity);
-                        break;
-                    default:
-                        break;
+                    // Performing the selected operation based on the submenu option
+                    switch (optionSubMenu)
+                    {
+                        case SubMenu.exit:
+                            flag = false;
+                            break;
+                        case SubMenu.create:
+                            Create(entity);
+                            break;
+                        case SubMenu.read:
+                            ReadSubMenu(entity);
+                            break;
+                        case SubMenu.readAll:
+                            ReadAllSubMenu(entity);
+                            break;
+                        case SubMenu.update:
+                            UpdateSubMenu(entity);
+                            break;
+                        case SubMenu.delete:
+                            DeleteSubMenu(entity);
+                            break;
+                        default:
+                            break;
+                    }
                 }
             }
+            catch (Exception ex) { Console.WriteLine(ex.Message); }
+           
            
         }
 
@@ -188,6 +210,7 @@ namespace DalTest
 
         public static void UpdateSubMenu(MainMenu entity)
         {
+
             switch (entity)
             {
                 //case MainMenu.Exit:
@@ -195,6 +218,7 @@ namespace DalTest
                 ////break;
                 case MainMenu.Engineer:
                     ReadSubMenu(entity);
+                   
 
                     break;
                 case MainMenu.Dependency:
