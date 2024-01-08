@@ -82,17 +82,18 @@ namespace DalTest
             try
             {
                 // Displaying submenu options to the user
-                Console.WriteLine("Select the method you want to perform:\r\n0=Exit from main menu\r\n1=Adding a new object of the entity type to the list (Create)\r\n2=Display object by ID (Read)\r\n3=View the list of all objects of the entity type (ReadAll)\r\n4=Update existing object data (Update)\r\n5=Deleting an existing object from a list (Delete)");
-
-                // Reading user input for submenu option
-                string chooseSubMenu = Console.ReadLine() ?? "0";
-                SubMenu optionSubMenu = (SubMenu)int.Parse(chooseSubMenu);
+                
 
                 bool flag = true;
 
                 // Continuously presenting submenu options until the user chooses to exit
                 while (flag)
                 {
+                    Console.WriteLine("Select the method you want to perform:\r\n0=Exit from main menu\r\n1=Adding a new object of the entity type to the list (Create)\r\n2=Display object by ID (Read)\r\n3=View the list of all objects of the entity type (ReadAll)\r\n4=Update existing object data (Update)\r\n5=Deleting an existing object from a list (Delete)");
+
+                    // Reading user input for submenu option
+                    string chooseSubMenu = Console.ReadLine() ?? "0";
+                    SubMenu optionSubMenu = (SubMenu)int.Parse(chooseSubMenu);
                     // Performing the selected operation based on the submenu option
                     switch (optionSubMenu)
                     {
