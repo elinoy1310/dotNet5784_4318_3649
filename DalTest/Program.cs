@@ -15,7 +15,7 @@ namespace DalTest
         {
             try
             {
-                Initialization.Do(s_dalEndineer,s_dalTask,s_dalDependency);
+                Initialization.Do(s_dalEngineer,s_dalTask,s_dalDependency);
 
             }
 
@@ -98,8 +98,8 @@ namespace DalTest
                 case MainManu.Engineer:
                     // Read Engineer ID from user input
                     int engId =int.Parse(Console.ReadLine()!);
-                    if (s_dalEndineer!.Read(engId) is not null)// Retrieve and display information about the Engineer with the given ID
-                        Console.WriteLine(s_dalEndineer!.Read(engId));
+                    if (s_dalEngineer!.Read(engId) is not null)// Retrieve and display information about the Engineer with the given ID
+                        Console.WriteLine(s_dalEngineer!.Read(engId));
                     else
                         throw new Exception($"Engineer with ID = {engId} was not found");
                     break;
@@ -139,7 +139,7 @@ namespace DalTest
                 //break;
                 case MainManu.Engineer:
                     // Iterate through all Engineers and display each record
-                    foreach (var _engineer in s_dalEndineer!.ReadAll())
+                    foreach (var _engineer in s_dalEngineer!.ReadAll())
                         Console.WriteLine(_engineer);
                     break;
                 case MainManu.Dependency:
@@ -241,28 +241,28 @@ namespace DalTest
             DO.Task newTask = new DO.Task(0, alias, description, isMileStone, requiredEffortTime, createdInDate, scheduledDate, startDate, completeDate, deadline, deliverables, remarks, engineerId, complexity);
             return newTask;
         }
-        public void Create(MainManue entity)
+    public void Create(MainManu entity)
+    {
+        try
         {
-            try
+
+            switch (entity)
             {
-
-                switch (entity)
-                {
-                    case MainManue.Engineer:
-                        Console.WriteLine( s_dalEngineer!.Create(NewEngineer()));
-                        break; 
-                    case MainManue.Dependency:
-                        break;
-                    case MainManue.Task:
-                        Console.WriteLine(s_dalTask!.Create(NewTask()));
+                case MainManue.Engineer:
+                    Console.WriteLine(s_dalEngineer!.Create(NewEngineer()));
+                    break;
+                case MainManue.Dependency:
+                    break;
+                case MainManue.Task:
+                    Console.WriteLine(s_dalTask!.Create(NewTask()));
 
 
-                        break;
-                    default:
-                        break;
-                }
+                    break;
+                default:
+                    break;
             }
-            catch (Exception ex) { Console.WriteLine(ex.Message); }
+        }
+        catch (Exception ex) { Console.WriteLine(ex.Message); }
 
         /// <summary>
         /// Deletes a specific record (Engineer, Dependency, or Task) based on user input.
@@ -280,8 +280,8 @@ namespace DalTest
                     // Read Engineer ID from user input
                     int engId = int.Parse(Console.ReadLine()!);
                     // Check if the Engineer with the given ID exists, and delete it if found
-                    if (s_dalEndineer!.Read(engId) is not null)
-                        s_dalEndineer.Delete(engId);
+                    if (s_dalEngineer!.Read(engId) is not null)
+                        s_dalEngineer.Delete(engId);
                     else
                         throw new Exception($"Engineer with ID = {engId} was not found");
                     break;
@@ -290,7 +290,7 @@ namespace DalTest
                     int depId = int.Parse(Console.ReadLine()!);
                     // Check if the Dependency with the given ID exists, and delete it if found
                     if (s_dalDependency!.Read(depId) is not null)
-                        s_dalDependency.Delete(depId); 
+                        s_dalDependency.Delete(depId);
                     else
                         throw new Exception($"Dependency with ID = {depId} was not found");
                     break;
@@ -299,7 +299,7 @@ namespace DalTest
                     int taskId = int.Parse(Console.ReadLine()!);
                     // Check if the Task with the given ID exists, and delete it if found
                     if (s_dalTask!.Read(taskId) is not null)
-                        s_dalTask.Delete(taskId );
+                        s_dalTask.Delete(taskId);
                     else
                         throw new Exception($"Task with ID = {taskId} was not found");
                     break;
@@ -308,8 +308,8 @@ namespace DalTest
                     break;
             }
         }
-
     }
+    
 }
 
 
