@@ -71,6 +71,7 @@ namespace DalTest
                 default:
                     break;
             }
+        }
 
 
         public Dependency NewDependency()
@@ -310,9 +311,9 @@ namespace DalTest
                     break;
             }
         }
-    }
     
-}
+    
+
     
 
 
