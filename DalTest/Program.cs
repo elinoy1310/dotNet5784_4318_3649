@@ -166,15 +166,15 @@ namespace DalTest
                     return;
                 //break;
                 case MainMenu.Engineer:
-                    ReadSubManu(entity);
+                    ReadSubMenu(entity);
 
                     break;
                 case MainMenu.Dependency:
-                    ReadSubManu(entity);
+                    ReadSubMenu(entity);
 
                     break;
                 case MainMenu.Task:
-                    ReadSubManu(entity);
+                    ReadSubMenu(entity);
 
                     break;
                 default:
