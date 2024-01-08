@@ -136,8 +136,8 @@ namespace DalTest
         /// <returns>A new Dependency object based on user input.</returns>
         public static Dependency NewDependency()
         {
-            // Prompt the user to enter Id, Dependent, and DependsOnTask for the new Dependency
-            Console.WriteLine("Enter Id, Dependent, DependsOnTask");
+            // Prompt the user to enter Dependent, and DependsOnTask for the new Dependency
+            Console.WriteLine("Enter  Dependent, DependsOnTask");
             // Parse user input for Dependent and set default to 0 if input is null or invalid
             int depDependent = int.Parse(Console.ReadLine() ?? "0");
             // Parse user input for DependsOnTask and set default to 0 if input is null or invalid
