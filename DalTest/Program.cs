@@ -102,15 +102,29 @@ namespace DalTest
            
         }
 
-
+        /// <summary>
+        /// Creates a new Dependency object by taking user input for Id, Dependent, and DependsOnTask.
+        /// </summary>
+        /// <remarks>
+        /// This method prompts the user to enter values for Id, Dependent, and DependsOnTask to
+        /// create a new Dependency object. If the user provides invalid input or leaves the input
+        /// blank, default values of 0 are used for Id, Dependent, and DependsOnTask.
+        /// </remarks>
+        /// <returns>A new Dependency object based on user input.</returns>
         public static Dependency NewDependency()
         {
+            // Prompt the user to enter Id, Dependent, and DependsOnTask for the new Dependency
             Console.WriteLine("Enter Id, Dependent, DependsOnTask");
+            // Parse user input for Dependent and set default to 0 if input is null or invalid
             int depDependent = int.Parse(Console.ReadLine() ?? "0");
+            // Parse user input for DependsOnTask and set default to 0 if input is null or invalid
             int depDependsOnTask = int.Parse(Console.ReadLine() ?? "0");
+            // Create a new Dependency object with Id set to 0 and user-input Dependent and DependsOnTask
             Dependency dep = new Dependency(0, depDependent, depDependsOnTask);
+            // Return the created Dependency object
             return dep;
         }
+
         /// <summary>
         /// Reads and displays information about a specific entity (Engineer, Dependency, or Task) based on user input.
         /// </summary>
@@ -186,26 +200,33 @@ namespace DalTest
             }
         }
 
+        /// <summary>
+        /// Updates a specific record (Engineer, Dependency, or Task) based on user input.
+        /// </summary>
+        /// <param name="entity">The MainMenu entity for which a record will be updated.</param>
         public static void UpdateSubMenu(MainMenu entity)
         {
+            // Display existing record details before updating
+            ReadSubMenu(entity);
             switch (entity)
             {
                 //case MainMenu.Exit:
                 //    return;
                 ////break;
                 case MainMenu.Engineer:
-                    ReadSubMenu(entity);
-
+                    // Update the Engineer record with new user input
+                    s_dalEngineer!.Update(NewEngineer());
                     break;
                 case MainMenu.Dependency:
-                    ReadSubMenu(entity);
-
+                    // Update the Dependency record with new user input
+                    s_dalDependency!.Update(NewDependency());
                     break;
                 case MainMenu.Task:
-                    ReadSubMenu(entity);
-
+                    // Update the Task record with new user input
+                    s_dalTask!.Update(NewTask());   
                     break;
                 default:
+                    // No action needed for other MainMenu options
                     break;
             }
         }
@@ -269,6 +290,11 @@ namespace DalTest
             DO.Task newTask = new DO.Task(0, alias, description, isMileStone, requiredEffortTime, createdInDate, scheduledDate, startDate, completeDate, deadline, deliverables, remarks, engineerId, complexity);
             return newTask;
         }
+
+        /// <summary>
+        /// Creates a new record (Engineer, Dependency, or Task) based on user input.
+        /// </summary>
+        /// <param name="entity">The MainMenu entity for which a new record will be created.</param>
         public static void Create(MainMenu entity)
         {
             //try
@@ -277,18 +303,22 @@ namespace DalTest
                 switch (entity)
                 {
                     case MainMenu.Engineer:
-                        Console.WriteLine(s_dalEngineer!.Create(NewEngineer()));
+                    // Create a new Engineer record and display the result
+                    Console.WriteLine(s_dalEngineer!.Create(NewEngineer()));
                         break;
                     case MainMenu.Dependency:
-                        Console.WriteLine(s_dalDependency!.Create(NewDependency()));
+                    // Create a new Dependency record and display the result
+                    Console.WriteLine(s_dalDependency!.Create(NewDependency()));
                         break;
                     case MainMenu.Task:
-                        Console.WriteLine(s_dalTask!.Create(NewTask()));
+                    // Create a new Task record and display the result
+                    Console.WriteLine(s_dalTask!.Create(NewTask()));
 
 
                         break;
                     default:
-                        break;
+                    // No action needed for other MainMenu options
+                    break;
                 }
             
             //catch (Exception ex)
