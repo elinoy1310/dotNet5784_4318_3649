@@ -364,6 +364,7 @@ namespace DalTest
                 //break;
                 case MainMenu.Engineer:
                     // Read Engineer ID from user input
+                    Console.WriteLine("enter Id:");
                     int engId = int.Parse(Console.ReadLine()!);
                     // Check if the Engineer with the given ID exists, and delete it if found
                     if (s_dalEngineer!.Read(engId) is not null)

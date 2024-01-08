@@ -33,6 +33,7 @@ public class EngineerImplementation : IEngineer
         if (found != null) 
         { 
             DataSource.Engineers.Remove(found);
+            
             return;
         }
         throw new Exception($"Engineer with ID = {id} was not found");
