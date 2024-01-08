@@ -6,7 +6,7 @@ using System.Security.Cryptography;
 
 namespace DalTest
 {
-   
+
     internal class Program
     {
         private static ITask? s_dalTask = new TaskImplementation();
@@ -195,7 +195,7 @@ namespace DalTest
             double cost = int.Parse(Console.ReadLine() ?? "0");
             string name = Console.ReadLine() ?? "";
             EngineerExperience level = (EngineerExperience)int.Parse(Console.ReadLine() ?? "0");
-            
+
             //creates new Engineer and returns it
             Engineer newEngineer = new Engineer(id, email, cost, name, level);
             return newEngineer;
@@ -311,6 +311,8 @@ namespace DalTest
                     break;
             }
         }
+    }
+}
     
     
 
