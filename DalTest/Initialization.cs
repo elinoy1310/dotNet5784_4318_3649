@@ -12,10 +12,20 @@ public static class Initialization
 
     private static readonly Random s_rand = new();
 
+    private static IEngineer? dalEngineer;
+    private static ITask? dalTask;
+    private static  IDependency? dalDependency;
 
+    public static void Do() 
+    {
+        s_dalEngineer = dalEngineer ?? throw new NullReferenceException("DAL can not be null!");
+        s_dalTask = dalTask ?? throw new NullReferenceException("DAL can not be null!");
+        s_dalDependency = dalDependency ?? throw new NullReferenceException("DAL can not be null!");
+        createEngineer();
+        createTasks();
+        createDependency();
+    }
 
-
-    
     //צריך לכתוב פה פונקציה נורמלית
     private static void createTasks()
     {
@@ -123,6 +133,8 @@ public static class Initialization
             s_dalDependency!.Create(newDep);     // Add the new dependency to the data access layer
         }
     }
+
+
 }
 
 
