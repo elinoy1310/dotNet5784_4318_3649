@@ -28,12 +28,10 @@ namespace DalTest
 
         public void PresentMainManue()
         {
-            string chooseMainManue = Console.ReadLine()!;
-            MainManue option = (MainManue)int.Parse(chooseMainManue);
             Console.WriteLine("Select an entity you want to check\r\n0= Exit the main menu\r\n1= engineer\r\n2=dependency\r\n3=task");
-            string choose = Console.ReadLine()!;
-            MainManue option2 = (MainManue)int.Parse(choose);
-            switch (option)
+            string chooseMainManue = Console.ReadLine()!;
+            MainManue optionMainManue = (MainManue)int.Parse(chooseMainManue);
+            switch (optionMainManue)
             {
                 case MainManue.Exit:
                     break;
