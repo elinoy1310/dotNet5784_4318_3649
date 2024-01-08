@@ -29,8 +29,8 @@ namespace DalTest
         public void PresentMainManue()
         {
             string chooseMainManue = Console.ReadLine()!;
-            MainManue option = (MainManue)int.Parse(chooseMainManue);
-            switch (option)
+            MainManue optionMain = (MainManue)int.Parse(chooseMainManue);
+            switch (optionMain)
             {
                 case MainManue.Exit:
                     break;
@@ -49,8 +49,8 @@ namespace DalTest
         public void PresentSubMenu(MainManue entity)
         {
             string chooseSubManue = Console.ReadLine()!;
-            SubManue option = (SubManue)int.Parse(chooseSubManue);
-            switch (option)
+            SubManue optionSubMain = (SubManue)int.Parse(chooseSubManue);
+            switch (optionSubMain)
             {
                 case SubManue.exit:
                     break;
