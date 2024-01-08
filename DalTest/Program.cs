@@ -4,6 +4,7 @@ using DalApi;
 namespace DalTest
 {
     enum MainManue { Exit, Engineer, Dependency, Task};
+    enum SubManue { exit, create, read, readAll, update, delete };
     internal class Program
     {
         private static ITask? s_dalTask=new TaskImplementation();
@@ -27,8 +28,8 @@ namespace DalTest
 
         public void PresentMainManue()
         {
-            string choose = Console.ReadLine()!;
-            MainManue option = (MainManue)int.Parse(choose);
+            string chooseMainManue = Console.ReadLine()!;
+            MainManue option = (MainManue)int.Parse(chooseMainManue);
             switch (option)
             {
                 case MainManue.Exit:
@@ -44,5 +45,47 @@ namespace DalTest
             }
 
         }
+
+        public void PresentSubMenu(MainManue entity)
+        {
+            string chooseSubManue = Console.ReadLine()!;
+            SubManue option = (SubManue)int.Parse(chooseSubManue);
+            switch (option)
+            {
+                case SubManue.exit:
+                    break;
+                case SubManue.create:
+                    break;
+                case SubManue.read:
+                    break;
+                case SubManue.readAll:
+                    break;
+                case SubManue.update:
+                    break;
+                case SubManue.delete:
+                    break;
+                default:
+                    break;
+            }
+
+
+        }
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
