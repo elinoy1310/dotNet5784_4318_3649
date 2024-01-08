@@ -9,7 +9,7 @@ namespace DO;
 /// <param name="Alias">short,unique name</param>
 /// <param name="Description">text that describes the task</param>
 /// <param name="IsMileStone">does the task is a mile stone right now</param>
-/// <param name="RequiredEffortTime"></param>
+/// <param name="RequiredEffortTime">number of days required in order to complete the task</param>
 /// <param name="CreatedInDate">the time when the task was created by the manager</param>
 /// <param name="ScheduledDate">planned date for the start of the work so that all tasks are completed by the time the project is finished</param>
 /// <param name="StartDate">when an engineer begins the actual work on the task</param>
