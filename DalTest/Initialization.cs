@@ -158,8 +158,6 @@ public static class Initialization
             s_dalDependency!.Create(newDep);     // Add the new dependency to the data access layer
         }
     }
-
-
 }
 
 
