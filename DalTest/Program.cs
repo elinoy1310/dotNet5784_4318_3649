@@ -162,6 +162,7 @@ namespace DalTest
                 //break;
                 case MainMenu.Engineer:
                     // Read Engineer ID from user input
+                    Console.WriteLine("enter Id:");
                     int engId = int.Parse(Console.ReadLine()!);
                     if (s_dalEngineer!.Read(engId) is not null)// Retrieve and display information about the Engineer with the given ID
                         Console.WriteLine(s_dalEngineer!.Read(engId));
@@ -170,6 +171,7 @@ namespace DalTest
                     break;
                 case MainMenu.Dependency:
                     // Read Dependency ID from user input
+                    Console.WriteLine("enter Id:");
                     int depId = int.Parse(Console.ReadLine()!);
                     if (s_dalDependency!.Read(depId) is not null)// Retrieve and display information about the Dependency with the given ID
                         Console.WriteLine(s_dalDependency!.Read(depId));
@@ -178,6 +180,7 @@ namespace DalTest
                     break;
                 case MainMenu.Task:
                     // Read Task ID from user input
+                    Console.WriteLine("enter Id:");
                     int taskId = int.Parse(Console.ReadLine()!);
                     if (s_dalTask!.Read(taskId) is not null)// Retrieve and display information about the Task with the given ID
                         Console.WriteLine(s_dalTask!.Read(taskId));
