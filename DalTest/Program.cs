@@ -12,12 +12,15 @@ namespace DalTest
         private static ITask? s_dalTask = new TaskImplementation();
         private static IEngineer? s_dalEngineer = new EngineerImplementation();
         private static IDependency? s_dalDependency = new DependencyImplementation();
+
+       
         static void Main(string[] args)
         {
             try
             {
                 Initialization.Do(s_dalEngineer, s_dalTask, s_dalDependency);
-
+                PresentMainMenu();
+                
             }
 
             catch (Exception ex)
@@ -27,54 +30,80 @@ namespace DalTest
             }
 
         }
-
-        public void PresentMainMenu()
+        //אם יהיה זמן להוריד את הסוויץ
+        public static void PresentMainMenu()
         {
-            Console.WriteLine("Select an entity you want to check\r\n0= Exit the main menu\r\n1= engineer\r\n2=dependency\r\n3=task");
-            string chooseMainManu = Console.ReadLine()!;
-            MainMenu optionMainManu = (MainMenu)int.Parse(chooseMainManu);
-            switch (optionMainManu)
+            try
             {
-                case MainMenu.Exit:
-                    break;
-                case MainMenu.Engineer:
-                    break;
-                case MainMenu.Dependency:
-                    break;
-                case MainMenu.Task:
-                    break;
-                default:
-                    break;
+                bool flagExit = true;
+                while (flagExit)
+                {
+                    Console.WriteLine("Select an entity you want to check\r\n0= Exit the main menu\r\n1= engineer\r\n2=dependency\r\n3=task");
+                    string chooseMainManu = Console.ReadLine()!;
+                    MainMenu optionMainMenu = (MainMenu)int.Parse(chooseMainManu);
+                    if(optionMainMenu!=MainMenu.Exit)
+                    PresentSubMenu(optionMainMenu);
+                    else 
+                        flagExit= false;
+                    //switch (optionMainManu)
+                    //{
+                    //    case MainMenu.Exit:
+                    //        flagExit = false;
+                    //        break;
+                    //    case MainMenu.Engineer:
+                    //        PresentSubMenu(MainMenu.Engineer);
+                    //        break;
+                    //    case MainMenu.Dependency:
+                    //        PresentSubMenu(MainMenu.Dependency);
+                    //        break;
+                    //    case MainMenu.Task:
+                    //        PresentSubMenu(MainMenu.Task);
+                    //        break;
+                    //    default:
+                    //        break;
+                    //}
+                }
             }
+            catch(Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+           
+            
         }
 
 
 
-        public void PresentSubMenu(MainMenu entity)
+        public static void PresentSubMenu(MainMenu entity)
         {
-            string chooseSubManu = Console.ReadLine()!;
+            string chooseSubManu = Console.ReadLine()??"0";
             SubMenu optionSubMain = (SubMenu)int.Parse(chooseSubManu);
-            switch (optionSubMain)
+            bool flag = true;
+            while(flag)
             {
-                case SubMenu.exit:
-                    break;
-                case SubMenu.create:
-                    break;
-                case SubMenu.read:
-                    break;
-                case SubMenu.readAll:
-                    break;
-                case SubMenu.update:
-                    break;
-                case SubMenu.delete:
-                    break;
-                default:
-                    break;
+                switch (optionSubMain)
+                {
+                    case SubMenu.exit:flag = false;
+                        break;
+                    case SubMenu.create: Create(entity);
+                        break;
+                    case SubMenu.read: ReadSubMenu(entity);
+                        break;
+                    case SubMenu.readAll: ReadAllSubMenu(entity);
+                        break;
+                    case SubMenu.update:UpdateSubMenu(entity);
+                        break;
+                    case SubMenu.delete:DeleteSubMenu(entity);
+                        break;
+                    default:
+                        break;
+                }
             }
+           
         }
 
 
-        public Dependency NewDependency()
+        public static Dependency NewDependency()
         {
             Console.WriteLine("Enter Id, Dependent, DependsOnTask");
             int depDependent = int.Parse(Console.ReadLine() ?? "0");
@@ -86,13 +115,13 @@ namespace DalTest
         /// Reads and displays information about a specific entity (Engineer, Dependency, or Task) based on user input.
         /// </summary>
         /// <param name="entity">The MainManu entity for which information will be read.</param>
-        public void ReadSubMenu(MainMenu entity)
+        public static void ReadSubMenu(MainMenu entity)
         {
             switch (entity)
             {
-                case MainMenu.Exit:
-                    // No action needed if the main menu option is Exit
-                    return;
+                //case MainMenu.Exit:
+                //    // No action needed if the main menu option is Exit
+                //    return;
                 //break;
                 case MainMenu.Engineer:
                     // Read Engineer ID from user input
@@ -118,9 +147,9 @@ namespace DalTest
                     else
                         throw new Exception($"Task with ID = {taskId} was not found");
                     break;
-                default:
-                    // No action needed for other MainManu options
-                    break;
+                //default:
+                //    // No action needed for other MainManu options
+                //    break;
             }
         }
 
@@ -128,7 +157,7 @@ namespace DalTest
         /// Reads and displays all records for a specific entity (Engineer, Dependency, or Task) based on user input.
         /// </summary>
         /// <param name="entity">The MainManu entity for which all records will be read and displayed.</param>
-        public void ReadAllSubMenu(MainMenu entity)
+        public static void ReadAllSubMenu(MainMenu entity)
         {
             switch (entity)
             {
@@ -157,13 +186,13 @@ namespace DalTest
             }
         }
 
-        public void UpdateSubMenu(MainMenu entity)
+        public static void UpdateSubMenu(MainMenu entity)
         {
             switch (entity)
             {
-                case MainMenu.Exit:
-                    return;
-                //break;
+                //case MainMenu.Exit:
+                //    return;
+                ////break;
                 case MainMenu.Engineer:
                     ReadSubMenu(entity);
 
@@ -186,7 +215,7 @@ namespace DalTest
         /// This function prompts the user to enter data in order to create an Engineer object.
         /// </summary>
         /// <returns>An Engineer object with the data entered by the user.</returns>
-        public Engineer NewEngineer()
+        public static Engineer NewEngineer()
         {
             //user input
             Console.WriteLine("enter id,email,cost,name and level of the engineer");
@@ -205,7 +234,7 @@ namespace DalTest
         /// This function prompts the user to enter data in order to create an Task object.
         /// </summary>
         /// <returns>A Task object with the data entered by the user.</returns>
-        public DO.Task NewTask()
+        public static DO.Task NewTask()
         {
             //user input
             Console.WriteLine("enter alias,description,if the task is mile stone=false, required effort time, created in date,scheduled date=null,start date, complete date, dead line, deliverables,remarks,engineer id, engineer's experience,complexity");
@@ -240,10 +269,10 @@ namespace DalTest
             DO.Task newTask = new DO.Task(0, alias, description, isMileStone, requiredEffortTime, createdInDate, scheduledDate, startDate, completeDate, deadline, deliverables, remarks, engineerId, complexity);
             return newTask;
         }
-        public void Create(MainMenu entity)
+        public static void Create(MainMenu entity)
         {
-            try
-            {
+            //try
+            //{
 
                 switch (entity)
                 {
@@ -251,6 +280,7 @@ namespace DalTest
                         Console.WriteLine(s_dalEngineer!.Create(NewEngineer()));
                         break;
                     case MainMenu.Dependency:
+                        Console.WriteLine(s_dalDependency!.Create(NewDependency()));
                         break;
                     case MainMenu.Task:
                         Console.WriteLine(s_dalTask!.Create(NewTask()));
@@ -260,18 +290,18 @@ namespace DalTest
                     default:
                         break;
                 }
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-            }
+            
+            //catch (Exception ex)
+            //{
+            //    Console.WriteLine(ex.Message);
+            //}
         }
 
         /// <summary>
         /// Deletes a specific record (Engineer, Dependency, or Task) based on user input.
         /// </summary>
         /// <param name="entity">The MainManu entity for which a record will be deleted.</param>
-        public void DeleteSubMenu(MainMenu entity)
+        public static void DeleteSubMenu(MainMenu entity)
         {
             switch (entity)
             {
