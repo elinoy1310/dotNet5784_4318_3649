@@ -146,8 +146,15 @@ public static class Initialization
         {
             // Generate a random dependent and dependsOnTask values
             int _dependent = s_rand.Next(1, 20); 
-            int _dependsOnTask = s_rand.Next(1, 20); 
-            Dependency newDep = new Dependency() { Dependent = _dependent, DependsOnTask = _dependsOnTask }; // Create a new Dependency object
+            int _dependsOnTask = s_rand.Next(1, 20);
+            if (_dependent == _dependsOnTask)
+            {
+                if (_dependent < 20)
+                    _dependent++;
+                if (_dependent > 0)
+                    _dependent--;
+            }
+                    Dependency newDep = new Dependency() { Dependent = _dependent, DependsOnTask = _dependsOnTask }; // Create a new Dependency object
             s_dalDependency!.Create(newDep);     // Add the new dependency to the data access layer
         }
     }
