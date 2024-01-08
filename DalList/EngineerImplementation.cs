@@ -54,9 +54,9 @@ public class EngineerImplementation : IEngineer
     /// Returning a copy of the list of references to all objects of type Dependency
     /// </summary>
     /// <returns></returns>
-    public List<Engineer?> ReadAll()
+    public List<Engineer> ReadAll()
     {
-        return new List<Engineer?>(DataSource.Engineers);
+        return new List<Engineer>(DataSource.Engineers);
     }
     /// <summary>
     /// Update of an existing object

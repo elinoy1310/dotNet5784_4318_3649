@@ -12,11 +12,8 @@ public static class Initialization
 
     private static readonly Random s_rand = new();
 
-    private static IEngineer? dalEngineer;
-    private static ITask? dalTask;
-    private static  IDependency? dalDependency;
 
-    public static void Do() 
+    public static void Do(IEngineer? dalEngineer, ITask? dalTask, IDependency? dalDependency) 
     {
         s_dalEngineer = dalEngineer ?? throw new NullReferenceException("DAL can not be null!");
         s_dalTask = dalTask ?? throw new NullReferenceException("DAL can not be null!");

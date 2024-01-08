@@ -49,9 +49,9 @@ public class TaskImplementation : ITask
     /// returns list with all the Task item int the list tasks
     /// </summary>
     /// <returns></returns>
-    public List<Task?> ReadAll()
+    public List<Task> ReadAll()
     {
-        return new List<Task?>(DataSource.Tasks);
+        return new List<Task>(DataSource.Tasks);
     }
 
     /// <summary>

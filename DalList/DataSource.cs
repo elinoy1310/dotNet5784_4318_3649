@@ -6,9 +6,9 @@ namespace Dal;
 internal static class DataSource
 {
     //each entity saved in list in the internal memory 
-    internal static List<DO.Engineer?> Engineers { get; } = new();
-    internal static List<DO.Dependency?> Dependencys { get; } = new();
-    internal static List<DO.Task?> Tasks { get; } = new();
+    internal static List<DO.Engineer> Engineers { get; } = new();
+    internal static List<DO.Dependency> Dependencys { get; } = new();
+    internal static List<DO.Task> Tasks { get; } = new();
 
     /// <summary>
     /// Config helps define the running variables

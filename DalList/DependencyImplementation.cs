@@ -51,9 +51,9 @@ public class DependencyImplementation : IDependency
     /// Returning a copy of the list of references to all objects of type Dependency
     /// </summary>
     /// <returns></returns>
-    public List<Dependency?> ReadAll()
+    public List<Dependency> ReadAll()
     {
-        return new List<Dependency?>(DataSource.Dependencys);
+        return new List<Dependency>(DataSource.Dependencys);
     }
     /// <summary>
     /// Update of an existing object
