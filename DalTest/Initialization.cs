@@ -10,7 +10,7 @@ public static class Initialization
     private static ITask? s_dalTask; 
     private static IDependency? s_dalDependency; 
 
-    private static readonly Random s_rand = new();
+    private static readonly Random s_rand = new Random(DateTime.Now.Millisecond);
 
 
     public static void Do(IEngineer? dalEngineer, ITask? dalTask, IDependency? dalDependency) 
@@ -23,32 +23,39 @@ public static class Initialization
         createDependency();
     }
 
-    //צריך לכתוב פה פונקציה נורמלית
+
+    /// <summary>
+    /// creates and adds tasks to the system with random data.
+    /// </summary>
     private static void createTasks()
     {
+        //determining the project time
         DateTime projectStartDate = new DateTime(2024, 4, 8), scheduledFinishedDate=new DateTime(2024,9,1);
+        TimeSpan timeForTheProject = scheduledFinishedDate.Subtract(projectStartDate);
+
+        //creates tasks definitions, so alias[i] corresponds to description[i]
         string[] alias =
             {
                 "Project Inception",
                 "Feasibility Study",
                 "Requirement Analysis",
                 "System Design",
-                "Technology Stack Selection",
+                "TSS",
                 "Prototyping",
                 "Database Design",
                 "Frontend Development",
                 "Backend Development",
                 "API Development",
-                "Testing Environment Setup",
+                "TES",
                 "Unit Testing",
                 "Integration Testing",
                 "System Testing",
-                "User Acceptance Testing (UAT)",
-                "Bug Fixing and Optimization",
+                "UAT",
+                "BFO",
                 "Documentation",
                 "Deployment Preparation",
-                "Deployment and Release",
-                "Post-Implementation Review"
+                "DR",
+                "PIR"
                 ,"T1","T2","T3","T4","T5"
               };
         string[] descriptions =
@@ -57,39 +64,53 @@ public static class Initialization
                 ,"Conduct a feasibility study to assess the technical, economic, and operational aspects of the project."
                 ,"Gather and document detailed requirements, including functional and non-functional specifications."
                 ,"Create a comprehensive system design, including architecture, data models, and interface specifications."
-                ,"Choose the appropriate technologies and frameworks based on project requirements and constraints."
+                ,"Technology Stack Selection=Choose the appropriate technologies and frameworks based on project requirements and constraints."
                 ,"Develop a prototype or proof of concept to validate key functionalities and design decisions."
                 ,"Design the database schema, relationships, and data flow for efficient data storage and retrieval."
                 ,"Begin developing the user interface (UI) based on the approved designs and wireframes."
                 ,"Implement server-side logic, business rules, and integration points according to the system design."
                 ,"Create application programming interfaces (APIs) for seamless communication between frontend and backend components."
-                ,"Configure testing environments, including unit testing, integration testing, and system testing environments."
+                ,"Testing Environment Setup=Configure testing environments, including unit testing, integration testing, and system testing environments."
                 ,"Conduct unit tests to ensure individual components and functions meet the specified requirements."
                 ,"Perform integration testing to validate the collaboration and functionality of integrated system components."
                 ,"Execute comprehensive system tests to verify the end-to-end functionality and performance of the entire system."
-                ,"Collaborate with end-users to conduct UAT and ensure the software meets user expectations."
-                ,"Address and resolve any identified issues, bugs, or performance bottlenecks from testing phases."
+                ,"User Acceptance Testing =Collaborate with end-users to conduct UAT and ensure the software meets user expectations."
+                ,"Bug Fixing and Optimization=Address and resolve any identified issues, bugs, or performance bottlenecks from testing phases."
                 ,"Document the codebase, APIs, and system architecture, providing comprehensive information for future reference."
                 ,"Prepare for the deployment phase by finalizing configurations, setting up production environments, and creating deployment scripts."
-                ,"Deploy the software to the production environment and release it to end-users following a well-defined deployment plan."
-                ,"Conduct a post-implementation review to assess the project's success, identify lessons learned, and gather feedback for future improvements."
+                ,"Deployment and Release=Deploy the software to the production environment and release it to end-users following a well-defined deployment plan."
+                ,"Post-Implementation Review=Conduct a post-implementation review to assess the project's success, identify lessons learned, and gather feedback for future improvements."
                 ,"Test stage 1","Test stage 2","Test stage 3","Test stage 4","Test stage 5"
         };
-        int month=scheduledFinishedDate.Month;
-        int j = 20;
-        
-        for(int i=0; i<20; i++)
+
+        int days, month;
+        DateTime createdAt, sceduledStart,deadLine;
+        TimeSpan requirdEffortTime; 
+     
+
+        for (int i=0; i<20; i++)
         {
-            int numOfDays = s_rand.Next(3, 21);            
-            DateTime temp=new DateTime(2024,month,numOfDays);
-            TimeSpan ts =DateTime.Now-temp;//created in date
-            month=month-numOfDays==projectStartDate.Month?month:month-numOfDays;
-            //  month += 2;
+            //selecting month+days randomly (with certain restrictions)
+            days = s_rand.Next(1, 31); 
+            month = s_rand.Next(1, projectStartDate.Month);
+            month= month<DateTime.Now.Month? month : DateTime.Now.Month;
+            if(month==0)//if now.month=1 and month also 1, from the previous line month=0
+                days = s_rand.Next(1, DateTime.Now.Day);  
             
+            //date selection for certain dates thar required for each task
+            createdAt=new DateTime(2024,month,days);//the task was created after 1.1.2024
+            sceduledStart = projectStartDate.AddDays(i);//scheduled date for starting the task
+            requirdEffortTime = timeForTheProject / (alias.Length - i);//divides the time of the planned tasks into periods of time
+            deadLine=sceduledStart.AddDays(requirdEffortTime.Days);
+            deadLine=deadLine<scheduledFinishedDate?deadLine:scheduledFinishedDate; //deadline won't be after the project end date
 
+            //selecting comlexity randomly
+            int randomComplexity =s_rand.Next(0, 5);
+            EngineerExperience taskComplexity = (EngineerExperience)randomComplexity;
+     
+            Task newTask=new Task() { Alias = alias[i], Description = descriptions[i], CreatedInDate = createdAt, ScheduledDate = sceduledStart,RequiredEffortTime= requirdEffortTime, Deadline = deadLine, Complexity = taskComplexity };
 
-
-            s_dalTask!.Create(new Task() { Alias = alias[i], Description = descriptions[i],CreatedInDate=Convert.ToDateTime(ts),ScheduledDate= new DateTime(2024,4,j-i) /*deadLine,complexity*/ });
+            s_dalTask!.Create(newTask);// add the new task to the data list(tasks)
         }
     }
 
