@@ -47,23 +47,7 @@ namespace DalTest
                         PresentSubMenu(optionMainMenu);
                     else 
                         flagExit= false;
-                    ///switch (optionMainManu)
-                    ///{
-                    ///    case MainMenu.Exit:
-                    ///        flagExit = false;
-                    ///        break;
-                    ///    case MainMenu.Engineer:
-                    ///        PresentSubMenu(MainMenu.Engineer);
-                    ///        break;
-                    ///    case MainMenu.Dependency:
-                    ///        PresentSubMenu(MainMenu.Dependency);
-                    ///        break;
-                    ///   case MainMenu.Task:
-                    ///        PresentSubMenu(MainMenu.Task);
-                    ///        break;
-                    ///    default:
-                    ///        break;
-                    ///}
+                    
                 }
             }
             catch(Exception ex)
