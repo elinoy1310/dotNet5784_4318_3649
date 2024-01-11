@@ -117,8 +117,8 @@ namespace DalTest
             Console.WriteLine("Enter Dependent:");
             // Parse user input for Dependent and set default to 0 if input is null or invalid
             int depDependent = int.Parse(Console.ReadLine() ?? "0");
+            Console.WriteLine("Enter DependsOnTask:");
             // Parse user input for DependsOnTask and set default to 0 if input is null or invalid
-
             int depDependsOnTask = int.Parse(Console.ReadLine() ?? "0");
             // Create a new Dependency object with Id set to 0 and user-input Dependent and DependsOnTask
             Dependency dep = new Dependency(0, depDependent, depDependsOnTask);
@@ -131,14 +131,9 @@ namespace DalTest
         /// </summary>
         /// <param name="entity">The MainManu entity for which information will be read.</param>
         private static void readSubMenu(MainMenu entity)
-        {
-            
+        {           
             switch (entity)
             {
-                //case MainMenu.Exit:
-                //    // No action needed if the main menu option is Exit
-                //    return;
-                //break;
                 case MainMenu.Engineer:
                     // Read Engineer ID from user input
                     Console.WriteLine("enter Id:");
@@ -166,16 +161,9 @@ namespace DalTest
                     else
                         throw new Exception($"Task with ID = {taskId} was not found");
                     break;
-                //default:
-                //    // No action needed for other MainManu options
-                //    break;
             }
         }
-        //private void inputID(out int id)
-        //{
-        //    Console.WriteLine("enter Id:");
-        //    id = int.Parse(Console.ReadLine()!);
-        //}
+       
         /// <summary>
         /// Reads and displays all records for a specific entity (Engineer, Dependency, or Task) based on user input.
         /// </summary>
@@ -184,10 +172,6 @@ namespace DalTest
         {
             switch (entity)
             {
-                //case MainMenu.Exit:
-                //    // No action needed if the main menu option is Exit
-                //    return;
-                //break;
                 case MainMenu.Engineer:
                     // Iterate through all Engineers and display each record
                     foreach (var _engineer in s_dalEngineer!.ReadAll())
@@ -203,9 +187,6 @@ namespace DalTest
                     foreach (var _task in s_dalTask!.ReadAll())
                         Console.WriteLine(_task);
                     break;
-                default:
-                    // No action needed for other MainManu options
-                    break;
             }
         }
 
@@ -215,40 +196,29 @@ namespace DalTest
         /// <param name="entity">The MainMenu entity for which a record will be updated.</param>
         private static void updateSubMenu(MainMenu entity)
         {
-            // Display existing record details before updating
-            
+            // Display existing record details before updating          
             readSubMenu(entity);
             switch (entity)
             {
-                //case MainMenu.Exit:
-                //    return;
-                ////break;
                 case MainMenu.Engineer:
                     // Update the Engineer record with new user input
                     s_dalEngineer!.Update(newEngineer());
                     break;
                 case MainMenu.Dependency:
                     Console.WriteLine("enter the dependentcy's id you want to uppdate");
-                    int idDependency =/*if(!*/int./*Try*/Parse(Console.ReadLine()!);/* out var id)/*)*///*/
-
-                    // Update the Dependency record with new user input
-            
+                    int idDependency =int.Parse(Console.ReadLine()!);
+                     // Update the Dependency record with new user input
                     s_dalDependency!.Update(newDependency() with { Id = idDependency });
                     break;
                 case MainMenu.Task:
                     // Update the Task record with new user input
                     Console.WriteLine("enter the task's id you want to uppdate");
-                    int idTask =/*if(!*/int./*Try*/Parse(Console.ReadLine()!);/* out var id)/*)*///*/
-
+                    int idTask =int.Parse(Console.ReadLine()!);
                     // Update the Dependency record with new user input
                     s_dalTask!.Update(newTask() with { Id = idTask });   
                     break;
-                default:
-                    // No action needed for other MainMenu options
-                    break;
             }
         }
-
 
         /// <summary>
         /// This function prompts the user to enter data in order to create an Engineer object.
@@ -257,11 +227,16 @@ namespace DalTest
         private static Engineer newEngineer()
         {
             //user input
-            Console.WriteLine("enter id,email,cost,name and level of the engineer");
+            Console.WriteLine("enter the details of the engineer:");
+            Console.WriteLine("id:");
             int id = int.Parse(Console.ReadLine() ?? "0");
+            Console.WriteLine("email:");
             string email = Console.ReadLine() ?? "";
+            Console.WriteLine("cost:");
             double cost = int.Parse(Console.ReadLine() ?? "0");
+            Console.WriteLine("name:");
             string name = Console.ReadLine() ?? "";
+            Console.WriteLine("level:");
             EngineerExperience level = (EngineerExperience)int.Parse(Console.ReadLine() ?? "0");
 
             //creates new Engineer and returns it
@@ -278,27 +253,20 @@ namespace DalTest
             Console.WriteLine("enter alias,description,if the task is mile stone=false, required effort time, created in date,scheduled date=null,start date, complete date, dead line, deliverables,remarks,engineer id, engineer's experience,complexity");
             string alias = Console.ReadLine() ?? "";
             string description = Console.ReadLine() ?? "";
-            bool isMileStone;
-            bool flag = bool.TryParse(Console.ReadLine(), out isMileStone);
-            isMileStone = flag ? isMileStone : false;
-            TimeSpan requiredEffortTime;
-            flag = TimeSpan.TryParse(Console.ReadLine(), out requiredEffortTime);
-            requiredEffortTime = flag ? requiredEffortTime : TimeSpan.Zero;
-            DateTime createdInDate;
-            flag = DateTime.TryParse(Console.ReadLine(), out createdInDate);
-            createdInDate = flag ? createdInDate : DateTime.Today;
-            DateTime scheduledDate;
-            flag = DateTime.TryParse(Console.ReadLine(), out scheduledDate);
-            scheduledDate = flag ? scheduledDate : DateTime.Today;
-            DateTime startDate;
-            flag = DateTime.TryParse(Console.ReadLine(), out startDate);
-            startDate = flag ? startDate : DateTime.Today;
-            DateTime completeDate;
-            flag = DateTime.TryParse(Console.ReadLine(), out completeDate);
-            completeDate = flag ? completeDate : DateTime.Today;
-            DateTime deadline;
-            flag = DateTime.TryParse(Console.ReadLine(), out deadline);
-            deadline = flag ? deadline : DateTime.Today;
+            if (!bool.TryParse(Console.ReadLine(), out bool isMileStone))
+                throw new Exception("wrong input format");
+            if(!TimeSpan.TryParse(Console.ReadLine(), out TimeSpan requiredEffortTime))
+                throw new Exception("wrong input format");
+            if(DateTime.TryParse(Console.ReadLine(), out DateTime createdInDate))
+                throw new Exception("wrong input format");
+            if (DateTime.TryParse(Console.ReadLine(), out DateTime scheduledDate))
+                throw new Exception("wrong input format");
+            if (DateTime.TryParse(Console.ReadLine(), out DateTime startDate))
+                throw new Exception("wrong input format");
+            if (DateTime.TryParse(Console.ReadLine(), out DateTime completeDate))
+                throw new Exception("wrong input format");
+            if (DateTime.TryParse(Console.ReadLine(), out DateTime deadline))
+                throw new Exception("wrong input format");
             string deliverables = Console.ReadLine() ?? "";
             string remarks = Console.ReadLine() ?? "";
             int engineerId = int.Parse(Console.ReadLine() ?? "");
@@ -314,9 +282,6 @@ namespace DalTest
         /// <param name="entity">The MainMenu entity for which a new record will be created.</param>
         private static void createSubMenu(MainMenu entity)
         {
-            //try
-            //{
-
                 switch (entity)
                 {
                     case MainMenu.Engineer:
@@ -330,18 +295,8 @@ namespace DalTest
                     case MainMenu.Task:
                     // Create a new Task record and display the result
                     Console.WriteLine(s_dalTask!.Create(newTask()));
-
-
-                        break;
-                    default:
-                    // No action needed for other MainMenu options
                     break;
                 }
-            
-            //catch (Exception ex)
-            //{
-            //    Console.WriteLine(ex.Message);
-            //}
         }
 
         /// <summary>
@@ -352,10 +307,6 @@ namespace DalTest
         {
             switch (entity)
             {
-                case MainMenu.Exit:
-                    // No action needed if the main menu option is Exit
-                    return;
-                //break;
                 case MainMenu.Engineer:
                     // Read Engineer ID from user input
                     Console.WriteLine("enter Id:");
@@ -383,9 +334,6 @@ namespace DalTest
                         s_dalTask.Delete(taskId);
                     else
                         throw new Exception($"Task with ID = {taskId} was not found");
-                    break;
-                default:
-                    // No action needed for other MainManu options
                     break;
             }
         }
