@@ -1,9 +1,19 @@
 ﻿
 namespace DalTest;
 
+using System.Diagnostics;
+using System.Net;
+using System.Numerics;
+using System.Reflection.Emit;
+using System.Runtime.InteropServices;
 using System.Security.Cryptography;
+using System.Security.Principal;
 using DalApi;
 using DO;
+using Microsoft.VisualBasic;
+
+using static System.Net.Mime.MediaTypeNames;
+
 public static class Initialization
 {
     private static IEngineer? s_dalEngineer; 
@@ -30,85 +40,131 @@ public static class Initialization
     private static void createTasks()
     {
         //determining the project time
-        DateTime projectStartDate = new DateTime(2024, 4, 8), scheduledFinishedDate=new DateTime(2024,9,1);
-        TimeSpan timeForTheProject = scheduledFinishedDate.Subtract(projectStartDate);
+        //DateTime projectStartDate = new DateTime(2024, 4, 8), scheduledFinishedDate=new DateTime(2024,9,1);
+        //TimeSpan timeForTheProject = scheduledFinishedDate.Subtract(projectStartDate);
 
         //creates tasks definitions, so alias[i] corresponds to description[i]
         string[] alias =
-            {
-                "Project Inception",
-                "Feasibility Study",
-                "Requirement Analysis",
-                "System Design",
-                "TSS",
-                "Prototyping",
-                "Database Design",
-                "Frontend Development",
-                "Backend Development",
-                "API Development",
-                "TES",
-                "Unit Testing",
-                "Integration Testing",
-                "System Testing",
-                "UAT",
-                "BFO",
-                "Documentation",
-                "Deployment Preparation",
-                "DR",
-                "PIR"
-                ,"T1","T2","T3","T4","T5"
+        {
+            "c.c.w.r.",
+            "s.a.d.",
+            "c.s.a.s.",
+            "r.a.",
+            "r.p.",
+            "b.p.",
+            "p.s.",
+            "s.a.w.d.",
+            "p.d.",
+            "d.d.",
+            "e.e.a.",
+            "d.o.a.s.p",
+            "c.w.o.a.",
+            "i.p.",
+            "q.a.p.",
+            "t.p.",
+            "c.d.",
+            "c.c.p",
+            "t.p.d",
+            "o.s."
+                ///"Project Inception",
+                ///"Feasibility Study",
+                ///"Requirement Analysis",
+                ///"System Design",
+                ///"TSS",
+                ///"Prototyping",
+                ///"Database Design",
+                ///"Frontend Development",
+                ///"Backend Development",
+                ///"API Development",
+                ///"TES",
+                ///"Unit Testing",
+                ///"Integration Testing",
+                ///"System Testing",
+                ///"UAT",
+                ///"BFO",
+                ///"Documentation",
+                ///"Deployment Preparation",
+                ///"DR",
+                ///"PIR"
+                ///,"T1","T2","T3","T4","T5"
               };
         string[] descriptions =
-            { 
-                "Define the project scope, objectives, and requirements through discussions with stakeholders and clients."
-                ,"Conduct a feasibility study to assess the technical, economic, and operational aspects of the project."
-                ,"Gather and document detailed requirements, including functional and non-functional specifications."
-                ,"Create a comprehensive system design, including architecture, data models, and interface specifications."
-                ,"Technology Stack Selection=Choose the appropriate technologies and frameworks based on project requirements and constraints."
-                ,"Develop a prototype or proof of concept to validate key functionalities and design decisions."
-                ,"Design the database schema, relationships, and data flow for efficient data storage and retrieval."
-                ,"Begin developing the user interface (UI) based on the approved designs and wireframes."
-                ,"Implement server-side logic, business rules, and integration points according to the system design."
-                ,"Create application programming interfaces (APIs) for seamless communication between frontend and backend components."
-                ,"Testing Environment Setup=Configure testing environments, including unit testing, integration testing, and system testing environments."
-                ,"Conduct unit tests to ensure individual components and functions meet the specified requirements."
-                ,"Perform integration testing to validate the collaboration and functionality of integrated system components."
-                ,"Execute comprehensive system tests to verify the end-to-end functionality and performance of the entire system."
-                ,"User Acceptance Testing =Collaborate with end-users to conduct UAT and ensure the software meets user expectations."
-                ,"Bug Fixing and Optimization=Address and resolve any identified issues, bugs, or performance bottlenecks from testing phases."
-                ,"Document the codebase, APIs, and system architecture, providing comprehensive information for future reference."
-                ,"Prepare for the deployment phase by finalizing configurations, setting up production environments, and creating deployment scripts."
-                ,"Deployment and Release=Deploy the software to the production environment and release it to end-users following a well-defined deployment plan."
-                ,"Post-Implementation Review=Conduct a post-implementation review to assess the project's success, identify lessons learned, and gather feedback for future improvements."
-                ,"Test stage 1","Test stage 2","Test stage 3","Test stage 4","Test stage 5"
+        {
+            "(Checking compliance with regulations),Investigating and ensuring compliance with relevant electrical standards and regulations.",
+            "(System architecture design) Development of system architecture and high-level schemes.",
+            "(Component selection and specification) Selection and specification of electrical components according to project requirements.",
+            "(Risk assessment) Identifying potential risks.",
+            "(Reduction plan) Developing a mitigation plan to address potential risks.",
+            "(Budget planning) Creating a detailed budget, estimating costs for materials, labor, and equipment.",
+            "(Procurement strategy) Planning and implementing a strategy for purchasing necessary components, taking into account delivery times and suppliers.",
+            "(Schematic and wiring diagrams) Creating detailed schematics and wiring diagrams for the electrical system.",
+            "(Prototype development) Developing prototypes for critical components and performing tests to verify functionality.",
+            "(Detailed design) Creating a detailed electrical design, specifying connections, cable routes, and control logic.",
+            "(Energy efficiency analysis) Analysis and optimization of the energy efficiency of the planned electrical system.",
+            "(Development of a safety plan) Development of a comprehensive safety plan for the installation and operation of the electrical system.",
+            "(Coordination with other areas) Coordination with professionals from other disciplines to ensure seamless integration of electrical systems.",
+            "(Installation plan) Planning the installation process, including sequence, logistics and coordination with the installation teams.",
+            "(Quality assurance protocol) Development and implementation of a quality assurance protocol to ensure compliance with design specifications.",
+            "(Test procedures) Development of detailed test procedures for different phases of the project, including acceptance tests.",
+            "(Create documentation) Creating comprehensive documentation, including operating manuals, maintenance manuals, and as-built drawings.",
+            "(Customer communication plan) Creating a plan for ongoing communication with the client, including project updates and milestone reviews.",
+            "(Training program development) Developing a training program for maintenance personnel to ensure they can operate the system effectively.",
+            "(Order supervision) Supervising the start-up phase, making sure that all the components work correctly and meet the specifications."
+          ///    { 
+        ///       "Define the project scope, objectives, and requirements through discussions with stakeholders and clients."
+        ///        ,"Conduct a feasibility study to assess the technical, economic, and operational aspects of the project."
+        ///        ,"Gather and document detailed requirements, including functional and non-functional specifications."
+        ///        ,"Create a comprehensive system design, including architecture, data models, and interface specifications."
+        ///        ,"Technology Stack Selection=Choose the appropriate technologies and frameworks based on project requirements and constraints."
+        ///        ,"Develop a prototype or proof of concept to validate key functionalities and design decisions."
+        ///        ,"Design the database schema, relationships, and data flow for efficient data storage and retrieval."
+        ///        ,"Begin developing the user interface (UI) based on the approved designs and wireframes."
+        ///        ,"Implement server-side logic, business rules, and integration points according to the system design."
+        ///        ,"Create application programming interfaces (APIs) for seamless communication between frontend and backend components."
+        ///        ,"Testing Environment Setup=Configure testing environments, including unit testing, integration testing, and system testing environments."
+        ///        ,"Conduct unit tests to ensure individual components and functions meet the specified requirements."
+        ///        ,"Perform integration testing to validate the collaboration and functionality of integrated system components."
+        ///        ,"Execute comprehensive system tests to verify the end-to-end functionality and performance of the entire system."
+        ///        ,"User Acceptance Testing =Collaborate with end-users to conduct UAT and ensure the software meets user expectations."
+        ///        ,"Bug Fixing and Optimization=Address and resolve any identified issues, bugs, or performance bottlenecks from testing phases."
+        ///        ,"Document the codebase, APIs, and system architecture, providing comprehensive information for future reference."
+        ///        ,"Prepare for the deployment phase by finalizing configurations, setting up production environments, and creating deployment scripts."
+        ///        ,"Deployment and Release=Deploy the software to the production environment and release it to end-users following a well-defined deployment plan."
+        ///        ,"Post-Implementation Review=Conduct a post-implementation review to assess the project's success, identify lessons learned, and gather feedback for future improvements."
+        ///        ,"Test stage 1","Test stage 2","Test stage 3","Test stage 4","Test stage 5"
         };
 
         int days, month;
-        DateTime createdAt, sceduledStart,deadLine;
-        TimeSpan requirdEffortTime; 
+        DateTime createdAt;/*, sceduledStart,deadLine;*/
+       // TimeSpan requirdEffortTime; 
      
 
         for (int i=0; i<20; i++)
         {
             //selecting month+days randomly (with certain restrictions)
             days = s_rand.Next(1, 31); 
-            month = s_rand.Next(1, projectStartDate.Month);
-            month= month<DateTime.Now.Month? month : DateTime.Now.Month;
+            month = s_rand.Next(1, DateTime.Now.Month+1);
+            month= month<DateTime.Now.Month? month : DateTime.Now.Month-1;
             if(month==0)//if now.month=1 and month also 1, from the previous line month=0
+            {
+                month = 1;
                 days = s_rand.Next(1, DateTime.Now.Day);  
+            }
+               
             
             //date selection for certain dates thar required for each task
-            createdAt=new DateTime(2024,month,days);//the task was created after 1.1.2024
-            sceduledStart = projectStartDate.AddDays(i);//scheduled date for starting the task
-            requirdEffortTime = timeForTheProject / (alias.Length - i);//divides the time of the planned tasks into periods of time
-            deadLine=sceduledStart.AddDays(requirdEffortTime.Days);
-            deadLine=deadLine<scheduledFinishedDate?deadLine:scheduledFinishedDate; //deadline won't be after the project end date
+            createdAt=new DateTime(DateTime.Now.Year,month,days);//the task was created after 1.1.this_year and before today's date
+            ///sceduledStart = projectStartDate.AddDays(i);//scheduled date for starting the task
+            ///requirdEffortTime = timeForTheProject / (alias.Length - i);//divides the time of the planned tasks into periods of time
+            ///deadLine=sceduledStart.AddDays(requirdEffortTime.Days);
+            ///deadLine=deadLine<scheduledFinishedDate?deadLine:scheduledFinishedDate; //deadline won't be after the project end date
 
             //selecting comlexity randomly
             int randomComplexity =s_rand.Next(0, 5);
             EngineerExperience taskComplexity = (EngineerExperience)randomComplexity;
      
-            Task newTask=new Task() { Alias = alias[i], Description = descriptions[i], CreatedInDate = createdAt, ScheduledDate = sceduledStart,RequiredEffortTime= requirdEffortTime, Deadline = deadLine, Complexity = taskComplexity };
+            //initialize only alias,description,createdInDate,complexity and the rest fields are filled with default values
+            Task newTask=new Task() with { Alias = alias[i], Description = descriptions[i], CreatedInDate = createdAt,Complexity = taskComplexity };
 
             s_dalTask!.Create(newTask);// add the new task to the data list(tasks)
         }
@@ -191,11 +247,11 @@ public static class Initialization
         s_dalDependency!.Create(new Dependency(0,11,12));
         s_dalDependency!.Create(new Dependency(0,11,13));
         s_dalDependency!.Create(new Dependency(0,12,13));
-        s_dalDependency!.Create(new Dependency(0,1,15));
-        s_dalDependency!.Create(new Dependency(0,1,16));
+        s_dalDependency!.Create(new Dependency(0,17,19));
+        s_dalDependency!.Create(new Dependency(0,17,20));
         s_dalDependency!.Create(new Dependency(0,1,17));
-        s_dalDependency!.Create(new Dependency(0,1,18));
-        s_dalDependency!.Create(new Dependency(0,1,19));
+        s_dalDependency!.Create(new Dependency(0,18,19));
+        s_dalDependency!.Create(new Dependency(0,18,20));
         s_dalDependency!.Create(new Dependency(0,1,20));
 
     }
