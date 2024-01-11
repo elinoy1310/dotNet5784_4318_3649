@@ -29,7 +29,7 @@ namespace DalTest
         /// <summary>
         /// isplays the main menu and allows the user to select an entity to check or exit the program.
         /// </summary>
-        public static void PresentMainMenu()
+        private static void PresentMainMenu()
         {
             
              bool flagExit = true;
@@ -62,7 +62,7 @@ namespace DalTest
         ///  Displays a submenu based on the selected entity type(Engineer, Dependency, or Task) and allows the user to perform various operations.
        /// </summary>
         /// <param name="entity">The main menu option representing the entity type.</param>
-        public static void PresentSubMenu(MainMenu entity)
+        private static void PresentSubMenu(MainMenu entity)
         {
             try
             {
@@ -119,7 +119,7 @@ namespace DalTest
         /// blank, default values of 0 are used for Id, Dependent, and DependsOnTask.
         /// </remarks>
         /// <returns>A new Dependency object based on user input.</returns>
-        public static Dependency NewDependency()
+        private static Dependency NewDependency()
         {
             // Prompt the user to enter Dependent, and DependsOnTask for the new Dependency
             Console.WriteLine("Enter  Dependent, DependsOnTask");
@@ -137,7 +137,7 @@ namespace DalTest
         /// Reads and displays information about a specific entity (Engineer, Dependency, or Task) based on user input.
         /// </summary>
         /// <param name="entity">The MainManu entity for which information will be read.</param>
-        public static void ReadSubMenu(MainMenu entity)
+        private static void ReadSubMenu(MainMenu entity)
         {
             switch (entity)
             {
@@ -182,7 +182,7 @@ namespace DalTest
         /// Reads and displays all records for a specific entity (Engineer, Dependency, or Task) based on user input.
         /// </summary>
         /// <param name="entity">The MainManu entity for which all records will be read and displayed.</param>
-        public static void ReadAllSubMenu(MainMenu entity)
+        private static void ReadAllSubMenu(MainMenu entity)
         {
             switch (entity)
             {
@@ -215,7 +215,7 @@ namespace DalTest
         /// Updates a specific record (Engineer, Dependency, or Task) based on user input.
         /// </summary>
         /// <param name="entity">The MainMenu entity for which a record will be updated.</param>
-        public static void UpdateSubMenu(MainMenu entity)
+        private static void UpdateSubMenu(MainMenu entity)
         {
             // Display existing record details before updating
             ReadSubMenu(entity);
@@ -255,7 +255,7 @@ namespace DalTest
         /// This function prompts the user to enter data in order to create an Engineer object.
         /// </summary>
         /// <returns>An Engineer object with the data entered by the user.</returns>
-        public static Engineer NewEngineer()
+        private static Engineer NewEngineer()
         {
             //user input
             Console.WriteLine("enter id,email,cost,name and level of the engineer");
@@ -273,8 +273,7 @@ namespace DalTest
         /// <summary>
         /// This function prompts the user to enter data in order to create an Task object.
         /// </summary>
-        /// <returns>A Task object with the data entered by the user.</returns>
-        public static DO.Task NewTask()
+        private static DO.Task NewTask()
         {
             //user input
             Console.WriteLine("enter alias,description,if the task is mile stone=false, required effort time, created in date,scheduled date=null,start date, complete date, dead line, deliverables,remarks,engineer id, engineer's experience,complexity");
@@ -314,7 +313,7 @@ namespace DalTest
         /// Creates a new record (Engineer, Dependency, or Task) based on user input.
         /// </summary>
         /// <param name="entity">The MainMenu entity for which a new record will be created.</param>
-        public static void createSubMenu(MainMenu entity)
+        private static void createSubMenu(MainMenu entity)
         {
             //try
             //{
@@ -350,7 +349,7 @@ namespace DalTest
         /// Deletes a specific record (Engineer, Dependency, or Task) based on user input.
         /// </summary>
         /// <param name="entity">The MainManu entity for which a record will be deleted.</param>
-        public static void DeleteSubMenu(MainMenu entity)
+        private static void DeleteSubMenu(MainMenu entity)
         {
             switch (entity)
             {
