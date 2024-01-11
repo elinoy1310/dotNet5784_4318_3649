@@ -142,21 +142,62 @@ public static class Initialization
     /// </summary>
     private static void createDependency() 
     {
-        for (int i=0;i<40;i++) // Loop to create dependencies
-        {
-            // Generate a random dependent and dependsOnTask values
-            int _dependent = s_rand.Next(1, 20); 
-            int _dependsOnTask = s_rand.Next(1, 20);
-            if (_dependent == _dependsOnTask)
-            {
-                if (_dependent < 20)
-                    _dependent++;
-                if (_dependent > 0)
-                    _dependent--;
-            }
-                    Dependency newDep = new Dependency() { Dependent = _dependent, DependsOnTask = _dependsOnTask }; // Create a new Dependency object
-            s_dalDependency!.Create(newDep);     // Add the new dependency to the data access layer
-        }
+        //for (int i=0;i<40;i++) // Loop to create dependencies
+        //{
+        //    // Generate a random dependent and dependsOnTask values
+        //    int _dependent = s_rand.Next(1, 20); 
+        //    int _dependsOnTask = s_rand.Next(1, 20);
+        //    if (_dependent == _dependsOnTask)
+        //    {
+        //        if (_dependent < 20)
+        //            _dependent++;
+        //        if (_dependent > 0)
+        //            _dependent--;
+        //    }
+        //            Dependency newDep = new Dependency() { Dependent = _dependent, DependsOnTask = _dependsOnTask }; // Create a new Dependency object
+        //    s_dalDependency!.Create(newDep);     // Add the new dependency to the data access layer
+        //}
+        s_dalDependency!.Create(new Dependency(0,1,2));
+        s_dalDependency!.Create(new Dependency(0,1,3));
+        s_dalDependency!.Create(new Dependency(0,1,4));
+        s_dalDependency!.Create(new Dependency(0,1,5));
+        s_dalDependency!.Create(new Dependency(0,2,3));
+        s_dalDependency!.Create(new Dependency(0,2,4));
+        s_dalDependency!.Create(new Dependency(0,2,5));
+        s_dalDependency!.Create(new Dependency(0,3,4));
+        s_dalDependency!.Create(new Dependency(0,3,5));
+        s_dalDependency!.Create(new Dependency(0,3,6));
+        s_dalDependency!.Create(new Dependency(0,4,5));
+        s_dalDependency!.Create(new Dependency(0,4,6));
+        s_dalDependency!.Create(new Dependency(0,4,7));
+        s_dalDependency!.Create(new Dependency(0,5,6));
+        s_dalDependency!.Create(new Dependency(0,5,7));
+        s_dalDependency!.Create(new Dependency(0,5,8));
+        s_dalDependency!.Create(new Dependency(0,6,7));
+        s_dalDependency!.Create(new Dependency(0,6,8));
+        s_dalDependency!.Create(new Dependency(0,6,9));
+        s_dalDependency!.Create(new Dependency(0,7,8));
+        s_dalDependency!.Create(new Dependency(0,7,9));
+        s_dalDependency!.Create(new Dependency(0,7,10));
+        s_dalDependency!.Create(new Dependency(0,8,9));
+        s_dalDependency!.Create(new Dependency(0,8,10));
+        s_dalDependency!.Create(new Dependency(0,8,11));
+        s_dalDependency!.Create(new Dependency(0,9,10));
+        s_dalDependency!.Create(new Dependency(0,9,11));
+        s_dalDependency!.Create(new Dependency(0,9,12));
+        s_dalDependency!.Create(new Dependency(0,10,11));
+        s_dalDependency!.Create(new Dependency(0,10,12));
+        s_dalDependency!.Create(new Dependency(0,10,13));
+        s_dalDependency!.Create(new Dependency(0,11,12));
+        s_dalDependency!.Create(new Dependency(0,11,13));
+        s_dalDependency!.Create(new Dependency(0,12,13));
+        s_dalDependency!.Create(new Dependency(0,1,15));
+        s_dalDependency!.Create(new Dependency(0,1,16));
+        s_dalDependency!.Create(new Dependency(0,1,17));
+        s_dalDependency!.Create(new Dependency(0,1,18));
+        s_dalDependency!.Create(new Dependency(0,1,19));
+        s_dalDependency!.Create(new Dependency(0,1,20));
+
     }
 }
 
