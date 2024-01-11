@@ -14,6 +14,7 @@ namespace DalTest
      
         static void Main(string[] args)
         {
+           
             try
             {
                 Initialization.Do(s_dalEngineer, s_dalTask, s_dalDependency);
