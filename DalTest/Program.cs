@@ -13,8 +13,7 @@ namespace DalTest
         private static IDependency? s_dalDependency = new DependencyImplementation();
      
         static void Main(string[] args)
-        {
-           
+        {           
             try
             {
                 Initialization.Do(s_dalEngineer, s_dalTask, s_dalDependency);
@@ -32,10 +31,11 @@ namespace DalTest
         /// </summary>
         public static void PresentMainMenu()
         {
-            try
-            {
-                bool flagExit = true;
-                while (flagExit)
+            
+             bool flagExit = true;
+             while (flagExit)
+             {
+                try
                 {
                     Console.WriteLine("Select an entity you want to check\r\n0= Exit the main menu\r\n1= engineer\r\n2=dependency\r\n3=task");
                     // Read user input for main menu option
@@ -48,13 +48,13 @@ namespace DalTest
                         PresentSubMenu(optionMainMenu);
                     else 
                         flagExit= false;
-                    
                 }
-            }
-            catch(Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-            }  
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
+                }
+             }
+           
         }
 
 
