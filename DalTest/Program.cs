@@ -314,7 +314,7 @@ namespace DalTest
         /// Creates a new record (Engineer, Dependency, or Task) based on user input.
         /// </summary>
         /// <param name="entity">The MainMenu entity for which a new record will be created.</param>
-        public static void Create(MainMenu entity)
+        public static void createSubMenu(MainMenu entity)
         {
             //try
             //{
