@@ -229,12 +229,20 @@ namespace DalTest
                     s_dalEngineer!.Update(NewEngineer());
                     break;
                 case MainMenu.Dependency:
+                    Console.WriteLine("enter the dependentcy's id you want to uppdate");
+                    int idDependency =/*if(!*/int./*Try*/Parse(Console.ReadLine()!);/* out var id)/*)*///*/
+
                     // Update the Dependency record with new user input
-                    s_dalDependency!.Update(NewDependency());
+            
+                    s_dalDependency!.Update(NewDependency() with { Id = idDependency });
                     break;
                 case MainMenu.Task:
                     // Update the Task record with new user input
-                    s_dalTask!.Update(NewTask());   
+                    Console.WriteLine("enter the task's id you want to uppdate");
+                    int idTask =/*if(!*/int./*Try*/Parse(Console.ReadLine()!);/* out var id)/*)*///*/
+
+                    // Update the Dependency record with new user input
+                    s_dalTask!.Update(NewTask() with { Id = idTask });   
                     break;
                 default:
                     // No action needed for other MainMenu options
