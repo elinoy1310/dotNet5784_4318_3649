@@ -21,8 +21,6 @@ public static class Initialization
     private static IDependency? s_dalDependency; 
 
     private static readonly Random s_rand = new Random(DateTime.Now.Millisecond);
-
-
     public static void Do(IEngineer? dalEngineer, ITask? dalTask, IDependency? dalDependency) 
     {
         s_dalEngineer = dalEngineer ?? throw new NullReferenceException("DAL can not be null!");
@@ -39,10 +37,6 @@ public static class Initialization
     /// </summary>
     private static void createTasks()
     {
-        //determining the project time
-        //DateTime projectStartDate = new DateTime(2024, 4, 8), scheduledFinishedDate=new DateTime(2024,9,1);
-        //TimeSpan timeForTheProject = scheduledFinishedDate.Subtract(projectStartDate);
-
         //creates tasks definitions, so alias[i] corresponds to description[i]
         string[] alias =
         {
@@ -66,28 +60,8 @@ public static class Initialization
             "c.c.p",
             "t.p.d",
             "o.s."
-                ///"Project Inception",
-                ///"Feasibility Study",
-                ///"Requirement Analysis",
-                ///"System Design",
-                ///"TSS",
-                ///"Prototyping",
-                ///"Database Design",
-                ///"Frontend Development",
-                ///"Backend Development",
-                ///"API Development",
-                ///"TES",
-                ///"Unit Testing",
-                ///"Integration Testing",
-                ///"System Testing",
-                ///"UAT",
-                ///"BFO",
-                ///"Documentation",
-                ///"Deployment Preparation",
-                ///"DR",
-                ///"PIR"
-                ///,"T1","T2","T3","T4","T5"
-              };
+               
+        };
         string[] descriptions =
         {
             "(Checking compliance with regulations),Investigating and ensuring compliance with relevant electrical standards and regulations.",
@@ -110,35 +84,12 @@ public static class Initialization
             "(Customer communication plan) Creating a plan for ongoing communication with the client, including project updates and milestone reviews.",
             "(Training program development) Developing a training program for maintenance personnel to ensure they can operate the system effectively.",
             "(Order supervision) Supervising the start-up phase, making sure that all the components work correctly and meet the specifications."
-          ///    { 
-        ///       "Define the project scope, objectives, and requirements through discussions with stakeholders and clients."
-        ///        ,"Conduct a feasibility study to assess the technical, economic, and operational aspects of the project."
-        ///        ,"Gather and document detailed requirements, including functional and non-functional specifications."
-        ///        ,"Create a comprehensive system design, including architecture, data models, and interface specifications."
-        ///        ,"Technology Stack Selection=Choose the appropriate technologies and frameworks based on project requirements and constraints."
-        ///        ,"Develop a prototype or proof of concept to validate key functionalities and design decisions."
-        ///        ,"Design the database schema, relationships, and data flow for efficient data storage and retrieval."
-        ///        ,"Begin developing the user interface (UI) based on the approved designs and wireframes."
-        ///        ,"Implement server-side logic, business rules, and integration points according to the system design."
-        ///        ,"Create application programming interfaces (APIs) for seamless communication between frontend and backend components."
-        ///        ,"Testing Environment Setup=Configure testing environments, including unit testing, integration testing, and system testing environments."
-        ///        ,"Conduct unit tests to ensure individual components and functions meet the specified requirements."
-        ///        ,"Perform integration testing to validate the collaboration and functionality of integrated system components."
-        ///        ,"Execute comprehensive system tests to verify the end-to-end functionality and performance of the entire system."
-        ///        ,"User Acceptance Testing =Collaborate with end-users to conduct UAT and ensure the software meets user expectations."
-        ///        ,"Bug Fixing and Optimization=Address and resolve any identified issues, bugs, or performance bottlenecks from testing phases."
-        ///        ,"Document the codebase, APIs, and system architecture, providing comprehensive information for future reference."
-        ///        ,"Prepare for the deployment phase by finalizing configurations, setting up production environments, and creating deployment scripts."
-        ///        ,"Deployment and Release=Deploy the software to the production environment and release it to end-users following a well-defined deployment plan."
-        ///        ,"Post-Implementation Review=Conduct a post-implementation review to assess the project's success, identify lessons learned, and gather feedback for future improvements."
-        ///        ,"Test stage 1","Test stage 2","Test stage 3","Test stage 4","Test stage 5"
+    
         };
 
         int days, month;
-        DateTime createdAt;/*, sceduledStart,deadLine;*/
-       // TimeSpan requirdEffortTime; 
+        DateTime createdAt;
      
-
         for (int i=0; i<20; i++)
         {
             //selecting month+days randomly (with certain restrictions)
@@ -150,14 +101,9 @@ public static class Initialization
                 month = 1;
                 days = s_rand.Next(1, DateTime.Now.Day);  
             }
-               
-            
+                          
             //date selection for certain dates thar required for each task
-            createdAt=new DateTime(DateTime.Now.Year,month,days);//the task was created after 1.1.this_year and before today's date
-            ///sceduledStart = projectStartDate.AddDays(i);//scheduled date for starting the task
-            ///requirdEffortTime = timeForTheProject / (alias.Length - i);//divides the time of the planned tasks into periods of time
-            ///deadLine=sceduledStart.AddDays(requirdEffortTime.Days);
-            ///deadLine=deadLine<scheduledFinishedDate?deadLine:scheduledFinishedDate; //deadline won't be after the project end date
+            createdAt=new DateTime(DateTime.Now.Year,month,days);//the task was created after 1.1.this_year and before today's date         
 
             //selecting comlexity randomly
             int randomComplexity =s_rand.Next(0, 5);
@@ -194,25 +140,10 @@ public static class Initialization
 
     }
     /// <summary>
-    ///  Creates and adds dependencies to the system with random data.
+    ///  Creates and adds dependencies to the system 
     /// </summary>
     private static void createDependency() 
     {
-        //for (int i=0;i<40;i++) // Loop to create dependencies
-        //{
-        //    // Generate a random dependent and dependsOnTask values
-        //    int _dependent = s_rand.Next(1, 20); 
-        //    int _dependsOnTask = s_rand.Next(1, 20);
-        //    if (_dependent == _dependsOnTask)
-        //    {
-        //        if (_dependent < 20)
-        //            _dependent++;
-        //        if (_dependent > 0)
-        //            _dependent--;
-        //    }
-        //            Dependency newDep = new Dependency() { Dependent = _dependent, DependsOnTask = _dependsOnTask }; // Create a new Dependency object
-        //    s_dalDependency!.Create(newDep);     // Add the new dependency to the data access layer
-        //}
         s_dalDependency!.Create(new Dependency(0,1,2));
         s_dalDependency!.Create(new Dependency(0,1,3));
         s_dalDependency!.Create(new Dependency(0,1,4));
