@@ -50,7 +50,9 @@ internal class EngineerImplementation : IEngineer
 
     public Engineer? Read(Func<Engineer, bool> filter)
     {
-        return DataSource.Engineers.FirstOrDefault(filter);
+        if (filter == null)
+            return DataSource.Engineers.FirstOrDefault();
+        return DataSource.Engineers.FirstOrDefault(filter!);
     }
 
     /// <summary>
