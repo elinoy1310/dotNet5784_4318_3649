@@ -57,7 +57,7 @@ internal class TaskImplementation : ITask
     public Task? Read(Func<Task, bool> filter)
     {
         if (filter == null)
-            return DataSource.Tasks.FirstOrDefault();
+            return DataSource.Tasks.FirstOrDefault(); 
         return DataSource.Tasks.FirstOrDefault(filter!);
     }
 
