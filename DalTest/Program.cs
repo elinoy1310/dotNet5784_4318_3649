@@ -8,15 +8,16 @@ namespace DalTest
 {
     internal class Program
     {
-        private static ITask? s_dalTask = new TaskImplementation();
-        private static IEngineer? s_dalEngineer = new EngineerImplementation();
-        private static IDependency? s_dalDependency = new DependencyImplementation();
-     
+        //private static ITask? s_dalTask = new TaskImplementation();
+        //private static IEngineer? s_dalEngineer = new EngineerImplementation();
+        //private static IDependency? s_dalDependency = new DependencyImplementation();
+        static readonly IDal s_dal = new DalList();
         static void Main(string[] args)
         {           
             try
             {
-                Initialization.Do(s_dalEngineer, s_dalTask, s_dalDependency);
+                // Initialization.Do(s_dalEngineer, s_dalTask, s_dalDependency);
+                Initialization.Do(s_dal);
                 presentMainMenu();
             }
             catch (Exception ex)
@@ -138,8 +139,8 @@ namespace DalTest
                     // Read Engineer ID from user input
                     Console.WriteLine("enter Id:");
                     int engId = int.Parse(Console.ReadLine()!);
-                    if (s_dalEngineer!.Read(engId) is not null)// Retrieve and display information about the Engineer with the given ID
-                        Console.WriteLine(s_dalEngineer!.Read(engId));
+                    if (s_dal!.Engineer.Read(engId) is not null)// Retrieve and display information about the Engineer with the given ID
+                        Console.WriteLine(s_dal!.Engineer.Read(engId));
                     else
                         throw new Exception($"Engineer with ID = {engId} was not found");
                     break;
@@ -147,8 +148,8 @@ namespace DalTest
                     // Read Dependency ID from user input
                     Console.WriteLine("enter Id:");
                     int depId = int.Parse(Console.ReadLine()!);
-                    if (s_dalDependency!.Read(depId) is not null)// Retrieve and display information about the Dependency with the given ID
-                        Console.WriteLine(s_dalDependency!.Read(depId));
+                    if (s_dal!.Dependency.Read(depId) is not null)// Retrieve and display information about the Dependency with the given ID
+                        Console.WriteLine(s_dal!.Dependency.Read(depId));
                     else
                         throw new Exception($"Dependency with ID = {depId} was not found");
                     break;
@@ -156,8 +157,8 @@ namespace DalTest
                     // Read Task ID from user input
                     Console.WriteLine("enter Id:");
                     int taskId = int.Parse(Console.ReadLine()!);
-                    if (s_dalTask!.Read(taskId) is not null)// Retrieve and display information about the Task with the given ID
-                        Console.WriteLine(s_dalTask!.Read(taskId));
+                    if (s_dal!.Task.Read(taskId) is not null)// Retrieve and display information about the Task with the given ID
+                        Console.WriteLine(s_dal!.Task.Read(taskId));
                     else
                         throw new Exception($"Task with ID = {taskId} was not found");
                     break;
@@ -174,17 +175,17 @@ namespace DalTest
             {
                 case MainMenu.Engineer:
                     // Iterate through all Engineers and display each record
-                    foreach (var _engineer in s_dalEngineer!.ReadAll())
+                    foreach (var _engineer in s_dal.Engineer!.ReadAll())
                         Console.WriteLine(_engineer);
                     break;
                 case MainMenu.Dependency:
                     // Iterate through all Dependencies and display each record
-                    foreach (var _dependency in s_dalDependency!.ReadAll())
+                    foreach (var _dependency in s_dal!.Dependency.ReadAll())
                         Console.WriteLine(_dependency);
                     break;
                 case MainMenu.Task:
                     // Iterate through all Tasks and display each record
-                    foreach (var _task in s_dalTask!.ReadAll())
+                    foreach (var _task in s_dal!.Task.ReadAll())
                         Console.WriteLine(_task);
                     break;
             }
@@ -202,20 +203,20 @@ namespace DalTest
             {
                 case MainMenu.Engineer:
                     // Update the Engineer record with new user input
-                    s_dalEngineer!.Update(newEngineer());
+                    s_dal.Engineer!.Update(newEngineer());
                     break;
                 case MainMenu.Dependency:
                     Console.WriteLine("enter the dependentcy's id you want to uppdate");
                     int idDependency =int.Parse(Console.ReadLine()!);
                      // Update the Dependency record with new user input
-                    s_dalDependency!.Update(newDependency() with { Id = idDependency });
+                    s_dal!.Dependency.Update(newDependency() with { Id = idDependency });
                     break;
                 case MainMenu.Task:
                     // Update the Task record with new user input
                     Console.WriteLine("enter the task's id you want to uppdate");
                     int idTask =int.Parse(Console.ReadLine()!);
                     // Update the Dependency record with new user input
-                    s_dalTask!.Update(newTask() with { Id = idTask });   
+                    s_dal!.Task.Update(newTask() with { Id = idTask });   
                     break;
             }
         }
@@ -286,15 +287,15 @@ namespace DalTest
                 {
                     case MainMenu.Engineer:
                     // Create a new Engineer record and display the result
-                    Console.WriteLine(s_dalEngineer!.Create(newEngineer()));
+                    Console.WriteLine(s_dal.Engineer!.Create(newEngineer()));
                         break;
                     case MainMenu.Dependency:
                     // Create a new Dependency record and display the result
-                    Console.WriteLine(s_dalDependency!.Create(newDependency()));
+                    Console.WriteLine(s_dal!.Dependency.Create(newDependency()));
                         break;
                     case MainMenu.Task:
                     // Create a new Task record and display the result
-                    Console.WriteLine(s_dalTask!.Create(newTask()));
+                    Console.WriteLine(s_dal!.Task.Create(newTask()));
                     break;
                 }
         }
@@ -312,8 +313,8 @@ namespace DalTest
                     Console.WriteLine("enter Id:");
                     int engId = int.Parse(Console.ReadLine()!);
                     // Check if the Engineer with the given ID exists, and delete it if found
-                    if (s_dalEngineer!.Read(engId) is not null)
-                        s_dalEngineer.Delete(engId);
+                    if (s_dal.Engineer!.Read(engId) is not null)
+                        s_dal.Engineer.Delete(engId);
                     else
                         throw new Exception($"Engineer with ID = {engId} was not found");
                     break;
@@ -321,8 +322,8 @@ namespace DalTest
                     // Read Dependency ID from user input
                     int depId = int.Parse(Console.ReadLine()!);
                     // Check if the Dependency with the given ID exists, and delete it if found
-                    if (s_dalDependency!.Read(depId) is not null)
-                        s_dalDependency.Delete(depId);
+                    if (s_dal!.Dependency.Read(depId) is not null)
+                        s_dal!.Dependency.Delete(depId);
                     else
                         throw new Exception($"Dependency with ID = {depId} was not found");
                     break;
@@ -330,8 +331,8 @@ namespace DalTest
                     // Read Task ID from user input
                     int taskId = int.Parse(Console.ReadLine()!);
                     // Check if the Task with the given ID exists, and delete it if found
-                    if (s_dalTask!.Read(taskId) is not null)
-                        s_dalTask.Delete(taskId);
+                    if (s_dal!.Task.Read(taskId) is not null)
+                        s_dal!.Task.Delete(taskId);
                     else
                         throw new Exception($"Task with ID = {taskId} was not found");
                     break;
