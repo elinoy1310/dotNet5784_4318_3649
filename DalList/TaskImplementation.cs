@@ -45,6 +45,11 @@ internal class TaskImplementation : ITask
         return DataSource.Tasks.FirstOrDefault(x => x?.Id == id);//search the item with the received id
     }
 
+    public Task? Read(Func<Task, bool> filter)
+    {
+        return DataSource.Tasks.FirstOrDefault(filter);
+    }
+
     /// <summary>
     /// returns list with all the Task item int the list tasks
     /// </summary>

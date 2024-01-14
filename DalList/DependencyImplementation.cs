@@ -47,6 +47,12 @@ internal class DependencyImplementation : IDependency
         else
             return null;    
     }
+
+    public Dependency? Read(Func<Dependency, bool> filter)
+    {
+        return DataSource.Dependencys.FirstOrDefault(filter);
+    }
+
     /// <summary>
     /// Returning a copy of the collection of references to all objects of type Dependency
     /// </summary>

@@ -51,6 +51,12 @@ internal class EngineerImplementation : IEngineer
         else
             return null;
     }
+
+    public Engineer? Read(Func<Engineer, bool> filter)
+    {
+        return DataSource.Engineers.FirstOrDefault(filter);
+    }
+
     /// <summary>
     /// Returning a copy of the list of references to all objects of type Dependency
     /// </summary>
