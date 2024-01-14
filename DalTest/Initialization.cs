@@ -16,16 +16,12 @@ using static System.Net.Mime.MediaTypeNames;
 
 public static class Initialization
 {
-    private static IEngineer? s_dalEngineer; 
-    private static ITask? s_dalTask; 
-    private static IDependency? s_dalDependency; 
+    private static IDal? s_dal;
 
     private static readonly Random s_rand = new Random(DateTime.Now.Millisecond);
-    public static void Do(IEngineer? dalEngineer, ITask? dalTask, IDependency? dalDependency) 
+    public static void Do(IDal dal) 
     {
-        s_dalEngineer = dalEngineer ?? throw new NullReferenceException("DAL can not be null!");
-        s_dalTask = dalTask ?? throw new NullReferenceException("DAL can not be null!");
-        s_dalDependency = dalDependency ?? throw new NullReferenceException("DAL can not be null!");
+        s_dal = dal ?? throw new NullReferenceException("DAL object can not be null!");
         createEngineer();
         createTasks();
         createDependency();
@@ -112,7 +108,7 @@ public static class Initialization
             //initialize only alias,description,createdInDate,complexity and the rest fields are filled with default values
             Task newTask=new Task() with { Alias = alias[i], Description = descriptions[i], CreatedInDate = createdAt,Complexity = taskComplexity };
 
-            s_dalTask!.Create(newTask);// add the new task to the data list(tasks)
+            s_dal!.Task.Create(newTask);// add the new task to the data list(tasks)
         }
     }
 
@@ -135,7 +131,7 @@ public static class Initialization
             double _cost = s_rand.Next(200, 600);  // Generate a random cost between 200 and 600
             EngineerExperience _level = (EngineerExperience)s_rand.Next(0, 4);  // Generate a random EngineerExperience level
             Engineer newEng = new(_id, _email, _cost, EngineerNames[i], _level);  // Create a new Engineer object
-            s_dalEngineer!.Create(newEng);  // Add the new engineer to the data access layer
+            s_dal!.Engineer.Create(newEng);  // Add the new engineer to the data access layer
         }
 
     }
@@ -144,46 +140,46 @@ public static class Initialization
     /// </summary>
     private static void createDependency() 
     {
-        s_dalDependency!.Create(new Dependency(0,1,2));
-        s_dalDependency!.Create(new Dependency(0,1,3));
-        s_dalDependency!.Create(new Dependency(0,1,4));
-        s_dalDependency!.Create(new Dependency(0,1,5));
-        s_dalDependency!.Create(new Dependency(0,2,3));
-        s_dalDependency!.Create(new Dependency(0,2,4));
-        s_dalDependency!.Create(new Dependency(0,2,5));
-        s_dalDependency!.Create(new Dependency(0,3,4));
-        s_dalDependency!.Create(new Dependency(0,3,5));
-        s_dalDependency!.Create(new Dependency(0,3,6));
-        s_dalDependency!.Create(new Dependency(0,4,5));
-        s_dalDependency!.Create(new Dependency(0,4,6));
-        s_dalDependency!.Create(new Dependency(0,4,7));
-        s_dalDependency!.Create(new Dependency(0,5,6));
-        s_dalDependency!.Create(new Dependency(0,5,7));
-        s_dalDependency!.Create(new Dependency(0,5,8));
-        s_dalDependency!.Create(new Dependency(0,6,7));
-        s_dalDependency!.Create(new Dependency(0,6,8));
-        s_dalDependency!.Create(new Dependency(0,6,9));
-        s_dalDependency!.Create(new Dependency(0,7,8));
-        s_dalDependency!.Create(new Dependency(0,7,9));
-        s_dalDependency!.Create(new Dependency(0,7,10));
-        s_dalDependency!.Create(new Dependency(0,8,9));
-        s_dalDependency!.Create(new Dependency(0,8,10));
-        s_dalDependency!.Create(new Dependency(0,8,11));
-        s_dalDependency!.Create(new Dependency(0,9,10));
-        s_dalDependency!.Create(new Dependency(0,9,11));
-        s_dalDependency!.Create(new Dependency(0,9,12));
-        s_dalDependency!.Create(new Dependency(0,10,11));
-        s_dalDependency!.Create(new Dependency(0,10,12));
-        s_dalDependency!.Create(new Dependency(0,10,13));
-        s_dalDependency!.Create(new Dependency(0,11,12));
-        s_dalDependency!.Create(new Dependency(0,11,13));
-        s_dalDependency!.Create(new Dependency(0,12,13));
-        s_dalDependency!.Create(new Dependency(0,17,19));
-        s_dalDependency!.Create(new Dependency(0,17,20));
-        s_dalDependency!.Create(new Dependency(0,1,17));
-        s_dalDependency!.Create(new Dependency(0,18,19));
-        s_dalDependency!.Create(new Dependency(0,18,20));
-        s_dalDependency!.Create(new Dependency(0,1,20));
+        s_dal!.Dependency.Create(new Dependency(0,1,2));
+        s_dal!.Dependency.Create(new Dependency(0,1,3));
+        s_dal!.Dependency.Create(new Dependency(0,1,4));
+        s_dal!.Dependency.Create(new Dependency(0,1,5));
+        s_dal!.Dependency.Create(new Dependency(0,2,3));
+        s_dal!.Dependency.Create(new Dependency(0,2,4));
+        s_dal!.Dependency.Create(new Dependency(0,2,5));
+        s_dal!.Dependency.Create(new Dependency(0,3,4));
+        s_dal!.Dependency.Create(new Dependency(0,3,5));
+        s_dal!.Dependency.Create(new Dependency(0,3,6));
+        s_dal!.Dependency.Create(new Dependency(0,4,5));
+        s_dal!.Dependency.Create(new Dependency(0,4,6));
+        s_dal!.Dependency.Create(new Dependency(0,4,7));
+        s_dal!.Dependency.Create(new Dependency(0,5,6));
+        s_dal!.Dependency.Create(new Dependency(0,5,7));
+        s_dal!.Dependency.Create(new Dependency(0,5,8));
+        s_dal!.Dependency.Create(new Dependency(0,6,7));
+        s_dal!.Dependency.Create(new Dependency(0,6,8));
+        s_dal!.Dependency.Create(new Dependency(0,6,9));
+        s_dal!.Dependency.Create(new Dependency(0,7,8));
+        s_dal!.Dependency.Create(new Dependency(0,7,9));
+        s_dal!.Dependency.Create(new Dependency(0,7,10));
+        s_dal!.Dependency.Create(new Dependency(0,8,9));
+        s_dal!.Dependency.Create(new Dependency(0,8,10));
+        s_dal!.Dependency.Create(new Dependency(0,8,11));
+        s_dal!.Dependency.Create(new Dependency(0,9,10));
+        s_dal!.Dependency.Create(new Dependency(0,9,11));
+        s_dal!.Dependency.Create(new Dependency(0,9,12));
+        s_dal!.Dependency.Create(new Dependency(0,10,11));
+        s_dal!.Dependency.Create(new Dependency(0,10,12));
+        s_dal!.Dependency.Create(new Dependency(0,10,13));
+        s_dal!.Dependency.Create(new Dependency(0,11,12));
+        s_dal!.Dependency.Create(new Dependency(0,11,13));
+        s_dal!.Dependency.Create(new Dependency(0,12,13));
+        s_dal!.Dependency.Create(new Dependency(0,17,19));
+        s_dal!.Dependency.Create(new Dependency(0,17,20));
+        s_dal!.Dependency.Create(new Dependency(0,1,17));
+        s_dal!.Dependency.Create(new Dependency(0,18,19));
+        s_dal!.Dependency.Create(new Dependency(0,18,20));
+        s_dal!.Dependency.Create(new Dependency(0,1,20));
 
     }
 }
