@@ -19,9 +19,9 @@ public class DalWrongInputFormatException : Exception
 }
 
 [Serializable]
-public class DalCanNotBeNullExistException : Exception
+public class DalCanNotBeNullException : Exception
 {
-    public DalCanNotBeNullExistException(string? message) : base(message) { }
+    public DalCanNotBeNullException(string? message) : base(message) { }
 }
 
 

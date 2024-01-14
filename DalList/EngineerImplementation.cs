@@ -18,7 +18,7 @@ internal class EngineerImplementation : IEngineer
     public int Create(Engineer item)
     {
         if (Read(item.Id) is not null)
-        throw new Exception($"Engineer with ID={item.Id} already exists");
+        throw new DalAlreadyExistException($"Engineer with ID={item.Id} already exists");
         DataSource.Engineers.Add(item); 
         return item.Id; 
     }
@@ -36,7 +36,7 @@ internal class EngineerImplementation : IEngineer
             
             return;
         }
-        throw new Exception($"Engineer with ID = {id} was not found");
+        throw new DalDoesNotExistException($"Engineer with ID = {id} was not found");
     }
     /// <summary>
     /// Return if the sent ID is in the list
