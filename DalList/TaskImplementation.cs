@@ -45,6 +45,15 @@ internal class TaskImplementation : ITask
         return DataSource.Tasks.FirstOrDefault(x => x?.Id == id);//search the item with the received id
     }
 
+    /// <summary>
+    /// Reads tasks from the data source based on the provided filter.
+    /// </summary>
+    /// <param name="filter">
+    /// A filter function to apply when retrieving tasks. If null, returns the first task without any filter.
+    /// </param>
+    /// <returns>
+    /// The first task from the data source that satisfies the filter condition. Returns null if the filter is null.
+    /// </returns>
     public Task? Read(Func<Task, bool> filter)
     {
         if (filter == null)

@@ -48,6 +48,15 @@ internal class DependencyImplementation : IDependency
             return null;    
     }
 
+    /// <summary>
+    /// Reads dependencies from the data source based on the provided filter.
+    /// </summary>
+    /// <param name="filter">
+    /// A filter function to apply when retrieving dependencies. If null, returns the first dependency without any filter.
+    /// </param>
+    /// <returns>
+    /// The first dependency from the data source that satisfies the filter condition. Returns null if the filter is null.
+    /// </returns>
     public Dependency? Read(Func<Dependency, bool> filter)
     {
         if (filter == null)

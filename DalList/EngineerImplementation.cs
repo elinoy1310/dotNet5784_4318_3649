@@ -48,6 +48,15 @@ internal class EngineerImplementation : IEngineer
         return DataSource.Engineers.FirstOrDefault(eng => eng?.Id == id);        
     }
 
+    /// <summary>
+    /// Reads engineers from the data source based on the provided filter.
+    /// </summary>
+    /// <param name="filter">
+    /// A filter function to apply when retrieving engineers. If null, returns the first engineer without any filter.
+    /// </param>
+    /// <returns>
+    /// The first engineer from the data source that satisfies the filter condition. Returns null if the filter is null.
+    /// </returns>
     public Engineer? Read(Func<Engineer, bool> filter)
     {
         if (filter == null)
