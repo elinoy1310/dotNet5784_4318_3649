@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using DalApi;
 using DO;
 
-public class DependencyImplementation : IDependency
+internal class DependencyImplementation : IDependency
 {
     /// <summary>
     /// The function automatically creates a new Id and adds the item with the updated Id to the list

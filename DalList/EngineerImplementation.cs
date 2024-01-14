@@ -7,7 +7,7 @@ using DO;
 
 
 
-public class EngineerImplementation : IEngineer
+internal class EngineerImplementation : IEngineer
 {
     /// <summary>
     /// Checks that the item is not found and adds it to the list

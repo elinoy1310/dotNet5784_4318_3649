@@ -4,7 +4,7 @@ using DO;
 using System.Collections.Generic;
 using System.Security.Cryptography.X509Certificates;
 
-public class TaskImplementation : ITask
+internal class TaskImplementation : ITask
 {
     /// <summary>
     /// creates new Task item with new id and adds it to the list tasks
