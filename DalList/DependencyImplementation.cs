@@ -50,7 +50,9 @@ internal class DependencyImplementation : IDependency
 
     public Dependency? Read(Func<Dependency, bool> filter)
     {
-        return DataSource.Dependencys.FirstOrDefault(filter);
+        if (filter == null)
+            return DataSource.Dependencys.FirstOrDefault();
+        return DataSource.Dependencys.FirstOrDefault(filter!);
     }
 
     /// <summary>
