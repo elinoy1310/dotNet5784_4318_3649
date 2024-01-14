@@ -21,7 +21,7 @@ public static class Initialization
     private static readonly Random s_rand = new Random(DateTime.Now.Millisecond);
     public static void Do(IDal dal) 
     {
-        s_dal = dal ?? throw new NullReferenceException("DAL object can not be null!");
+        s_dal = dal ?? throw new DalCanNotBeNullException("DAL object can not be null!");
         createEngineer();
         createTasks();
         createDependency();
