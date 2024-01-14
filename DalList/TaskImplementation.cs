@@ -42,7 +42,7 @@ internal class TaskImplementation : ITask
     /// <returns></returns>
     public Task? Read(int id)
     {
-        return DataSource.Tasks.Find(x => x?.Id == id);//search the item with the received id
+        return DataSource.Tasks.FirstOrDefault(x => x?.Id == id);//search the item with the received id
     }
 
     /// <summary>
