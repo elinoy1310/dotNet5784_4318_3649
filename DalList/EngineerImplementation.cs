@@ -45,11 +45,7 @@ internal class EngineerImplementation : IEngineer
     /// <returns></returns>
     public Engineer? Read(int id)
     {
-        Engineer? found = DataSource.Engineers.FirstOrDefault(eng => eng?.Id == id);
-        if (found != null)
-            return found;
-        else
-            return null;
+        return DataSource.Engineers.FirstOrDefault(eng => eng?.Id == id);        
     }
 
     public Engineer? Read(Func<Engineer, bool> filter)
