@@ -49,10 +49,18 @@ internal class TaskImplementation : ITask
     /// returns list with all the Task item int the list tasks
     /// </summary>
     /// <returns></returns>
-    public List<Task> ReadAll()
+    public IEnumerable<Task> ReadAll(Func<Task, bool>? filter = null) //stage 2
     {
-        return new List<Task>(DataSource.Tasks);
+        if (filter != null)
+        {
+            return from item in DataSource.Tasks
+                   where filter(item)
+                   select item;
+        }
+        return from item in DataSource.Tasks
+               select item;
     }
+
 
     /// <summary>
     /// deletes the old item (according to item.id) from the Tasks list and  adds item to the list

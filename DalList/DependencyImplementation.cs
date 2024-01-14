@@ -48,13 +48,21 @@ internal class DependencyImplementation : IDependency
             return null;    
     }
     /// <summary>
-    /// Returning a copy of the list of references to all objects of type Dependency
+    /// Returning a copy of the collection of references to all objects of type Dependency
     /// </summary>
     /// <returns></returns>
-    public List<Dependency> ReadAll()
+    public IEnumerable<Dependency> ReadAll(Func<Dependency, bool>? filter = null) //stage 2
     {
-        return new List<Dependency>(DataSource.Dependencys);
+        if (filter != null)
+        {
+            return from item in DataSource.Dependencys
+                   where filter(item)
+                   select item;
+        }
+        return from item in DataSource.Dependencys
+               select item;
     }
+
     /// <summary>
     /// Update of an existing object
     /// </summary>

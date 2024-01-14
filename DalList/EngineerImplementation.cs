@@ -55,10 +55,18 @@ internal class EngineerImplementation : IEngineer
     /// Returning a copy of the list of references to all objects of type Dependency
     /// </summary>
     /// <returns></returns>
-    public List<Engineer> ReadAll()
+    public IEnumerable<Engineer> ReadAll(Func<Engineer, bool>? filter = null) //stage 2
     {
-        return new List<Engineer>(DataSource.Engineers);
+        if (filter != null)
+        {
+            return from item in DataSource.Engineers
+                   where filter(item)
+                   select item;
+        }
+        return from item in DataSource.Engineers
+               select item;
     }
+
     /// <summary>
     /// Update of an existing object
     /// </summary>
