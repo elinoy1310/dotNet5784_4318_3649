@@ -32,7 +32,7 @@ internal class DependencyImplementation : IDependency
             DataSource.Dependencys.Remove(found);
             return;
         }
-        throw new Exception($"Dependency with ID = {id} does not exist");
+        throw new DalDoesNotExistException($"Dependency with ID = {id} does not exist");
     }
     /// <summary>
     /// Return if the sent ID is in the list

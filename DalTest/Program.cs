@@ -93,7 +93,7 @@ internal class Program
                         deleteSubMenu(entity);
                         break;
                     default:
-                        throw new Exception("enter a number between 0-5");
+                        throw new DalWrongInputFormatException("not a number between 0-5");
                 }
             }
             catch (Exception ex) { Console.WriteLine(ex.Message); }
@@ -139,7 +139,7 @@ internal class Program
                 if (s_dal!.Engineer.Read(engId) is not null)// Retrieve and display information about the Engineer with the given ID
                     Console.WriteLine(s_dal!.Engineer.Read(engId));
                 else
-                    throw new Exception($"Engineer with ID = {engId} was not found");
+                    throw new DalDoesNotExistException($"Engineer with ID = {engId} was not found");
                 break;
             case MainMenu.Dependency:
                 // Read Dependency ID from user input
@@ -148,7 +148,7 @@ internal class Program
                 if (s_dal!.Dependency.Read(depId) is not null)// Retrieve and display information about the Dependency with the given ID
                     Console.WriteLine(s_dal!.Dependency.Read(depId));
                 else
-                    throw new Exception($"Dependency with ID = {depId} was not found");
+                    throw new DalDoesNotExistException($"Dependency with ID = {depId} was not found");
                 break;
             case MainMenu.Task:
                 // Read Task ID from user input
@@ -157,7 +157,7 @@ internal class Program
                 if (s_dal!.Task.Read(taskId) is not null)// Retrieve and display information about the Task with the given ID
                     Console.WriteLine(s_dal!.Task.Read(taskId));
                 else
-                    throw new Exception($"Task with ID = {taskId} was not found");
+                    throw new DalDoesNotExistException($"Task with ID = {taskId} was not found");
                 break;
         }
     }
@@ -252,19 +252,19 @@ internal class Program
         string alias = Console.ReadLine() ?? "";
         string description = Console.ReadLine() ?? "";
         if (!bool.TryParse(Console.ReadLine(), out bool isMileStone))
-            throw new Exception("wrong input format");
+            throw new DalWrongInputFormatException("input not in bool format");
         if(!TimeSpan.TryParse(Console.ReadLine(), out TimeSpan requiredEffortTime))
-            throw new Exception("wrong input format");
+            throw new DalWrongInputFormatException("input not in TimeSpan format");
         if(DateTime.TryParse(Console.ReadLine(), out DateTime createdInDate))
-            throw new Exception("wrong input format");
+            throw new DalWrongInputFormatException("input not in DateTime format");
         if (DateTime.TryParse(Console.ReadLine(), out DateTime scheduledDate))
-            throw new Exception("wrong input format");
+            throw new DalWrongInputFormatException("input not in DateTime format");
         if (DateTime.TryParse(Console.ReadLine(), out DateTime startDate))
-            throw new Exception("wrong input format");
+            throw new DalWrongInputFormatException("input not in DateTime format");
         if (DateTime.TryParse(Console.ReadLine(), out DateTime completeDate))
-            throw new Exception("wrong input format");
+            throw new DalWrongInputFormatException("input not in DateTime format");
         if (DateTime.TryParse(Console.ReadLine(), out DateTime deadline))
-            throw new Exception("wrong input format");
+            throw new DalWrongInputFormatException("input not in DateTime format");
         string deliverables = Console.ReadLine() ?? "";
         string remarks = Console.ReadLine() ?? "";
         int engineerId = int.Parse(Console.ReadLine() ?? "");
@@ -313,7 +313,7 @@ internal class Program
                 if (s_dal.Engineer!.Read(engId) is not null)
                     s_dal.Engineer.Delete(engId);
                 else
-                    throw new Exception($"Engineer with ID = {engId} was not found");
+                    throw new DalDoesNotExistException($"Engineer with ID = {engId} was not found");
                 break;
             case MainMenu.Dependency:
                 // Read Dependency ID from user input
@@ -322,7 +322,7 @@ internal class Program
                 if (s_dal!.Dependency.Read(depId) is not null)
                     s_dal!.Dependency.Delete(depId);
                 else
-                    throw new Exception($"Dependency with ID = {depId} was not found");
+                    throw new DalDoesNotExistException($"Dependency with ID = {depId} was not found");
                 break;
             case MainMenu.Task:
                 // Read Task ID from user input
@@ -331,7 +331,7 @@ internal class Program
                 if (s_dal!.Task.Read(taskId) is not null)
                     s_dal!.Task.Delete(taskId);
                 else
-                    throw new Exception($"Task with ID = {taskId} was not found");
+                    throw new DalDoesNotExistException($"Task with ID = {taskId} was not found");
                 break;
         }
     }
