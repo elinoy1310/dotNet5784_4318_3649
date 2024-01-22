@@ -5,16 +5,17 @@ using System.Security.Cryptography;
 
 namespace DalTest;
 using DO;
+
 internal class Program
 {
     
-    static readonly IDal s_dal = new DalList();
+    static readonly IDal s_dal = new DalXml();
     static void Main(string[] args)
     {           
         try
         {
-            // Initialization.Do(s_dalEngineer, s_dalTask, s_dalDependency);
-            Initialization.Do(s_dal);
+           
+           
             presentMainMenu();
         }
         catch (Exception ex)
@@ -34,11 +35,19 @@ internal class Program
          {
             try
             {
-                Console.WriteLine("Select an entity you want to check\r\n0= Exit the main menu\r\n1= engineer\r\n2=dependency\r\n3=task");
+
+                Console.WriteLine("Select an entity you want to check\r\n0= Exit the main menu\r\n1= engineer\r\n2=dependency\r\n3=task\r\n4=initialize all the data");
                 // Read user input for main menu option
                 string chooseMainMenu = Console.ReadLine()!;
                 MainMenu optionMainMenu = (MainMenu)int.Parse(chooseMainMenu);
+                if((int) optionMainMenu==4)
+                {
+                    Console.Write("Would you like to create Initial data? (Y/N)"); //stage 3
+                    string? ans = Console.ReadLine() ?? throw new FormatException("Wrong input"); //stage 3
+                    if (ans == "Y") //stage 3
+                        Initialization.Do(s_dal); //stage 2
 
+                }
                 // Check if the user chose to exit the main menu
                 if (optionMainMenu != MainMenu.Exit ||(int)optionMainMenu>3)
                     // Present the submenu based on the selected main menu option
