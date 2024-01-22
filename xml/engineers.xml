@@ -85,27 +85,6 @@
     <Level>AdvancedBeginner</Level>
   </Engineer>
   <Engineer>
-    <Id>123</Id>
-    <Email>eee</Email>
-    <Cost>12</Cost>
-    <Name>eki</Name>
-    <Level>Beginner</Level>
-  </Engineer>
-  <Engineer>
-    <Id>123</Id>
-    <Email>ww</Email>
-    <Cost>11</Cost>
-    <Name>rr</Name>
-    <Level>Beginner</Level>
-  </Engineer>
-  <Engineer>
-    <Id>123</Id>
-    <Email>hadarn</Email>
-    <Cost>2</Cost>
-    <Name>hadar</Name>
-    <Level>Intermediate</Level>
-  </Engineer>
-  <Engineer>
     <Id>456</Id>
     <Email>eli</Email>
     <Cost>75</Cost>
