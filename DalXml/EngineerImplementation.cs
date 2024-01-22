@@ -61,7 +61,7 @@ internal class EngineerImplementation:IEngineer
     public Engineer? Read(int id)
     {
         // Load the existing Engineers from the XML file
-        XElement? engineerElem = XMLTools.LoadListFromXMLElement(s_engineers_xml).Elements().FirstOrDefault(eng => (int?)eng.Element("id") == id);
+        XElement? engineerElem = XMLTools.LoadListFromXMLElement(s_engineers_xml).Elements().FirstOrDefault(eng => (int?)eng.Element("Id") == id);
         // If the XElement is null, no matching Engineer was found and Convert the XElement to an Engineer object and return it
         return engineerElem is null? null : getEngineer(engineerElem);   
     }
