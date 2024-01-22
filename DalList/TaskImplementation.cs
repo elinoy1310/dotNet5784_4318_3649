@@ -32,7 +32,7 @@ internal class TaskImplementation : ITask
             DataSource.Tasks.Remove(foundItem);
             return;
         }
-        throw new DalAlreadyExistException($"Task with ID={id} does Not exist"); //if the item is not in the list
+        throw new DalDoesNotExistException($"Task with ID={id} does Not exist"); //if the item is not in the list
     }
 
     /// <summary>
