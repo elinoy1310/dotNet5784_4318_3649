@@ -121,7 +121,7 @@ internal class EngineerImplementation:IEngineer
         return new Engineer()
         {
             Id = e.ToIntNullable("Id") ?? throw new FormatException("can't  convert id"),
-            Email = (string?)e.Element("Element") ?? null,
+            Email = (string?)e.Element("Email") ?? null,
             Cost = e.ToDoubleNullable("Cost") ?? throw new FormatException("can't  convert id"),
             Name = (string?)e.Element("Name") ?? "",
             Level = e.ToEnumNullable<EngineerExperience>("Level") ?? EngineerExperience.Beginner,
