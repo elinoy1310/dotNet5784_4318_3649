@@ -127,6 +127,20 @@ internal class EngineerImplementation:IEngineer
             Level = e.ToEnumNullable<EngineerExperience>("Level") ?? EngineerExperience.Beginner,
         };
     }
+
+    public void DeleteAll()
+    {
+        XElement? engineerElem = XMLTools.LoadListFromXMLElement(s_engineers_xml).Elements().FirstOrDefault();
+        Engineer engineer;
+        while(engineerElem is not null)
+        {
+            engineer= getEngineer(engineerElem);
+            Delete(engineer.Id);
+            engineerElem = XMLTools.LoadListFromXMLElement(s_engineers_xml).Elements().FirstOrDefault();
+        }
+
+    }
+
 } 
 
 
