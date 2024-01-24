@@ -45,14 +45,18 @@ internal class Program
                     Console.Write("Would you like to create Initial data? (Y/N)"); //stage 3
                     string? ans = Console.ReadLine() ?? throw new FormatException("Wrong input"); //stage 3
                     if (ans == "Y") //stage 3
+                    {
+                        clearAllXmlFiles();
                         Initialization.Do(s_dal); //stage 2
+                    }    
+                       
 
                 }
                 // Check if the user chose to exit the main menu
-                if (optionMainMenu != MainMenu.Exit ||(int)optionMainMenu>3)
+                if ((optionMainMenu != MainMenu.Exit&&optionMainMenu!=MainMenu.Initialize) ||(int)optionMainMenu>4)
                     // Present the submenu based on the selected main menu option
                     presentSubMenu(optionMainMenu);
-                else 
+                else if(optionMainMenu == MainMenu.Exit)
                     flagExit= false;
             }
             catch (Exception ex)
@@ -61,6 +65,12 @@ internal class Program
             }
          }
        
+    }
+    private static void clearAllXmlFiles()
+    {
+       s_dal.Dependency.DeleteAll();
+       s_dal.Engineer.DeleteAll();
+       s_dal.Task.DeleteAll();
     }
 
     /// <summary>

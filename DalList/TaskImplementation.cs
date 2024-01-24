@@ -35,6 +35,11 @@ internal class TaskImplementation : ITask
         throw new DalDoesNotExistException($"Task with ID={id} does Not exist"); //if the item is not in the list
     }
 
+    public void DeleteAll()
+    {
+        throw new NotImplementedException();
+    }
+
     /// <summary>
     /// search the item in the list with the received id, if not found returns null
     /// </summary>
