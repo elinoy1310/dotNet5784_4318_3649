@@ -47,7 +47,7 @@ internal class Program
                     if (ans == "Y") //stage 3
                     {
                         clearAllXmlFiles();
-                        Initialization.Do(s_dal); //stage 2
+                        Initialization.Do(s_dal); 
                     }    
                        
 
