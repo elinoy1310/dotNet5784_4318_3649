@@ -42,6 +42,14 @@ internal class TaskImplementation:ITask
     /// </summary>
     /// <param name="id">id of the item we want to delete</param>
     /// <returns></returns>
+
+    public void DeleteAll()
+    {
+        List<Task> tasks = XMLTools.LoadListFromXMLSerializer<Task>(s_tasks_xml);
+        tasks.Clear();
+        XMLTools.SaveListToXMLSerializer(tasks, s_tasks_xml);   
+    }
+
     public Task? Read(int id)
     {
         List<Task> tasks = XMLTools.LoadListFromXMLSerializer<Task>(s_tasks_xml);//imports the data from the XML file into a list
