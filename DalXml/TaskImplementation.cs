@@ -40,16 +40,8 @@ internal class TaskImplementation:ITask
     /// <summary>
     /// search the item in the Xml file with the received id, if not found returns null
     /// </summary>
-    /// <param name="id">id of the item we want to delete</param>
+    /// <param name="id">The ID of the object we want to find</param>
     /// <returns></returns>
-
-    public void DeleteAll()
-    {
-        List<Task> tasks = XMLTools.LoadListFromXMLSerializer<Task>(s_tasks_xml);
-        tasks.Clear();
-        XMLTools.SaveListToXMLSerializer(tasks, s_tasks_xml);   
-    }
-
     public Task? Read(int id)
     {
         List<Task> tasks = XMLTools.LoadListFromXMLSerializer<Task>(s_tasks_xml);//imports the data from the XML file into a list
@@ -100,5 +92,18 @@ internal class TaskImplementation:ITask
         Delete(item.Id);
         tasks.Add(item);
         XMLTools.SaveListToXMLSerializer<Task>(tasks, s_tasks_xml);//save the list in XML file
+    }
+
+    /// <summary>
+    /// Deletes all tasks from the XML data source.
+    /// </summary>
+    public void DeleteAll()
+    {
+        // Load the list of tasks from the XML file using XML serialization
+        List<Task> tasks = XMLTools.LoadListFromXMLSerializer<Task>(s_tasks_xml);
+        // Clear the list of tasks
+        tasks.Clear();
+        // Save the empty list back to the XML file using XML serialization
+        XMLTools.SaveListToXMLSerializer(tasks, s_tasks_xml);
     }
 }

@@ -38,12 +38,6 @@ internal class DependencyImplementation:IDependency
         XMLTools.SaveListToXMLSerializer<Dependency>(dependencies, s_dependencys_xml);//save the list in XML file
     }
 
-    public void DeleteAll()
-    {
-        List<Dependency> dependencies = XMLTools.LoadListFromXMLSerializer<Dependency>(s_dependencys_xml);
-        dependencies.Clear();
-        XMLTools.SaveListToXMLSerializer(dependencies, s_dependencys_xml);
-    }
 
     /// <summary>
     /// Return if the sent ID is in the XML file
@@ -100,5 +94,18 @@ internal class DependencyImplementation:IDependency
         Delete(item.Id);
         dependencies.Add(item);
         XMLTools.SaveListToXMLSerializer<Dependency>(dependencies, s_dependencys_xml);//save the list in XML file
+    }
+
+    /// <summary>
+    /// Deletes all dependencies from the XML data source.
+    /// </summary>
+    public void DeleteAll()
+    {
+        // Load the list of dependencies from the XML file using XML serialization
+        List<Dependency> dependencies = XMLTools.LoadListFromXMLSerializer<Dependency>(s_dependencys_xml);
+        // Clear the list of dependencies
+        dependencies.Clear();
+        // Save the empty list back to the XML file using XML serialization
+        XMLTools.SaveListToXMLSerializer(dependencies, s_dependencys_xml);
     }
 }

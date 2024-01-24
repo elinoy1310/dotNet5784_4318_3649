@@ -128,14 +128,22 @@ internal class EngineerImplementation:IEngineer
         };
     }
 
+    /// <summary>
+    /// Deletes all engineers from the XML data source.
+    /// </summary>
     public void DeleteAll()
     {
+        // Load the list of engineers from the XML file
         XElement? engineerElem = XMLTools.LoadListFromXMLElement(s_engineers_xml).Elements().FirstOrDefault();
         Engineer engineer;
-        while(engineerElem is not null)
+        // Iterate through each engineer element
+        while (engineerElem is not null)
         {
-            engineer= getEngineer(engineerElem);
+            // Retrieve the engineer object from the XML element 
+            engineer = getEngineer(engineerElem);
+            // Delete the engineer using the provided Delete method
             Delete(engineer.Id);
+            // Load the next engineer element for the next iteration
             engineerElem = XMLTools.LoadListFromXMLElement(s_engineers_xml).Elements().FirstOrDefault();
         }
 
