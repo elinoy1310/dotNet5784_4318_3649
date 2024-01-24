@@ -1,94 +1,45 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ArrayOfEngineer>
   <Engineer>
-    <Id>210873610</Id>
+    <Id>222500970</Id>
     <Email>HadarNagar@gmail.com</Email>
-    <Cost>234</Cost>
+    <Cost>504</Cost>
     <Name>Hadar Nagar</Name>
-    <Level>AdvancedBeginner</Level>
-  </Engineer>
-  <Engineer>
-    <Id>249058201</Id>
-    <Email>ElinoyDamari@gmail.com</Email>
-    <Cost>254</Cost>
-    <Name>Elinoy Damari</Name>
-    <Level>AdvancedBeginner</Level>
-  </Engineer>
-  <Engineer>
-    <Id>222220329</Id>
-    <Email>YairCohen@gmail.com</Email>
-    <Cost>312</Cost>
-    <Name>Yair Cohen</Name>
-    <Level>AdvancedBeginner</Level>
-  </Engineer>
-  <Engineer>
-    <Id>286165416</Id>
-    <Email>ShiraMazuz@gmail.com</Email>
-    <Cost>597</Cost>
-    <Name>Shira Mazuz</Name>
     <Level>Beginner</Level>
   </Engineer>
   <Engineer>
-    <Id>231250172</Id>
-    <Email>AyalaLin@gmail.com</Email>
-    <Cost>228</Cost>
-    <Name>Ayala Lin</Name>
-    <Level>AdvancedBeginner</Level>
-  </Engineer>
-  <Engineer>
-    <Id>304895908</Id>
-    <Email>DavidLevi@gmail.com</Email>
-    <Cost>219</Cost>
-    <Name>David Levi</Name>
-    <Level>Advanced</Level>
-  </Engineer>
-  <Engineer>
-    <Id>298286831</Id>
-    <Email>HadarNagar@gmail.com</Email>
-    <Cost>571</Cost>
-    <Name>Hadar Nagar</Name>
-    <Level>Advanced</Level>
-  </Engineer>
-  <Engineer>
-    <Id>315311959</Id>
+    <Id>256137584</Id>
     <Email>ElinoyDamari@gmail.com</Email>
-    <Cost>231</Cost>
+    <Cost>269</Cost>
     <Name>Elinoy Damari</Name>
     <Level>Intermediate</Level>
   </Engineer>
   <Engineer>
-    <Id>267915578</Id>
+    <Id>258544070</Id>
     <Email>YairCohen@gmail.com</Email>
-    <Cost>558</Cost>
+    <Cost>284</Cost>
     <Name>Yair Cohen</Name>
-    <Level>Intermediate</Level>
+    <Level>Beginner</Level>
   </Engineer>
   <Engineer>
-    <Id>310965974</Id>
+    <Id>388656196</Id>
     <Email>ShiraMazuz@gmail.com</Email>
-    <Cost>252</Cost>
+    <Cost>219</Cost>
     <Name>Shira Mazuz</Name>
-    <Level>Intermediate</Level>
+    <Level>AdvancedBeginner</Level>
   </Engineer>
   <Engineer>
-    <Id>249699704</Id>
+    <Id>256661277</Id>
     <Email>AyalaLin@gmail.com</Email>
-    <Cost>448</Cost>
+    <Cost>288</Cost>
     <Name>Ayala Lin</Name>
-    <Level>Advanced</Level>
+    <Level>Beginner</Level>
   </Engineer>
   <Engineer>
-    <Id>383967505</Id>
+    <Id>258920379</Id>
     <Email>DavidLevi@gmail.com</Email>
-    <Cost>294</Cost>
+    <Cost>357</Cost>
     <Name>David Levi</Name>
-    <Level>AdvancedBeginner</Level>
-  </Engineer>
-  <Engineer>
-    <Id>147</Id>
-    <Email>kk</Email>
-    <Cost>4</Cost>
-    <Name>kia</Name>
-    <Level>AdvancedBeginner</Level>
+    <Level>Advanced</Level>
   </Engineer>
 </ArrayOfEngineer>

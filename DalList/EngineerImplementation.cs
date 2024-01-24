@@ -38,6 +38,12 @@ internal class EngineerImplementation : IEngineer
         }
         throw new DalDoesNotExistException($"Engineer with ID = {id} was not found");
     }
+
+    public void DeleteAll()
+    {
+        throw new NotImplementedException();
+    }
+
     /// <summary>
     /// Return if the sent ID is in the list
     /// </summary>

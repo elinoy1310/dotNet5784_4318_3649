@@ -34,6 +34,12 @@ internal class DependencyImplementation : IDependency
         }
         throw new DalDoesNotExistException($"Dependency with ID = {id} does not exist");
     }
+
+    public void DeleteAll()
+    {
+        throw new NotImplementedException();
+    }
+
     /// <summary>
     /// Return if the sent ID is in the list
     /// </summary>
@@ -89,4 +95,5 @@ internal class DependencyImplementation : IDependency
         Delete(item.Id);    
         DataSource.Dependencys.Add(item);   
     }
+
 }
