@@ -66,11 +66,18 @@ internal class Program
          }
        
     }
+
+    /// <summary>
+    /// Clears all data from the XML files for dependencies, engineers, and tasks.
+    /// </summary>
     private static void clearAllXmlFiles()
     {
-       s_dal.Dependency.DeleteAll();
-       s_dal.Engineer.DeleteAll();
-       s_dal.Task.DeleteAll();
+        // Delete all dependencies from the XML data source
+        s_dal.Dependency.DeleteAll();
+        // Delete all engineers from the XML data source
+        s_dal.Engineer.DeleteAll();
+        // Delete all tasks from the XML data source
+        s_dal.Task.DeleteAll();
     }
 
     /// <summary>
