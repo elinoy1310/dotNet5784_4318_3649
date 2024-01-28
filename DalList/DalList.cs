@@ -13,5 +13,4 @@ sealed internal class DalList : IDal
 
     private DalList() { }
 
-
 }

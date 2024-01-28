@@ -2,7 +2,7 @@
 using DalApi;
 
 
-sealed public class DalXml : IDal
+sealed internal class DalXml : IDal
 {
     public static DalXml Instance = new DalXml();
 
@@ -12,5 +12,5 @@ sealed public class DalXml : IDal
 
     public ITask Task =>  new TaskImplementation();
 
-    public DalXml() { }
+    private DalXml() { }
 }
