@@ -55,4 +55,9 @@
     <Dependent>4</Dependent>
     <DependsOnTask>5</DependsOnTask>
   </Dependency>
+  <Dependency>
+    <Id>139</Id>
+    <Dependent>34</Dependent>
+    <DependsOnTask>12</DependsOnTask>
+  </Dependency>
 </ArrayOfDependency>

@@ -36,7 +36,7 @@ internal class Program
             try
             {
 
-                Console.WriteLine("Select an entity you want to check\r\n0= Exit the main menu\r\n1= engineer\r\n2=dependency\r\n3=task\r\n4=initialize all the data");
+                Console.WriteLine("Select an entity you want to check\r\n0=Exit the main menu\r\n1=engineer\r\n2=dependency\r\n3=task\r\n4=initialize all the data");
                 // Read user input for main menu option
                 string chooseMainMenu = Console.ReadLine()!;
                 MainMenu optionMainMenu = (MainMenu)int.Parse(chooseMainMenu);
