@@ -8,8 +8,8 @@ using DO;
 
 internal class Program
 {
-    
-    static readonly IDal s_dal = new DalXml();
+
+    static readonly IDal s_dal = Factory.Get;
     static void Main(string[] args)
     {           
         try
@@ -47,7 +47,7 @@ internal class Program
                     if (ans == "Y") //stage 3
                     {
                         clearAllXmlFiles();
-                        Initialization.Do(s_dal); 
+                        Initialization.Do(); 
                     }    
                        
 
