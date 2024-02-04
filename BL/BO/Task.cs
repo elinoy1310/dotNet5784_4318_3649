@@ -14,13 +14,10 @@ public class Task
     public Status Status { get; set; }
 
     public List<TaskInList>? Dependencies { get; set; }
-
-    public MilestoneInTask? Milestone { get; set; }
     public TimeSpan? RequiredEffortTime { get; set; }
     public DateTime? StartDate { get; set; }
     public DateTime? ScheduledDate { get; set; }
     public DateTime? ForecastDate { get; set; }
-    public DateTime? DeadlineDate { get; set; }
     public DateTime? CompleteDate { get; set; }
     public string? Deliverables { get; set; }
     public string? Remarks { get; set; }
