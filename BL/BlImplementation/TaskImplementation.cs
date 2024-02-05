@@ -58,7 +58,7 @@ internal class TaskImplementation : ITask
     {
         DO.Task? task = _dal.Task.Read(id);
         if (task == null)
-            throw new NotImplementedException();
+            throw new BlDoesNotExistException();
         return converFromDOtoBO(task);
     }
 
