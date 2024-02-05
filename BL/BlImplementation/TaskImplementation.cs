@@ -31,7 +31,7 @@ internal class TaskImplementation : ITask
     public void Delete(int id)
     {
         BO.Task DelTask = Read(id);
-        if (DelTask == null || isPreviousTask(DelTask.Id) == true)
+        if (DelTask == null || returnDepTask(DelTask.Id) != null) 
             throw new NotImplementedException();
         _dal.Task.Delete(DelTask.Id);
     }
@@ -93,17 +93,17 @@ internal class TaskImplementation : ITask
         return depTaskInLists;
     }
 
-    private bool isPreviousTask(int id)
-    {
-        var depGroup = from dep in _dal.Dependency.ReadAll()
-                       orderby dep.Dependent 
-                       group dep by dep.Dependent into d
-                       select d;
-        foreach(var item in depGroup)
-            if (item.Key == id)
-                return true;
-        return false;
-    }
+    //private bool isPreviousTask(int id)
+    //{
+    //    var depGroup = from dep in _dal.Dependency.ReadAll()
+    //                   orderby dep.Dependent 
+    //                   group dep by dep.Dependent into d
+    //                   select d;
+    //    foreach(var item in depGroup)
+    //        if (item.Key == id)
+    //            return true;
+    //    return false;
+    //}
 
     private EngineerInTask returnEngineerOnTask(DO.Task task)
     {
