@@ -29,7 +29,7 @@ internal class EngineerImplementation : IEngineer
     {
         BO.Engineer boEngineer=Read(id);
         if (boEngineer!.Task is not null)
-            throw new Exception("Can't Delete an Engineer who has already finished performing a task or is actively performing a task");
+            throw new BlCannotBeDeletedException("Can't Delete an Engineer who has already finished performing a task or is actively performing a task");
         try
         {
             _dal.Engineer.Delete(id);
