@@ -58,9 +58,9 @@ internal class EngineerImplementation : IEngineer
 
     }
 
-    public IEnumerable<BO.Engineer> ReadAll(Func<DO.Engineer, bool>? filter = null)
+    public IEnumerable<BO.Engineer> ReadAll(Func<BO.Engineer, bool>? filter = null)
     {
-        return from DO.Engineer doEngineer in _dal.Engineer.ReadAll(filter)
+        var tasks= from DO.Engineer doEngineer in _dal.Engineer.ReadAll()
                select Read(doEngineer.Id); ////select new BO.Engineer
                ////{
                ////    Id = doEngineer.Id,
@@ -70,7 +70,9 @@ internal class EngineerImplementation : IEngineer
                ////    Cost = doEngineer.Cost,
                ////    Task = createTaskInEngineer(doEngineer.Id)
                ////};
-
+         if(filter==null)
+            return tasks;
+        return tasks.Where(filter);
     }
 
     public void Update(BO.Engineer engineer)
