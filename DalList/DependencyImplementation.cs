@@ -37,7 +37,7 @@ internal class DependencyImplementation : IDependency
 
     public void DeleteAll()
     {
-        throw new NotImplementedException();
+        DataSource.Dependencys.Clear();
     }
 
     /// <summary>

@@ -41,7 +41,7 @@ internal class EngineerImplementation : IEngineer
 
     public void DeleteAll()
     {
-        throw new NotImplementedException();
+       DataSource.Engineers.Clear();
     }
 
     /// <summary>

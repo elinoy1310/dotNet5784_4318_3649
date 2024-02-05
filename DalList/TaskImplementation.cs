@@ -37,7 +37,7 @@ internal class TaskImplementation : ITask
 
     public void DeleteAll()
     {
-        throw new NotImplementedException();
+       DataSource.Tasks.Clear();
     }
 
     /// <summary>
