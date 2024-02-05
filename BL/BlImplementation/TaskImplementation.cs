@@ -1,11 +1,7 @@
 ﻿
-
-
+using System.Collections.Generic;
 using BlApi;
 using BO;
-
-
-
 
 namespace BlImplementation;
 
@@ -24,8 +20,21 @@ internal class TaskImplementation : ITask
 
     public void CreateStartDate(int id, DateTime date)
     {
-
-        throw new NotImplementedException();
+        List <TaskInList> list = returnDepTask(id);
+        var tempListStatus = list.Select(task => task.Status == Status.Unscheduled).ToList();
+        if (tempListStatus != null)
+            throw new NotImplementedException();
+        var findTask = from taskInAllTasks in _dal.Task.ReadAll()
+                       from depTask in list
+                       where taskInAllTasks.Id == depTask.Id
+                       select taskInAllTasks;
+        var tempListDate = from task in findTask
+                           where date < task.CompleteDate
+                           select task;
+        if (tempListDate!=null)
+            throw new NotImplementedException();
+        DO.Task updateTask = _dal.Task.Read(id) ?? throw new NotImplementedException();
+        _dal.Task.Update(updateTask with {ScheduledDate=date});
     }
 
     public void Delete(int id)
@@ -44,7 +53,7 @@ internal class TaskImplementation : ITask
         return converFromDOtoBO(task);
     }
 
-    public IEnumerable<BO.Task> ReadAll(Func<System.Threading.Tasks.Task, bool>? filter = null)
+    public IEnumerable<BO.Task> ReadAll(Func<BO.Task, bool>? filter = null)
     {
         return (from DO.Task doTask in _dal.Task.ReadAll()
                 select converFromDOtoBO(doTask));
