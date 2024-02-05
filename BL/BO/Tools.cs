@@ -9,9 +9,9 @@ public static class Tools
     {
         string str = "";
         foreach (PropertyInfo item in t.GetType().GetProperties())
-        {
-            //if (item.GetType()==typeof(IEnumerable<T>))
-                
+        { 
+            if (item.GetType() == typeof(IEnumerable<T>))
+                str += item.ToStringProperty();
             str += "\n" + item.Name + ": " + item.GetValue(t, null);
         }
         return str;
