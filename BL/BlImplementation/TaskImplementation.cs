@@ -13,8 +13,6 @@ internal class TaskImplementation : ITask
             int? engineerId = task.Engineer is not null ? task.Engineer.Id : null;
             DO.Task doTask = new DO.Task(task.Id, task.Alias, task.Description, false, task.RequiredEffortTime, task.CreatedAtDate, task.ScheduledDate, task.StartDate, task.CompleteDate, null, task.Deliverables, task.Remarks, engineerId);
             int idNewTask = _dal.Task.Create(doTask);
-             return idNewTask;   
-
             if (task.Dependencies is not null)
             {
                 foreach (var d in task.Dependencies)
@@ -22,9 +20,11 @@ internal class TaskImplementation : ITask
                     _dal.Dependency.Create(new DO.Dependency(0, task.Id, d.Id));
                 }
             }
+            return idNewTask;
         }
         else
             throw new BlWrongDataException("Invalid data");
+
     }
 
     public void CreateStartDate(int id, DateTime date)
