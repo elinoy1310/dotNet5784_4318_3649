@@ -29,14 +29,27 @@ internal class TaskImplementation : ITask
 
     public void CreateStartDate(int id, DateTime date)
     {
-
-        throw new NotImplementedException();
+        List <TaskInList> list = returnDepTask(id);
+        var tempListStatus = list.Select(task => task.Status == Status.Unscheduled).ToList();
+        if (tempListStatus != null)
+            throw new NotImplementedException();
+        var findTask = from taskInAllTasks in _dal.Task.ReadAll()
+                       from depTask in list
+                       where taskInAllTasks.Id == depTask.Id
+                       select taskInAllTasks;
+        var tempListDate = from task in findTask
+                           where date < task.CompleteDate
+                           select task;
+        if (tempListDate!=null)
+            throw new NotImplementedException();
+        DO.Task updateTask = _dal.Task.Read(id) ?? throw new NotImplementedException();
+        _dal.Task.Update(updateTask with {ScheduledDate=date});
     }
 
     public void Delete(int id)
     {
         BO.Task DelTask = Read(id);
-        if (DelTask == null || isPreviousTask(DelTask.Id) == true)
+        if (DelTask == null || returnDepTask(DelTask.Id) != null) 
             throw new NotImplementedException();
         _dal.Task.Delete(DelTask.Id);
     }
@@ -49,7 +62,7 @@ internal class TaskImplementation : ITask
         return converFromDOtoBO(task);
     }
 
-    public IEnumerable<BO.Task> ReadAll(Func<System.Threading.Tasks.Task, bool>? filter = null)
+    public IEnumerable<BO.Task> ReadAll(Func<BO.Task, bool>? filter = null)
     {
         return (from DO.Task doTask in _dal.Task.ReadAll()
                 select converFromDOtoBO(doTask));
@@ -98,17 +111,17 @@ internal class TaskImplementation : ITask
         return depTaskInLists;
     }
 
-    private bool isPreviousTask(int id)
-    {
-        var depGroup = from dep in _dal.Dependency.ReadAll()
-                       orderby dep.Dependent
-                       group dep by dep.Dependent into d
-                       select d;
-        foreach (var item in depGroup)
-            if (item.Key == id)
-                return true;
-        return false;
-    }
+    //private bool isPreviousTask(int id)
+    //{
+    //    var depGroup = from dep in _dal.Dependency.ReadAll()
+    //                   orderby dep.Dependent 
+    //                   group dep by dep.Dependent into d
+    //                   select d;
+    //    foreach(var item in depGroup)
+    //        if (item.Key == id)
+    //            return true;
+    //    return false;
+    //}
 
     private EngineerInTask returnEngineerOnTask(DO.Task task)
     {
