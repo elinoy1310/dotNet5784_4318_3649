@@ -50,3 +50,9 @@ public class BlWrongDataException : Exception
     public BlWrongDataException(string? message) : base(message) { }
 }
 
+[Serializable]
+public class BlCannotBeDeletedException : Exception
+{
+    public BlCannotBeDeletedException(string? message) : base(message) { }
+}
+
