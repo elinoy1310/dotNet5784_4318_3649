@@ -1,0 +1,40 @@
+﻿
+
+namespace BO;
+
+[Serializable]
+public class BlDoesNotExistException : Exception
+{
+    public BlDoesNotExistException(string? message) : base(message) { }
+}
+
+[Serializable]
+public class BlAlreadyExistException : Exception
+{
+    public BlAlreadyExistException(string? message) : base(message) { }
+}
+
+[Serializable]
+public class BlWrongInputFormatException : Exception
+{
+    public BlWrongInputFormatException(string? message) : base(message) { }
+}
+
+[Serializable]
+public class BlCanNotBeNullException : Exception
+{
+    public BlCanNotBeNullException(string? message) : base(message) { }
+}
+
+[Serializable]
+public class BlNotUpdatedDataException : Exception
+{
+    public BlNotUpdatedDataException(string? message) : base(message) { }
+}
+
+[Serializable]
+public class BlWrongDataException : Exception
+{
+    public BlWrongDataException(string? message) : base(message) { }
+}
+
