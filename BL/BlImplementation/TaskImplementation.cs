@@ -32,7 +32,7 @@ internal class TaskImplementation : ITask
         List <TaskInList> list = returnDepTask(id);
         var tempListStatus = list.Select(task => task.Status == Status.Unscheduled).ToList();
         if (tempListStatus != null)
-            throw new NotImplementedException();
+            throw new BlNotUpdatedDataException();
         var findTask = from taskInAllTasks in _dal.Task.ReadAll()
                        from depTask in list
                        where taskInAllTasks.Id == depTask.Id
@@ -41,7 +41,7 @@ internal class TaskImplementation : ITask
                            where date < task.CompleteDate
                            select task;
         if (tempListDate!=null)
-            throw new NotImplementedException();
+            throw new BlWrongDataException();
         DO.Task updateTask = _dal.Task.Read(id) ?? throw new NotImplementedException();
         _dal.Task.Update(updateTask with {ScheduledDate=date});
     }
@@ -50,7 +50,7 @@ internal class TaskImplementation : ITask
     {
         BO.Task DelTask = Read(id);
         if (DelTask == null || returnDepTask(DelTask.Id) != null) 
-            throw new NotImplementedException();
+            throw new BlCannotBeDeletedException();
         _dal.Task.Delete(DelTask.Id);
     }
 
