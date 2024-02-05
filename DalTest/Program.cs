@@ -122,7 +122,12 @@ internal class Program
                         throw new DalWrongInputFormatException("not a number between 0-5");
                 }
             }
-            catch (Exception ex) { Console.WriteLine(ex.Message); }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                if(ex.InnerException!=null)
+                    Console.WriteLine(ex.InnerException);
+            }
        }       
     }
 
@@ -171,10 +176,7 @@ internal class Program
                 // Read Dependency ID from user input
                 Console.WriteLine("enter Id:");
                 int depId = int.Parse(Console.ReadLine()!);
-                if (s_dal!.Dependency.Read(depId) is not null)// Retrieve and display information about the Dependency with the given ID
-                    Console.WriteLine(s_dal!.Dependency.Read(depId));
-                else
-                    throw new DalDoesNotExistException($"Dependency with ID = {depId} was not found");
+                Console.WriteLine(s_dal!.Dependency.Read(depId));// Retrieve and display information about the Dependency with the given ID
                 break;
             case MainMenu.Task:
                 // Read Task ID from user input

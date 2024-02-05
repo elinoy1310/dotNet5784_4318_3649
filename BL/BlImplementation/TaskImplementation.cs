@@ -6,14 +6,14 @@ namespace BlImplementation;
 internal class TaskImplementation : ITask
 {
     private DalApi.IDal _dal = DalApi.Factory.Get;
-    public void Add(BO.Task task)
+    public int Add(BO.Task task)
     {
         if (task.Id > 0 && task.Alias != null)
         {
             int? engineerId = task.Engineer is not null ? task.Engineer.Id : null;
             DO.Task doTask = new DO.Task(task.Id, task.Alias, task.Description, false, task.RequiredEffortTime, task.CreatedAtDate, task.ScheduledDate, task.StartDate, task.CompleteDate, null, task.Deliverables, task.Remarks, engineerId);
             int idNewTask = _dal.Task.Create(doTask);
-            //  return idNewTask;   
+             return idNewTask;   
 
             if (task.Dependencies is not null)
             {
