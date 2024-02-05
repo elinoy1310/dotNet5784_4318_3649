@@ -32,7 +32,7 @@ internal class TaskImplementation : ITask
         List <TaskInList> list = returnDepTask(id);
         var tempListStatus = list.Select(task => task.Status == Status.Unscheduled).ToList();
         if (tempListStatus != null)
-            throw new BlNotUpdatedDataException();
+            throw new BlNotUpdatedDataException($"Not all start dates of previous tasks of task with ID={id} updates");
         var findTask = from taskInAllTasks in _dal.Task.ReadAll()
                        from depTask in list
                        where taskInAllTasks.Id == depTask.Id
@@ -41,7 +41,7 @@ internal class TaskImplementation : ITask
                            where date < task.CompleteDate
                            select task;
         if (tempListDate!=null)
-            throw new BlWrongDataException();
+            throw new BlWrongDataException($"The date is earlier than all the estimated end dates of the previous tasks for the task with ID={id}");
         DO.Task updateTask = _dal.Task.Read(id) ?? throw new NotImplementedException();
         _dal.Task.Update(updateTask with {ScheduledDate=date});
     }
@@ -50,7 +50,7 @@ internal class TaskImplementation : ITask
     {
         BO.Task DelTask = Read(id);
         if (DelTask == null || returnDepTask(DelTask.Id) != null) 
-            throw new BlCannotBeDeletedException();
+            throw new BlCannotBeDeletedException($"Task with ID={id} cannot be deleted");
         _dal.Task.Delete(DelTask.Id);
     }
 
@@ -58,7 +58,7 @@ internal class TaskImplementation : ITask
     {
         DO.Task? task = _dal.Task.Read(id);
         if (task == null)
-            throw new BlDoesNotExistException();
+            throw new BlDoesNotExistException($"Task with ID={id} does Not exist");
         return converFromDOtoBO(task);
     }
 
@@ -71,8 +71,6 @@ internal class TaskImplementation : ITask
     public void Update(BO.Task task)
     {
         BO.Task updateTask = Read(task.Id);
-        if (updateTask == null)
-            throw new NotImplementedException();
         DO.Task convertFromBOtoDO = new DO.Task(updateTask.Id, updateTask.Alias, updateTask.Description, false, updateTask.RequiredEffortTime, updateTask.CreatedAtDate, updateTask.ScheduledDate, updateTask.StartDate, updateTask.CompleteDate, null, updateTask.Deliverables, updateTask.Remarks, updateTask.Engineer?.Id, (DO.EngineerExperience)updateTask.Complexity);
         _dal.Task.Update(convertFromBOtoDO);
     }
@@ -103,7 +101,7 @@ internal class TaskImplementation : ITask
             {
                 foreach (var d in item)
                 {
-                    DO.Task task1depTask = _dal.Task.ReadAll().FirstOrDefault(t => t?.Id == d.DependsOnTask) ?? throw new NotImplementedException();
+                    DO.Task task1depTask = _dal.Task.ReadAll().FirstOrDefault(t => t?.Id == d.DependsOnTask) ?? throw new BlDoesNotExistException($"Task with ID={d.DependsOnTask} does Not exist");
                     depTaskInLists.Add(new TaskInList { Id = task1depTask.Id, Alias = task1depTask.Alias, Description = task1depTask.Description, Status = statusCalculation(task1depTask) });
                 }
             }
@@ -125,7 +123,7 @@ internal class TaskImplementation : ITask
 
     private EngineerInTask returnEngineerOnTask(DO.Task task)
     {
-        DO.Engineer eng = _dal.Engineer.ReadAll().FirstOrDefault(e => e?.Id == task.EngineerId) ?? throw new NotImplementedException();
+        DO.Engineer eng = _dal.Engineer.ReadAll().FirstOrDefault(e => e?.Id == task.EngineerId) ?? throw new BlDoesNotExistException($"Engineer with ID={task.EngineerId} does Not exist");
         return new EngineerInTask { Id = eng.Id, Name = eng.Name };
     }
 
