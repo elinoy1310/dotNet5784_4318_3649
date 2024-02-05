@@ -24,7 +24,7 @@ internal class TaskImplementation : ITask
             }
         }
         else
-            throw new Exception("Invalid data");
+            throw new BlWrongDataException("Invalid data");
     }
 
     public void CreateStartDate(int id, DateTime date)
