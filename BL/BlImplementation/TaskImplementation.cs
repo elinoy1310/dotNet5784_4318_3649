@@ -1,25 +1,30 @@
-﻿
-
-
-using BlApi;
+﻿using BlApi;
 using BO;
-
-
-
 
 namespace BlImplementation;
 
 internal class TaskImplementation : ITask
 {
     private DalApi.IDal _dal = DalApi.Factory.Get;
-
     public void Add(BO.Task task)
     {
         if (task.Id > 0 && task.Alias != null)
         {
-            DO.Task doTask = new DO.Task(task.Id, task.Alias, task.Description );
-            throw new NotImplementedException();
+            int? engineerId = task.Engineer is not null ? task.Engineer.Id : null;
+            DO.Task doTask = new DO.Task(task.Id, task.Alias, task.Description, false, task.RequiredEffortTime, task.CreatedAtDate, task.ScheduledDate, task.StartDate, task.CompleteDate, null, task.Deliverables, task.Remarks, engineerId);
+            int idNewTask = _dal.Task.Create(doTask);
+            //  return idNewTask;   
+
+            if (task.Dependencies is not null)
+            {
+                foreach (var d in task.Dependencies)
+                {
+                    _dal.Dependency.Create(new DO.Dependency(0, task.Id, d.Id));
+                }
+            }
         }
+        else
+            throw new Exception("Invalid data");
     }
 
     public void CreateStartDate(int id, DateTime date)
@@ -59,9 +64,9 @@ internal class TaskImplementation : ITask
         _dal.Task.Update(convertFromBOtoDO);
     }
 
-    private Status statusCalculation (DO.Task task)
+    private Status statusCalculation(DO.Task task)
     {
-        Status status= 0;
+        Status status = 0;
         if (task.ScheduledDate == null)
             status = Status.Unscheduled;
         else if (task.StartDate == null)
@@ -75,18 +80,18 @@ internal class TaskImplementation : ITask
 
     private List<TaskInList> returnDepTask(int id)
     {
-        List<TaskInList> depTaskInLists= new List<TaskInList>();
+        List<TaskInList> depTaskInLists = new List<TaskInList>();
         var depGroup = from dep in _dal.Dependency.ReadAll()
                        group dep by dep.Dependent into d
                        select d;
-        foreach(var item in depGroup)
+        foreach (var item in depGroup)
         {
             if (item.Key == id)
             {
                 foreach (var d in item)
                 {
                     DO.Task task1depTask = _dal.Task.ReadAll().FirstOrDefault(t => t?.Id == d.DependsOnTask) ?? throw new NotImplementedException();
-                    depTaskInLists.Add(new TaskInList { Id = task1depTask.Id, Alias = task1depTask.Alias, Description=task1depTask.Description, Status=statusCalculation(task1depTask)});
+                    depTaskInLists.Add(new TaskInList { Id = task1depTask.Id, Alias = task1depTask.Alias, Description = task1depTask.Description, Status = statusCalculation(task1depTask) });
                 }
             }
         }
@@ -96,10 +101,10 @@ internal class TaskImplementation : ITask
     private bool isPreviousTask(int id)
     {
         var depGroup = from dep in _dal.Dependency.ReadAll()
-                       orderby dep.Dependent 
+                       orderby dep.Dependent
                        group dep by dep.Dependent into d
                        select d;
-        foreach(var item in depGroup)
+        foreach (var item in depGroup)
             if (item.Key == id)
                 return true;
         return false;
@@ -107,7 +112,7 @@ internal class TaskImplementation : ITask
 
     private EngineerInTask returnEngineerOnTask(DO.Task task)
     {
-        DO.Engineer eng = _dal.Engineer.ReadAll().FirstOrDefault(e => e?.Id == task.EngineerId)??throw new NotImplementedException();
+        DO.Engineer eng = _dal.Engineer.ReadAll().FirstOrDefault(e => e?.Id == task.EngineerId) ?? throw new NotImplementedException();
         return new EngineerInTask { Id = eng.Id, Name = eng.Name };
     }
 
