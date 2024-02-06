@@ -81,8 +81,15 @@ internal class EngineerImplementation : IEngineer
         if (engineer.Name == null || !System.Net.Mail.MailAddress.TryCreate(engineer.Email, out System.Net.Mail.MailAddress? empty)|| engineer.level<toUpdateEngineer.level ||engineer.Cost <= 0)
             throw new BlWrongDataException("Invalid data");
        // if(BO.TaskImplementation.Read(toUpdateEngineer.Task.Id).status)
+       //שינוי משימה רק אחרי לוז
+       //המשימה שונה ממה שכבר יש לו-1
+       //מראש עבד על משהו ואז אמרו לו נל
+       //עדכון תאריל המטלה הקודמת של הסיום
+       // לשים את הIג  של המהנדסמטלה אחרת ממטלה קודמת לעדכן קודמת בתאריך סיום ולמטלה חדשה לבדוק 
+       //לאחר בדיקות שאין לו מהנדס 
        if(engineer.Task is not null)
         {
+            // 
             //int searchId = toUpdateEngineer.Task!.
             //var tasks = from DO.Task doTask in _dal.Task.ReadAll()
             //            let id = searchId
@@ -97,6 +104,7 @@ internal class EngineerImplementation : IEngineer
                 _dal.Task.Update(updatePreviousTask with { EngineerId = null });
             }
         }
+       //אחרת לגשת למשימה ולבדוק אם מישהו עובד עליה
         try
         {
             DO.Engineer updatedEngineer=new DO.Engineer(engineer.Id, engineer.Email, engineer.Cost, engineer.Name, (DO.EngineerExperience)engineer.level);
@@ -115,6 +123,4 @@ internal class EngineerImplementation : IEngineer
             return new TaskInEngineer { Id = task.Id, Alias = task.Alias };
         return null;
     }
-
-    
 }
