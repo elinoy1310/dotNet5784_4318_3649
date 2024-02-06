@@ -67,10 +67,10 @@ internal class TaskImplementation : ITask
         return converFromDOtoBO(task);
     }
 
-    public IEnumerable<BO.Task> ReadAll(Func<BO.Task, bool>? filter = null)
+    public IEnumerable<BO.TaskInList> ReadAll(Func<BO.Task, bool>? filter = null)
     {
-        return (from DO.Task doTask in _dal.Task.ReadAll()
-                select converFromDOtoBO(doTask));
+        //return (from DO.Task doTask in _dal.Task.ReadAll()
+        //        select converFromDOtoBO(doTask));
     }
 
     public void Update(BO.Task task)
@@ -94,7 +94,7 @@ internal class TaskImplementation : ITask
         return status;
     }
 
-    private List<TaskInList> returnDepTask(int id)
+    public List<TaskInList> returnDepTask(int id)
     {
         List<TaskInList> depTaskInLists = new List<TaskInList>();
         var depGroup = from dep in _dal.Dependency.ReadAll()
