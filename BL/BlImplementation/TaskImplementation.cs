@@ -2,7 +2,11 @@
 using BO;
 
 namespace BlImplementation;
+//להוסיף משתנה בIBL שיגיד לי באיזה שלב אני נמצאת בפרוייקט
 
+//פונקצייה יצירת לוז אוטומוטי שתהיה ציבורית ותהיה בIBL 
+//ואם אני רוצה שתופעל אוטומטית זה פרטי
+//
 internal class TaskImplementation : ITask
 {
     private DalApi.IDal _dal = DalApi.Factory.Get;
@@ -48,6 +52,7 @@ internal class TaskImplementation : ITask
 
     public void Delete(int id)
     {
+        // אי אפשר למחוק אחרי יצירת לוז
         BO.Task DelTask = Read(id);
         if (DelTask == null || returnDepTask(DelTask.Id) != null) 
             throw new BlCannotBeDeletedException($"Task with ID={id} cannot be deleted");
