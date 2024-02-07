@@ -15,7 +15,9 @@ public static class Tools
             if (item.GetType() == typeof(IEnumerable<T>))
                 foreach (PropertyInfo item2 in item!.GetType().GetProperties())
                 {
-                    str += "\n" + item2.Name + ": " + item2.GetValue(t, null);
+                        str += "\n" + item2.Name + ": ";
+                    foreach (PropertyInfo item3 in item2.GetType().GetProperties())
+                        str += item2.GetValue(t, null);
                 }
                     //    str += item.ToStringProperty();
                     //if (item.PropertyType.IsGenericType && item.PropertyType.GetGenericTypeDefinition() == typeof(IEnumerable<>))
