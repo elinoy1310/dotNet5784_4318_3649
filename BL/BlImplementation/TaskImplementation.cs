@@ -10,7 +10,8 @@ namespace BlImplementation;
 internal class TaskImplementation : ITask
 {
     private DalApi.IDal _dal = DalApi.Factory.Get;
-    public int Add(BO.Task task)
+    
+    public int Create(BO.Task task)
     {
         if (task.Id > 0 && task.Alias != null)
         {
@@ -61,18 +62,38 @@ internal class TaskImplementation : ITask
 
     public BO.Task Read(int id)
     {
-        DO.Task? task = _dal.Task.Read(id);
-        if (task == null)
+        DO.Task? taskRead = _dal.Task.Read(id);
+        if (taskRead == null)
             throw new BlDoesNotExistException($"Task with ID={id} does Not exist");
-        return converFromDOtoBO(task);
+        return converFromDOtoBO(taskRead);
     }
+
+    public BO.Task? Read(Func<BO.Task, bool> filter)
+    {
+        IEnumerable <BO.Task> convertAll= from item in _dal.Task.ReadAll()
+                                          let convertItem = converFromDOtoBO(item)
+                                          select convertItem;
+        if (filter != null)
+            return convertAll.FirstOrDefault(filter);
+        return convertAll.FirstOrDefault();
+    }
+
 
     public IEnumerable<BO.TaskInList> ReadAll(Func<BO.Task, bool>? filter = null)
     {
-        List<TaskInList> hh=new List<TaskInList>();
-        return hh;
-        //return (from DO.Task doTask in _dal.Task.ReadAll()
-        //        select converFromDOtoBO(doTask));
+        if (filter!=null)
+        {
+            IEnumerable<BO.Task> isFilter = from item in _dal.Task.ReadAll()
+                                            let convertItem = converFromDOtoBO(item)
+                                            where filter(convertItem)
+                                            select convertItem;
+            return (from item in isFilter 
+                    select new BO.TaskInList { Id = item.Id, Alias = item.Alias, Description = item.Description, Status = item.Status });
+        }
+        else
+            return (from item in _dal.Task.ReadAll() 
+                    let convertItem = converFromDOtoBO(item)
+                    select new BO.TaskInList { Id = convertItem.Id, Alias = convertItem.Alias, Description = convertItem.Description, Status = convertItem.Status });
     }
 
     public void Update(BO.Task task)
@@ -116,17 +137,6 @@ internal class TaskImplementation : ITask
         return depTaskInLists;
     }
 
-    //private bool isPreviousTask(int id)
-    //{
-    //    var depGroup = from dep in _dal.Dependency.ReadAll()
-    //                   orderby dep.Dependent 
-    //                   group dep by dep.Dependent into d
-    //                   select d;
-    //    foreach(var item in depGroup)
-    //        if (item.Key == id)
-    //            return true;
-    //    return false;
-    //}
 
     private EngineerInTask returnEngineerOnTask(DO.Task task)
     {
@@ -147,7 +157,7 @@ internal class TaskImplementation : ITask
             RequiredEffortTime = task.RequiredEffortTime,
             StartDate = task.StartDate,
             ScheduledDate = task.ScheduledDate,
-            ForecastDate = (task.ScheduledDate > task.StartDate) ? task.ScheduledDate : task.StartDate,
+            ForecastDate = ((task.ScheduledDate > task.StartDate) ? task.ScheduledDate : task.StartDate) + task.RequiredEffortTime,
             CompleteDate = task.CompleteDate,
             Deliverables = task.Deliverables,
             Remarks = task.Remarks,
