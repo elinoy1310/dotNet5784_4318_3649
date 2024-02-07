@@ -169,29 +169,30 @@ internal class Program
         EngineerExperience level1 = (EngineerExperience)int.Parse(Console.ReadLine() ?? "0");
         Console.WriteLine("cost:");
         double cost = int.Parse(Console.ReadLine() ?? "0");
-        Console.WriteLine("idTask:");
-        int idTask = int.Parse(Console.ReadLine() ?? "0");
-        Console.WriteLine("aliasTask:");
-        string aliasTask = Console.ReadLine() ?? "";
-        TaskInEngineer task= new TaskInEngineer() { Id=idTask, Alias=aliasTask };
+        ////Console.WriteLine("idTask:");
+        ////int idTask = int.Parse(Console.ReadLine() ?? "0");
+        ////Console.WriteLine("aliasTask:");
+        ////string aliasTask = Console.ReadLine() ?? "";
+        ////TaskInEngineer task= new TaskInEngineer() { Id=idTask, Alias=aliasTask };
 
         //creates new Engineer and returns it
-        Engineer newEngineer = new Engineer() { Id=id, Name=name, Email=email, Cost=cost, level=level1, Task=task };
+        Engineer newEngineer = new Engineer() { Id=id, Name=name, Email=email, Cost=cost, level=level1,  };
         return newEngineer;
     }
 
     private static BO.Task newTask(int id=-1)
     {
         //user input
-        Console.WriteLine("enter alias,description,if the task is mile stone=false, required effort time, created in date,scheduled date=null,start date, complete date, dead line, deliverables,remarks,engineer id, engineer's experience,complexity");
+        Console.WriteLine("enter alias,description,required effort time");
         string alias = Console.ReadLine() ?? "";
         string description = Console.ReadLine() ?? "";
         if (!TimeSpan.TryParse(Console.ReadLine(), out TimeSpan requiredEffortTime))
             throw new BlWrongInputFormatException("input not in TimeSpan format");
-        if (DateTime.TryParse(Console.ReadLine(), out DateTime createdInDate))
-            throw new BlWrongInputFormatException("input not in DateTime format");
-        Status status = (Status)int.Parse(Console.ReadLine() ?? "0");
+        //if (DateTime.TryParse(Console.ReadLine(), out DateTime createdInDate))
+        //    throw new BlWrongInputFormatException("input not in DateTime format");
+        //Status status = (Status)int.Parse(Console.ReadLine() ?? "0");
         List<TaskInList> listDep = new List<TaskInList>();
+        Console.WriteLine("enter numbers of tasks that this task depend on them, enter -1 in order to stop");
         int numDep = int.Parse(Console.ReadLine() ?? "0");
         while (numDep != -1)
         {
@@ -202,15 +203,17 @@ internal class Program
             }
             numDep = int.Parse(Console.ReadLine() ?? "0");
         }
-        if (DateTime.TryParse(Console.ReadLine(), out DateTime scheduledDate))
-            throw new BlWrongInputFormatException("input not in DateTime format");
-        if (DateTime.TryParse(Console.ReadLine(), out DateTime startDate))
-            throw new BlWrongInputFormatException("input not in DateTime format");
-        if (DateTime.TryParse(Console.ReadLine(), out DateTime forecastDate))
-            throw new BlWrongInputFormatException("input not in DateTime format");
-        if (DateTime.TryParse(Console.ReadLine(), out DateTime completeDate))
-            throw new BlWrongInputFormatException("input not in DateTime format");
-        Console.WriteLine("enter num of dependency, to finish enter -1");
+        Console.WriteLine("enter deliverables,remarks,engineer id,complexity");
+        //if (DateTime.TryParse(Console.ReadLine(), out DateTime scheduledDate))
+        //    throw new BlWrongInputFormatException("input not in DateTime format");
+        //if (DateTime.TryParse(Console.ReadLine(), out DateTime startDate))
+        //    throw new BlWrongInputFormatException("input not in DateTime format");
+        //if (DateTime.TryParse(Console.ReadLine(), out DateTime forecastDate))
+        //    throw new BlWrongInputFormatException("input not in DateTime format");
+        //if (DateTime.TryParse(Console.ReadLine(), out DateTime completeDate))
+        //    throw new BlWrongInputFormatException("input not in DateTime format");
+        // Console.WriteLine("enter num of dependency, to finish enter -1");
+
         string deliverables = Console.ReadLine() ?? "";
         string remarks = Console.ReadLine() ?? "";
         int engineerId = int.Parse(Console.ReadLine() ?? "");
@@ -218,7 +221,7 @@ internal class Program
         EngineerInTask engineer= new EngineerInTask() { Id=engineerId, Name=engineerName };
         EngineerExperience complexity = (EngineerExperience)int.Parse(Console.ReadLine() ?? "0");
         //create new Task and returns it
-        BO.Task newTask = new BO.Task() {Id=id, Alias=alias, Description=description, RequiredEffortTime=requiredEffortTime, ScheduledDate=scheduledDate, CreatedAtDate=createdInDate,Status=status ,Dependencies=listDep , StartDate=startDate,ForecastDate=forecastDate ,CompleteDate=completeDate,Deliverables=deliverables, Remarks=remarks,Engineer=engineer ,Complexity=complexity, };  
+        BO.Task newTask = new BO.Task() {Id=id, Alias=alias, Description=description, RequiredEffortTime=requiredEffortTime, /*ScheduledDate=scheduledDate, CreatedAtDate=createdInDate,Status=status*/ Dependencies=listDep ,/* StartDate=startDate,ForecastDate=forecastDate ,CompleteDate=completeDate*/Deliverables=deliverables, Remarks=remarks,Engineer=engineer ,Complexity=complexity };  
         return newTask;
     }
     // dependencies 

@@ -95,11 +95,13 @@ internal class EngineerImplementation : BlApi.IEngineer
     {
         _dal.Task.Update(_dal.Task.Read(idTask)! with { CompleteDate = DateTime.Now, EngineerId = null });
     }
-    private void updateNewTask(int idTask,int idEngineer)
+    private void updateNewTask(int idTask,int idEngineer,BO.EngineerExperience engineerLevel)
     {
         DO.Task t = _dal.Task.Read(idTask)!;
         if (t.ScheduledDate > DateTime.Now)
             throw new BlCannotBeUpdatedException("the task can't be started");
+        if ((int)t.Complexity > (int)engineerLevel)
+            throw new BlCannotBeUpdatedException("the task's level is beyond the engineer's level");
         if (t.EngineerId == null)
             _dal.Task.Update(t with { EngineerId = idEngineer, StartDate = DateTime.Now });
         else
@@ -124,7 +126,7 @@ internal class EngineerImplementation : BlApi.IEngineer
                 updatePreviousTask(toUpdateEngineer.Task!.Id);
 
             else if (toUpdateEngineer.Task == null)
-                updateNewTask(engineer.Task!.Id, engineer.Id);
+                updateNewTask(engineer.Task!.Id, engineer.Id,engineer.level);
           
             ///if both not null
             ///check new task scheduled date is after now
@@ -133,7 +135,7 @@ internal class EngineerImplementation : BlApi.IEngineer
             ///send new engineer to the dal
             else
             {
-                updateNewTask(engineer.Task!.Id,engineer.Id);
+                updateNewTask(engineer.Task!.Id,engineer.Id,engineer.level);
                 updatePreviousTask(toUpdateEngineer.Task!.Id);
             }
         }
