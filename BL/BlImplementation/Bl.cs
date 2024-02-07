@@ -13,12 +13,16 @@ internal class Bl : IBl
 
     public ITask Task => new TaskImplementation();
 
-    public DateTime? ProjectStartDate { get => this.ProjectStartDate; init=>ProjectStartDate=value; }
-    public DateTime? ProjectCompletetDate { get => this.ProjectCompletetDate; init => ProjectCompletetDate = value; }
+    public  DateTime? ProjectStartDate { get => ProjectStartDate; init=>ProjectStartDate=value; }
+    public  DateTime? ProjectCompletetDate { get => ProjectCompletetDate; init => ProjectCompletetDate = value; }
 
-    public ProjectStatus CheckProjectStatus()
+    public  ProjectStatus CheckProjectStatus()
     {
-        throw new NotImplementedException();
+        if (ProjectStartDate == null)
+            return ProjectStatus.Planing;
+        if(Task.ReadAll(item=>item.ScheduledDate is null)is null)         
+            return ProjectStatus.Execution;
+        return ProjectStatus.Mid;
     }
 
     public void CreateSchedule()
