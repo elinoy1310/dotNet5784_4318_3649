@@ -9,8 +9,10 @@ internal class EngineerImplementation : IEngineer
 {
     private DalApi.IDal _dal = DalApi.Factory.Get;
 
+    private Bl bl=new Bl();
     public int Add(BO.Engineer engineer)
     {
+        bl.
         if (engineer.Id <= 0 || engineer.Name == null || engineer.Cost <= 0 || !System.Net.Mail.MailAddress.TryCreate(engineer.Email, out System.Net.Mail.MailAddress? empty))
             throw new BlWrongDataException("Invalid data");
         DO.Engineer newEngineer=new DO.Engineer(engineer.Id,engineer.Email,engineer.Cost,engineer.Name,(DO.EngineerExperience)engineer.level);

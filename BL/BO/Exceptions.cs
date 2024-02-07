@@ -56,3 +56,10 @@ public class BlCannotBeDeletedException : Exception
     public BlCannotBeDeletedException(string? message) : base(message) { }
 }
 
+[Serializable]
+public class BlCannotBeUpdatedException : Exception
+{
+    public BlCannotBeUpdatedException(string? message) : base(message) { }
+}
+
+
