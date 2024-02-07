@@ -1,5 +1,6 @@
 ﻿// See https://aka.ms/new-console-template for more information
 using System.Collections.Generic;
+using System.Runtime.ExceptionServices;
 using BO;
 using DalApi;
 
@@ -9,18 +10,24 @@ internal class Program
     static readonly BlApi.IBl s_bl = BlApi.Factory.Get();
     private static void Main(string[] args)
     {
-        try
-        {
-            Console.Write("Would you like to create Initial data? (Y/N)");
-            string? ans = Console.ReadLine() ?? throw new FormatException("Wrong input");
-            if (ans == "Y")
-                DalTest.Initialization.Do();
-            presentMainMenu();
-        }
-        catch (Exception ex)
-        {
-            Console.WriteLine(ex.Message);
-        }
+        s_bl.Engineer.Add(new BO.Engineer() { Id=89,Cost=55,Name="bbb",Email="aa@gmail.com"});
+        List<TaskInList> lst = new List<TaskInList>();
+        lst.Add(new TaskInList() { Id = 2, Alias = "ttt", Description = "hhh", Status = BO.Status.Scheduled });
+
+        s_bl.Task.Add(new BO.Task() { Id = 3, Dependencies = lst ,Alias="ggg"});
+        Console.WriteLine( s_bl.Task.Read(1));
+        //try
+        //{
+        //    Console.Write("Would you like to create Initial data? (Y/N)");
+        //    string? ans = Console.ReadLine() ?? throw new FormatException("Wrong input");
+        //    if (ans == "Y")
+        //        DalTest.Initialization.Do();
+        //    presentMainMenu();
+        //}
+        //catch (Exception ex)
+        //{
+        //    Console.WriteLine(ex.Message);
+        //}
     }
     private static void presentMainMenu()
     {

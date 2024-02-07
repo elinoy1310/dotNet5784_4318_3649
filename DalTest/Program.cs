@@ -11,11 +11,11 @@ internal class Program
 
     static readonly IDal s_dal = Factory.Get;
     static void Main(string[] args)
-    {           
+    {
         try
         {
-           
-           
+
+
             presentMainMenu();
         }
         catch (Exception ex)

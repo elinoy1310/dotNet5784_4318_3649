@@ -69,6 +69,8 @@ internal class TaskImplementation : ITask
 
     public IEnumerable<BO.TaskInList> ReadAll(Func<BO.Task, bool>? filter = null)
     {
+        List<TaskInList> hh=new List<TaskInList>();
+        return hh;
         //return (from DO.Task doTask in _dal.Task.ReadAll()
         //        select converFromDOtoBO(doTask));
     }

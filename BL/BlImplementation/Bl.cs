@@ -38,7 +38,7 @@ internal class Bl : IBl
 
         foreach (TaskInList task in tasksWithoutDep)
         {
-
+            updateSceduledDateInDep(task.Id);
         }
 
 
@@ -49,17 +49,16 @@ internal class Bl : IBl
         //id = id of task hat other tasks depends on her
         IEnumerable<TaskInList> dependOnTasks = Task.ReadAll(boTask => boTask.Dependencies!.FirstOrDefault(item => item.Id == id) != null);
         BO.Task dep = Task.Read(id);
-        if (dependOnTasks == null)
+        if (dependOnTasks != null)
             return;
-
-        foreach (TaskInList task in dependOnTasks)
+        foreach (TaskInList task in dependOnTasks!)
         {          
             BO.Task taskTODoStartDate = Task.Read(task.Id);
             if (taskTODoStartDate.ScheduledDate is null)
-                taskTODoStartDate.ScheduledDate = dep.ForecastDate;
+                taskTODoStartDate.StartDate= dep.ForecastDate;
             else
-                taskTODoStartDate.ScheduledDate = (dep.ScheduledDate > taskTODoStartDate.ScheduledDate) ? dep.ScheduledDate : taskTODoStartDate.ScheduledDate;
-            updateSceduledDateInDep(taskTODoStartDate.Id);
+                taskTODoStartDate.StartDate=(dep.ScheduledDate > taskTODoStartDate.ScheduledDate) ? dep.ScheduledDate : taskTODoStartDate.ScheduledDate;
+          updateSceduledDateInDep(taskTODoStartDate.Id);
         }
 
     }
