@@ -10,24 +10,24 @@ internal class Program
     static readonly BlApi.IBl s_bl = BlApi.Factory.Get();
     private static void Main(string[] args)
     {
-        s_bl.Engineer.Add(new BO.Engineer() { Id=89,Cost=55,Name="bbb",Email="aa@gmail.com"});
-        List<TaskInList> lst = new List<TaskInList>();
-        lst.Add(new TaskInList() { Id = 2, Alias = "ttt", Description = "hhh", Status = BO.Status.Scheduled });
+        //s_bl.Engineer.Create(new BO.Engineer() { Id=89,Cost=55,Name="bbb",Email="aa@gmail.com"});
+        //List<TaskInList> lst = new List<TaskInList>();
+        //lst.Add(new TaskInList() { Id = 2, Alias = "ttt", Description = "hhh", Status = BO.Status.Scheduled });
 
-        s_bl.Task.Add(new BO.Task() { Id = 3, Dependencies = lst ,Alias="ggg"});
-        Console.WriteLine( s_bl.Task.Read(1));
+        //s_bl.Task.Add(new BO.Task() { Id = 3, Dependencies = lst ,Alias="ggg"});
+        //Console.WriteLine( s_bl.Task.Read(1));
         //try
-        //{
-        //    Console.Write("Would you like to create Initial data? (Y/N)");
-        //    string? ans = Console.ReadLine() ?? throw new FormatException("Wrong input");
-        //    if (ans == "Y")
-        //        DalTest.Initialization.Do();
-        //    presentMainMenu();
-        //}
-        //catch (Exception ex)
-        //{
-        //    Console.WriteLine(ex.Message);
-        //}
+        {
+            Console.Write("Would you like to create Initial data? (Y/N)");
+            string? ans = Console.ReadLine() ?? throw new FormatException("Wrong input");
+            if (ans == "Y")
+                DalTest.Initialization.Do();
+            presentMainMenu();
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine(ex.Message);
+        }
     }
     private static void presentMainMenu()
     {
@@ -228,7 +228,7 @@ internal class Program
         {
             case MainMenu.Engineer:
                 // Create a new Engineer record and display the result
-                Console.WriteLine(s_bl.Engineer!.Add(newEngineer()));
+                Console.WriteLine(s_bl.Engineer!.Create(newEngineer()));
                 break;
             case MainMenu.Task:
                 // Create a new Task record and display the result

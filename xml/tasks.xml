@@ -5,13 +5,8 @@
     <Alias>c.c.w.r.</Alias>
     <Description>(Checking compliance with regulations),Investigating and ensuring compliance with relevant electrical standards and regulations.</Description>
     <IsMileStone>false</IsMileStone>
-    <RequiredEffortTime xsi:nil="true" />
     <CreatedInDate>2024-01-20T00:00:00</CreatedInDate>
-    <ScheduledDate xsi:nil="true" />
-    <StartDate xsi:nil="true" />
-    <CompleteDate xsi:nil="true" />
     <Deadline xsi:nil="true" />
-    <EngineerId xsi:nil="true" />
     <Complexity>Intermediate</Complexity>
   </Task>
   <Task>
@@ -19,13 +14,8 @@
     <Alias>s.a.d.</Alias>
     <Description>(System architecture design) Development of system architecture and high-level schemes.</Description>
     <IsMileStone>false</IsMileStone>
-    <RequiredEffortTime xsi:nil="true" />
     <CreatedInDate>2024-01-12T00:00:00</CreatedInDate>
-    <ScheduledDate xsi:nil="true" />
-    <StartDate xsi:nil="true" />
-    <CompleteDate xsi:nil="true" />
     <Deadline xsi:nil="true" />
-    <EngineerId xsi:nil="true" />
     <Complexity>Expert</Complexity>
   </Task>
   <Task>
@@ -33,13 +23,8 @@
     <Alias>c.s.a.s.</Alias>
     <Description>(Component selection and specification) Selection and specification of electrical components according to project requirements.</Description>
     <IsMileStone>false</IsMileStone>
-    <RequiredEffortTime xsi:nil="true" />
     <CreatedInDate>2024-01-13T00:00:00</CreatedInDate>
-    <ScheduledDate xsi:nil="true" />
-    <StartDate xsi:nil="true" />
-    <CompleteDate xsi:nil="true" />
     <Deadline xsi:nil="true" />
-    <EngineerId xsi:nil="true" />
     <Complexity>Intermediate</Complexity>
   </Task>
   <Task>
@@ -47,13 +32,8 @@
     <Alias>r.a.</Alias>
     <Description>(Risk assessment) Identifying potential risks.</Description>
     <IsMileStone>false</IsMileStone>
-    <RequiredEffortTime xsi:nil="true" />
     <CreatedInDate>2024-01-03T00:00:00</CreatedInDate>
-    <ScheduledDate xsi:nil="true" />
-    <StartDate xsi:nil="true" />
-    <CompleteDate xsi:nil="true" />
     <Deadline xsi:nil="true" />
-    <EngineerId xsi:nil="true" />
     <Complexity>Expert</Complexity>
   </Task>
   <Task>
@@ -61,13 +41,8 @@
     <Alias>r.p.</Alias>
     <Description>(Reduction plan) Developing a mitigation plan to address potential risks.</Description>
     <IsMileStone>false</IsMileStone>
-    <RequiredEffortTime xsi:nil="true" />
     <CreatedInDate>2024-01-18T00:00:00</CreatedInDate>
-    <ScheduledDate xsi:nil="true" />
-    <StartDate xsi:nil="true" />
-    <CompleteDate xsi:nil="true" />
     <Deadline xsi:nil="true" />
-    <EngineerId xsi:nil="true" />
     <Complexity>Intermediate</Complexity>
   </Task>
   <Task>
@@ -75,13 +50,8 @@
     <Alias>b.p.</Alias>
     <Description>(Budget planning) Creating a detailed budget, estimating costs for materials, labor, and equipment.</Description>
     <IsMileStone>false</IsMileStone>
-    <RequiredEffortTime xsi:nil="true" />
     <CreatedInDate>2024-01-14T00:00:00</CreatedInDate>
-    <ScheduledDate xsi:nil="true" />
-    <StartDate xsi:nil="true" />
-    <CompleteDate xsi:nil="true" />
     <Deadline xsi:nil="true" />
-    <EngineerId xsi:nil="true" />
     <Complexity>Expert</Complexity>
   </Task>
   <Task>
@@ -89,13 +59,8 @@
     <Alias>p.s.</Alias>
     <Description>(Procurement strategy) Planning and implementing a strategy for purchasing necessary components, taking into account delivery times and suppliers.</Description>
     <IsMileStone>false</IsMileStone>
-    <RequiredEffortTime xsi:nil="true" />
     <CreatedInDate>2024-01-22T00:00:00</CreatedInDate>
-    <ScheduledDate xsi:nil="true" />
-    <StartDate xsi:nil="true" />
-    <CompleteDate xsi:nil="true" />
     <Deadline xsi:nil="true" />
-    <EngineerId xsi:nil="true" />
     <Complexity>Expert</Complexity>
   </Task>
   <Task>
@@ -103,13 +68,8 @@
     <Alias>s.a.w.d.</Alias>
     <Description>(Schematic and wiring diagrams) Creating detailed schematics and wiring diagrams for the electrical system.</Description>
     <IsMileStone>false</IsMileStone>
-    <RequiredEffortTime xsi:nil="true" />
     <CreatedInDate>2024-01-17T00:00:00</CreatedInDate>
-    <ScheduledDate xsi:nil="true" />
-    <StartDate xsi:nil="true" />
-    <CompleteDate xsi:nil="true" />
     <Deadline xsi:nil="true" />
-    <EngineerId xsi:nil="true" />
     <Complexity>Advanced</Complexity>
   </Task>
   <Task>
@@ -117,13 +77,8 @@
     <Alias>p.d.</Alias>
     <Description>(Prototype development) Developing prototypes for critical components and performing tests to verify functionality.</Description>
     <IsMileStone>false</IsMileStone>
-    <RequiredEffortTime xsi:nil="true" />
     <CreatedInDate>2024-01-20T00:00:00</CreatedInDate>
-    <ScheduledDate xsi:nil="true" />
-    <StartDate xsi:nil="true" />
-    <CompleteDate xsi:nil="true" />
     <Deadline xsi:nil="true" />
-    <EngineerId xsi:nil="true" />
     <Complexity>Expert</Complexity>
   </Task>
   <Task>
@@ -131,13 +86,8 @@
     <Alias>d.d.</Alias>
     <Description>(Detailed design) Creating a detailed electrical design, specifying connections, cable routes, and control logic.</Description>
     <IsMileStone>false</IsMileStone>
-    <RequiredEffortTime xsi:nil="true" />
     <CreatedInDate>2024-01-12T00:00:00</CreatedInDate>
-    <ScheduledDate xsi:nil="true" />
-    <StartDate xsi:nil="true" />
-    <CompleteDate xsi:nil="true" />
     <Deadline xsi:nil="true" />
-    <EngineerId xsi:nil="true" />
     <Complexity>Beginner</Complexity>
   </Task>
   <Task>
@@ -145,13 +95,8 @@
     <Alias>e.e.a.</Alias>
     <Description>(Energy efficiency analysis) Analysis and optimization of the energy efficiency of the planned electrical system.</Description>
     <IsMileStone>false</IsMileStone>
-    <RequiredEffortTime xsi:nil="true" />
     <CreatedInDate>2024-01-07T00:00:00</CreatedInDate>
-    <ScheduledDate xsi:nil="true" />
-    <StartDate xsi:nil="true" />
-    <CompleteDate xsi:nil="true" />
     <Deadline xsi:nil="true" />
-    <EngineerId xsi:nil="true" />
     <Complexity>Beginner</Complexity>
   </Task>
   <Task>
@@ -159,13 +104,8 @@
     <Alias>d.o.a.s.p</Alias>
     <Description>(Development of a safety plan) Development of a comprehensive safety plan for the installation and operation of the electrical system.</Description>
     <IsMileStone>false</IsMileStone>
-    <RequiredEffortTime xsi:nil="true" />
     <CreatedInDate>2024-01-18T00:00:00</CreatedInDate>
-    <ScheduledDate xsi:nil="true" />
-    <StartDate xsi:nil="true" />
-    <CompleteDate xsi:nil="true" />
     <Deadline xsi:nil="true" />
-    <EngineerId xsi:nil="true" />
     <Complexity>AdvancedBeginner</Complexity>
   </Task>
   <Task>
@@ -173,13 +113,8 @@
     <Alias>c.w.o.a.</Alias>
     <Description>(Coordination with other areas) Coordination with professionals from other disciplines to ensure seamless integration of electrical systems.</Description>
     <IsMileStone>false</IsMileStone>
-    <RequiredEffortTime xsi:nil="true" />
     <CreatedInDate>2024-01-15T00:00:00</CreatedInDate>
-    <ScheduledDate xsi:nil="true" />
-    <StartDate xsi:nil="true" />
-    <CompleteDate xsi:nil="true" />
     <Deadline xsi:nil="true" />
-    <EngineerId xsi:nil="true" />
     <Complexity>Advanced</Complexity>
   </Task>
   <Task>
@@ -187,13 +122,8 @@
     <Alias>i.p.</Alias>
     <Description>(Installation plan) Planning the installation process, including sequence, logistics and coordination with the installation teams.</Description>
     <IsMileStone>false</IsMileStone>
-    <RequiredEffortTime xsi:nil="true" />
     <CreatedInDate>2024-01-13T00:00:00</CreatedInDate>
-    <ScheduledDate xsi:nil="true" />
-    <StartDate xsi:nil="true" />
-    <CompleteDate xsi:nil="true" />
     <Deadline xsi:nil="true" />
-    <EngineerId xsi:nil="true" />
     <Complexity>Intermediate</Complexity>
   </Task>
   <Task>
@@ -201,13 +131,8 @@
     <Alias>q.a.p.</Alias>
     <Description>(Quality assurance protocol) Development and implementation of a quality assurance protocol to ensure compliance with design specifications.</Description>
     <IsMileStone>false</IsMileStone>
-    <RequiredEffortTime xsi:nil="true" />
     <CreatedInDate>2024-01-15T00:00:00</CreatedInDate>
-    <ScheduledDate xsi:nil="true" />
-    <StartDate xsi:nil="true" />
-    <CompleteDate xsi:nil="true" />
     <Deadline xsi:nil="true" />
-    <EngineerId xsi:nil="true" />
     <Complexity>Advanced</Complexity>
   </Task>
   <Task>
@@ -215,13 +140,8 @@
     <Alias>t.p.</Alias>
     <Description>(Test procedures) Development of detailed test procedures for different phases of the project, including acceptance tests.</Description>
     <IsMileStone>false</IsMileStone>
-    <RequiredEffortTime xsi:nil="true" />
     <CreatedInDate>2024-01-08T00:00:00</CreatedInDate>
-    <ScheduledDate xsi:nil="true" />
-    <StartDate xsi:nil="true" />
-    <CompleteDate xsi:nil="true" />
     <Deadline xsi:nil="true" />
-    <EngineerId xsi:nil="true" />
     <Complexity>Beginner</Complexity>
   </Task>
   <Task>
@@ -229,13 +149,8 @@
     <Alias>c.d.</Alias>
     <Description>(Create documentation) Creating comprehensive documentation, including operating manuals, maintenance manuals, and as-built drawings.</Description>
     <IsMileStone>false</IsMileStone>
-    <RequiredEffortTime xsi:nil="true" />
     <CreatedInDate>2024-01-15T00:00:00</CreatedInDate>
-    <ScheduledDate xsi:nil="true" />
-    <StartDate xsi:nil="true" />
-    <CompleteDate xsi:nil="true" />
     <Deadline xsi:nil="true" />
-    <EngineerId xsi:nil="true" />
     <Complexity>Beginner</Complexity>
   </Task>
   <Task>
@@ -243,13 +158,8 @@
     <Alias>c.c.p</Alias>
     <Description>(Customer communication plan) Creating a plan for ongoing communication with the client, including project updates and milestone reviews.</Description>
     <IsMileStone>false</IsMileStone>
-    <RequiredEffortTime xsi:nil="true" />
     <CreatedInDate>2024-01-21T00:00:00</CreatedInDate>
-    <ScheduledDate xsi:nil="true" />
-    <StartDate xsi:nil="true" />
-    <CompleteDate xsi:nil="true" />
     <Deadline xsi:nil="true" />
-    <EngineerId xsi:nil="true" />
     <Complexity>Beginner</Complexity>
   </Task>
   <Task>
@@ -257,13 +167,8 @@
     <Alias>t.p.d</Alias>
     <Description>(Training program development) Developing a training program for maintenance personnel to ensure they can operate the system effectively.</Description>
     <IsMileStone>false</IsMileStone>
-    <RequiredEffortTime xsi:nil="true" />
     <CreatedInDate>2024-01-18T00:00:00</CreatedInDate>
-    <ScheduledDate xsi:nil="true" />
-    <StartDate xsi:nil="true" />
-    <CompleteDate xsi:nil="true" />
     <Deadline xsi:nil="true" />
-    <EngineerId xsi:nil="true" />
     <Complexity>Expert</Complexity>
   </Task>
   <Task>
@@ -271,13 +176,16 @@
     <Alias>o.s.</Alias>
     <Description>(Order supervision) Supervising the start-up phase, making sure that all the components work correctly and meet the specifications.</Description>
     <IsMileStone>false</IsMileStone>
-    <RequiredEffortTime xsi:nil="true" />
     <CreatedInDate>2024-01-06T00:00:00</CreatedInDate>
-    <ScheduledDate xsi:nil="true" />
-    <StartDate xsi:nil="true" />
-    <CompleteDate xsi:nil="true" />
     <Deadline xsi:nil="true" />
-    <EngineerId xsi:nil="true" />
     <Complexity>AdvancedBeginner</Complexity>
+  </Task>
+  <Task>
+    <Id>1100</Id>
+    <Alias>ggg</Alias>
+    <IsMileStone>false</IsMileStone>
+    <CreatedInDate xsi:nil="true" />
+    <Deadline xsi:nil="true" />
+    <Complexity>Beginner</Complexity>
   </Task>
 </ArrayOfTask>
