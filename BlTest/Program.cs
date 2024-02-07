@@ -16,7 +16,7 @@ internal class Program
 
         //s_bl.Task.Add(new BO.Task() { Id = 3, Dependencies = lst ,Alias="ggg"});
         //Console.WriteLine( s_bl.Task.Read(1));
-        //try
+        try
         {
             Console.Write("Would you like to create Initial data? (Y/N)");
             string? ans = Console.ReadLine() ?? throw new FormatException("Wrong input");
@@ -37,7 +37,7 @@ internal class Program
             try
             {
 
-                Console.WriteLine("Select an entity you want to check\r\n0=Exit the main menu\r\n1=ngineer\r\n2=Task");
+                Console.WriteLine("Select an entity you want to check\r\n0=Exit the main menu\r\n1=Engineer\r\n2=Task");
                 // Read user input for main menu option
                 string chooseMainMenu = Console.ReadLine()!;
                 MainMenu optionMainMenu = (MainMenu)int.Parse(chooseMainMenu);
@@ -232,7 +232,7 @@ internal class Program
                 break;
             case MainMenu.Task:
                 // Create a new Task record and display the result
-                Console.WriteLine(s_bl!.Task.Add(newTask()));
+                Console.WriteLine(s_bl!.Task.Create(newTask()));
                 break;
         }
     }
