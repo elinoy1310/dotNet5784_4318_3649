@@ -1,9 +1,9 @@
 ﻿
 namespace Dal;
 
-using System.Collections.Generic;
 using DalApi;
 using DO;
+using System.Collections.Generic;
 
 internal class DependencyImplementation : IDependency
 {
@@ -12,12 +12,12 @@ internal class DependencyImplementation : IDependency
     /// </summary>
     /// <param name="item">The item we want to add to the list</param>
     /// <returns></returns>
-    public int Create(Dependency item) 
+    public int Create(Dependency item)
     {
         int newId = DataSource.Config.NextDependencyId;
-        Dependency copy=item with { Id= newId };
-        DataSource.Dependencys.Add(copy);   
-        return newId;   
+        Dependency copy = item with { Id = newId };
+        DataSource.Dependencys.Add(copy);
+        return newId;
     }
     /// <summary>
     /// Deleting an existing object with a certain ID from the list
@@ -51,7 +51,7 @@ internal class DependencyImplementation : IDependency
         if (found != null)
             return found;
         else
-            return null;    
+            return null;
     }
 
     /// <summary>
@@ -92,8 +92,8 @@ internal class DependencyImplementation : IDependency
     /// <param name="item">The object with the updated details</param>
     public void Update(Dependency item)
     {
-        Delete(item.Id);    
-        DataSource.Dependencys.Add(item);   
+        Delete(item.Id);
+        DataSource.Dependencys.Add(item);
     }
 
 }

@@ -180,7 +180,7 @@ internal class Program
         return newEngineer;
     }
 
-    private static BO.Task newTask(int id=-1)
+    private static BO.Task newTask(int id=0)
     {
         //user input
         Console.WriteLine("enter alias,description,required effort time");
@@ -203,7 +203,7 @@ internal class Program
             }
             numDep = int.Parse(Console.ReadLine() ?? "0");
         }
-        Console.WriteLine("enter deliverables,remarks,engineer id,complexity");
+        Console.WriteLine("enter deliverables,remarks,engineer id,engineer name,complexity");
         //if (DateTime.TryParse(Console.ReadLine(), out DateTime scheduledDate))
         //    throw new BlWrongInputFormatException("input not in DateTime format");
         //if (DateTime.TryParse(Console.ReadLine(), out DateTime startDate))

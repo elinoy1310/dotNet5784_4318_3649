@@ -13,7 +13,7 @@ internal class TaskImplementation : ITask
     
     public int Create(BO.Task task)
     {
-        if (task.Id > 0 && task.Alias != null)
+        if (task.Id >= 0 && task.Alias != null)
         {
             int? engineerId = task.Engineer is not null ? task.Engineer.Id : null;
             DO.Task doTask = new DO.Task(task.Id, task.Alias, task.Description, false, task.RequiredEffortTime, task.CreatedAtDate, task.ScheduledDate, task.StartDate, task.CompleteDate, null, task.Deliverables, task.Remarks, engineerId);
