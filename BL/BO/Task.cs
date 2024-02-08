@@ -10,9 +10,7 @@ public class Task
     public string? Description { get; set; }
     public string? Alias { get; set; }
     public DateTime? CreatedAtDate { get; init; }
-
     public Status Status { get; set; }
-
     public List<TaskInList>? Dependencies { get; set; }
     public TimeSpan? RequiredEffortTime { get; set; }
     public DateTime? StartDate { get; set; }
