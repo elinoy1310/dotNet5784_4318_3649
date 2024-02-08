@@ -2,6 +2,7 @@
 
 using BlApi;
 using BO;
+using DalApi;
 using System.Collections.Immutable;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 
@@ -9,16 +10,15 @@ namespace BlImplementation;
 
 internal class Bl : IBl
 {
-    public IEngineer Engineer => new EngineerImplementation();
+    public BlApi.IEngineer Engineer => new EngineerImplementation();
 
-    public ITask Task => new TaskImplementation();
+    public BlApi.ITask Task => new TaskImplementation();
 
-    public  DateTime? ProjectStartDate { get => ProjectStartDate; init=>ProjectStartDate=value; }
-    public  DateTime? ProjectCompletetDate { get => ProjectCompletetDate; init => ProjectCompletetDate = value; }
+    private DalApi.IDal _dal = DalApi.Factory.Get;
 
     public  ProjectStatus CheckProjectStatus()
     {
-        if (ProjectStartDate == null)
+        if (_dal.ProjectStartDate == null)
             return ProjectStatus.Planing;
         if(Task.ReadAll(item=>item.ScheduledDate is null)is null)         
             return ProjectStatus.Execution;
@@ -31,7 +31,7 @@ internal class Bl : IBl
         //יש לכל משימה משך זמן ורמת מורכבות
         //יש תלויות
         //צריך לעדכן לכל משימה את  הscheduled date
-        DateTime start = ProjectStartDate!.Value;
+        DateTime start = _dal.ProjectStartDate!.Value;
         IEnumerable<TaskInList> tasksWithoutDep = Task.ReadAll(boTask => boTask.Dependencies == null);
         foreach(TaskInList task in tasksWithoutDep)
         {

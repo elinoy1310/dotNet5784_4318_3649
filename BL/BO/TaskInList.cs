@@ -10,5 +10,4 @@ public class TaskInList
     public Status Status { get; set; }
     public override string ToString() => this.ToStringProperty();
 
-
 }

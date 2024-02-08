@@ -12,5 +12,17 @@ sealed internal class DalXml : IDal
 
     public ITask Task =>  new TaskImplementation();
 
+    public DateTime? ProjectStartDate
+    {
+        get { return Config.ProjectStartDate; }
+        set { Config.ProjectStartDate = value; }
+    }
+
+    public DateTime? ProjectCompletetDate
+    {
+        get { return Config.ProjectCompletetDate; }
+        set { Config.ProjectCompletetDate = value; }
+    }
+
     private DalXml() { }
 }
