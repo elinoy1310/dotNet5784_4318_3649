@@ -152,8 +152,13 @@ internal class Program
                 Console.WriteLine("enter the task's id you want to update");
                 int idTask = int.Parse(Console.ReadLine()??"0");
                 s_bl.Task.Read(idTask);
+                Console.WriteLine("Enter the ID of the engineer working on this task");
+                int engineerId = int.Parse(Console.ReadLine()!);
                 // Update the Dependency record with new user input
-                s_bl!.Task.Update(newTask(idTask));
+                BO.Task updateTask = newTask(idTask);
+                BO.EngineerInTask eng=new BO.EngineerInTask() { Id= engineerId };
+                updateTask.Engineer= eng;
+                s_bl!.Task.Update(updateTask);
                 break;
         }
     }
