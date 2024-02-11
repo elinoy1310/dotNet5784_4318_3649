@@ -8,7 +8,6 @@ using BlImplementation;
 internal class Program
 {
     static readonly BlApi.IBl s_bl = BlApi.Factory.Get();
-    static readonly Bl bL=new Bl();
     private static void Main(string[] args)
     {
         //s_bl.Engineer.Create(new BO.Engineer() { Id=89,Cost=55,Name="bbb",Email="aa@gmail.com"});
@@ -48,7 +47,7 @@ internal class Program
                 else if (optionMainMenu == MainMenu.Task || optionMainMenu == MainMenu.Engineer)
                     presentSubMenu(optionMainMenu);
                 else if((int)optionMainMenu==3)
-                    bL!.CreateSchedule();
+                    s_bl.CreateSchedule();
                 else
                     throw new BlWrongInputFormatException("enter a number between 0-3");
             }
