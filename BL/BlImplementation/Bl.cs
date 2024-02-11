@@ -15,10 +15,11 @@ public class Bl : IBl
     public BlApi.ITask Task => new TaskImplementation();
 
     private DalApi.IDal _dal = DalApi.Factory.Get;
+    public DateTime? ProjectStartDate { get => _dal.ProjectStartDate; set => _dal.ProjectStartDate=value; }
 
     public  ProjectStatus CheckProjectStatus()
     {
-        if (_dal.ProjectStartDate == null)
+        if (ProjectStartDate == null)
             return ProjectStatus.Planing;
         if(Task.ReadAll(item=>item.ScheduledDate is null)is null)         
             return ProjectStatus.Execution;

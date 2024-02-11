@@ -13,7 +13,7 @@ sealed internal class DalList : IDal
 
     public DateTime? ProjectStartDate
     {
-        get { return DateTime.Now /*DataSource.Config.ProjectStartDate*/; }
+        get { return DataSource.Config.ProjectStartDate; }
         set { DataSource.Config.ProjectStartDate = value; }
     }
 
