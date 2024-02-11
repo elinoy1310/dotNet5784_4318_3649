@@ -138,7 +138,6 @@ internal class Program
 
     private static void updateSubMenu(MainMenu entity)
     {
-        readSubMenu(entity);
         switch (entity)
         {
             case MainMenu.Engineer:
@@ -149,6 +148,7 @@ internal class Program
                 // Update the Task record with new user input
                 Console.WriteLine("enter the task's id you want to update");
                 int idTask = int.Parse(Console.ReadLine()??"0");
+                s_bl.Task.Read(idTask);
                 // Update the Dependency record with new user input
                 s_bl!.Task.Update(newTask(idTask));
                 break;
@@ -203,7 +203,7 @@ internal class Program
             }
             numDep = int.Parse(Console.ReadLine() ?? "0");
         }
-        Console.WriteLine("enter deliverables,remarks,engineer id,engineer name,complexity");
+        Console.WriteLine("enter deliverables,remarks,complexity");
         //if (DateTime.TryParse(Console.ReadLine(), out DateTime scheduledDate))
         //    throw new BlWrongInputFormatException("input not in DateTime format");
         //if (DateTime.TryParse(Console.ReadLine(), out DateTime startDate))
@@ -216,12 +216,9 @@ internal class Program
 
         string deliverables = Console.ReadLine() ?? "";
         string remarks = Console.ReadLine() ?? "";
-        int engineerId = int.Parse(Console.ReadLine() ?? "");
-        string engineerName = Console.ReadLine() ?? "";
-        EngineerInTask engineer= new EngineerInTask() { Id=engineerId, Name=engineerName };
         EngineerExperience complexity = (EngineerExperience)int.Parse(Console.ReadLine() ?? "0");
         //create new Task and returns it
-        BO.Task newTask = new BO.Task() {Id=id, Alias=alias, Description=description, RequiredEffortTime=requiredEffortTime, /*ScheduledDate=scheduledDate, CreatedAtDate=createdInDate,Status=status*/ Dependencies=listDep ,/* StartDate=startDate,ForecastDate=forecastDate ,CompleteDate=completeDate*/Deliverables=deliverables, Remarks=remarks,Engineer=engineer ,Complexity=complexity };  
+        BO.Task newTask = new BO.Task() {Id=id, Alias=alias, Description=description, RequiredEffortTime=requiredEffortTime, /*ScheduledDate=scheduledDate, CreatedAtDate=createdInDate,Status=status*/ Dependencies=listDep ,/* StartDate=startDate,ForecastDate=forecastDate ,CompleteDate=completeDate*/Deliverables=deliverables, Remarks=remarks,/*Engineer=engineer ,*/Complexity=complexity };  
         return newTask;
     }
     // dependencies 

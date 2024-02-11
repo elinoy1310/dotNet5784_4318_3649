@@ -10,7 +10,7 @@ namespace BlImplementation;
 internal class TaskImplementation : ITask
 {
     private DalApi.IDal _dal = DalApi.Factory.Get;
-    
+    //לא לאפשר הכנסת מהנדס למשימה
     public int Create(BO.Task task)
     {
         if (task.Id >= 0 && task.Alias != null)
@@ -55,7 +55,7 @@ internal class TaskImplementation : ITask
     {
         // אי אפשר למחוק אחרי יצירת לוז
         BO.Task DelTask = Read(id);
-        if (DelTask == null || returnDepTask(DelTask.Id) != null) 
+        if (DelTask == null || _dal.Dependency.ReadAll().FirstOrDefault(d => d?.DependsOnTask == id) != null) 
             throw new BlCannotBeDeletedException($"Task with ID={id} cannot be deleted");
         _dal.Task.Delete(DelTask.Id);
     }
@@ -68,18 +68,18 @@ internal class TaskImplementation : ITask
         return converFromDOtoBO(taskRead);
     }
 
-    public BO.Task? Read(Func<BO.Task, bool> filter)
+    public BO.Task? Read(Func<BO.Task, bool> filter)//עדכון NAMEengineer
     {
         IEnumerable <BO.Task> convertAll= from item in _dal.Task.ReadAll()
                                           let convertItem = converFromDOtoBO(item)
                                           select convertItem;
         if (filter != null)
-            return convertAll.FirstOrDefault(filter);
+             convertAll.FirstOrDefault(filter);
         return convertAll.FirstOrDefault();
     }
 
 
-    public IEnumerable<BO.TaskInList> ReadAll(Func<BO.Task, bool>? filter = null)
+    public IEnumerable<BO.TaskInList> ReadAll(Func<BO.Task, bool>? filter = null) //לא מדפיס הכל ולא לזרוק שגיאה אם לא מוצא את המהנדס
     {
         if (filter!=null)
         {
@@ -96,10 +96,17 @@ internal class TaskImplementation : ITask
                     select new BO.TaskInList { Id = convertItem.Id, Alias = convertItem.Alias, Description = convertItem.Description, Status = convertItem.Status });
     }
 
-    public void Update(BO.Task task)
+    public void Update(BO.Task task)//עדכון הID רק אם המהנדס ברמה
     {
         BO.Task updateTask = Read(task.Id);
-        DO.Task convertFromBOtoDO = new DO.Task(updateTask.Id, updateTask.Alias, updateTask.Description, false, updateTask.RequiredEffortTime, updateTask.CreatedAtDate, updateTask.ScheduledDate, updateTask.StartDate, updateTask.CompleteDate, null, updateTask.Deliverables, updateTask.Remarks, updateTask.Engineer?.Id, (DO.EngineerExperience)updateTask.Complexity);
+        Console.WriteLine("Enter the ID of the engineer working on this task");
+        int engineerId = int.Parse(Console.ReadLine()!);
+        DO.Engineer? engInTask=_dal.Engineer.ReadAll().FirstOrDefault(e => e?.Id == engineerId);
+        if (engInTask==null)
+            throw new BlDoesNotExistException($"Engineer with ID={engineerId} was not found");
+        if ((int)engInTask.Level < (int)updateTask.Complexity)
+            throw new Exception("The level of the engineer is too low for the level of the task");
+        DO.Task convertFromBOtoDO = new DO.Task(updateTask.Id, updateTask.Alias, updateTask.Description, false, updateTask.RequiredEffortTime, updateTask.CreatedAtDate, updateTask.ScheduledDate, updateTask.StartDate, updateTask.CompleteDate, null, updateTask.Deliverables, updateTask.Remarks, engineerId, (DO.EngineerExperience)updateTask.Complexity);
         _dal.Task.Update(convertFromBOtoDO);
     }
 
@@ -120,19 +127,27 @@ internal class TaskImplementation : ITask
     public List<TaskInList> returnDepTask(int id)
     {
         List<TaskInList> depTaskInLists = new List<TaskInList>();
-        var depGroup = from dep in _dal.Dependency.ReadAll()
-                       group dep by dep.Dependent into d
-                       select d;
-        foreach (var item in depGroup)
+        //var depGroup = from dep in _dal.Dependency.ReadAll()
+        //               group dep by dep.Dependent into d
+        //               select d;
+        //foreach (var item in depGroup)
+        //{
+        //    if (item.Key == id)
+        //    {
+        //        foreach (var d in item)
+        //        {
+        //            DO.Task task1depTask = _dal.Task.ReadAll().FirstOrDefault(t => t?.Id == d.DependsOnTask) ?? throw new BlDoesNotExistException($"Task with ID={d.DependsOnTask} does Not exist");
+        //            depTaskInLists.Add(new TaskInList { Id = task1depTask.Id, Alias = task1depTask.Alias, Description = task1depTask.Description, Status = statusCalculation(task1depTask) });
+        //        }
+        //    }
+        //}
+        var depList = from dep in _dal.Dependency.ReadAll()
+                      where (dep.Dependent == id)
+                      select dep.DependsOnTask;
+        foreach (var item in depList)
         {
-            if (item.Key == id)
-            {
-                foreach (var d in item)
-                {
-                    DO.Task task1depTask = _dal.Task.ReadAll().FirstOrDefault(t => t?.Id == d.DependsOnTask) ?? throw new BlDoesNotExistException($"Task with ID={d.DependsOnTask} does Not exist");
-                    depTaskInLists.Add(new TaskInList { Id = task1depTask.Id, Alias = task1depTask.Alias, Description = task1depTask.Description, Status = statusCalculation(task1depTask) });
-                }
-            }
+            DO.Task depTask = _dal.Task.ReadAll().FirstOrDefault(t => t?.Id == item) ?? throw new BlDoesNotExistException($"Task with ID={item} does Not exist");
+            depTaskInLists.Add(new TaskInList { Id = depTask.Id, Alias = depTask.Alias, Description = depTask.Description, Status = statusCalculation(depTask) });
         }
         return depTaskInLists;
     }
@@ -140,8 +155,13 @@ internal class TaskImplementation : ITask
 
     private EngineerInTask returnEngineerOnTask(DO.Task task)
     {
-        DO.Engineer eng = _dal.Engineer.ReadAll().FirstOrDefault(e => e?.Id == task.EngineerId) ?? throw new BlDoesNotExistException($"Engineer with ID={task.EngineerId} does Not exist");
-        return new EngineerInTask { Id = eng.Id, Name = eng.Name };
+        if (task.EngineerId == null)
+            return null!;
+        else
+        {
+            DO.Engineer eng = _dal.Engineer.ReadAll().FirstOrDefault(e => e?.Id == task.EngineerId) ?? throw new BlDoesNotExistException($"Engineer with ID={task.EngineerId} does Not exist");
+            return new EngineerInTask { Id = eng.Id, Name = eng.Name };
+        }
     }
 
     private BO.Task converFromDOtoBO(DO.Task task)
