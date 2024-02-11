@@ -22,7 +22,7 @@ internal class TaskImplementation : ITask
             {
                 foreach (var d in task.Dependencies)
                 {
-                    _dal.Dependency.Create(new DO.Dependency(0, task.Id, d.Id));
+                    _dal.Dependency.Create(new DO.Dependency(0,idNewTask, d.Id));
                 }
             }
             return idNewTask;
