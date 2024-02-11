@@ -35,8 +35,7 @@ internal class EngineerImplementation : BlApi.IEngineer
 
     public void Delete(int id)
     {
-        BO.Engineer boEngineer = Read(id);
-        if (boEngineer!.Task is not null)
+        if (createTaskInEngineer(id) is not null)
             throw new BlCannotBeDeletedException("Can't Delete an Engineer who has already finished performing a task or is actively performing a task");
         try
         {

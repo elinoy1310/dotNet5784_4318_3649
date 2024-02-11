@@ -16,7 +16,7 @@ internal class TaskImplementation : ITask
         if (task.Id >= 0 && task.Alias != null)
         {
             int? engineerId = task.Engineer is not null ? task.Engineer.Id : null;
-            DO.Task doTask = new DO.Task(task.Id, task.Alias, task.Description, false, task.RequiredEffortTime, task.CreatedAtDate, task.ScheduledDate, task.StartDate, task.CompleteDate, null, task.Deliverables, task.Remarks, engineerId);
+            DO.Task doTask = new DO.Task(task.Id, task.Alias, task.Description, false, task.RequiredEffortTime, task.CreatedAtDate, task.ScheduledDate, task.StartDate, task.CompleteDate, null, task.Deliverables, task.Remarks, engineerId,(DO.EngineerExperience)task.Complexity);
             int idNewTask = _dal.Task.Create(doTask);
             if (task.Dependencies is not null)
             {
@@ -34,7 +34,7 @@ internal class TaskImplementation : ITask
 
     public void CreateStartDate(int id, DateTime date)
     {
-        List <TaskInList> list = returnDepTask(id);
+        List <TaskInList> list = returnDepTask(id).ToList();
         var tempListStatus = list.Select(task => task.Status == Status.Unscheduled).ToList();
         if (tempListStatus != null)
             throw new BlNotUpdatedDataException($"Not all start dates of previous tasks of task with ID={id} updates");
@@ -123,7 +123,7 @@ internal class TaskImplementation : ITask
         return status;
     }
 
-    public List<TaskInList> returnDepTask(int id)
+    public IEnumerable<TaskInList> returnDepTask(int id)
     {
         List<TaskInList> depTaskInLists = new List<TaskInList>();
         //var depGroup = from dep in _dal.Dependency.ReadAll()
