@@ -13,12 +13,27 @@ public static class Tools
             string str = "";
             foreach (PropertyInfo prop in t.GetType().GetProperties())
             {
-                var value = prop.GetValue(t, null);
-                if (value is IEnumerable)
-                    foreach (var item in (IEnumerable)value)
-                        str += item.ToStringProperty("   ");
-                else
-                    str += "\n" + suffix + prop.Name + ": " + value;
+           
+            var value = prop.GetValue(t, null);
+            
+            if (value is IEnumerable)
+            {
+                str += "\n" + suffix + prop.Name + ": ";
+                foreach (var item in (IEnumerable)value)
+                {
+                   // str += value;
+                    str += item.ToStringProperty(" ");
+                    
+                }
+                if (value is string)
+                    str += value;
+                    
+
+            }
+            else
+                str += "\n" + suffix + prop.Name + ": "+ value;
+               
+                    
             }
             return str;
         }

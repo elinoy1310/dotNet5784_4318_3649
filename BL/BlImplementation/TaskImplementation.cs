@@ -165,7 +165,8 @@ internal class TaskImplementation : ITask
 
     private BO.Task converFromDOtoBO(DO.Task task)
     {
-        return new BO.Task
+        BO.Task newTask=
+         new BO.Task()
         {
             Id = task.Id,
             Alias = task.Alias,
@@ -183,5 +184,6 @@ internal class TaskImplementation : ITask
             Engineer = returnEngineerOnTask(task),
             Complexity = (BO.EngineerExperience)task.Complexity
         };
+        return newTask;
     }
 }
