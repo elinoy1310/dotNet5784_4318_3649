@@ -98,15 +98,14 @@ internal class TaskImplementation : ITask
 
     public void Update(BO.Task task)//עדכון הID רק אם המהנדס ברמה
     {
-        BO.Task updateTask = Read(task.Id);
         Console.WriteLine("Enter the ID of the engineer working on this task");
         int engineerId = int.Parse(Console.ReadLine()!);
         DO.Engineer? engInTask=_dal.Engineer.ReadAll().FirstOrDefault(e => e?.Id == engineerId);
         if (engInTask==null)
             throw new BlDoesNotExistException($"Engineer with ID={engineerId} was not found");
-        if ((int)engInTask.Level < (int)updateTask.Complexity)
+        if ((int)engInTask.Level < (int)task.Complexity)
             throw new Exception("The level of the engineer is too low for the level of the task");
-        DO.Task convertFromBOtoDO = new DO.Task(updateTask.Id, updateTask.Alias, updateTask.Description, false, updateTask.RequiredEffortTime, updateTask.CreatedAtDate, updateTask.ScheduledDate, updateTask.StartDate, updateTask.CompleteDate, null, updateTask.Deliverables, updateTask.Remarks, engineerId, (DO.EngineerExperience)updateTask.Complexity);
+        DO.Task convertFromBOtoDO = new DO.Task(task.Id, task.Alias, task.Description, false, task.RequiredEffortTime, task.CreatedAtDate, task.ScheduledDate, task.StartDate, task.CompleteDate, null, task.Deliverables, task.Remarks, engineerId, (DO.EngineerExperience)task.Complexity);
         _dal.Task.Update(convertFromBOtoDO);
     }
 
