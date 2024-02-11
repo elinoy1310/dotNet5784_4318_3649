@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using System.Runtime.ExceptionServices;
 using BO;
 using DalApi;
-
+using BlImplementation;
 
 internal class Program
 {
     static readonly BlApi.IBl s_bl = BlApi.Factory.Get();
+    static readonly Bl bL=new Bl();
     private static void Main(string[] args)
     {
         //s_bl.Engineer.Create(new BO.Engineer() { Id=89,Cost=55,Name="bbb",Email="aa@gmail.com"});
@@ -22,6 +23,7 @@ internal class Program
             string? ans = Console.ReadLine() ?? throw new FormatException("Wrong input");
             if (ans == "Y")
                 DalTest.Initialization.Do();
+            bL!.CreateSchedule();
             presentMainMenu();
         }
         catch (Exception ex)

@@ -8,7 +8,7 @@ using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace BlImplementation;
 
-internal class Bl : IBl
+public class Bl : IBl
 {
     public BlApi.IEngineer Engineer => new EngineerImplementation();
 
