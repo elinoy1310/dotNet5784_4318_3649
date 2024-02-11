@@ -104,7 +104,7 @@ internal class TaskImplementation : ITask
         if (engInTask==null)
             throw new BlDoesNotExistException($"Engineer with ID={engineerId} was not found");
         if ((int)engInTask.Level < (int)task.Complexity)
-            throw new Exception("The level of the engineer is too low for the level of the task");
+            throw new BlWrongDataException("The level of the engineer is too low for the level of the task");
         DO.Task convertFromBOtoDO = new DO.Task(task.Id, task.Alias, task.Description, false, task.RequiredEffortTime, task.CreatedAtDate, task.ScheduledDate, task.StartDate, task.CompleteDate, null, task.Deliverables, task.Remarks, engineerId, (DO.EngineerExperience)task.Complexity);
         _dal.Task.Update(convertFromBOtoDO);
     }
