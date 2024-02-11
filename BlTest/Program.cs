@@ -23,7 +23,7 @@ internal class Program
             string? ans = Console.ReadLine() ?? throw new FormatException("Wrong input");
             if (ans == "Y")
                 DalTest.Initialization.Do();
-            bL!.CreateSchedule();
+          
             presentMainMenu();
         }
         catch (Exception ex)
@@ -39,7 +39,7 @@ internal class Program
             try
             {
 
-                Console.WriteLine("Select an entity you want to check\r\n0=Exit the main menu\r\n1=Engineer\r\n2=Task");
+                Console.WriteLine("Select an entity you want to check\r\n0=Exit the main menu\r\n1=Engineer\r\n2=Task, 3=CREATE SCHEDULE");
                 // Read user input for main menu option
                 string chooseMainMenu = Console.ReadLine()!;
                 MainMenu optionMainMenu = (MainMenu)int.Parse(chooseMainMenu);
@@ -47,8 +47,10 @@ internal class Program
                     flagExit = false;
                 else if (optionMainMenu == MainMenu.Task || optionMainMenu == MainMenu.Engineer)
                     presentSubMenu(optionMainMenu);
+                else if((int)optionMainMenu==3)
+                    bL!.CreateSchedule();
                 else
-                    throw new BlWrongInputFormatException("enter a number between 0-2");
+                    throw new BlWrongInputFormatException("enter a number between 0-3");
             }
             catch (Exception ex)
             {
