@@ -33,7 +33,7 @@ public class Bl : IBl
         //יש תלויות
         //צריך לעדכן לכל משימה את  הscheduled date
         DateTime start = _dal.ProjectStartDate!.Value;
-        IEnumerable<TaskInList> tasksWithoutDep = Task.ReadAll(boTask => boTask.Dependencies == null);
+        IEnumerable<TaskInList> tasksWithoutDep = Task.ReadAll(boTask => boTask.Dependencies.Count() == 0);
         foreach(TaskInList task in tasksWithoutDep)
         {
             BO.Task taskWithStartDate = Task.Read(task.Id);
