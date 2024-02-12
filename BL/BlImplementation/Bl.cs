@@ -52,9 +52,9 @@ public class Bl : IBl
     private void updateSceduledDateInDep(int id)
     {
         //id = id of task hat other tasks depends on her
-        IEnumerable<TaskInList> dependOnTasks = Task.ReadAll(boTask => boTask.Dependencies!.FirstOrDefault(item => item.Id == id) != null);
+        IEnumerable<TaskInList> dependOnTasks = Task.ReadAll(boTask => boTask.Dependencies!.FirstOrDefault(item => item.Id == id) != null).ToList();
         BO.Task dep = Task.Read(id);
-        if (dependOnTasks != null)
+        if (dependOnTasks == null)
             return;
         foreach (TaskInList task in dependOnTasks!)
         {          
@@ -63,6 +63,7 @@ public class Bl : IBl
                 taskTODoStartDate.ScheduledDate = dep.ForecastDate;
             else
                 taskTODoStartDate.ScheduledDate = (dep.ScheduledDate > taskTODoStartDate.ScheduledDate) ? dep.ScheduledDate : taskTODoStartDate.ScheduledDate;
+            Task.Update(taskTODoStartDate);
           updateSceduledDateInDep(taskTODoStartDate.Id);
         }
 
