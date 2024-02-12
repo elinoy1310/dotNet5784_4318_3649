@@ -6,13 +6,16 @@ namespace BlImplementation;
 
 //פונקצייה יצירת לוז אוטומוטי שתהיה ציבורית ותהיה בIBL 
 //ואם אני רוצה שתופעל אוטומטית זה פרטי
-//
+
 internal class TaskImplementation : ITask
 {
     private DalApi.IDal _dal = DalApi.Factory.Get;
+    private BlApi.IBl _bl = BlApi.Factory.Get();
     //לא לאפשר הכנסת מהנדס למשימה
     public int Create(BO.Task task)
     {
+        if (_bl.CheckProjectStatus() == BO.ProjectStatus.Execution)
+            throw new BlWrongDataException("Cannot add a task when the project has started");
         if (task.Id >= 0 && task.Alias != null)
         {
             int? engineerId = task.Engineer is not null ? task.Engineer.Id : null;
@@ -54,6 +57,8 @@ internal class TaskImplementation : ITask
     public void Delete(int id)
     {
         // אי אפשר למחוק אחרי יצירת לוז
+        if (_bl.CheckProjectStatus()==BO.ProjectStatus.Execution)
+            throw new BlCannotBeDeletedException($"Task with ID={id} cannot be deleted after the project started");
         BO.Task DelTask = Read(id);
         if (DelTask == null || _dal.Dependency.ReadAll().FirstOrDefault(d => d?.DependsOnTask == id) != null) 
             throw new BlCannotBeDeletedException($"Task with ID={id} cannot be deleted");
@@ -96,7 +101,38 @@ internal class TaskImplementation : ITask
                     select new BO.TaskInList { Id = convertItem.Id, Alias = convertItem.Alias, Description = convertItem.Description, Status = convertItem.Status });
     }
 
+    //אי אפשר לעדכן דברים שמשפיעים על הלוז כמו משך הזמן את הסצדולד רק ב שלב הביניים של הפרויקט אי אפשר לעדכן את הENGINEERID
+    //אי אפשר להוסיף משימות בשלב הביצוע ,אי אפשר לעדכן תלויות בשלב הביצוע
+    // בשלב התכנון- לעדכן רק משך זמן נדרש רמת קושי ותלויות
+    //מחיקת משימות אסורה בשלב הביצוע 
     public void Update(BO.Task task)//עדכון הID רק אם המהנדס ברמה
+    {
+        BO.Task Originaltask = Read(task.Id);
+        if (_bl.CheckProjectStatus() == BO.ProjectStatus.Planing)
+        {
+            updateDependencies(task);
+            {
+                DO.Task convertFromBOtoDO = new DO.Task(task.Id, task.Alias, task.Description, false, task.RequiredEffortTime, Originaltask.CreatedAtDate, Originaltask.ScheduledDate, Originaltask.StartDate, Originaltask.CompleteDate, null, task.Deliverables, task.Remarks, Originaltask.Engineer?.Id, (DO.EngineerExperience)task.Complexity);
+                _dal.Task.Update(convertFromBOtoDO);
+            }
+        }
+        //else if (_bl.CheckProjectStatus() == BO.ProjectStatus.Mid)
+        //{
+        //    CheckingEngineer(task);
+        //    updateDependencies(task);
+        //    DO.Task convertFromBOtoDO = new DO.Task(task.Id, task.Alias, task.Description, false, task.RequiredEffortTime, task.CreatedAtDate, Originaltask.ScheduledDate, task.StartDate, task.CompleteDate, null, task.Deliverables, task.Remarks, task.Engineer?.Id, (DO.EngineerExperience)task.Complexity);
+        //    _dal.Task.Update(convertFromBOtoDO);
+        //}
+        else if(_bl.CheckProjectStatus() == BO.ProjectStatus.Execution)
+        {
+            CheckingEngineer(task);
+            DO.Task convertFromBOtoDO = new DO.Task(task.Id, task.Alias, task.Description, false, task.RequiredEffortTime, task.CreatedAtDate, task.ScheduledDate, task.StartDate, task.CompleteDate, null, task.Deliverables, task.Remarks, task.Engineer?.Id, (DO.EngineerExperience)task.Complexity);
+            _dal.Task.Update(convertFromBOtoDO);
+        }
+        
+    }
+
+    private void CheckingEngineer(BO.Task task)
     {
         if (task.Engineer != null)
         {
@@ -106,10 +142,18 @@ internal class TaskImplementation : ITask
             if ((int)engInTask.Level < (int)task.Complexity)
                 throw new BlWrongDataException("The level of the engineer is too low for the level of the task");
         }
-            DO.Task convertFromBOtoDO = new DO.Task(task.Id, task.Alias, task.Description, false, task.RequiredEffortTime, task.CreatedAtDate, task.ScheduledDate, task.StartDate, task.CompleteDate, null, task.Deliverables, task.Remarks, task.Engineer?.Id, (DO.EngineerExperience)task.Complexity);
-            _dal.Task.Update(convertFromBOtoDO);
     }
 
+    private void updateDependencies(BO.Task task)
+    {
+        if (task.Dependencies is not null)
+        {
+            foreach (var d in task.Dependencies)
+            {
+                _dal.Dependency.Create(new DO.Dependency(0, task.Id, d.Id));
+            }
+        }
+    }
     private Status statusCalculation(DO.Task task)
     {
         Status status = 0;
