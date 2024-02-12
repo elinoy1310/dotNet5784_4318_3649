@@ -164,6 +164,13 @@ internal class TaskImplementation : ITask
         }
     }
 
+    private DateTime? returnForecastDate (DateTime? scheduledDate, DateTime? StartDate, TimeSpan? RequiredEffortTime)
+    {
+        if (StartDate==null)
+            return (scheduledDate + RequiredEffortTime);
+        return ((scheduledDate > StartDate) ? scheduledDate : StartDate) + RequiredEffortTime;
+    }
+
     private BO.Task converFromDOtoBO(DO.Task task)
     {
         BO.Task newTask=
@@ -178,7 +185,7 @@ internal class TaskImplementation : ITask
             RequiredEffortTime = task.RequiredEffortTime,
             StartDate = task.StartDate,
             ScheduledDate = task.ScheduledDate,
-            ForecastDate = ((task.ScheduledDate > task.StartDate) ? task.ScheduledDate : task.StartDate) + task.RequiredEffortTime,
+            ForecastDate = returnForecastDate(task.ScheduledDate, task.StartDate, task.RequiredEffortTime),
             CompleteDate = task.CompleteDate,
             Deliverables = task.Deliverables,
             Remarks = task.Remarks,

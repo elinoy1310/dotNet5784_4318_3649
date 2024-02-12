@@ -33,7 +33,7 @@ public class Bl : IBl
         //יש תלויות
         //צריך לעדכן לכל משימה את  הscheduled date
         DateTime start = _dal.ProjectStartDate!.Value;
-        IEnumerable<TaskInList> tasksWithoutDep = Task.ReadAll(boTask => boTask.Dependencies.Count() == 0);
+        IEnumerable<TaskInList> tasksWithoutDep = Task.ReadAll(boTask => boTask.Dependencies?.Count() == 0).ToList();
         foreach(TaskInList task in tasksWithoutDep)
         {
             BO.Task taskWithStartDate = Task.Read(task.Id);
@@ -60,9 +60,9 @@ public class Bl : IBl
         {          
             BO.Task taskTODoStartDate = Task.Read(task.Id);
             if (taskTODoStartDate.ScheduledDate is null)
-                taskTODoStartDate.StartDate= dep.ForecastDate;
+                taskTODoStartDate.ScheduledDate = dep.ForecastDate;
             else
-                taskTODoStartDate.StartDate=(dep.ScheduledDate > taskTODoStartDate.ScheduledDate) ? dep.ScheduledDate : taskTODoStartDate.ScheduledDate;
+                taskTODoStartDate.ScheduledDate = (dep.ScheduledDate > taskTODoStartDate.ScheduledDate) ? dep.ScheduledDate : taskTODoStartDate.ScheduledDate;
           updateSceduledDateInDep(taskTODoStartDate.Id);
         }
 
