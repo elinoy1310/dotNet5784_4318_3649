@@ -145,7 +145,11 @@ internal class Program
         {
             case MainMenu.Engineer:
                 // Update the Engineer record with new user input
-                s_bl.Engineer!.Update(newEngineer());
+                Console.WriteLine("Enter the ID of the task the engineer working on:");
+                int? taskId = int.Parse(Console.ReadLine()??"");
+                BO.Engineer updateEng = newEngineer();
+                updateEng.Task = new BO.TaskInEngineer() { Id = taskId };
+                s_bl.Engineer!.Update(updateEng);
                 break;
             case MainMenu.Task:
                 // Update the Task record with new user input
@@ -153,7 +157,7 @@ internal class Program
                 int idTask = int.Parse(Console.ReadLine()??"0");
                 s_bl.Task.Read(idTask);
                 Console.WriteLine("Enter the ID of the engineer working on this task");
-                int engineerId = int.Parse(Console.ReadLine()!);
+                int? engineerId = int.Parse(Console.ReadLine()??"");
                 // Update the Dependency record with new user input
                 BO.Task updateTask = newTask(idTask);
                 BO.EngineerInTask eng=new BO.EngineerInTask() { Id= engineerId };
@@ -184,7 +188,7 @@ internal class Program
         ////TaskInEngineer task= new TaskInEngineer() { Id=idTask, Alias=aliasTask };
 
         //creates new Engineer and returns it
-        Engineer newEngineer = new Engineer() { Id=id, Name=name, Email=email, Cost=cost, level=level1,  };
+        Engineer newEngineer = new Engineer() { Id=id, Name=name, Email=email, Cost=cost, level=level1};
         return newEngineer;
     }
 

@@ -124,10 +124,10 @@ internal class EngineerImplementation : BlApi.IEngineer
         if (engineer.Task != toUpdateEngineer.Task)
         {
             if (engineer.Task == null)
-                updatePreviousTask(toUpdateEngineer.Task!.Id);
+                updatePreviousTask((int)toUpdateEngineer.Task!.Id!);
 
             else if (toUpdateEngineer.Task == null)
-                updateNewTask(engineer.Task!.Id, engineer.Id, engineer.level);
+                updateNewTask((int)engineer.Task!.Id!, engineer.Id, engineer.level);
 
             ///if both not null
             ///check new task scheduled date is after now
@@ -136,8 +136,8 @@ internal class EngineerImplementation : BlApi.IEngineer
             ///send new engineer to the dal
             else
             {
-                updateNewTask(engineer.Task!.Id, engineer.Id, engineer.level);
-                updatePreviousTask(toUpdateEngineer.Task!.Id);
+                updateNewTask((int)engineer.Task!.Id!, (int)engineer.Id, engineer.level);
+                updatePreviousTask((int)toUpdateEngineer.Task!.Id!);
             }
         }
 
