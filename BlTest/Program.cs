@@ -145,10 +145,14 @@ internal class Program
         {
             case MainMenu.Engineer:
                 // Update the Engineer record with new user input
-                Console.WriteLine("Enter the ID of the task the engineer working on:");
-                int? taskId = int.Parse(Console.ReadLine()??"");
                 BO.Engineer updateEng = newEngineer();
-                updateEng.Task = new BO.TaskInEngineer() { Id = taskId };
+                Console.WriteLine("Enter the ID of the task the engineer working on, enter -1 if you don't want to update a task");
+                int choice = int.Parse(Console.ReadLine() ?? "");
+                if(choice!=-1)
+                {
+                    int? taskId = int.Parse(Console.ReadLine() ?? "");
+                    updateEng.Task = new BO.TaskInEngineer() { Id = taskId };
+                }            
                 s_bl.Engineer!.Update(updateEng);
                 break;
             case MainMenu.Task:
@@ -156,12 +160,16 @@ internal class Program
                 Console.WriteLine("enter the task's id you want to update");
                 int idTask = int.Parse(Console.ReadLine()??"0");
                 s_bl.Task.Read(idTask);
-                Console.WriteLine("Enter the ID of the engineer working on this task");
-                int? engineerId = int.Parse(Console.ReadLine()??"");
-                // Update the Dependency record with new user input
                 BO.Task updateTask = newTask(idTask);
-                BO.EngineerInTask eng=new BO.EngineerInTask() { Id= engineerId };
-                updateTask.Engineer= eng;
+                Console.WriteLine("Enter the ID of the engineer working on this task, enter -1 if you don't want to update an engineer");
+                int choice1 = int.Parse(Console.ReadLine() ?? "");
+                if (choice1 != -1)
+                {
+                    int engineerId = int.Parse(Console.ReadLine() ?? "0");
+                    BO.EngineerInTask eng = new BO.EngineerInTask() { Id = engineerId };
+                    updateTask.Engineer = eng;
+                }           
+                // Update the Dependency record with new user input               
                 s_bl!.Task.Update(updateTask);
                 break;
         }
