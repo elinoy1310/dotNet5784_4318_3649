@@ -98,13 +98,16 @@ internal class TaskImplementation : ITask
 
     public void Update(BO.Task task)//עדכון הID רק אם המהנדס ברמה
     {
-        DO.Engineer? engInTask=_dal.Engineer.ReadAll().FirstOrDefault(e => e?.Id == task.Engineer?.Id);
-        if (engInTask==null)
-            throw new BlDoesNotExistException($"Engineer with ID={task.Engineer?.Id} was not found");
-        if ((int)engInTask.Level < (int)task.Complexity)
-            throw new BlWrongDataException("The level of the engineer is too low for the level of the task");
-        DO.Task convertFromBOtoDO = new DO.Task(task.Id, task.Alias, task.Description, false, task.RequiredEffortTime, task.CreatedAtDate, task.ScheduledDate, task.StartDate, task.CompleteDate, null, task.Deliverables, task.Remarks, task.Engineer?.Id, (DO.EngineerExperience)task.Complexity);
-        _dal.Task.Update(convertFromBOtoDO);
+        if (task.Engineer != null)
+        {
+            DO.Engineer? engInTask = _dal.Engineer.ReadAll().FirstOrDefault(e => e?.Id == task.Engineer?.Id);
+            if (engInTask == null)
+                throw new BlDoesNotExistException($"Engineer with ID={task.Engineer?.Id} was not found");
+            if ((int)engInTask.Level < (int)task.Complexity)
+                throw new BlWrongDataException("The level of the engineer is too low for the level of the task");
+        }
+            DO.Task convertFromBOtoDO = new DO.Task(task.Id, task.Alias, task.Description, false, task.RequiredEffortTime, task.CreatedAtDate, task.ScheduledDate, task.StartDate, task.CompleteDate, null, task.Deliverables, task.Remarks, task.Engineer?.Id, (DO.EngineerExperience)task.Complexity);
+            _dal.Task.Update(convertFromBOtoDO);
     }
 
     private Status statusCalculation(DO.Task task)
