@@ -85,10 +85,10 @@ public static class Initialization
 
         int days, month;
         DateTime createdAt;
-     
         for (int i=0; i<20; i++)
         {
             //selecting month+days randomly (with certain restrictions)
+            TimeSpan requiredEffortTime = new TimeSpan(s_rand.Next(0,3), s_rand.Next(1, 10), 0,0);
             days = s_rand.Next(1, 31); 
             month = s_rand.Next(1, DateTime.Now.Month+1);
             month= month<DateTime.Now.Month? month : DateTime.Now.Month-1;
@@ -104,9 +104,9 @@ public static class Initialization
             //selecting comlexity randomly
             int randomComplexity =s_rand.Next(0, 5);
             EngineerExperience taskComplexity = (EngineerExperience)randomComplexity;
-     
+
             //initialize only alias,description,createdInDate,complexity and the rest fields are filled with default values
-            Task newTask=new Task() with { Alias = alias[i], Description = descriptions[i], CreatedInDate = createdAt,Complexity = taskComplexity };
+            Task newTask = new Task() with { Alias = alias[i], Description = descriptions[i], CreatedInDate = createdAt, Complexity = taskComplexity, RequiredEffortTime = requiredEffortTime };
 
             s_dal!.Task.Create(newTask);// add the new task to the data list(tasks)
         }
