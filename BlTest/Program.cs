@@ -150,7 +150,7 @@ internal class Program
                 int choice = int.Parse(Console.ReadLine() ?? "");
                 if(choice!=-1)
                 {
-                    int? taskId = int.Parse(Console.ReadLine() ?? "");
+                    int taskId = int.Parse(Console.ReadLine() ?? "");
                     updateEng.Task = new BO.TaskInEngineer() { Id = taskId };
                 }            
                 s_bl.Engineer!.Update(updateEng);
