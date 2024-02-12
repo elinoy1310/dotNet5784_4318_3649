@@ -10,16 +10,16 @@ namespace BlImplementation;
 internal class EngineerImplementation : BlApi.IEngineer
 {
     private DalApi.IDal _dal = DalApi.Factory.Get;
-
+    private BlApi.IBl _bl = BlApi.Factory.Get();
 
     public int Create(BO.Engineer engineer)
     {
         //can't add after the project has started
         //without task
+        if (_bl.CheckProjectStatus() != ProjectStatus.Execution && engineer.Task is not null)
+            throw new BlWrongDataException("Can't add engineer with task before the project had started");
         if (engineer.Id <= 0 || engineer.Name == null || engineer.Cost <= 0 || !System.Net.Mail.MailAddress.TryCreate(engineer.Email, out System.Net.Mail.MailAddress? empty))
             throw new BlWrongDataException("Invalid data");
-        if (engineer.Task is not null)
-            throw new BlWrongDataException("Can't add engineer with task after the project has started");
         DO.Engineer newEngineer = new DO.Engineer(engineer.Id, engineer.Email, engineer.Cost, engineer.Name, (DO.EngineerExperience)engineer.level);
         try
         {
@@ -94,7 +94,7 @@ internal class EngineerImplementation : BlApi.IEngineer
     {
         _dal.Task.Update(_dal.Task.Read(idTask)! with { CompleteDate = DateTime.Now, EngineerId = null });
     }
-    private void updateNewTask(int idTask,int idEngineer,BO.EngineerExperience engineerLevel)
+    private void updateNewTask(int idTask, int idEngineer, BO.EngineerExperience engineerLevel)
     {
         DO.Task t = _dal.Task.Read(idTask)!;
         if (t.ScheduledDate > DateTime.Now)
@@ -108,6 +108,8 @@ internal class EngineerImplementation : BlApi.IEngineer
     }
     public void Update(BO.Engineer engineer)
     {
+        if (_bl.CheckProjectStatus() != ProjectStatus.Execution && engineer.Task is not null)
+            throw new BlCannotBeUpdatedException("Can't update engineer with task before the project had started");
         BO.Engineer toUpdateEngineer = Read(engineer.Id);
         if (engineer.Name == null || !System.Net.Mail.MailAddress.TryCreate(engineer.Email, out System.Net.Mail.MailAddress? empty) || engineer.level < toUpdateEngineer.level || engineer.Cost <= 0)
             throw new BlWrongDataException("Invalid data");
@@ -125,8 +127,8 @@ internal class EngineerImplementation : BlApi.IEngineer
                 updatePreviousTask(toUpdateEngineer.Task!.Id);
 
             else if (toUpdateEngineer.Task == null)
-                updateNewTask(engineer.Task!.Id, engineer.Id,engineer.level);
-          
+                updateNewTask(engineer.Task!.Id, engineer.Id, engineer.level);
+
             ///if both not null
             ///check new task scheduled date is after now
             ///update id engineer previous task+complete date=now
@@ -134,11 +136,11 @@ internal class EngineerImplementation : BlApi.IEngineer
             ///send new engineer to the dal
             else
             {
-                updateNewTask(engineer.Task!.Id,engineer.Id,engineer.level);
+                updateNewTask(engineer.Task!.Id, engineer.Id, engineer.level);
                 updatePreviousTask(toUpdateEngineer.Task!.Id);
             }
         }
-       
+
         try
         {
             DO.Engineer updatedEngineer = new DO.Engineer(engineer.Id, engineer.Email, engineer.Cost, engineer.Name, (DO.EngineerExperience)engineer.level);
