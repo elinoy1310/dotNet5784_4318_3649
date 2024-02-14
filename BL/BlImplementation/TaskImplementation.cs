@@ -127,7 +127,7 @@ internal class TaskImplementation : ITask
         BO.Task Originaltask = Read(task.Id);
         if (_bl.CheckProjectStatus() == BO.ProjectStatus.Planing)
         {
-            deleteDependencies(task);
+            //deleteDependencies(task);
             updateDependencies(task);
             try
             {
@@ -142,7 +142,7 @@ internal class TaskImplementation : ITask
         else if (_bl.CheckProjectStatus() == BO.ProjectStatus.Mid)
         {
             CheckingEngineer(task);
-            deleteDependencies(task);
+            //deleteDependencies(task);
             updateDependencies(task);
             try
             {
@@ -199,34 +199,34 @@ internal class TaskImplementation : ITask
             }
         }
     }
-    private void deleteDependencies(BO.Task task)
-    {
-        if (task.Dependencies is not null)
-        {
-            foreach (var d in task.Dependencies)
-            {
-                int dependencyId = 0;
-                bool isExist = false;
-                {
-                        foreach (var dep in _dal.Dependency.ReadAll())
-                        {
-                            if (dep?.Dependent == task.Id && dep.DependsOnTask == d.Id)
-                            {
-                                dependencyId = dep.Id;
-                                isExist = true;
-                            }
-                        if (isExist)
-                        {
-                            _dal.Dependency.Delete(dependencyId);
-                        }
-                        isExist = false;
-                        }
+    //private void deleteDependencies(BO.Task task)
+    //{
+    //    if (task.Dependencies is not null)
+    //    {
+    //        foreach (var d in task.Dependencies)
+    //        {
+    //            int dependencyId = 0;
+    //            bool isExist = false;
+    //            {
+    //                    foreach (var dep in _dal.Dependency.ReadAll())
+    //                    {
+    //                        if (dep?.Dependent == task.Id && dep.DependsOnTask == d.Id)
+    //                        {
+    //                            dependencyId = dep.Id;
+    //                            isExist = true;
+    //                        }
+    //                    if (isExist)
+    //                    {
+    //                        _dal.Dependency.Delete(dependencyId);
+    //                    }
+    //                    isExist = false;
+    //                    }
                  
-                }
-            }
-            task.Dependencies = returnDepTask(task.Id);
-        }
-    }
+    //            }
+    //        }
+    //        task.Dependencies = returnDepTask(task.Id);
+    //    }
+    //}
     private Status statusCalculation(DO.Task task)
     {
         Status status = 0;
