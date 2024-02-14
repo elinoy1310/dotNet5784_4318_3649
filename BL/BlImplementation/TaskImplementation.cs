@@ -60,9 +60,16 @@ internal class TaskImplementation : ITask
         if (_bl.CheckProjectStatus()==BO.ProjectStatus.Execution)
             throw new BlCannotBeDeletedException($"Task with ID={id} cannot be deleted after the project started");
         BO.Task DelTask = Read(id);
-        if (DelTask == null || _dal.Dependency.ReadAll().FirstOrDefault(d => d?.DependsOnTask == id) != null) 
+        if ( _dal.Dependency.ReadAll().FirstOrDefault(d => d?.DependsOnTask == id) != null) 
             throw new BlCannotBeDeletedException($"Task with ID={id} cannot be deleted");
-        _dal.Task.Delete(DelTask.Id);
+        try
+        {
+            _dal.Task.Delete(DelTask.Id);
+        }
+        catch (DO.DalDoesNotExistException ex)
+        {
+            throw new BlDoesNotExistException($"Task with ID={id} was not found", ex);
+        }
     }
 
     public BO.Task Read(int id)
@@ -111,23 +118,42 @@ internal class TaskImplementation : ITask
         if (_bl.CheckProjectStatus() == BO.ProjectStatus.Planing)
         {
             updateDependencies(task);
+            try
             {
                 DO.Task convertFromBOtoDO = new DO.Task(task.Id, task.Alias, task.Description, false, task.RequiredEffortTime, Originaltask.CreatedAtDate, Originaltask.ScheduledDate, Originaltask.StartDate, Originaltask.CompleteDate, null, task.Deliverables, task.Remarks, Originaltask.Engineer?.Id, (DO.EngineerExperience)task.Complexity);
                 _dal.Task.Update(convertFromBOtoDO);
             }
+            catch (DO.DalDoesNotExistException ex)
+            {
+                throw new BlDoesNotExistException($"Task with ID={task.Id} was not found", ex);
+            }
         }
-        //else if (_bl.CheckProjectStatus() == BO.ProjectStatus.Mid)
-        //{
-        //    CheckingEngineer(task);
-        //    updateDependencies(task);
-        //    DO.Task convertFromBOtoDO = new DO.Task(task.Id, task.Alias, task.Description, false, task.RequiredEffortTime, task.CreatedAtDate, Originaltask.ScheduledDate, task.StartDate, task.CompleteDate, null, task.Deliverables, task.Remarks, task.Engineer?.Id, (DO.EngineerExperience)task.Complexity);
-        //    _dal.Task.Update(convertFromBOtoDO);
-        //}
+        else if (_bl.CheckProjectStatus() == BO.ProjectStatus.Mid)
+        {
+            CheckingEngineer(task);
+            updateDependencies(task);
+            try
+            {
+                DO.Task convertFromBOtoDO = new DO.Task(task.Id, task.Alias, task.Description, false, task.RequiredEffortTime, task.CreatedAtDate, task.ScheduledDate, task.StartDate, task.CompleteDate, null, task.Deliverables, task.Remarks, task.Engineer?.Id, (DO.EngineerExperience)task.Complexity);
+                _dal.Task.Update(convertFromBOtoDO);
+            }
+            catch (DO.DalDoesNotExistException ex)
+            {
+                throw new BlDoesNotExistException($"Task with ID={task.Id} was not found", ex);
+            }
+        }
         else if(_bl.CheckProjectStatus() == BO.ProjectStatus.Execution)
         {
             CheckingEngineer(task);
-            DO.Task convertFromBOtoDO = new DO.Task(task.Id, task.Alias, task.Description, false, task.RequiredEffortTime, task.CreatedAtDate, task.ScheduledDate, task.StartDate, task.CompleteDate, null, task.Deliverables, task.Remarks, task.Engineer?.Id, (DO.EngineerExperience)task.Complexity);
-            _dal.Task.Update(convertFromBOtoDO);
+            try
+            {
+                DO.Task convertFromBOtoDO = new DO.Task(task.Id, task.Alias, task.Description, false, task.RequiredEffortTime, task.CreatedAtDate, task.ScheduledDate, task.StartDate, task.CompleteDate, null, task.Deliverables, task.Remarks, task.Engineer?.Id, (DO.EngineerExperience)task.Complexity);
+                _dal.Task.Update(convertFromBOtoDO);
+            }
+            catch (DO.DalDoesNotExistException ex)
+            {
+                throw new BlDoesNotExistException($"Task with ID={task.Id} was not found", ex);
+            }
         }
         
     }
@@ -150,7 +176,14 @@ internal class TaskImplementation : ITask
         {
             foreach (var d in task.Dependencies)
             {
-                _dal.Dependency.Create(new DO.Dependency(0, task.Id, d.Id));
+                bool isExist = false;
+                foreach(var dep in _dal.Dependency.ReadAll())
+                {
+                    if (dep?.Dependent == task.Id && dep.DependsOnTask == d.Id)
+                        isExist = true;
+                }
+                if (!isExist)
+                    _dal.Dependency.Create(new DO.Dependency(0, task.Id, d.Id));
             }
         }
     }

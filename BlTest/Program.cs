@@ -168,6 +168,9 @@ internal class Program
                     int engineerId = int.Parse(Console.ReadLine() ?? "0");
                     BO.EngineerInTask eng = new BO.EngineerInTask() { Id = engineerId };
                     updateTask.Engineer = eng;
+                    if (!DateTime.TryParse(Console.ReadLine(), out DateTime startDate))
+                        throw new BlWrongInputFormatException("input not in DateTime format");
+                    updateTask.StartDate= startDate;
                 }           
                 // Update the Dependency record with new user input               
                 s_bl!.Task.Update(updateTask);
@@ -187,6 +190,8 @@ internal class Program
         string email = Console.ReadLine() ?? "";
         Console.WriteLine("level:");
         EngineerExperience level1 = (EngineerExperience)int.Parse(Console.ReadLine() ?? "0");
+        if ((int)level1 > 4)
+            throw new BlWrongInputFormatException($"There is no engineer level for the input number : {(int)level1}");
         Console.WriteLine("cost:");
         double cost = int.Parse(Console.ReadLine() ?? "0");
         ////Console.WriteLine("idTask:");
@@ -237,6 +242,8 @@ internal class Program
         string deliverables = Console.ReadLine() ?? "";
         string remarks = Console.ReadLine() ?? "";
         EngineerExperience complexity = (EngineerExperience)int.Parse(Console.ReadLine() ?? "0");
+        if ((int)complexity > 4)
+            throw new BlWrongInputFormatException($"There is no task complexity level for the input number : {(int)complexity}");
         //create new Task and returns it
         BO.Task newTask = new BO.Task() {Id=id, Alias=alias, Description=description, RequiredEffortTime=requiredEffortTime, /*ScheduledDate=scheduledDate, CreatedAtDate=createdInDate,Status=status*/ Dependencies=listDep ,/* StartDate=startDate,ForecastDate=forecastDate ,CompleteDate=completeDate*/Deliverables=deliverables, Remarks=remarks,/*Engineer=engineer ,*/Complexity=complexity };  
         return newTask;
