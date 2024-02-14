@@ -167,10 +167,16 @@ internal class Program
                 {  
                     BO.EngineerInTask eng = new BO.EngineerInTask() { Id = engineerId };
                     updateTask.Engineer = eng;
+                }
+                Console.WriteLine("Do you want a start date? (Y/N)");
+                string? ans = Console.ReadLine() ?? throw new FormatException("Wrong input");
+                if (ans == "Y")
+                {
+                    Console.WriteLine("Enter Start Date");
                     if (!DateTime.TryParse(Console.ReadLine(), out DateTime startDate))
                         throw new BlWrongInputFormatException("input not in DateTime format");
-                    updateTask.StartDate= startDate;
-                }           
+                    updateTask.StartDate = startDate;
+                }
                 // Update the Dependency record with new user input               
                 s_bl!.Task.Update(updateTask);
                 break;
