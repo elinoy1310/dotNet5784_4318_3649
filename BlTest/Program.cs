@@ -13,7 +13,6 @@ internal class Program
         //s_bl.Engineer.Create(new BO.Engineer() { Id=89,Cost=55,Name="bbb",Email="aa@gmail.com"});
         //List<TaskInList> lst = new List<TaskInList>();
         //lst.Add(new TaskInList() { Id = 2, Alias = "ttt", Description = "hhh", Status = BO.Status.Scheduled });
-
         //s_bl.Task.Add(new BO.Task() { Id = 3, Dependencies = lst ,Alias="ggg"});
         //Console.WriteLine( s_bl.Task.Read(1));
         try
@@ -38,7 +37,7 @@ internal class Program
             try
             {
 
-                Console.WriteLine("Select an entity you want to check\r\n0=Exit the main menu\r\n1=Engineer\r\n2=Task\r\n3=CREATE SCHEDULE");
+                Console.WriteLine("Select an entity you want to check\r\n0=Exit the main menu\r\n1=Engineer\r\n2=Task\r\n3=Create Schedule");
                 // Read user input for main menu option
                 string chooseMainMenu = Console.ReadLine()!;
                 MainMenu optionMainMenu = (MainMenu)int.Parse(chooseMainMenu);
@@ -46,7 +45,7 @@ internal class Program
                     flagExit = false;
                 else if (optionMainMenu == MainMenu.Task || optionMainMenu == MainMenu.Engineer)
                     presentSubMenu(optionMainMenu);
-                else if((int)optionMainMenu==3)
+                else if(optionMainMenu == MainMenu.CreateSchedule)
                     s_bl.CreateSchedule();
                 else
                     throw new BlWrongInputFormatException("enter a number between 0-3");
