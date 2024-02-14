@@ -62,7 +62,7 @@ public class Bl : IBl
             if (taskTODoStartDate.ScheduledDate is null)
                 taskTODoStartDate.ScheduledDate = dep.ForecastDate;
             else
-                taskTODoStartDate.ScheduledDate = (dep.ScheduledDate > taskTODoStartDate.ScheduledDate) ? dep.ScheduledDate : taskTODoStartDate.ScheduledDate;
+                taskTODoStartDate.ScheduledDate = (dep.ScheduledDate > taskTODoStartDate.ScheduledDate) ? dep.ForecastDate : taskTODoStartDate.ScheduledDate;
             Task.Update(taskTODoStartDate);
           updateSceduledDateInDep(taskTODoStartDate.Id);
         }
