@@ -8,6 +8,6 @@ public interface IBl
 
     public DateTime? ProjectStartDate { get; set; }
     public  ProjectStatus CheckProjectStatus();
-    public void CreateSchedule();
+    public void CreateSchedule(CreateScheduleOption option=CreateScheduleOption.Manually);
 
 }

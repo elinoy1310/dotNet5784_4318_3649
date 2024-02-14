@@ -26,7 +26,45 @@ public class Bl : IBl
         return ProjectStatus.Mid;
     }
 
-    public void CreateSchedule()
+    public void CreateSchedule(CreateScheduleOption option/*=CreateScheduleOption.Manually*/)
+    {
+        //אופציה 2: המנהל מקיש טאסק 
+        //עוברים על כל תאריכי הסיום של המשימות הקודמות ומחזירים את התאריך הכי רחוק
+        //אם אין למישמה מסויימת תאריך מתוכנן לסיום אז לזרוק שגיאה 
+        switch (option)
+        {
+            case CreateScheduleOption.Automatically:
+                createScheduleAuto();
+                break;
+            case CreateScheduleOption.Manually:
+                break;
+        }
+
+
+
+
+        ///אופציה א:
+        ////הנחות: יש לנו תאריך התחלה של הפרוייקט
+        ////יש לכל משימה משך זמן ורמת מורכבות
+        ////יש תלויות
+        ////צריך לעדכן לכל משימה את  הscheduled date
+        //DateTime start = _dal.ProjectStartDate!.Value;
+        //IEnumerable<TaskInList> tasksWithoutDep = Task.ReadAll(boTask => boTask.Dependencies?.Count() == 0).ToList();
+        //foreach(TaskInList task in tasksWithoutDep)
+        //{
+        //    BO.Task taskWithStartDate = Task.Read(task.Id);
+        //    taskWithStartDate.ScheduledDate = start;
+        //    Task.Update(taskWithStartDate); 
+        //}
+
+        //foreach (TaskInList task in tasksWithoutDep)
+        //{
+        //    updateSceduledDateInDep(task.Id);
+        //}
+
+
+    }
+    private void createScheduleAuto()
     {
         //הנחות: יש לנו תאריך התחלה של הפרוייקט
         //יש לכל משימה משך זמן ורמת מורכבות
@@ -34,19 +72,17 @@ public class Bl : IBl
         //צריך לעדכן לכל משימה את  הscheduled date
         DateTime start = _dal.ProjectStartDate!.Value;
         IEnumerable<TaskInList> tasksWithoutDep = Task.ReadAll(boTask => boTask.Dependencies?.Count() == 0).ToList();
-        foreach(TaskInList task in tasksWithoutDep)
+        foreach (TaskInList task in tasksWithoutDep)
         {
             BO.Task taskWithStartDate = Task.Read(task.Id);
             taskWithStartDate.ScheduledDate = start;
-            Task.Update(taskWithStartDate); 
+            Task.Update(taskWithStartDate);
         }
 
         foreach (TaskInList task in tasksWithoutDep)
         {
             updateSceduledDateInDep(task.Id);
         }
-
-
     }
 
     private void updateSceduledDateInDep(int id)
