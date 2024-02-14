@@ -84,6 +84,7 @@ public class Bl : IBl
                 maxForecast = readTask.ForecastDate;  
         }
         task.ScheduledDate = maxForecast;
+        Task.Update(task);
     }
 
     private void createScheduleAuto()
