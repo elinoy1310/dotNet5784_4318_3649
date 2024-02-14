@@ -167,13 +167,13 @@ internal class EngineerImplementation : BlApi.IEngineer
     /// </summary>
     /// <param name="level">minimum Level of the engineers </param>
     /// <returns>collecion of all the engineers with level>=level</returns>
-    public IEnumerable<BO.Engineer> EngineersFromLevel(BO.EngineerExperience level)
-    {
-        var engGroup = from BO.Engineer boEngineer in ReadAll()
-                       group boEngineer by boEngineer.level into g
-                       where g.Key >= level
-                       select g;
+    //public IEnumerable<BO.Engineer> EngineersFromLevel(BO.EngineerExperience level)
+    //{
+    //    var engGroup = from BO.Engineer boEngineer in ReadAll()
+    //                   group boEngineer by boEngineer.level into g
+    //                   where g.Key >= level
+    //                   select g;
 
-    }
+    //}
 
 }
