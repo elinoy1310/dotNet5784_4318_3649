@@ -50,7 +50,12 @@ internal class Program
                     Console.WriteLine("enter start project Date:");
                     DateTime start=DateTime.TryParse(Console.ReadLine(), out DateTime st)?st:throw new BlWrongInputFormatException("not a date");
                     s_bl.ProjectStartDate= start;
-                    s_bl.CreateSchedule();
+                    Console.WriteLine("If you want to create a date manually, then enter an ID-Task , if not enter -1");
+                    int taskId=int.Parse(Console.ReadLine()!);
+                    if (taskId == -1)
+                        s_bl.CreateSchedule();
+                    else
+                        s_bl.CreateSchedule(BO.CreateScheduleOption.Manually,taskId);
                 }
                    
                 else

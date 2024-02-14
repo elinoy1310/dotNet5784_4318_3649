@@ -4,6 +4,7 @@ using BlApi;
 using BO;
 using DalApi;
 using System.Collections.Immutable;
+using System.ComponentModel.DataAnnotations;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace BlImplementation;
@@ -26,7 +27,7 @@ public class Bl : IBl
         return ProjectStatus.Mid;
     }
 
-    public void CreateSchedule(CreateScheduleOption option/*=CreateScheduleOption.Manually*/)
+    public void CreateSchedule(CreateScheduleOption option/*=CreateScheduleOption.Manually*/, int taskId)
     {
         //אופציה 2: המנהל מקיש טאסק 
         //עוברים על כל תאריכי הסיום של המשימות הקודמות ומחזירים את התאריך הכי רחוק
@@ -37,6 +38,7 @@ public class Bl : IBl
                 createScheduleAuto();
                 break;
             case CreateScheduleOption.Manually:
+                createScheduleOptionManually(taskId);
                 break;
         }
 
@@ -64,6 +66,26 @@ public class Bl : IBl
 
 
     }
+
+    private void createScheduleOptionManually(int taskId)
+    {
+        BO.Task task = Task.Read(taskId);
+        if (task.Dependencies == null)
+        {
+            task.ScheduledDate = ProjectStartDate;
+        }
+            DateTime? maxForecast = DateTime.Now;
+        foreach (var d in task.Dependencies!)
+        {
+            BO.Task readTask=Task.Read(d.Id);
+            if (readTask.ForecastDate == null)
+                throw new BlCanNotBeNullException("It is not possible to update a task to the previous task no forecast date has been set.");
+            if (readTask.ForecastDate > maxForecast)
+                maxForecast = readTask.ForecastDate;  
+        }
+        task.ScheduledDate = maxForecast;
+    }
+
     private void createScheduleAuto()
     {
         //הנחות: יש לנו תאריך התחלה של הפרוייקט
