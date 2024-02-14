@@ -160,20 +160,37 @@ internal class EngineerImplementation : BlApi.IEngineer
         return null;
     }
 
-    //returns 
-
+ 
     /// <summary>
-    /// 
+    /// returns the engineers from certain level
     /// </summary>
     /// <param name="level">minimum Level of the engineers </param>
     /// <returns>collecion of all the engineers with level>=level</returns>
-    //public IEnumerable<BO.Engineer> EngineersFromLevel(BO.EngineerExperience level)
-    //{
-    //    var engGroup = from BO.Engineer boEngineer in ReadAll()
-    //                   group boEngineer by boEngineer.level into g
-    //                   where g.Key >= level
-    //                   select g;
+    public IEnumerable<BO.Engineer> EngineersFromLevel(BO.EngineerExperience level)
+    {
+        var engGroup = from BO.Engineer boEngineer in ReadAll()
+                       group boEngineer by boEngineer.level into g
+                       //where g.Key >= level
+                       select g;
+        List<BO.Engineer> engineers=new List<BO.Engineer>();
+        foreach(var gro in engGroup)
+        {
+            if (gro.Key >= level)
+                foreach (var g in gro)
+                    engineers.Add(g);
+        }
+        return engineers;
 
-    //}
+    }
 
+    /// <summary>
+    /// returns collections of engineers sorted by name ->level->cost
+    /// </summary>
+    /// <returns></returns>
+    public IEnumerable<BO.Engineer> sortedByName()
+    {
+        return from BO.Engineer boEngineer in ReadAll()
+               orderby boEngineer.Name,boEngineer.level,boEngineer.Cost
+               select boEngineer;
+    }
 }
