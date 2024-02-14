@@ -46,7 +46,13 @@ internal class Program
                 else if (optionMainMenu == MainMenu.Task || optionMainMenu == MainMenu.Engineer)
                     presentSubMenu(optionMainMenu);
                 else if(optionMainMenu == MainMenu.CreateSchedule)
+                {
+                    Console.WriteLine("enter start project Date:");
+                    DateTime start=DateTime.TryParse(Console.ReadLine(), out DateTime st)?st:throw new BlWrongInputFormatException("not a date");
+                    s_bl.ProjectStartDate= start;
                     s_bl.CreateSchedule();
+                }
+                   
                 else
                     throw new BlWrongInputFormatException("enter a number between 0-3");
             }
