@@ -146,11 +146,12 @@ internal class Program
                 // Update the Engineer record with new user input
                 BO.Engineer updateEng = newEngineer();
                 Console.WriteLine("Enter the ID of the task the engineer working on, enter -1 if you don't want to update a task");
-                int choice = int.Parse(Console.ReadLine() ?? "");
-                if(choice!=-1)
+                int taskId = int.Parse(Console.ReadLine() ?? "");
+                if(taskId!=-1)
                 {
-                    int taskId = int.Parse(Console.ReadLine() ?? "");
+                   
                     updateEng.Task = new BO.TaskInEngineer() { Id = taskId };
+                    
                 }            
                 s_bl.Engineer!.Update(updateEng);
                 break;
@@ -161,10 +162,9 @@ internal class Program
                 s_bl.Task.Read(idTask);
                 BO.Task updateTask = newTask(idTask);
                 Console.WriteLine("Enter the ID of the engineer working on this task, enter -1 if you don't want to update an engineer");
-                int choice1 = int.Parse(Console.ReadLine() ?? "");
-                if (choice1 != -1)
-                {
-                    int engineerId = int.Parse(Console.ReadLine() ?? "0");
+                int engineerId = int.Parse(Console.ReadLine() ?? "");
+                if (engineerId != -1)
+                {  
                     BO.EngineerInTask eng = new BO.EngineerInTask() { Id = engineerId };
                     updateTask.Engineer = eng;
                     if (!DateTime.TryParse(Console.ReadLine(), out DateTime startDate))
