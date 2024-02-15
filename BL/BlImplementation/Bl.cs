@@ -18,20 +18,31 @@ public class Bl : IBl
     private DalApi.IDal _dal = DalApi.Factory.Get;
     public DateTime? ProjectStartDate { get => _dal.ProjectStartDate; set => _dal.ProjectStartDate=value; }
 
-    public  ProjectStatus CheckProjectStatus()
+    /// <summary>
+    /// Checks the status of the project based on its tasks and scheduled start date.
+    /// </summary>
+    /// <returns>The status of the project.</returns>
+    public ProjectStatus CheckProjectStatus()
     {
+        // If the project start date is not set, it's in the planning phase
         if (ProjectStartDate == null)
             return ProjectStatus.Planing;
-        if(Task.ReadAll(item=>item.ScheduledDate is null)is null)         
+        // If any task's scheduled date is not set, the project is in execution phase
+        if (Task.ReadAll(item=>item.ScheduledDate is null)is null)         
             return ProjectStatus.Execution;
+        // Otherwise, the project is in the mid phase
         return ProjectStatus.Mid;
     }
 
+    /// <summary>
+    /// Creates a schedule for tasks based on the specified option.
+    /// </summary>
+    /// <param name="option">The option for creating the schedule (Automatically or Manually).</param>
+    /// <param name="taskId">The ID of the task for manual scheduling (optional, required if option is Manually).</param>
+    /// <exception cref="BlWrongInputFormatException">Thrown when the input format is incorrect.</exception>
+    /// <exception cref="BlDoesNotExistException">Thrown when a task does not exist.</exception>
     public void CreateSchedule(CreateScheduleOption option/*=CreateScheduleOption.Manually*/, int taskId)
     {
-        //אופציה 2: המנהל מקיש טאסק 
-        //עוברים על כל תאריכי הסיום של המשימות הקודמות ומחזירים את התאריך הכי רחוק
-        //אם אין למישמה מסויימת תאריך מתוכנן לסיום אז לזרוק שגיאה 
         switch (option)
         {
             case CreateScheduleOption.Automatically:
@@ -42,31 +53,14 @@ public class Bl : IBl
                 break;
         }
 
-
-
-
-        ///אופציה א:
-        ////הנחות: יש לנו תאריך התחלה של הפרוייקט
-        ////יש לכל משימה משך זמן ורמת מורכבות
-        ////יש תלויות
-        ////צריך לעדכן לכל משימה את  הscheduled date
-        //DateTime start = _dal.ProjectStartDate!.Value;
-        //IEnumerable<TaskInList> tasksWithoutDep = Task.ReadAll(boTask => boTask.Dependencies?.Count() == 0).ToList();
-        //foreach(TaskInList task in tasksWithoutDep)
-        //{
-        //    BO.Task taskWithStartDate = Task.Read(task.Id);
-        //    taskWithStartDate.ScheduledDate = start;
-        //    Task.Update(taskWithStartDate); 
-        //}
-
-        //foreach (TaskInList task in tasksWithoutDep)
-        //{
-        //    updateSceduledDateInDep(task.Id);
-        //}
-
-
     }
 
+    /// <summary>
+    /// Creates a schedule for a task manually based on its dependencies.
+    /// </summary>
+    /// <param name="taskId">The ID of the task for manual scheduling.</param>
+    /// <exception cref="BlDoesNotExistException">Thrown when a task or its dependencies do not exist.</exception>
+    /// <exception cref="BlCanNotBeNullException">Thrown when a task's forecast date is not set for a dependency.</exception>
     private void createScheduleOptionManually(int taskId)
     {
         BO.Task task = Task.Read(taskId);
@@ -87,14 +81,28 @@ public class Bl : IBl
         Task.Update(task);
     }
 
+    /// <summary>
+    /// Creates a schedule for tasks automatically based on their dependencies and project start date.
+    /// </summary>
+    /// <remarks>
+    /// Assumptions:
+    /// - The project start date is available.
+    /// - Each task has a duration and complexity level.
+    /// - Tasks may have dependencies.
+    /// - This method updates the scheduled date for each task based on its dependencies and project start date.
+    /// </remarks>
+    /// <exception cref="BlDoesNotExistException">Thrown when a task or its dependencies do not exist.</exception>
     private void createScheduleAuto()
     {
-        //הנחות: יש לנו תאריך התחלה של הפרוייקט
-        //יש לכל משימה משך זמן ורמת מורכבות
-        //יש תלויות
-        //צריך לעדכן לכל משימה את  הscheduled date
+        // Assumptions:
+        // - The project start date is available.
+        // - Each task has a duration and complexity level.
+        // - Tasks may have dependencies.
+        // - This method updates the scheduled date for each task based on its dependencies and project start date.
+
         DateTime start = _dal.ProjectStartDate!.Value;
         IEnumerable<TaskInList> tasksWithoutDep = Task.ReadAll(boTask => boTask.Dependencies?.Count() == 0).ToList();
+        // Update scheduled dates for tasks without dependencies to project start date
         foreach (TaskInList task in tasksWithoutDep)
         {
             BO.Task taskWithStartDate = Task.Read(task.Id);
@@ -102,15 +110,25 @@ public class Bl : IBl
             Task.Update(taskWithStartDate);
         }
 
+        // Update scheduled dates for dependent tasks
         foreach (TaskInList task in tasksWithoutDep)
         {
             updateSceduledDateInDep(task.Id);
         }
     }
 
+    /// <summary>
+    /// Updates the scheduled date for tasks dependent on a given task recursively.
+    /// </summary>
+    /// <param name="id">The ID of the task whose dependents need to have their scheduled dates updated.</param>
+    /// <remarks>
+    /// This method recursively updates the scheduled date for tasks that depend on the task with the specified ID.
+    /// It iterates through all dependent tasks, updating their scheduled dates based on the forecast date of the given task.
+    /// If a dependent task already has a scheduled date, it compares the forecast date of the given task with the current scheduled date of the dependent task
+    /// and updates the scheduled date if necessary to ensure it reflects the latest possible start date.
+    /// </remarks>
     private void updateSceduledDateInDep(int id)
     {
-        //id = id of task hat other tasks depends on her
         IEnumerable<TaskInList> dependOnTasks = Task.ReadAll(boTask => boTask.Dependencies!.FirstOrDefault(item => item.Id == id) != null).ToList();
         BO.Task dep = Task.Read(id);
         if (dependOnTasks == null)

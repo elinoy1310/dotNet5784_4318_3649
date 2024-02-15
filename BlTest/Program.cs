@@ -8,27 +8,35 @@ using BlImplementation;
 internal class Program
 {
     static readonly BlApi.IBl s_bl = BlApi.Factory.Get();
+
+    /// <summary>
+    /// Main method of the application.
+    /// </summary>
+    /// <param name="args">Command-line arguments.</param>
     private static void Main(string[] args)
     {
-        //s_bl.Engineer.Create(new BO.Engineer() { Id=89,Cost=55,Name="bbb",Email="aa@gmail.com"});
-        //List<TaskInList> lst = new List<TaskInList>();
-        //lst.Add(new TaskInList() { Id = 2, Alias = "ttt", Description = "hhh", Status = BO.Status.Scheduled });
-        //s_bl.Task.Add(new BO.Task() { Id = 3, Dependencies = lst ,Alias="ggg"});
-        //Console.WriteLine( s_bl.Task.Read(1));
         try
         {
+            // Prompt the user to create initial data.
             Console.Write("Would you like to create Initial data? (Y/N)");
             string? ans = Console.ReadLine() ?? throw new FormatException("Wrong input");
+            // If user input is 'Y', initialize data.
             if (ans == "Y")
                 DalTest.Initialization.Do();
-          
+
+            // Present the main menu.
             presentMainMenu();
         }
         catch (Exception ex)
         {
+            // Handle any exceptions and print error message.
             Console.WriteLine(ex.Message);
         }
     }
+
+    /// <summary>
+    /// Method to present the main menu.
+    /// </summary>
     private static void presentMainMenu()
     {
         bool flagExit = true;
@@ -37,19 +45,23 @@ internal class Program
             try
             {
 
+                // Display main menu options
                 Console.WriteLine("Select an entity you want to check\r\n0=Exit the main menu\r\n1=Engineer\r\n2=Task\r\n3=Create Schedule");
                 // Read user input for main menu option
                 string chooseMainMenu = Console.ReadLine()!;
                 MainMenu optionMainMenu = (MainMenu)int.Parse(chooseMainMenu);
+                // Check selected option
                 if (optionMainMenu == MainMenu.Exit)
                     flagExit = false;
                 else if (optionMainMenu == MainMenu.Task || optionMainMenu == MainMenu.Engineer)
                     presentSubMenu(optionMainMenu);
                 else if(optionMainMenu == MainMenu.CreateSchedule)
                 {
+                    // Prompt user to enter start project Date
                     Console.WriteLine("enter start project Date:");
                     DateTime start=DateTime.TryParse(Console.ReadLine(), out DateTime st)?st:throw new BlWrongInputFormatException("not a date");
                     s_bl.ProjectStartDate= start;
+                    // Prompt user for schedule creation method
                     Console.WriteLine("If you want to create a date manually, then enter an ID-Task , if not enter -1");
                     int taskId=int.Parse(Console.ReadLine()!);
                     if (taskId == -1)
@@ -63,11 +75,16 @@ internal class Program
             }
             catch (Exception ex)
             {
+                // Handle any exceptions and print error message.
                 Console.WriteLine(ex.Message);
             }
         }
     }
 
+    /// <summary>
+    /// Method to present the sub-menu based on the user's selection.
+    /// </summary>
+    /// <param name="entity">The entity selected in the main menu.</param>
     private static void presentSubMenu(MainMenu entity)
     {
         // Displaying submenu options to the user
@@ -80,6 +97,7 @@ internal class Program
                 // Reading user input for submenu option
                 string chooseSubMenu = Console.ReadLine() ?? throw new BlCanNotBeNullException("enter a number");
                 SubMenu optionSubMenu = (SubMenu)int.Parse(chooseSubMenu);
+                // Perform actions based on user's selection
                 switch (optionSubMenu)
                 {
                     case SubMenu.exit:
@@ -106,6 +124,7 @@ internal class Program
             }
             catch (Exception ex)
             {
+                // Handle any exceptions and print error message
                 Console.WriteLine(ex.Message);
                 if (ex.InnerException != null)
                     Console.WriteLine(ex.InnerException);
@@ -131,7 +150,10 @@ internal class Program
         }
     }
 
-
+    /// <summary>
+    /// Method to read and display all records of a specified entity from the data source.
+    /// </summary>
+    /// <param name="entity">The entity type whose records need to be read.</param>
     private static void readAllSubMenu(MainMenu entity)
     {
         switch (entity)
@@ -149,6 +171,10 @@ internal class Program
         }
     }
 
+    /// <summary>
+    /// Method to update records of a specified entity based on user input.
+    /// </summary>
+    /// <param name="entity">The entity type whose records need to be updated.</param>
     private static void updateSubMenu(MainMenu entity)
     {
         switch (entity)
@@ -188,15 +214,19 @@ internal class Program
                         throw new BlWrongInputFormatException("input not in DateTime format");
                     updateTask.StartDate = startDate;
                 }
-                // Update the Dependency record with new user input               
+                // Update the Task record with new user input
                 s_bl!.Task.Update(updateTask);
                 break;
         }
     }
 
+    /// <summary>
+    /// Method to create a new instance of the Engineer class based on user input.
+    /// </summary>
+    /// <returns>The newly created Engineer instance.</returns>
     private static Engineer newEngineer()
     {
-        //user input
+        // Prompt user for Engineer details
         Console.WriteLine("enter the details of the engineer:");
         Console.WriteLine("id:");
         int id = int.Parse(Console.ReadLine() ?? "0");
@@ -206,32 +236,30 @@ internal class Program
         string email = Console.ReadLine() ?? "";
         Console.WriteLine("level:");
         EngineerExperience level1 = (EngineerExperience)int.Parse(Console.ReadLine() ?? "0");
+        // Validate Engineer level
         if ((int)level1 > 4)
             throw new BlWrongInputFormatException($"There is no engineer level for the input number : {(int)level1}");
         Console.WriteLine("cost:");
         double cost = int.Parse(Console.ReadLine() ?? "0");
-        ////Console.WriteLine("idTask:");
-        ////int idTask = int.Parse(Console.ReadLine() ?? "0");
-        ////Console.WriteLine("aliasTask:");
-        ////string aliasTask = Console.ReadLine() ?? "";
-        ////TaskInEngineer task= new TaskInEngineer() { Id=idTask, Alias=aliasTask };
-
-        //creates new Engineer and returns it
+        // Create a new Engineer instance and return it
         Engineer newEngineer = new Engineer() { Id=id, Name=name, Email=email, Cost=cost, level=level1};
         return newEngineer;
     }
 
+    /// <summary>
+    /// Method to create a new instance of the Task class based on user input.
+    /// </summary>
+    /// <param name="id">Optional parameter representing the ID of the new task.</param>
+    /// <returns>The newly created Task instance.</returns>
     private static BO.Task newTask(int id=0)
     {
-        //user input
+        // Prompt user for Task details
         Console.WriteLine("enter alias,description,required effort time");
         string alias = Console.ReadLine() ?? "";
         string description = Console.ReadLine() ?? "";
         if (!TimeSpan.TryParse(Console.ReadLine(), out TimeSpan requiredEffortTime))
             throw new BlWrongInputFormatException("input not in TimeSpan format");
-        //if (DateTime.TryParse(Console.ReadLine(), out DateTime createdInDate))
-        //    throw new BlWrongInputFormatException("input not in DateTime format");
-        //Status status = (Status)int.Parse(Console.ReadLine() ?? "0");
+        // Initialize list of dependencies
         List<TaskInList> listDep = new List<TaskInList>();
         Console.WriteLine("enter numbers of tasks that this task depend on them, enter -1 in order to stop");
         int numDep = int.Parse(Console.ReadLine() ?? "0");
@@ -239,32 +267,23 @@ internal class Program
         {
             if (numDep >= 0)
             {
+                // Read and add task dependencies
                 BO.Task? tempTask = s_bl.Task.Read(numDep);
                 listDep.Add(new TaskInList() { Id = tempTask.Id, Alias = tempTask.Alias, Description = tempTask.Description, Status = tempTask.Status });
             }
             numDep = int.Parse(Console.ReadLine() ?? "0");
         }
+        // Prompt user for additional task details
         Console.WriteLine("enter deliverables,remarks,complexity");
-        //if (DateTime.TryParse(Console.ReadLine(), out DateTime scheduledDate))
-        //    throw new BlWrongInputFormatException("input not in DateTime format");
-        //if (DateTime.TryParse(Console.ReadLine(), out DateTime startDate))
-        //    throw new BlWrongInputFormatException("input not in DateTime format");
-        //if (DateTime.TryParse(Console.ReadLine(), out DateTime forecastDate))
-        //    throw new BlWrongInputFormatException("input not in DateTime format");
-        //if (DateTime.TryParse(Console.ReadLine(), out DateTime completeDate))
-        //    throw new BlWrongInputFormatException("input not in DateTime format");
-        // Console.WriteLine("enter num of dependency, to finish enter -1");
-
         string deliverables = Console.ReadLine() ?? "";
         string remarks = Console.ReadLine() ?? "";
         EngineerExperience complexity = (EngineerExperience)int.Parse(Console.ReadLine() ?? "0");
         if ((int)complexity > 4)
             throw new BlWrongInputFormatException($"There is no task complexity level for the input number : {(int)complexity}");
-        //create new Task and returns it
+        // Create and return the new Task instance
         BO.Task newTask = new BO.Task() {Id=id, Alias=alias, Description=description, RequiredEffortTime=requiredEffortTime, /*ScheduledDate=scheduledDate, CreatedAtDate=createdInDate,Status=status*/ Dependencies=listDep ,/* StartDate=startDate,ForecastDate=forecastDate ,CompleteDate=completeDate*/Deliverables=deliverables, Remarks=remarks,/*Engineer=engineer ,*/Complexity=complexity };  
         return newTask;
     }
-    // dependencies 
     private static void createSubMenu(MainMenu entity)
     {
         switch (entity)
@@ -300,11 +319,16 @@ internal class Program
         }
     }
 
+    /// <summary>
+    /// Prompts the user to enter an ID, parses it as an integer, and returns the result.
+    /// </summary>
+    /// <returns>The parsed integer ID.</returns>
     private static int inputId()
     {
         bool flag;
         Console.WriteLine("enter Id:");
         flag = int.TryParse(Console.ReadLine(), out int id);
+        // Check if parsing was successful, otherwise throw an exception
         return flag ? id : throw new BlWrongInputFormatException("not a number");
     }
 
