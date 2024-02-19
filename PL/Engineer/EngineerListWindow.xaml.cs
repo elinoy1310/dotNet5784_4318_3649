@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Accessibility;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -24,16 +25,18 @@ namespace PL.Engineer
         {
             InitializeComponent();
         }
+      
+        public IEnumerable<BO.Engineer> EngineerList
+        {
+            get { return (IEnumerable<BO.Engineer>)GetValue(EngineerListProperty); }
+            set { SetValue(EngineerListProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for MyProperty.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty EngineerListProperty =
+            DependencyProperty.Register("EngineerList", typeof(IEnumerable<BO.Engineer>), typeof(EngineerListWindow), new PropertyMetadata(null));
     }
 
-    public IEnumerable<BO.Engineer> EngineerList
-    {
-        get { return (IEnumerable<BO.Engineer>)GetValue(EngineerListProperty); }
-        set { SetValue(EngineerListProperty, value); }
-    }
-
-    // Using a DependencyProperty as the backing store for MyProperty.  This enables animation, styling, binding, etc...
-    public static readonly DependencyProperty EngineerListProperty =
-        DependencyProperty.Register("EngineerList", typeof(IEnumerable<BO.Engineer>), typeof(EngineerListWindow), new PropertyMetadata(null));
+   
 
 }
