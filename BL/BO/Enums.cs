@@ -2,7 +2,7 @@
 
 namespace BO;
 
-public enum EngineerExperience { Beginner, AdvancedBeginner, Intermediate, Advanced, Expert }
+public enum EngineerExperience { Beginner, AdvancedBeginner, Intermediate, Advanced, Expert,None }
 
 public enum Status { Done, Unscheduled, Scheduled, OnTrack }
 

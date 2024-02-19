@@ -5,7 +5,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL.Engineer"
         mc:Ignorable="d"
-        Title="EngineerListWindow" Height="640" Width="800" DataContext="{Binding RelativeSource={RelativeSource Mode=Self}}">
+        Title="EngineerListWindow" Height="640" Width="800" 
+        DataContext="{Binding RelativeSource={RelativeSource Mode=Self}}">
+
     <!--Extrnal Grid-->
     <Grid ShowGridLines="True">
         <Grid.RowDefinitions>
@@ -20,7 +22,7 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
             <Label Content="Label" HorizontalAlignment="Left" Margin="43,0,0,0" VerticalAlignment="Center" RenderTransformOrigin="1.127,0.526"  Grid.Column="0"/>
-            <ComboBox HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Column="1"/>
+            <ComboBox HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Column="1"  ItemsSource="{Binding Source={StaticResource LevelCollectionKey}}"  SelectedValue="{Binding Level, Mode=TwoWay}" SelectionChanged="CbFilterByLevel_SelectionChanged"/>
         </Grid>
         <ListView Grid.Row="1" ItemsSource="{Binding Path=EngineerList}">
             <ListView.View>
