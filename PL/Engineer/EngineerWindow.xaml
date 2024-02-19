@@ -6,7 +6,30 @@
         xmlns:local="clr-namespace:PL.Engineer"
         mc:Ignorable="d"
         Title="EngineerWindow" Height="450" Width="800">
+    <Window.Resources>
+        <Style TargetType="Label">
+            <Setter Property="FontSize" Value="19" />
+            <Setter Property="HorizontalAlignment" Value="Left" />
+        </Style>
+        <Style TargetType="TextBox">
+            <Setter Property="FontSize" Value="16" />
+            <Setter Property="HorizontalAlignment" Value="Left" />
+        </Style>
+    </Window.Resources>
     <Grid>
-        
+        <Label Content="ID :" Margin="46,25,0,0" VerticalAlignment="Top"/>
+        <Label Content="Name :" Margin="46,102,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.04,-0.385"/>
+        <Label Content="Email :" Margin="46,174,0,0" VerticalAlignment="Top"/>
+        <Label Content="Level :" Margin="46,251,0,0" VerticalAlignment="Top"/>
+        <Label Content="Cost :" Margin="46,317,0,0" VerticalAlignment="Top"/>
+        <Label Content="Task-ID work on :" Margin="46,383,0,0" VerticalAlignment="Top"/>
+        <TextBox HorizontalAlignment="Left" Margin="221,33,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="120"/>
+        <TextBox Margin="221,114,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="120"/>
+        <TextBox Margin="221,186,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="120"/>
+        <ComboBox HorizontalAlignment="Left" Margin="221,257,0,0" VerticalAlignment="Top" Width="120"/>
+        <TextBox HorizontalAlignment="Left" Margin="221,325,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="120"/>
+        <TextBox HorizontalAlignment="Left" Margin="221,391,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="120"/>
+        <Button Content="Button" HorizontalAlignment="Left" Margin="697,383,0,0" VerticalAlignment="Top" Height="38" Width="93"/>
+
     </Grid>
 </Window>
