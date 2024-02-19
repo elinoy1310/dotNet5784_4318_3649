@@ -46,6 +46,9 @@ namespace PL.Engineer
         public static readonly DependencyProperty add_updateEngineerProperty =
             DependencyProperty.Register("add_updateEngineer", typeof(BO.Engineer), typeof(EngineerWindow), new PropertyMetadata(new BO.Engineer()));
 
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
 
+        }
     }
 }

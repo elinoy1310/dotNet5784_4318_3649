@@ -27,7 +27,7 @@
         <Label Content="Email :" Margin="46,174,0,0" VerticalAlignment="Top" HorizontalAlignment="Left"/>
         <Label Content="Level :" Margin="46,251,0,0" VerticalAlignment="Top" HorizontalAlignment="Left"/>
         <Label Content="Cost :" Margin="46,317,0,0" VerticalAlignment="Top" HorizontalAlignment="Left"/>
-        <Label Content="Task-ID work on :" Margin="46,383,0,0" VerticalAlignment="Top" HorizontalAlignment="Left"/>
+        <Label Content="Task-ID work on :" Margin="46,383,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Visibility="{Binding ElementName=Button,Path=content,Converter={StaticResource ConvertTextToVisibility}}"/>
         <TextBox HorizontalAlignment="Left" Margin="221,33,0,0" TextWrapping="Wrap" Width="120" VerticalAlignment="Top"
                  Text="{Binding  add_updateEngineer.Id, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}"/>
         <TextBox Margin="221,114,0,0" TextWrapping="Wrap" Width="120" HorizontalAlignment="Left" VerticalAlignment="Top"
@@ -40,7 +40,7 @@
                  Text="{Binding  add_updateEngineer.Cost, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}"/>
         <TextBox HorizontalAlignment="Left" Margin="221,391,0,0" TextWrapping="Wrap" Width="120" VerticalAlignment="Top"
                  Text="{Binding  add_updateEngineer.Task.Id, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}"/>
-        <Button Content="Button" HorizontalAlignment="Left" Margin="697,383,0,0" VerticalAlignment="Top" Height="38" Width="93"/>
+        <Button Content="{Binding Id, Mode=OneTime, Converter={StaticResource ConverIdToContentKey}}" HorizontalAlignment="Left" Margin="697,383,0,0" VerticalAlignment="Top" Height="38" Width="93" Click="Button_Click" />
    </Grid>
 
 </Window>
