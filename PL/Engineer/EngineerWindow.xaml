@@ -39,8 +39,8 @@
         <TextBox HorizontalAlignment="Left" Margin="221,325,0,0" TextWrapping="Wrap"  Width="120" VerticalAlignment="Top"
                  Text="{Binding  add_updateEngineer.Cost, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}"/>
         <TextBox HorizontalAlignment="Left" Margin="221,391,0,0" TextWrapping="Wrap" Width="120" VerticalAlignment="Top"
-                 Text="{Binding  add_updateEngineer.Task.Id, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}"/>
-        <Button Content="{Binding Id, Mode=OneTime, Converter={StaticResource ConverIdToContentKey}}" HorizontalAlignment="Left" Margin="697,383,0,0" VerticalAlignment="Top" Height="38" Width="93" Click="Button_Click" />
+                 Text="{Binding  add_updateEngineer.Task.Id, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}" Visibility="{Binding ElementName=Button,Path=content,Converter={StaticResource ConvertTextToVisibility}}/>
+        <Button Content="{Binding Id, Mode=OneTime, Converter={StaticResource ConverIdToContent}}" HorizontalAlignment="Left" Margin="697,383,0,0" VerticalAlignment="Top" Height="38" Width="93" Click="Button_Click" />
    </Grid>
 
 </Window>
