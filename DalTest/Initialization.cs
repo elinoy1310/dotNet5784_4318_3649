@@ -182,6 +182,13 @@ public static class Initialization
         s_dal!.Dependency.Create(new Dependency(0,1,20));
 
     }
+
+    public static void Reset()
+    {
+        s_dal!.Engineer.DeleteAll();
+        s_dal!.Task.DeleteAll();
+        s_dal!.Dependency.DeleteAll();
+    }
 }
 
 

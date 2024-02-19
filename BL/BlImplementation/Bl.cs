@@ -17,6 +17,9 @@ public class Bl : IBl
 
     private DalApi.IDal _dal = DalApi.Factory.Get;
     public DateTime? ProjectStartDate { get => _dal.ProjectStartDate; set => _dal.ProjectStartDate=value; }
+    public void InitializeDB() => DalTest.Initialization.Do();
+    public void ResetDB() => DalTest.Initialization.Reset();
+
 
     /// <summary>
     /// Checks the status of the project based on its tasks and scheduled start date.
