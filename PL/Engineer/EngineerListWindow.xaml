@@ -22,7 +22,7 @@
             <Label Content="Label" HorizontalAlignment="Left" Margin="43,0,0,0" VerticalAlignment="Center" RenderTransformOrigin="1.127,0.526"  Grid.Column="0"/>
             <ComboBox HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Column="1"/>
         </Grid>
-        <ListView Grid.Row="1">
+        <ListView Grid.Row="1" ItemsSource="{Binding Path=EngineerList}">
             <ListView.View>
                 <GridView>
                     <GridViewColumn/>

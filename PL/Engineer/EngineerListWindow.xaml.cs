@@ -24,6 +24,7 @@ namespace PL.Engineer
         public EngineerListWindow()
         {
             InitializeComponent();
+            EngineerList=s_bl.Engineer.ReadAll();
         }
       
         public IEnumerable<BO.Engineer> EngineerList
