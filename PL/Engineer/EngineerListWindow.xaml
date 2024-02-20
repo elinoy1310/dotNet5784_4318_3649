@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:PL.Engineer"
         mc:Ignorable="d"
         Title="EngineerListWindow" Height="640" Width="800" 
-        DataContext="{Binding RelativeSource={RelativeSource Mode=Self}}">
+        DataContext="{Binding RelativeSource={RelativeSource Mode=Self}}" Loaded="wLoadTheUpdatedEngineersList_Loaded">
 
     <!--Extrnal Grid-->
     <Grid ShowGridLines="True">
@@ -24,14 +24,14 @@
             <Label Content="Label" HorizontalAlignment="Left" Margin="43,0,0,0" VerticalAlignment="Center" RenderTransformOrigin="1.127,0.526"  Grid.Column="0"/>
             <ComboBox HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Column="1"  ItemsSource="{Binding Source={StaticResource LevelCollectionKey}}"  SelectedValue="{Binding Level, Mode=TwoWay}" SelectionChanged="CbFilterByLevel_SelectionChanged"/>
         </Grid>
-        <ListView Grid.Row="1" ItemsSource="{Binding Path=EngineerList}">
+        <ListView Grid.Row="1" ItemsSource="{Binding Path=EngineerList}" MouseDoubleClick="lvSelectEngineerToUpdate_MouseDoubleClick">
             <ListView.View>
                 <GridView>
                     <GridViewColumn/>
                 </GridView>
             </ListView.View>
         </ListView>
-        <Button Content="Add" Grid.Row="2" HorizontalAlignment="Center" Height="50" Width="100"/>
+        <Button Content="Add" Grid.Row="2" HorizontalAlignment="Center" Height="50" Width="100" Click="btnAddEngineer_Click"/>
 
     </Grid>
 </Window>
