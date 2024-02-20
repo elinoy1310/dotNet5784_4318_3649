@@ -48,7 +48,64 @@ namespace PL.Engineer
 
         private void AddOrUpdateClick(object sender, RoutedEventArgs e)
         {
-            string strValue=
+            string strValue = (string)sender;
+            if (strValue == "Add")
+            {
+                try
+                {
+                    s_bl.Engineer.Create(add_updateEngineer);
+                }
+                catch (BO.BlAlreadyExistException ex)
+                {
+                    MessageBoxResult mbResult = MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    if (mbResult == MessageBoxResult.OK)
+                    {
+                        new EngineerListWindow().Show();
+                    }
+                }
+                catch (BO.BlWrongDataException ex)
+                {
+                    MessageBoxResult mbResult = MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    if (mbResult == MessageBoxResult.OK)
+                    {
+                        new EngineerListWindow().Show();
+                    }
+                }
+                MessageBoxResult successMsg = MessageBox.Show("The engineer created successfully!");
+            }
+            else
+            {
+                try
+                {
+                    s_bl.Engineer.Update(add_updateEngineer);
+                }
+                catch (BO.BlDoesNotExistException ex)
+                {
+                    MessageBoxResult mbResult = MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    if (mbResult == MessageBoxResult.OK)
+                    {
+                        new EngineerListWindow().Show();
+                    }
+                }
+                catch (BO.BlWrongDataException ex)
+                {
+                    MessageBoxResult mbResult = MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    if (mbResult == MessageBoxResult.OK)
+                    {
+                        new EngineerListWindow().Show();
+                    }
+                }
+                catch (BO.BlCannotBeUpdatedException ex)
+                {
+                    MessageBoxResult mbResult = MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    if (mbResult == MessageBoxResult.OK)
+                    {
+                        new EngineerListWindow().Show();
+                    }
+                }
+                MessageBoxResult successMsg = MessageBox.Show("The engineer updated successfully!");
+            }
+            this.Close();
         }
     }
 }
