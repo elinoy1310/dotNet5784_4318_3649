@@ -185,6 +185,7 @@ public static class Initialization
 
     public static void Reset()
     {
+        s_dal = DalApi.Factory.Get;
         s_dal!.Engineer.DeleteAll();
         s_dal!.Task.DeleteAll();
         s_dal!.Dependency.DeleteAll();

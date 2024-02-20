@@ -1,4 +1,5 @@
 ﻿using System.Windows;
+using System.Windows.Controls;
 
 namespace PL.Engineer
 {
@@ -48,7 +49,8 @@ namespace PL.Engineer
 
         private void AddOrUpdateClick(object sender, RoutedEventArgs e)
         {
-            string strValue = (string)sender;
+           Button temp= (Button)sender;
+            string? strValue = temp.Content.ToString();
             if (strValue == "Add")
             {
                 try
