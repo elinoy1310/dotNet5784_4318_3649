@@ -11,23 +11,28 @@ namespace PL.Engineer
     {
         static readonly BlApi.IBl s_bl = BlApi.Factory.Get();
         public BO.EngineerExperience Level { get; set; } = BO.EngineerExperience.None;
+
+        public string State { get; init; }
         public EngineerWindow(int idEngineer = 0)
         {
             InitializeComponent();
             if (idEngineer == 0)
             {
                 add_updateEngineer = new BO.Engineer();
+                State = "Add";
             }
             else
-            {
+            { 
+                State = "Update";
                 try
                 {
                     add_updateEngineer = s_bl.Engineer.Read(idEngineer);
+                   
                 }
                 catch (BO.BlDoesNotExistException ex)
                 {
-                    MessageBoxResult mbResult = MessageBox.Show(ex.Message,"Error",MessageBoxButton.OK,MessageBoxImage.Error);
-                    if (mbResult == MessageBoxResult.OK) 
+                    MessageBoxResult mbResult = MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    if (mbResult == MessageBoxResult.OK)
                     {
                         new EngineerListWindow().Show();
                     }
@@ -49,65 +54,52 @@ namespace PL.Engineer
 
         private void AddOrUpdateClick(object sender, RoutedEventArgs e)
         {
-           Button temp= (Button)sender;
-            string? strValue = temp.Content.ToString();
-            if (strValue == "Add")
+            if (State == "Add")
             {
                 try
                 {
-                    s_bl.Engineer.Create(add_updateEngineer);
+                    s_bl.Engineer.Create(add_updateEngineer); 
+                    MessageBoxResult successMsg = MessageBox.Show("The engineer created successfully!");
                 }
                 catch (BO.BlAlreadyExistException ex)
                 {
                     MessageBoxResult mbResult = MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                    if (mbResult == MessageBoxResult.OK)
-                    {
-                        new EngineerListWindow().Show();
-                    }
+
                 }
                 catch (BO.BlWrongDataException ex)
                 {
                     MessageBoxResult mbResult = MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                    if (mbResult == MessageBoxResult.OK)
-                    {
-                        new EngineerListWindow().Show();
-                    }
+
                 }
-                MessageBoxResult successMsg = MessageBox.Show("The engineer created successfully!");
+              
             }
             else
             {
                 try
                 {
                     s_bl.Engineer.Update(add_updateEngineer);
+                    MessageBoxResult successMsg = MessageBox.Show("The engineer updated successfully!");
                 }
                 catch (BO.BlDoesNotExistException ex)
                 {
                     MessageBoxResult mbResult = MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                    if (mbResult == MessageBoxResult.OK)
-                    {
-                        new EngineerListWindow().Show();
-                    }
+              
                 }
                 catch (BO.BlWrongDataException ex)
                 {
                     MessageBoxResult mbResult = MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                    if (mbResult == MessageBoxResult.OK)
-                    {
-                        new EngineerListWindow().Show();
-                    }
+       
                 }
                 catch (BO.BlCannotBeUpdatedException ex)
                 {
                     MessageBoxResult mbResult = MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                    if (mbResult == MessageBoxResult.OK)
-                    {
-                        new EngineerListWindow().Show();
-                    }
+               
                 }
-                MessageBoxResult successMsg = MessageBox.Show("The engineer updated successfully!");
+                
             }
+
             this.Close();
+
         }
     }
 }

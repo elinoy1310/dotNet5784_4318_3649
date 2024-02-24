@@ -1,10 +1,2 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<ArrayOfEngineer>
-  <Engineer>
-    <Id>200220249</Id>
-    <Email>esd@gmail.com</Email>
-    <Cost>8</Cost>
-    <Name>esd</Name>
-    <Level>Beginner</Level>
-  </Engineer>
-</ArrayOfEngineer>
+<ArrayOfEngineer />

@@ -22,8 +22,8 @@ public class ConvertTextToVisibility : IValueConverter
 {
     public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
     {
-        string strValue = (string)value;
-        if (strValue=="Add")
+        //string strValue = (string)value;
+        if (/*strValue=="Add"*/(int)value == 0)
         {
             return Visibility.Hidden; 
         }
@@ -31,6 +31,27 @@ public class ConvertTextToVisibility : IValueConverter
         {
             return Visibility.Visible;
         }
+    }
+    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+    {
+        throw new NotImplementedException();
+    }
+}
+
+public class ConvertTextToIsEnabled : IValueConverter
+{
+    public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+    {
+        return (int)value == 0;
+        //string strValue = (string)value;
+        //if (strValue == "Add")
+        //{
+        //    return Visibility.Hidden;
+        //}
+        //else
+        //{
+        //    return Visibility.Visible;
+        //}
     }
     public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
     {
