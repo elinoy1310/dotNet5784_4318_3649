@@ -22,12 +22,12 @@ namespace PL.Engineer
                 State = "Add";
             }
             else
-            { 
+            {
                 State = "Update";
                 try
                 {
                     add_updateEngineer = s_bl.Engineer.Read(idEngineer);
-                   
+
                 }
                 catch (BO.BlDoesNotExistException ex)
                 {
@@ -52,6 +52,21 @@ namespace PL.Engineer
         public static readonly DependencyProperty add_updateEngineerProperty =
             DependencyProperty.Register("add_updateEngineer", typeof(BO.Engineer), typeof(EngineerWindow), new PropertyMetadata(new BO.Engineer()));
 
+
+
+        public BO.TaskInEngineer EngineerTask
+        {
+            get { return (BO.TaskInEngineer)GetValue(EngineerTaskProperty); }
+            set { SetValue(EngineerTaskProperty, value); }
+        }
+    
+
+        // Using a DependencyProperty as the backing store for EngineerTask.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty EngineerTaskProperty =
+            DependencyProperty.Register("EngineerTask", typeof(BO.TaskInEngineer), typeof(EngineerWindow), new PropertyMetadata(new BO.TaskInEngineer()));
+
+
+       
         private void AddOrUpdateClick(object sender, RoutedEventArgs e)
         {
             if (State == "Add")
