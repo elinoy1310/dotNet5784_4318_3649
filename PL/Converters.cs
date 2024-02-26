@@ -3,6 +3,7 @@ using System;
 using System.Globalization;
 using System.Windows;
 using System.Windows.Data;
+using BO;
 
 namespace PL;
 
@@ -18,6 +19,8 @@ class ConvertIdToContent : IValueConverter
         throw new NotImplementedException();
     }
 }
+
+
 public class ConvertTextToVisibility : IValueConverter
 {
     public object Convert(object value, Type targetType, object parameter, CultureInfo culture)

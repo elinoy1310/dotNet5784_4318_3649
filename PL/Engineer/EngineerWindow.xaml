@@ -14,7 +14,7 @@
 
     <Window.Resources>
         <Style TargetType="Label">
-            <Setter Property="FontSize" Value="18" />
+            <Setter Property="FontSize" Value="17" />
             <Setter Property="HorizontalAlignment" Value="Left" />
             <Setter Property="FontWeight" Value="Bold" />
             <Setter Property="FontStyle" Value="Italic" />
@@ -22,7 +22,7 @@
             <Setter Property="Background" Value="Black"/>
         </Style>
         <Style TargetType="TextBox">
-            <Setter Property="FontSize" Value="18" />
+            <Setter Property="FontSize" Value="15" />
             <Setter Property="HorizontalAlignment" Value="Left" />
         </Style>
     </Window.Resources>
@@ -53,11 +53,14 @@
                  />
         <TextBox Margin="50,18,0,0" TextWrapping="Wrap" Width="120" VerticalAlignment="Top" Grid.Column="1"
                  Text="{Binding  Name, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}" Height="26" RenderTransformOrigin="0.5,0.5" Grid.Row="1">
+                 Text="{Binding  Id, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}"/>
+        <TextBox Margin="53,15,0,0" TextWrapping="Wrap" Width="121" VerticalAlignment="Top" Grid.Column="1"
+                 Text="{Binding  Name, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}" Height="28" RenderTransformOrigin="0.5,0.5" TextChanged="TextBox_TextChanged" Grid.Row="1">
             <TextBox.RenderTransform>
                 <TransformGroup>
-                    <ScaleTransform ScaleY="-1"/>
+                    <ScaleTransform ScaleY="1"/>
                     <SkewTransform/>
-                    <RotateTransform/>
+                    <RotateTransform Angle="-360.115"/>
                     <TranslateTransform/>
                 </TransformGroup>
             </TextBox.RenderTransform>
@@ -69,7 +72,7 @@
         <TextBox Margin="50,0,0,0" TextWrapping="Wrap"  Width="120" VerticalAlignment="Center" Grid.Column="1"
                  Text="{Binding  Cost, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}" Grid.Row="4"/>
         <TextBox Margin="50,15,0,0" TextWrapping="Wrap" Width="120" VerticalAlignment="Top" Grid.Column="1"
-                 Text="{Binding  Task.Id, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}" Visibility="{Binding Id, Mode=OneTime, Converter={StaticResource ConvertTextToVisibility}}" Grid.Row="5"/>
+                 Text="{Binding  task.Id, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true }" Visibility="{Binding Id, Mode=OneTime, Converter={StaticResource ConvertTextToVisibility}}" Grid.Row="5"/>
         <Button Content="{Binding Id, Mode=OneTime, Converter={StaticResource ConverIdToContent}}" HorizontalAlignment="Left" Margin="164,24,0,0" VerticalAlignment="Top" Height="38" Width="93" Click="AddOrUpdateClick" Grid.Row="5" Grid.Column="2"/>
     </Grid>
 

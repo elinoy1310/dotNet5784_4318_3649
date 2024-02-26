@@ -1,5 +1,6 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
+using BO;
 
 namespace PL.Engineer
 {
@@ -52,21 +53,6 @@ namespace PL.Engineer
         public static readonly DependencyProperty add_updateEngineerProperty =
             DependencyProperty.Register("add_updateEngineer", typeof(BO.Engineer), typeof(EngineerWindow), new PropertyMetadata(new BO.Engineer()));
 
-
-
-        public BO.TaskInEngineer EngineerTask
-        {
-            get { return (BO.TaskInEngineer)GetValue(EngineerTaskProperty); }
-            set { SetValue(EngineerTaskProperty, value); }
-        }
-    
-
-        // Using a DependencyProperty as the backing store for EngineerTask.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty EngineerTaskProperty =
-            DependencyProperty.Register("EngineerTask", typeof(BO.TaskInEngineer), typeof(EngineerWindow), new PropertyMetadata(new BO.TaskInEngineer()));
-
-
-       
         private void AddOrUpdateClick(object sender, RoutedEventArgs e)
         {
             if (State == "Add")
@@ -115,6 +101,11 @@ namespace PL.Engineer
 
             this.Close();
             s_bl.Engineer.ReadAll();
+        }
+
+        private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
         }
 
         private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
