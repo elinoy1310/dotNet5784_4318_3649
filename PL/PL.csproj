@@ -13,7 +13,15 @@
 	</PropertyGroup>
 
 	<ItemGroup>
+	  <None Remove="blue-futuristic-networking-technology_53876-97395.jpg" />
+	</ItemGroup>
+
+	<ItemGroup>
 	  <ProjectReference Include="..\BL\BL.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Resource Include="blue-futuristic-networking-technology_53876-97395.jpg" />
 	</ItemGroup>
 
 </Project>

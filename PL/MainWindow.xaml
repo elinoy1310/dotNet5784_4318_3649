@@ -6,15 +6,22 @@
         xmlns:local="clr-namespace:PL"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
+
+    <Window.Resources>
+        <Style TargetType="Button">
+            <Setter Property="FontSize" Value="13" />
+            <Setter Property="HorizontalAlignment" Value="Left" />
+        </Style>
+    </Window.Resources>
     <Grid>
         <Grid.Background>
-            <ImageBrush/>
+            <ImageBrush ImageSource="/blue-futuristic-networking-technology_53876-97395.jpg"/>
         </Grid.Background>
         <!---present the list of engineers in new window-->
-        <Button Content="Handle Engineers" HorizontalAlignment="Left" Margin="112,337,0,0" VerticalAlignment="Top" Height="39" Width="92" RenderTransformOrigin="3.319,-2.026" Click="btnEnginnersList_Click"/>
+        <Button Content="Handle Engineers" Margin="97,337,0,0" VerticalAlignment="Top" Height="39" Width="113" RenderTransformOrigin="3.319,-2.026" Click="btnEnginnersList_Click" BorderBrush="Black" Foreground="#FF00003D"/>
         <!---initialize all the data-->
-        <Button Content="Initialize DataBase" HorizontalAlignment="Left" Margin="253,337,0,0" VerticalAlignment="Top" Height="39" Width="119" RenderTransformOrigin="3.319,-2.026" Click="btnInitialization_Click"/>
+        <Button Content="Initialize DataBase" Margin="0,337,0,0" VerticalAlignment="Top" Height="39" Width="120" RenderTransformOrigin="3.319,-2.026" Click="btnInitialization_Click" HorizontalAlignment="Center" BorderBrush="Black" Foreground="#FF00003D"/>
         <!---clear all the data-->
-        <Button Content="Reset DataBase" HorizontalAlignment="Left" Margin="400,337,0,0" VerticalAlignment="Top" Height="39" Width="92" RenderTransformOrigin="3.319,-2.026" Click="btnReset_Click"/>
+        <Button Content="Reset DataBase" Margin="565,337,0,0" VerticalAlignment="Top" Height="39" Width="109" RenderTransformOrigin="3.319,-2.026" Click="btnReset_Click" BorderBrush="Black" Foreground="#FF0C083D"/>
     </Grid>
 </Window>
