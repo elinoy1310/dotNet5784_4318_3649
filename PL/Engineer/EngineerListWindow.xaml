@@ -9,7 +9,7 @@
         DataContext="{Binding RelativeSource={RelativeSource Mode=Self}}" Loaded="wLoadTheUpdatedEngineersList_Loaded">
 
     <!--Extrnal Grid-->
-    <Grid ShowGridLines="True">
+    <Grid ShowGridLines="False">
         <Grid.RowDefinitions>
             <RowDefinition Height="40*"/>
             <RowDefinition Height="500*"/>
@@ -21,17 +21,21 @@
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            <Label Content="Label" HorizontalAlignment="Left" Margin="43,0,0,0" VerticalAlignment="Center" RenderTransformOrigin="1.127,0.526"  Grid.Column="0"/>
-            <ComboBox HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Column="1"  ItemsSource="{Binding Source={StaticResource LevelCollectionKey}}"  SelectedValue="{Binding Level, Mode=TwoWay}" SelectionChanged="CbFilterByLevel_SelectionChanged"/>
+            <Label Content="Filter the list by the Engineer level:" HorizontalAlignment="Left" Margin="43,0,0,0" VerticalAlignment="Center" RenderTransformOrigin="1.127,0.526"  Grid.Column="0" FontFamily="Arial Black" FontSize="14"/>
+            <ComboBox HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Column="1"  ItemsSource="{Binding Source={StaticResource LevelCollectionKey}}"  SelectedValue="{Binding Level, Mode=TwoWay}" SelectionChanged="CbFilterByLevel_SelectionChanged" FontFamily="Arial" FontSize="16"/>
+
         </Grid>
+       
         <ListView Grid.Row="1" ItemsSource="{Binding Path=EngineerList}" MouseDoubleClick="lvSelectEngineerToUpdate_MouseDoubleClick">
             <ListView.View>
                 <GridView>
                     <GridViewColumn/>
                 </GridView>
             </ListView.View>
+            
         </ListView>
-        <Button Content="Add" Grid.Row="2" HorizontalAlignment="Center" Height="50" Width="100" Click="btnAddEngineer_Click"/>
+       
+        <Button Content="Add&#x0a;Engineer"  Grid.Row="2" HorizontalAlignment="Center" Height="50" Width="100" Click="btnAddEngineer_Click" Foreground="Black" Background="#FFB0E8F3" FontFamily="Cascadia Code" FontSize="15" VerticalContentAlignment="Center"/>
 
     </Grid>
 </Window>
