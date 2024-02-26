@@ -49,21 +49,21 @@
         <Label Content="Task-ID work on :" Margin="45,11,0,0" VerticalAlignment="Top" Visibility="{Binding Id, Mode=OneTime, Converter={StaticResource ConvertTextToVisibility}}" Grid.Row="5" Grid.Column="0"/>
         <TextBox Margin="50,19,0,0" TextWrapping="Wrap" Width="120" VerticalAlignment="Top" Grid.Column="1"
                  Text="{Binding  Id, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}"
-                 IsEnabled="{Binding Id, Mode=OneTime, Converter={StaticResource ConvertTextToIsEnabled}}" TextChanged="TextBox_TextChanged"
+                 IsEnabled="{Binding Id, Mode=OneTime, Converter={StaticResource ConvertTextToIsEnabled}}" 
                  />
         <TextBox Margin="50,18,0,0" TextWrapping="Wrap" Width="120" VerticalAlignment="Top" Grid.Column="1"
-                 Text="{Binding  Name, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}" Height="26" RenderTransformOrigin="0.5,0.5" Grid.Row="1">
-                 Text="{Binding  Id, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}"/>
+            Text="{Binding  Name, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}" Height="26" RenderTransformOrigin="0.5,0.5" Grid.Row="1"/>
+
         <TextBox Margin="53,15,0,0" TextWrapping="Wrap" Width="121" VerticalAlignment="Top" Grid.Column="1"
-                 Text="{Binding  Name, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}" Height="28" RenderTransformOrigin="0.5,0.5" TextChanged="TextBox_TextChanged" Grid.Row="1">
+                 Text="{Binding  Name, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}" Height="28" RenderTransformOrigin="0.5,0.5" TextChanged="TextBox_TextChanged" Grid.Row="1" >
             <TextBox.RenderTransform>
-                <TransformGroup>
-                    <ScaleTransform ScaleY="1"/>
-                    <SkewTransform/>
-                    <RotateTransform Angle="-360.115"/>
-                    <TranslateTransform/>
-                </TransformGroup>
-            </TextBox.RenderTransform>
+            <TransformGroup>
+                <ScaleTransform ScaleY="1"/>
+                <SkewTransform/>
+                <RotateTransform Angle="-360.115"/>
+                <TranslateTransform/>
+            </TransformGroup>
+        </TextBox.RenderTransform>
         </TextBox>
         <TextBox Margin="50,18,0,0" TextWrapping="Wrap" Width="120" VerticalAlignment="Top" Grid.Column="1" Grid.Row="2"
                  Text="{Binding  Email, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}" Height="26" />
