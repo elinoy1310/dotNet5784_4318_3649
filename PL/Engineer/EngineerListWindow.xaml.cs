@@ -26,9 +26,10 @@ namespace PL.Engineer
         public EngineerListWindow()
         {
             InitializeComponent();
-       //     EngineerList=s_bl.Engineer.ReadAll();
+            //EngineerList = s_bl?.Engineer.ReadAll()!;
+            //     EngineerList=s_bl.Engineer.ReadAll();
         }
-      
+
         public IEnumerable<BO.Engineer> EngineerList
         {
             get { return (IEnumerable<BO.Engineer>)GetValue(EngineerListProperty); }
@@ -41,7 +42,7 @@ namespace PL.Engineer
 
         private void CbFilterByLevel_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            EngineerList=Level==BO.EngineerExperience.None? s_bl.Engineer.ReadAll():s_bl.Engineer.ReadAll(eng=>eng.level==Level); 
+            EngineerList = Level == BO.EngineerExperience.None ? s_bl.Engineer.ReadAll() : s_bl.Engineer.ReadAll(eng => eng.level == Level);
         }
 
         private void btnAddEngineer_Click(object sender, RoutedEventArgs e)
@@ -52,15 +53,21 @@ namespace PL.Engineer
         private void lvSelectEngineerToUpdate_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             BO.Engineer? engineer = (sender as ListView)?.SelectedItem as BO.Engineer;
-            new EngineerWindow(engineer?.Id??0).ShowDialog();
+            new EngineerWindow(engineer?.Id ?? 0).ShowDialog();
+            EngineerList = s_bl?.Engineer.ReadAll()!;
         }
 
         private void wLoadTheUpdatedEngineersList_Loaded(object sender, RoutedEventArgs e)
         {
             EngineerList = s_bl.Engineer.ReadAll();
+            //if (EngineerList != null)
+            //    foreach (var engineer in EngineerList)
+            //    {
+            //        s_bl.Engineer.Update(engineer);
+            //    }
         }
     }
 
-   
+
 
 }

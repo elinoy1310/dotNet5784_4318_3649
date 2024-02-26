@@ -1,5 +1,6 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
+using BO;
 
 namespace PL.Engineer
 {
@@ -26,8 +27,7 @@ namespace PL.Engineer
                 State = "Update";
                 try
                 {
-                    add_updateEngineer = s_bl.Engineer.Read(idEngineer);
-                   
+                    add_updateEngineer = s_bl.Engineer.Read(idEngineer);                   
                 }
                 catch (BO.BlDoesNotExistException ex)
                 {
@@ -51,6 +51,24 @@ namespace PL.Engineer
         // Using a DependencyProperty as the backing store for add_updateEngineer.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty add_updateEngineerProperty =
             DependencyProperty.Register("add_updateEngineer", typeof(BO.Engineer), typeof(EngineerWindow), new PropertyMetadata(new BO.Engineer()));
+
+
+
+
+
+        public TaskInEngineer task
+        {
+            get { return (TaskInEngineer)GetValue(taskProperty); }
+            set { SetValue(taskProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for task.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty taskProperty =
+            DependencyProperty.Register("task", typeof(TaskInEngineer), typeof(EngineerWindow), new PropertyMetadata(0));
+
+
+
+
 
         private void AddOrUpdateClick(object sender, RoutedEventArgs e)
         {
@@ -99,6 +117,11 @@ namespace PL.Engineer
             }
 
             this.Close();
+
+        }
+
+        private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
 
         }
     }
