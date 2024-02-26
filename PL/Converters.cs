@@ -20,19 +20,6 @@ class ConvertIdToContent : IValueConverter
     }
 }
 
-class ConvertTaskIdToContent : IValueConverter
-{
-    public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
-    {
-        TaskInEngineer task = (TaskInEngineer)value;
-        return task.Id;
-    }
-
-    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
-    {
-        throw new NotImplementedException();
-    }
-}
 
 public class ConvertTextToVisibility : IValueConverter
 {
