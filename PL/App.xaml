@@ -7,5 +7,6 @@
         <local:LevelCollection x:Key="LevelCollectionKey"/>
         <local:ConvertIdToContent x:Key="ConverIdToContent"/>
         <local:ConvertTextToVisibility x:Key="ConvertTextToVisibility"/>
+        <local:ConvertTextToIsEnabled x:Key="ConvertTextToIsEnabled"/>
     </Application.Resources>
 </Application>

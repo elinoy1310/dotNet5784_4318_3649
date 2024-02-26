@@ -114,6 +114,11 @@ namespace PL.Engineer
             }
 
             this.Close();
+            s_bl.Engineer.ReadAll();
+        }
+
+        private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
 
         }
     }
