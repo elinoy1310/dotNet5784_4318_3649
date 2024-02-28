@@ -76,7 +76,7 @@ namespace PL.Engineer
         /// Handles the mouse double-click event of the engineer selection list view.
         /// Opens a new EngineerWindow to update the selected engineer upon double-click.
         /// </summary>
-        /// <param name="sender">The object that raised the event.</param>
+        /// <param name="sender">The object that raised the event. </param>
         /// <param name="e">The event data.</param>
         private void lvSelectEngineerToUpdate_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
