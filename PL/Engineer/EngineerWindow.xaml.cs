@@ -14,6 +14,12 @@ namespace PL.Engineer
         public BO.EngineerExperience Level { get; set; } = BO.EngineerExperience.None;
 
         public string State { get; init; }
+
+
+        /// <summary>
+        /// Initializes a new instance of the EngineerWindow class.
+        /// </summary>
+        /// <param name="idEngineer">The ID of the engineer. Defaults to 0.</param>
         public EngineerWindow(int idEngineer = 0)
         {
             InitializeComponent();
@@ -43,16 +49,29 @@ namespace PL.Engineer
         }
 
 
+        /// <summary>
+        /// Gets or sets the engineer being added or updated in this window.
+        /// </summary>
         public BO.Engineer add_updateEngineer
         {
             get { return (BO.Engineer)GetValue(add_updateEngineerProperty); }
             set { SetValue(add_updateEngineerProperty, value); }
         }
 
-        // Using a DependencyProperty as the backing store for add_updateEngineer.  This enables animation, styling, binding, etc...
+        /// <summary>
+        /// Identifies the add_updateEngineer dependency property.
+        /// </summary>
         public static readonly DependencyProperty add_updateEngineerProperty =
             DependencyProperty.Register("add_updateEngineer", typeof(BO.Engineer), typeof(EngineerWindow), new PropertyMetadata(new BO.Engineer()));
 
+
+
+        /// <summary>
+        /// Handles the click event of the "Add" or "Update" button.
+        /// Performs the corresponding action based on the window state.
+        /// </summary>
+        /// <param name="sender">The object that raised the event.</param>
+        /// <param name="e">The event data.</param>
         private void AddOrUpdateClick(object sender, RoutedEventArgs e)
         {
             if (State == "Add")
@@ -74,7 +93,7 @@ namespace PL.Engineer
                 }
               
             }
-            else
+            else // State is "Update"
             {
                 try
                 {
@@ -102,9 +121,6 @@ namespace PL.Engineer
             this.Close();
             s_bl.Engineer.ReadAll();
         }
-
-        
-
-       
+  
     }
 }
