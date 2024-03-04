@@ -1,6 +1,6 @@
 ﻿
 
-namespace BO.Engineer;
+
 
 public enum EngineerExperience { Beginner, AdvancedBeginner, Intermediate, Advanced, Expert,None }
 
