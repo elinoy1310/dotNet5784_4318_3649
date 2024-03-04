@@ -29,8 +29,9 @@ namespace PL.Engineer
         /// </summary>
         public EngineerListWindow()
         {
-            initializeComponent();
+            InitializeComponent();
         }
+
 
         /// <summary>
         /// Gets or sets the list of engineers displayed in this window.
@@ -95,7 +96,6 @@ namespace PL.Engineer
         {
             EngineerList = s_bl.Engineer.ReadAll();
         }
-
     }
 
 }

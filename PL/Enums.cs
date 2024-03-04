@@ -18,3 +18,4 @@ internal class LevelCollection : IEnumerable
     /// <returns>An enumerator that can be used to iterate through the collection.</returns>
     public IEnumerator GetEnumerator() => s_enums.GetEnumerator();
 }
+
