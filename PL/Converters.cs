@@ -5,7 +5,7 @@ using System.Globalization;
 using System.Linq;
 using System.Windows;
 using System.Windows.Data;
-using BO.Engineer;
+using BO;
 
 namespace PL;
 
@@ -36,20 +36,6 @@ class ConvertIdToContent : IValueConverter
     /// <param name="parameter">An optional parameter.</param>
     /// <param name="culture">The culture to use in the conversion.</param>
     /// <returns>Throws a NotImplementedException.</returns>
-    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
-    {
-        throw new NotImplementedException();
-    }
-}
-
-class ConvertTaskInEngineerToText : IValueConverter
-{
-    public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
-    {
-        BO.Engineer.TaskInEngineer? currentTask= (TaskInEngineer?)value;
-       return currentTask is null ? "you doesn't work on task right now":currentTask.ToString();
-    }
-
     public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
     {
         throw new NotImplementedException();
@@ -157,7 +143,7 @@ public class ConvertListToVisibility : IValueConverter
     /// <returns>Returns Visibility.Visible if the list is empty, otherwise returns Visibility.Hidden.</returns>
     public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
     {
-        IEnumerable<BO.Engineer.Engineer> lstEng = (IEnumerable<BO.Engineer.Engineer>)value;
+        IEnumerable<BO.Engineer> lstEng = (IEnumerable<BO.Engineer>)value;
         if (lstEng.Count()==0)
         {
             return Visibility.Visible;

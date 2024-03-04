@@ -1,7 +1,7 @@
 ﻿// See https://aka.ms/new-console-template for more information
 using System.Collections.Generic;
 using System.Runtime.ExceptionServices;
-using BO.Engineer;
+using BO;
 using DalApi;
 using BlImplementation;
 
@@ -67,7 +67,7 @@ internal class Program
                     if (taskId == -1)
                         s_bl.CreateSchedule();
                     else
-                        s_bl.CreateSchedule(BO.Engineer.CreateScheduleOption.Manually,taskId);
+                        s_bl.CreateSchedule(BO.CreateScheduleOption.Manually,taskId);
                 }
                    
                 else
@@ -181,13 +181,13 @@ internal class Program
         {
             case MainMenu.Engineer:
                 // Update the Engineer record with new user input
-                BO.Engineer.Engineer updateEng = newEngineer();
+                BO.Engineer updateEng = newEngineer();
                 Console.WriteLine("Enter the ID of the task the engineer working on, enter -1 if you don't want to update a task");
                 int taskId = int.Parse(Console.ReadLine() ?? "");
                 if(taskId!=-1)
                 {
                    
-                    updateEng.Task = new BO.Engineer.TaskInEngineer() { Id = taskId };
+                    updateEng.Task = new BO.TaskInEngineer() { Id = taskId };
                     
                 }            
                 s_bl.Engineer!.Update(updateEng);
@@ -197,12 +197,12 @@ internal class Program
                 Console.WriteLine("enter the task's id you want to update");
                 int idTask = int.Parse(Console.ReadLine()??"0");
                 s_bl.Task.Read(idTask);
-                BO.Engineer.Task updateTask = newTask(idTask);
+                BO.Task updateTask = newTask(idTask);
                 Console.WriteLine("Enter the ID of the engineer working on this task, enter -1 if you don't want to update an engineer");
                 int engineerId = int.Parse(Console.ReadLine() ?? "");
                 if (engineerId != -1)
                 {  
-                    BO.Engineer.EngineerInTask eng = new BO.Engineer.EngineerInTask() { Id = engineerId };
+                    BO.EngineerInTask eng = new BO.EngineerInTask() { Id = engineerId };
                     updateTask.Engineer = eng;
                 }
                 Console.WriteLine("Do you want a start date? (Y/N)");
@@ -251,7 +251,7 @@ internal class Program
     /// </summary>
     /// <param name="id">Optional parameter representing the ID of the new task.</param>
     /// <returns>The newly created Task instance.</returns>
-    private static BO.Engineer.Task newTask(int id=0)
+    private static BO.Task newTask(int id=0)
     {
         // Prompt user for Task details
         Console.WriteLine("enter alias,description,required effort time");
@@ -268,7 +268,7 @@ internal class Program
             if (numDep >= 0)
             {
                 // Read and add task dependencies
-                BO.Engineer.Task? tempTask = s_bl.Task.Read(numDep);
+                BO.Task? tempTask = s_bl.Task.Read(numDep);
                 listDep.Add(new TaskInList() { Id = tempTask.Id, Alias = tempTask.Alias, Description = tempTask.Description, Status = tempTask.Status });
             }
             numDep = int.Parse(Console.ReadLine() ?? "0");
@@ -281,7 +281,7 @@ internal class Program
         if ((int)complexity > 4)
             throw new BlWrongInputFormatException($"There is no task complexity level for the input number : {(int)complexity}");
         // Create and return the new Task instance
-        BO.Engineer.Task newTask = new BO.Engineer.Task() {Id=id, Alias=alias, Description=description, RequiredEffortTime=requiredEffortTime, /*ScheduledDate=scheduledDate, CreatedAtDate=createdInDate,Status=status*/ Dependencies=listDep ,/* StartDate=startDate,ForecastDate=forecastDate ,CompleteDate=completeDate*/Deliverables=deliverables, Remarks=remarks,/*Engineer=engineer ,*/Complexity=complexity };  
+        BO.Task newTask = new BO.Task() {Id=id, Alias=alias, Description=description, RequiredEffortTime=requiredEffortTime, /*ScheduledDate=scheduledDate, CreatedAtDate=createdInDate,Status=status*/ Dependencies=listDep ,/* StartDate=startDate,ForecastDate=forecastDate ,CompleteDate=completeDate*/Deliverables=deliverables, Remarks=remarks,/*Engineer=engineer ,*/Complexity=complexity };  
         return newTask;
     }
     private static void createSubMenu(MainMenu entity)
