@@ -21,7 +21,7 @@ namespace PL.Engineer
     public partial class EngineerListWindow : Window
     {
         static readonly BlApi.IBl s_bl = BlApi.Factory.Get();
-        public BO.EngineerExperience Level { get; set; } = BO.EngineerExperience.None;
+        public BO.Engineer.EngineerExperience Level { get; set; } = BO.Engineer.EngineerExperience.None;
 
 
         /// <summary>
@@ -29,16 +29,15 @@ namespace PL.Engineer
         /// </summary>
         public EngineerListWindow()
         {
-            InitializeComponent();
+            initializeComponent();
         }
-
 
         /// <summary>
         /// Gets or sets the list of engineers displayed in this window.
         /// </summary>
-        public IEnumerable<BO.Engineer> EngineerList
+        public IEnumerable<BO.Engineer.Engineer> EngineerList
         {
-            get { return (IEnumerable<BO.Engineer>)GetValue(EngineerListProperty); }
+            get { return (IEnumerable<BO.Engineer.Engineer>)GetValue(EngineerListProperty); }
             set { SetValue(EngineerListProperty, value); }
         }
 
@@ -46,7 +45,7 @@ namespace PL.Engineer
         /// Identifies the EngineerList dependency property.
         /// </summary>
         public static readonly DependencyProperty EngineerListProperty =
-            DependencyProperty.Register("EngineerList", typeof(IEnumerable<BO.Engineer>), typeof(EngineerListWindow), new PropertyMetadata(null));
+            DependencyProperty.Register("EngineerList", typeof(IEnumerable<BO.Engineer.Engineer>), typeof(EngineerListWindow), new PropertyMetadata(null));
 
 
         /// <summary>
@@ -57,7 +56,7 @@ namespace PL.Engineer
         /// <param name="e">The event data.</param>
         private void CbFilterByLevel_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            EngineerList = Level == BO.EngineerExperience.None ? s_bl.Engineer.ReadAll() : s_bl.Engineer.ReadAll(eng => eng.level == Level);
+            EngineerList = Level == BO.Engineer.EngineerExperience.None ? s_bl.Engineer.ReadAll() : s_bl.Engineer.ReadAll(eng => eng.level == Level);
         }
 
         /// <summary>
@@ -80,7 +79,7 @@ namespace PL.Engineer
         /// <param name="e">The event data.</param>
         private void lvSelectEngineerToUpdate_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            BO.Engineer? engineer = (sender as ListView)?.SelectedItem as BO.Engineer;
+            BO.Engineer.Engineer? engineer = (sender as ListView)?.SelectedItem as BO.Engineer.Engineer;
             new EngineerWindow(engineer?.Id ?? 0).ShowDialog();
             EngineerList = s_bl?.Engineer.ReadAll()!;
         }
@@ -96,6 +95,7 @@ namespace PL.Engineer
         {
             EngineerList = s_bl.Engineer.ReadAll();
         }
+
     }
 
 }

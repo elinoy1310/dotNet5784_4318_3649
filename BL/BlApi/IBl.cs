@@ -1,4 +1,4 @@
-﻿using BO;
+﻿using BO.Engineer;
 
 namespace BlApi;
 public interface IBl

@@ -1,6 +1,6 @@
 ﻿
 
-namespace BO;
+namespace BO.Engineer;
 
 public class TaskInList
 {

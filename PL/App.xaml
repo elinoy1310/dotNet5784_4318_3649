@@ -9,5 +9,6 @@
         <local:ConvertTextToVisibility x:Key="ConvertTextToVisibility"/>
         <local:ConvertTextToIsEnabled x:Key="ConvertTextToIsEnabled"/>
         <local:ConvertListToVisibility x:Key="ConvertListToVisibility"/>
+        <local:ConvertTaskInEngineerToText x:Key="ConvertTaskInEngineerToText"/>
     </Application.Resources>
 </Application>

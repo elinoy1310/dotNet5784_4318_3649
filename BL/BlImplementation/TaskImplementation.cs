@@ -1,5 +1,5 @@
 ﻿using BlApi;
-using BO;
+using BO.Engineer;
 
 namespace BlImplementation;
 
@@ -13,10 +13,10 @@ internal class TaskImplementation : ITask
     /// </summary>
     /// <param name="task">The business object representing the task to be created.</param>
     /// <returns>The ID of the newly created task.</returns>
-    public int Create(BO.Task task)
+    public int Create(BO.Engineer.Task task)
     {
         // Check if project status allows task creation
-        if (_bl.CheckProjectStatus() == BO.ProjectStatus.Execution)
+        if (_bl.CheckProjectStatus() == BO.Engineer.ProjectStatus.Execution)
             throw new BlWrongDataException("Cannot add a task when the project has started");
         // Validate task data
         if (task.Id >= 0 && task.Alias != null)
@@ -90,10 +90,10 @@ internal class TaskImplementation : ITask
     public void Delete(int id)
     {
         // Check if project status allows task deletion
-        if (_bl.CheckProjectStatus()==BO.ProjectStatus.Execution)
+        if (_bl.CheckProjectStatus()==BO.Engineer.ProjectStatus.Execution)
             throw new BlCannotBeDeletedException($"Task with ID={id} cannot be deleted after the project started");
         // Read the task with the specified ID
-        BO.Task DelTask = Read(id);
+        BO.Engineer.Task DelTask = Read(id);
         // Check if the task has any dependencies
         if ( _dal.Dependency.ReadAll().FirstOrDefault(d => d?.DependsOnTask == id) != null) 
             throw new BlCannotBeDeletedException($"Task with ID={id} cannot be deleted");
@@ -117,7 +117,7 @@ internal class TaskImplementation : ITask
     /// <exception cref="BlDoesNotExistException">
     /// Thrown when the task with the specified ID does not exist in the data layer.
     /// </exception>
-    public BO.Task Read(int id)
+    public BO.Engineer.Task Read(int id)
     {
         // Read the task from the data layer
         DO.Task? taskRead = _dal.Task.Read(id);
@@ -133,10 +133,10 @@ internal class TaskImplementation : ITask
     /// </summary>
     /// <param name="filter">The filter condition to apply when retrieving the task.</param>
     /// <returns>The task object that satisfies the filter condition, or <c>null</c> if no such task is found.</returns>
-    public BO.Task? Read(Func<BO.Task, bool> filter)
+    public BO.Engineer.Task? Read(Func<BO.Engineer.Task, bool> filter)
     {
         // Convert all data tasks to logical tasks
-        IEnumerable<BO.Task> convertAll= from item in _dal.Task.ReadAll()
+        IEnumerable<BO.Engineer.Task> convertAll= from item in _dal.Task.ReadAll()
                                           let convertItem = converFromDOtoBO(item)
                                           select convertItem;
         // Apply the filter to the collection of tasks
@@ -153,24 +153,24 @@ internal class TaskImplementation : ITask
     /// <returns>
     /// An enumerable collection of task objects that satisfy the filter condition, or all tasks if no filter is provided.
     /// </returns>
-    public IEnumerable<BO.TaskInList> ReadAll(Func<BO.Task, bool>? filter = null) //לא מדפיס הכל ולא לזרוק שגיאה אם לא מוצא את המהנדס
+    public IEnumerable<BO.Engineer.TaskInList> ReadAll(Func<BO.Engineer.Task, bool>? filter = null) //לא מדפיס הכל ולא לזרוק שגיאה אם לא מוצא את המהנדס
     {
         if (filter!=null)
         {
             // Apply the filter condition to the collection of tasks
-            IEnumerable<BO.Task> isFilter = from item in _dal.Task.ReadAll()
+            IEnumerable<BO.Engineer.Task> isFilter = from item in _dal.Task.ReadAll()
                                             let convertItem = converFromDOtoBO(item)
                                             where filter(convertItem)
                                             select convertItem;
             // Convert filtered tasks to TaskInList objects
             return (from item in isFilter 
-                    select new BO.TaskInList { Id = item.Id, Alias = item.Alias, Description = item.Description, Status = item.Status });
+                    select new BO.Engineer.TaskInList { Id = item.Id, Alias = item.Alias, Description = item.Description, Status = item.Status });
         }
         else
             // Retrieve all tasks from the data layer and convert them to TaskInList objects
             return (from item in _dal.Task.ReadAll() 
                     let convertItem = converFromDOtoBO(item)
-                    select new BO.TaskInList { Id = convertItem.Id, Alias = convertItem.Alias, Description = convertItem.Description, Status = convertItem.Status });
+                    select new BO.Engineer.TaskInList { Id = convertItem.Id, Alias = convertItem.Alias, Description = convertItem.Description, Status = convertItem.Status });
     }
 
     /// <summary>
@@ -178,12 +178,12 @@ internal class TaskImplementation : ITask
     /// </summary>
     /// <param name="task">The task object containing the updated details.</param>
     /// <exception cref="BlDoesNotExistException">Thrown when the specified task does not exist.</exception>
-    public void Update(BO.Task task)
+    public void Update(BO.Engineer.Task task)
     {
         // Retrieve the original task from the data layer
-        BO.Task Originaltask = Read(task.Id);
+        BO.Engineer.Task Originaltask = Read(task.Id);
         // Check the project status to determine the update logic
-        if (_bl.CheckProjectStatus() == BO.ProjectStatus.Planing)
+        if (_bl.CheckProjectStatus() == BO.Engineer.ProjectStatus.Planing)
         {
             // Update dependencies and task details
             updateDependencies(task);
@@ -199,7 +199,7 @@ internal class TaskImplementation : ITask
                 throw new BlDoesNotExistException($"Task with ID={task.Id} was not found", ex);
             }
         }
-        else if (_bl.CheckProjectStatus() == BO.ProjectStatus.Mid)
+        else if (_bl.CheckProjectStatus() == BO.Engineer.ProjectStatus.Mid)
         {
             // Perform additional checks and update logic based on project status
             CheckingEngineer(task);
@@ -216,7 +216,7 @@ internal class TaskImplementation : ITask
                 throw new BlDoesNotExistException($"Task with ID={task.Id} was not found", ex);
             }
         }
-        else if(_bl.CheckProjectStatus() == BO.ProjectStatus.Execution)
+        else if(_bl.CheckProjectStatus() == BO.Engineer.ProjectStatus.Execution)
         {
             CheckingEngineer(task);
             try
@@ -240,7 +240,7 @@ internal class TaskImplementation : ITask
     /// <param name="task">The task object containing the engineer details.</param>
     /// <exception cref="BlDoesNotExistException">Thrown when the assigned engineer does not exist.</exception>
     /// <exception cref="BlWrongDataException">Thrown when the engineer's level is insufficient for the task.</exception>
-    private void CheckingEngineer(BO.Task task)
+    private void CheckingEngineer(BO.Engineer.Task task)
     {
         // Check if an engineer is assigned to the task
         if (task.Engineer != null)
@@ -260,7 +260,7 @@ internal class TaskImplementation : ITask
     /// Updates the dependencies of the specified task in the data layer.
     /// </summary>
     /// <param name="task">The task object containing the updated dependencies.</param>
-    private void updateDependencies(BO.Task task)
+    private void updateDependencies(BO.Engineer.Task task)
     {
         // Check if the task has dependencies
         if (task.Dependencies is not null)
@@ -398,11 +398,11 @@ internal class TaskImplementation : ITask
     /// </summary>
     /// <param name="task">The data layer task object to be converted.</param>
     /// <returns>The converted business object task object.</returns>
-    private BO.Task converFromDOtoBO(DO.Task task)
+    private BO.Engineer.Task converFromDOtoBO(DO.Task task)
     {
         // Create a new business object task instance and populate its properties from the data layer task object
-        BO.Task newTask=
-         new BO.Task()
+        BO.Engineer.Task newTask=
+         new BO.Engineer.Task()
         {
             Id = task.Id,
             Alias = task.Alias,
@@ -418,7 +418,7 @@ internal class TaskImplementation : ITask
             Deliverables = task.Deliverables,
             Remarks = task.Remarks,
             Engineer = returnEngineerOnTask(task),
-            Complexity = (BO.EngineerExperience)task.Complexity
+            Complexity = (BO.Engineer.EngineerExperience)task.Complexity
         };
         return newTask;
     }
