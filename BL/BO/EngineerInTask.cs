@@ -1,4 +1,4 @@
-﻿namespace BO.Engineer;
+﻿namespace BO;
 
 public class EngineerInTask
 {

@@ -1,6 +1,6 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
-using BO.Engineer;
+using BO;
 
 namespace PL.Engineer
 {
@@ -11,7 +11,7 @@ namespace PL.Engineer
     public partial class EngineerWindow : Window
     {
         static readonly BlApi.IBl s_bl = BlApi.Factory.Get();
-        public BO.Engineer.EngineerExperience Level { get; set; } = BO.Engineer.EngineerExperience.None;
+        public BO.EngineerExperience Level { get; set; } = BO.EngineerExperience.None;
 
         public string State { get; init; }
 
@@ -25,7 +25,7 @@ namespace PL.Engineer
             InitializeComponent();
             if (idEngineer == 0)
             {
-                add_updateEngineer = new BO.Engineer.Engineer();
+                add_updateEngineer = new BO.Engineer();
                 State = "Add";
             }
             else
@@ -36,7 +36,7 @@ namespace PL.Engineer
                     add_updateEngineer = s_bl.Engineer.Read(idEngineer);
 
                 }
-                catch (BO.Engineer.BlDoesNotExistException ex)
+                catch (BO.BlDoesNotExistException ex)
                 {
                     MessageBoxResult mbResult = MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                     if (mbResult == MessageBoxResult.OK)
@@ -52,9 +52,9 @@ namespace PL.Engineer
         /// <summary>
         /// Gets or sets the engineer being added or updated in this window.
         /// </summary>
-        public BO.Engineer.Engineer add_updateEngineer
+        public BO.Engineer add_updateEngineer
         {
-            get { return (BO.Engineer.Engineer)GetValue(add_updateEngineerProperty); }
+            get { return (BO.Engineer)GetValue(add_updateEngineerProperty); }
             set { SetValue(add_updateEngineerProperty, value); }
         }
 
@@ -62,7 +62,7 @@ namespace PL.Engineer
         /// Identifies the add_updateEngineer dependency property.
         /// </summary>
         public static readonly DependencyProperty add_updateEngineerProperty =
-            DependencyProperty.Register("add_updateEngineer", typeof(BO.Engineer.Engineer), typeof(EngineerWindow), new PropertyMetadata(new BO.Engineer.Engineer()));
+            DependencyProperty.Register("add_updateEngineer", typeof(BO.Engineer), typeof(EngineerWindow), new PropertyMetadata(new BO.Engineer()));
 
 
 
@@ -81,12 +81,12 @@ namespace PL.Engineer
                     s_bl.Engineer.Create(add_updateEngineer); 
                     MessageBoxResult successMsg = MessageBox.Show("The engineer created successfully!");
                 }
-                catch (BO.Engineer.BlAlreadyExistException ex)
+                catch (BO.BlAlreadyExistException ex)
                 {
                     MessageBoxResult mbResult = MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
 
                 }
-                catch (BO.Engineer.BlWrongDataException ex)
+                catch (BO.BlWrongDataException ex)
                 {
                     MessageBoxResult mbResult = MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
 
@@ -100,17 +100,17 @@ namespace PL.Engineer
                     s_bl.Engineer.Update(add_updateEngineer);
                     MessageBoxResult successMsg = MessageBox.Show("The engineer updated successfully!");
                 }
-                catch (BO.Engineer.BlDoesNotExistException ex)
+                catch (BO.BlDoesNotExistException ex)
                 {
                     MessageBoxResult mbResult = MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
               
                 }
-                catch (BO.Engineer.BlWrongDataException ex)
+                catch (BO.BlWrongDataException ex)
                 {
                     MessageBoxResult mbResult = MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
        
                 }
-                catch (BO.Engineer.BlCannotBeUpdatedException ex)
+                catch (BO.BlCannotBeUpdatedException ex)
                 {
                     MessageBoxResult mbResult = MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                

@@ -2,7 +2,7 @@
 
 using DO;
 
-namespace BO.Engineer;
+namespace BO;
 
 public class Task
 {

@@ -4,7 +4,7 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Xml.Linq;
 
-namespace BO.Engineer;
+namespace BO;
 
 public static class Tools
 {

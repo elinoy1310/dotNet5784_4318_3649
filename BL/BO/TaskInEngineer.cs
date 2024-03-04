@@ -1,5 +1,4 @@
-﻿
-namespace BO.Engineer;
+﻿namespace BO;
 
 public class TaskInEngineer
 {
@@ -7,8 +6,4 @@ public class TaskInEngineer
     public string? Alias { get; set; }
     public override string ToString() => this.ToStringProperty();
 
-    public static explicit operator TaskInEngineer(string? v)
-    {
-        throw new NotImplementedException();
-    }
 }

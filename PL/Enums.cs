@@ -10,7 +10,7 @@ namespace PL;
 internal class LevelCollection : IEnumerable
 {
     // Static readonly field containing the enumeration values
-    static readonly IEnumerable<BO.Engineer.EngineerExperience> s_enums =(Enum.GetValues(typeof(BO.Engineer.EngineerExperience)) as IEnumerable<BO.Engineer.EngineerExperience>)!;
+    static readonly IEnumerable<BO.EngineerExperience> s_enums =(Enum.GetValues(typeof(BO.EngineerExperience)) as IEnumerable<BO.EngineerExperience>)!;
 
     /// <summary>
     /// Returns an enumerator that iterates through the collection.
@@ -18,3 +18,4 @@ internal class LevelCollection : IEnumerable
     /// <returns>An enumerator that can be used to iterate through the collection.</returns>
     public IEnumerator GetEnumerator() => s_enums.GetEnumerator();
 }
+
