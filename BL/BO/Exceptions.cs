@@ -1,6 +1,6 @@
 ﻿
 
-namespace BO;
+namespace BO.Engineer;
 
 [Serializable]
 public class BlDoesNotExistException : Exception

@@ -1,7 +1,7 @@
 ﻿
 
 using BlApi;
-using BO;
+using BO.Engineer;
 using DalApi;
 using System.Collections.Immutable;
 using System.ComponentModel.DataAnnotations;
@@ -66,7 +66,7 @@ public class Bl : IBl
     /// <exception cref="BlCanNotBeNullException">Thrown when a task's forecast date is not set for a dependency.</exception>
     private void createScheduleOptionManually(int taskId)
     {
-        BO.Task task = Task.Read(taskId);
+        BO.Engineer.Task task = Task.Read(taskId);
         if (task.Dependencies == null)
         {
             task.ScheduledDate = ProjectStartDate;
@@ -74,7 +74,7 @@ public class Bl : IBl
             DateTime? maxForecast = DateTime.Now;
         foreach (var d in task.Dependencies!)
         {
-            BO.Task readTask=Task.Read(d.Id);
+            BO.Engineer.Task readTask=Task.Read(d.Id);
             if (readTask.ForecastDate == null)
                 throw new BlCanNotBeNullException("It is not possible to update a task to the previous task no forecast date has been set.");
             if (readTask.ForecastDate > maxForecast)
@@ -108,7 +108,7 @@ public class Bl : IBl
         // Update scheduled dates for tasks without dependencies to project start date
         foreach (TaskInList task in tasksWithoutDep)
         {
-            BO.Task taskWithStartDate = Task.Read(task.Id);
+            BO.Engineer.Task taskWithStartDate = Task.Read(task.Id);
             taskWithStartDate.ScheduledDate = start;
             Task.Update(taskWithStartDate);
         }
@@ -133,12 +133,12 @@ public class Bl : IBl
     private void updateSceduledDateInDep(int id)
     {
         IEnumerable<TaskInList> dependOnTasks = Task.ReadAll(boTask => boTask.Dependencies!.FirstOrDefault(item => item.Id == id) != null).ToList();
-        BO.Task dep = Task.Read(id);
+        BO.Engineer.Task dep = Task.Read(id);
         if (dependOnTasks == null)
             return;
         foreach (TaskInList task in dependOnTasks!)
         {          
-            BO.Task taskTODoStartDate = Task.Read(task.Id);
+            BO.Engineer.Task taskTODoStartDate = Task.Read(task.Id);
             if (taskTODoStartDate.ScheduledDate is null)
                 taskTODoStartDate.ScheduledDate = dep.ForecastDate;
             else

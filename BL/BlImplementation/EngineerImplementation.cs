@@ -1,5 +1,5 @@
 ﻿using BlApi;
-using BO;
+using BO.Engineer;
 using DalApi;
 using DO;
 using System.Runtime.CompilerServices;
@@ -19,7 +19,7 @@ internal class EngineerImplementation : BlApi.IEngineer
     /// <returns>The ID of the newly created engineer.</returns>
     /// <exception cref="BlWrongDataException">Thrown when the provided data for the engineer is invalid.</exception>
     /// <exception cref="BlAlreadyExistException">Thrown when an engineer with the same ID already exists.</exception>
-    public int Create(BO.Engineer engineer)
+    public int Create(BO.Engineer.Engineer engineer)
     {
         // Check project status and engineer's task before creating
         if (_bl.CheckProjectStatus() != ProjectStatus.Execution && engineer.Task is not null)
@@ -73,7 +73,7 @@ internal class EngineerImplementation : BlApi.IEngineer
     /// <param name="id">The ID of the engineer to retrieve.</param>
     /// <returns>The engineer object with the specified ID.</returns>
     /// <exception cref="BlDoesNotExistException">Thrown when the specified engineer does not exist.</exception>
-    public BO.Engineer Read(int id)
+    public BO.Engineer.Engineer Read(int id)
     {
         // Retrieve the engineer details from the data layer
         DO.Engineer? doEngineer = _dal.Engineer.Read(id);
@@ -81,12 +81,12 @@ internal class EngineerImplementation : BlApi.IEngineer
         if (doEngineer == null)
             throw new BlDoesNotExistException($"Engineer with ID={id} does Not exist");
         // Create and return the business object representation of the engineer
-        return new BO.Engineer
+        return new BO.Engineer.Engineer
         {
             Id = doEngineer.Id,
             Name = doEngineer.Name,
             Email = doEngineer.Email,
-            level = (BO.EngineerExperience)doEngineer.Level,
+            level = (BO.Engineer.EngineerExperience)doEngineer.Level,
             Cost = doEngineer.Cost,
             Task = createTaskInEngineer(doEngineer.Id)
         };
@@ -99,7 +99,7 @@ internal class EngineerImplementation : BlApi.IEngineer
     /// <param name="filter">An optional filter to apply when retrieving the engineer.</param>
     /// <returns>The engineer object matching the filter criteria.</returns>
     /// <exception cref="BlDoesNotExistException">Thrown when no engineer matches the specified filter.</exception>
-    public BO.Engineer Read(Func<BO.Engineer, bool>? filter = null)
+    public BO.Engineer.Engineer Read(Func<BO.Engineer.Engineer, bool>? filter = null)
     {
         // Check if a filter is provided
         if (filter == null)
@@ -115,7 +115,7 @@ internal class EngineerImplementation : BlApi.IEngineer
     /// </summary>
     /// <param name="filter">An optional filter to apply when retrieving engineers.</param>
     /// <returns>A collection of engineer objects matching the filter criteria.</returns>
-    public IEnumerable<BO.Engineer> ReadAll(Func<BO.Engineer, bool>? filter = null)
+    public IEnumerable<BO.Engineer.Engineer> ReadAll(Func<BO.Engineer.Engineer, bool>? filter = null)
     {
         // Retrieve all engineers from the data layer
         var engineers = from DO.Engineer doEngineer in _dal.Engineer.ReadAll()
@@ -149,7 +149,7 @@ internal class EngineerImplementation : BlApi.IEngineer
     /// Thrown when the task cannot be started, the task's level is beyond the engineer's level,
     /// or another engineer is already assigned to the task.
     /// </exception>
-    private void updateNewTask(int idTask, int idEngineer, BO.EngineerExperience engineerLevel)
+    private void updateNewTask(int idTask, int idEngineer, BO.Engineer.EngineerExperience engineerLevel)
     {
         // Retrieve the task from the data layer
         DO.Task t = _dal.Task.Read(idTask)!;
@@ -174,13 +174,13 @@ internal class EngineerImplementation : BlApi.IEngineer
     /// <exception cref="BlCannotBeUpdatedException">Thrown when attempting to update an engineer with a task before the project has started.</exception>
     /// <exception cref="BlWrongDataException">Thrown when the provided data for the engineer is invalid.</exception>
     /// <exception cref="BlDoesNotExistException">Thrown when the specified engineer does not exist.</exception>
-    public void Update(BO.Engineer engineer)
+    public void Update(BO.Engineer.Engineer engineer)
     {
         // Check if the project has started and the engineer has a task assigned
         if (_bl.CheckProjectStatus() != ProjectStatus.Execution && engineer.Task is not null)
             throw new BlCannotBeUpdatedException("Can't update engineer with task before the project had started");
         // Retrieve the engineer to update
-        BO.Engineer toUpdateEngineer = Read(engineer.Id);
+        BO.Engineer.Engineer toUpdateEngineer = Read(engineer.Id);
         // Validate the updated engineer data
         if (engineer.Name == null || !System.Net.Mail.MailAddress.TryCreate(engineer.Email, out System.Net.Mail.MailAddress? empty) || engineer.level < toUpdateEngineer.level || engineer.Cost <= 0)
             throw new BlWrongDataException("Invalid data");
@@ -233,14 +233,14 @@ internal class EngineerImplementation : BlApi.IEngineer
     /// </summary>
     /// <param name="level">The minimum experience level of the engineers to retrieve.</param>
     /// <returns>A collection of all engineers with experience level greater than or equal to the specified level.</returns>
-    public IEnumerable<BO.Engineer> EngineersFromLevel(BO.EngineerExperience level)
+    public IEnumerable<BO.Engineer.Engineer> EngineersFromLevel(BO.Engineer.EngineerExperience level)
     {
         // Group engineers by their experience level
-        var engGroup = from BO.Engineer boEngineer in ReadAll()
+        var engGroup = from BO.Engineer.Engineer boEngineer in ReadAll()
                        group boEngineer by boEngineer.level into g
                        //where g.Key >= level
                        select g;
-        List<BO.Engineer> engineers=new List<BO.Engineer>();
+        List<BO.Engineer.Engineer> engineers=new List<BO.Engineer.Engineer>();
         // Iterate through each group and add engineers with experience level greater than or equal to the specified level
         foreach (var gro in engGroup)
         {
@@ -256,10 +256,10 @@ internal class EngineerImplementation : BlApi.IEngineer
     /// Retrieves a collection of engineers sorted by name, experience level, and cost.
     /// </summary>
     /// <returns>A collection of engineers sorted by name, experience level, and cost.</returns>
-    public IEnumerable<BO.Engineer> sortedByName()
+    public IEnumerable<BO.Engineer.Engineer> sortedByName()
     {
         // Retrieve engineers from the data layer and sort them by name, experience level, and cost
-        return from BO.Engineer boEngineer in ReadAll()
+        return from BO.Engineer.Engineer boEngineer in ReadAll()
                orderby boEngineer.Name,boEngineer.level,boEngineer.Cost
                select boEngineer;
     }
