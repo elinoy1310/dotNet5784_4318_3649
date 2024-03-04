@@ -1,6 +1,7 @@
 ﻿using BlApi;
 using BlImplementation;
 using PL.Engineer;
+using PL.Task;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -46,6 +47,10 @@ namespace PL
             new EngineerListWindow().Show();
         }
 
+        private void btnTasksList_Click(object sender, RoutedEventArgs e)
+        {
+            new TaskListWindow().Show();
+        }
 
         /// <summary>
         /// Handles the click event of the "Initialization" button.
