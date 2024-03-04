@@ -18,10 +18,11 @@
             <ImageBrush ImageSource="/blue-futuristic-networking-technology_53876-97395.jpg"/>
         </Grid.Background>
         <!---present the list of engineers in new window-->
-        <Button Content="Handle Engineers" Margin="97,337,0,0" VerticalAlignment="Top" Height="39" Width="113" RenderTransformOrigin="3.319,-2.026" Click="btnEnginnersList_Click" BorderBrush="Black" Foreground="#FF00003D"/>
+        <Button Content="Handle Engineers" Margin="71,337,0,0" VerticalAlignment="Top" Height="39" Width="120" RenderTransformOrigin="3.319,-2.026" Click="btnEnginnersList_Click" BorderBrush="Black" Foreground="#FF00003D"/>
         <!---initialize all the data-->
-        <Button Content="Initialize DataBase" Margin="0,337,0,0" VerticalAlignment="Top" Height="39" Width="120" RenderTransformOrigin="3.319,-2.026" Click="btnInitialization_Click" HorizontalAlignment="Center" BorderBrush="Black" Foreground="#FF00003D"/>
+        <Button Content="Initialize DataBase" Margin="439,337,0,0" VerticalAlignment="Top" Height="39" Width="120" RenderTransformOrigin="3.319,-2.026" Click="btnInitialization_Click" BorderBrush="Black" Foreground="#FF00003D"/>
         <!---clear all the data-->
-        <Button Content="Reset DataBase" Margin="565,337,0,0" VerticalAlignment="Top" Height="39" Width="109" RenderTransformOrigin="3.319,-2.026" Click="btnReset_Click" BorderBrush="Black" Foreground="#FF0C083D"/>
+        <Button Content="Reset DataBase" Margin="624,337,0,0" VerticalAlignment="Top" Height="39" Width="120" RenderTransformOrigin="3.319,-2.026" Click="btnReset_Click" BorderBrush="Black" Foreground="#FF0C083D"/>
+        <Button Content="Handle Task" Margin="252,337,0,0" VerticalAlignment="Top" Height="39" Width="120" RenderTransformOrigin="3.319,-2.026" Click="btnTasksList_Click" BorderBrush="Black" Foreground="#FF0C083D" />
     </Grid>
 </Window>
