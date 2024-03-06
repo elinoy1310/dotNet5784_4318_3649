@@ -69,6 +69,7 @@ namespace PL.Engineer
         private void btnAddEngineer_Click(object sender, RoutedEventArgs e)
         {
             new EngineerWindow().ShowDialog();
+            EngineerList = s_bl?.Engineer.ReadAll()!;
         }
 
 

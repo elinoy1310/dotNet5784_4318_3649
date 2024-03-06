@@ -89,7 +89,7 @@ public static class Initialization
         {
             //selecting month+days randomly (with certain restrictions)
             TimeSpan requiredEffortTime = new TimeSpan(s_rand.Next(0,3), s_rand.Next(1, 10), 0,0);
-            days = s_rand.Next(1, 31); 
+            days = s_rand.Next(1, 29); 
             month = s_rand.Next(1, DateTime.Now.Month+1);
             month= month<DateTime.Now.Month? month : DateTime.Now.Month-1;
             if(month==0)//if now.month=1 and month also 1, from the previous line month=0
@@ -102,7 +102,7 @@ public static class Initialization
             createdAt=new DateTime(DateTime.Now.Year,month,days);//the task was created after 1.1.this_year and before today's date         
 
             //selecting comlexity randomly
-            int randomComplexity =s_rand.Next(0, 5);
+            int randomComplexity =s_rand.Next(0, 4);
             EngineerExperience taskComplexity = (EngineerExperience)randomComplexity;
 
             //initialize only alias,description,createdInDate,complexity and the rest fields are filled with default values

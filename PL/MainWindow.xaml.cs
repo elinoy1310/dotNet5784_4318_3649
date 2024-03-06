@@ -1,6 +1,7 @@
 ﻿using BlApi;
 using BlImplementation;
 using PL.Engineer;
+using PL.Task;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -58,6 +59,7 @@ namespace PL
             MessageBoxResult mbResult = MessageBox.Show("Are you sure you want to initialize all the data?", "Initialization", MessageBoxButton.YesNo, MessageBoxImage.Question);
             if(mbResult == MessageBoxResult.Yes) 
             {
+               s_bl.ResetDB();
                s_bl.InitializeDB();
             }
         }
@@ -76,6 +78,11 @@ namespace PL
             {
                 s_bl.ResetDB();
             }
+        }
+
+        private void btnTaskList_Click(object sender, RoutedEventArgs e)
+        {
+            new TaskListWindow().Show();
         }
     }
 }

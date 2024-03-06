@@ -70,7 +70,7 @@
         <TextBox Margin="50,0,0,0" TextWrapping="Wrap"  Width="120" VerticalAlignment="Center" Grid.Column="1"
                  Text="{Binding  Cost, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}" Grid.Row="4"/>
         <TextBox Margin="50,15,0,0" TextWrapping="Wrap" Width="120" VerticalAlignment="Top" Grid.Column="1"
-                 Text="{Binding  task.Id, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true }" Visibility="{Binding Id, Mode=OneTime, Converter={StaticResource ConvertTextToVisibility}}" Grid.Row="5"/>
+                 Text="{Binding  Task.Id, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true }" Visibility="{Binding Id, Mode=OneTime, Converter={StaticResource ConvertTextToVisibility}}" Grid.Row="5"/>
         <Button Content="{Binding Id, Mode=OneTime, Converter={StaticResource ConverIdToContent}}" HorizontalAlignment="Left" Margin="164,24,0,0" VerticalAlignment="Top" Height="38" Width="93" Click="AddOrUpdateClick" Grid.Row="5" Grid.Column="2"/>
     </Grid>
 

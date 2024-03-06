@@ -14,6 +14,8 @@
 
 	<ItemGroup>
 	  <None Remove="blue-futuristic-networking-technology_53876-97395.jpg" />
+	  <None Remove="Task\WhatsApp Image 2024-02-29 at 23.18.41.jpeg" />
+	  <None Remove="WhatsApp Image 2024-02-29 at 23.18.41.jpeg" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -22,6 +24,8 @@
 
 	<ItemGroup>
 	  <Resource Include="blue-futuristic-networking-technology_53876-97395.jpg" />
+	  <Resource Include="Task\WhatsApp Image 2024-02-29 at 23.18.41.jpeg" />
+	  <Resource Include="WhatsApp Image 2024-02-29 at 23.18.41.jpeg" />
 	</ItemGroup>
 
 </Project>
