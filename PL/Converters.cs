@@ -42,7 +42,34 @@ class ConvertIdToContent : IValueConverter
     }
 }
 
+public class ConvertTaskToVisibility : IValueConverter
+{
+    public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+    {
+        BO.TaskInEngineer? engTask = (BO.TaskInEngineer)value;
+        if (engTask is null)
+            return Visibility.Visible;
+        return Visibility.Collapsed;
+    }
 
+    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+    {
+        throw new NotImplementedException();
+    }
+}
+public class ConvertTaskInEngineerToText : IValueConverter
+{
+    public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+    {
+        BO.TaskInEngineer? engTask=(BO.TaskInEngineer)value;
+        return engTask is not null ? engTask.ToString() : "you are not working on any task right now";
+    }
+
+    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+    {
+        throw new NotImplementedException();
+    }
+}
 /// <summary>
 /// Converts text or integer value to visibility for UI purposes.
 /// </summary>
