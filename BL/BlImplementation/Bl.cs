@@ -11,14 +11,49 @@ namespace BlImplementation;
 
 public class Bl : IBl
 {
-    public BlApi.IEngineer Engineer => new EngineerImplementation();
+    public BlApi.IEngineer Engineer => new EngineerImplementation(this);
 
-    public BlApi.ITask Task => new TaskImplementation();
+    public BlApi.ITask Task => new TaskImplementation(this);
 
     private DalApi.IDal _dal = DalApi.Factory.Get;
-    public DateTime? ProjectStartDate { get => _dal.ProjectStartDate; set => _dal.ProjectStartDate=value; }
+    public DateTime? ProjectStartDate
+    {
+        get => _dal.ProjectStartDate;
+        set
+        {
+            if (value <= Clock)
+                throw new BO.BlCannotBeUpdatedException("The project can't be started before today's date");
+            _dal.ProjectStartDate = value;
+        }
+    }
     public void InitializeDB() => DalTest.Initialization.Do();
     public void ResetDB() => DalTest.Initialization.Reset();
+
+    private static DateTime s_Clock = DateTime.Now;
+    public DateTime Clock { get { return s_Clock; } private set { s_Clock = value; } }
+
+    public void PromoteTime(Time addTime)
+    {
+        switch (addTime)
+        {
+            case Time.Hour:
+                Clock = Clock.AddHours(1);
+                break;
+            case Time.Day:
+                Clock = Clock.AddDays(1);
+                break;
+            case Time.Year:
+                Clock = Clock.AddYears(1);
+                break;
+            default:
+                break;
+        }
+    }
+
+    public void ResetClock()
+    {
+        Clock = DateTime.Now;
+    }
 
 
     /// <summary>
@@ -31,7 +66,7 @@ public class Bl : IBl
         if (ProjectStartDate == null)
             return ProjectStatus.Planing;
         // If any task's scheduled date is not set, the project is in execution phase
-        if (Task.ReadAll(item=>item.ScheduledDate is null)is null)         
+        if (Task.ReadAll(item => item.ScheduledDate is null) is null)
             return ProjectStatus.Execution;
         // Otherwise, the project is in the mid phase
         return ProjectStatus.Mid;
@@ -71,14 +106,14 @@ public class Bl : IBl
         {
             task.ScheduledDate = ProjectStartDate;
         }
-            DateTime? maxForecast = DateTime.Now;
+        DateTime? maxForecast = Clock;
         foreach (var d in task.Dependencies!)
         {
-            BO.Task readTask=Task.Read(d.Id);
+            BO.Task readTask = Task.Read(d.Id);
             if (readTask.ForecastDate == null)
                 throw new BlCanNotBeNullException("It is not possible to update a task to the previous task no forecast date has been set.");
             if (readTask.ForecastDate > maxForecast)
-                maxForecast = readTask.ForecastDate;  
+                maxForecast = readTask.ForecastDate;
         }
         task.ScheduledDate = maxForecast;
         Task.Update(task);
@@ -137,15 +172,17 @@ public class Bl : IBl
         if (dependOnTasks == null)
             return;
         foreach (TaskInList task in dependOnTasks!)
-        {          
+        {
             BO.Task taskTODoStartDate = Task.Read(task.Id);
             if (taskTODoStartDate.ScheduledDate is null)
                 taskTODoStartDate.ScheduledDate = dep.ForecastDate;
             else
                 taskTODoStartDate.ScheduledDate = (dep.ScheduledDate > taskTODoStartDate.ScheduledDate) ? dep.ForecastDate : taskTODoStartDate.ScheduledDate;
             Task.Update(taskTODoStartDate);
-          updateSceduledDateInDep(taskTODoStartDate.Id);
+            updateSceduledDateInDep(taskTODoStartDate.Id);
         }
 
     }
+
+
 }

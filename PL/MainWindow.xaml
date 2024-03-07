@@ -5,7 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800" Icon="/WhatsApp Image 2024-02-29 at 23.18.41.jpeg">
+        Title="MainWindow" Height="450" Width="800" Icon="/WhatsApp Image 2024-02-29 at 23.18.41.jpeg"
+        DataContext="{Binding RelativeSource={RelativeSource Mode=Self}}">
 
     <Window.Resources>
         <Style TargetType="Button">
@@ -24,5 +25,11 @@
         <!---clear all the data-->
         <Button Content="Reset DataBase" Margin="591,337,0,0" VerticalAlignment="Top" Height="39" Width="109" RenderTransformOrigin="3.319,-2.026" Click="btnReset_Click" BorderBrush="Black" Foreground="#FF0C083D"/>
         <Button Content="Handle Task" Margin="82,337,0,0" VerticalAlignment="Top" Height="39" Width="109" Click="btnTaskList_Click" BorderBrush="Black" Foreground="#FF0C083D"/>
+        <CheckBox Name="CreateSchedule"  Content="Create Schedule" Margin="591,32,78,0" VerticalAlignment="Top" Height="41" Foreground="White"/>
+        <Label Content="Enter start project date" HorizontalAlignment="Left" Margin="591,91,0,0" VerticalAlignment="Top" Width="131" Background="White"
+               />
+        <DatePicker HorizontalAlignment="Left" Margin="591,140,0,0" VerticalAlignment="Top" Width="131" Height="29" 
+                    SelectedDate="{Binding startProject, Mode=TwoWay}" Visibility="{Binding }"/>
+        <Button Content="Add date" Margin="589,187,0,0" VerticalAlignment="Top" Width="133" Height="30" Click="btnScedule_click" />
     </Grid>
 </Window>

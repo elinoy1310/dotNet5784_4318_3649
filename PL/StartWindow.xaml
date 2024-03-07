@@ -1,0 +1,27 @@
+﻿<Window x:Class="PL.StartWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:PL"
+        mc:Ignorable="d"
+        Title="StartWindow" Height="450" Width="800"
+         DataContext="{Binding RelativeSource={RelativeSource Mode=Self}}">
+    <Grid ShowGridLines="False">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50" />
+            <RowDefinition Height="Auto" />
+
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+
+        </Grid.ColumnDefinitions>
+
+        <Label Content="{Binding CurrentTime }" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Left" VerticalAlignment="Top" Height="129" Width="274" Grid.Row="1" Margin="257,45,0,0"/>
+
+        <Button Content="Add Hour" RenderTransformOrigin="0.62,1.295" Margin="222,213,468,188" Click="btnAddHour_click"  Grid.Row="1" />
+        <Button Content="Add Day" RenderTransformOrigin="0.62,1.295" Margin="338,213,350,188" Click="btnAddDay_click"  Grid.Row="1" />
+        <Button Content="Add Year" RenderTransformOrigin="0.62,1.295" Margin="454,213,234,188" Click="btnAddYear_click"  Grid.Row="1" />
+        <Button Content="Log in" HorizontalAlignment="Left" Margin="338,13,0,0" VerticalAlignment="Top" Height="37" Width="100"/>
+    </Grid>
+</Window>

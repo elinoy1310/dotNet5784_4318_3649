@@ -21,10 +21,26 @@ namespace PL.Task
     {
         static readonly BlApi.IBl s_bl = BlApi.Factory.Get();
         public BO.EngineerExperience Complexity { get; set; } = BO.EngineerExperience.None;
+        public BO.Status Status { get; set; } = BO.Status.Unscheduled;
+
         public TaskListWindow()
         {
             InitializeComponent();
         }
+
+
+
+        public DateTime FilterStartDate
+        {
+            get { return (DateTime)GetValue(FilterStartDateProperty); }
+            set { SetValue(FilterStartDateProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for FilterStartDate.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty FilterStartDateProperty =
+            DependencyProperty.Register("FilterStartDate", typeof(DateTime), typeof(TaskListWindow), new PropertyMetadata(0));
+
+
 
         public IEnumerable<BO.TaskInList> TaskList
         {
@@ -61,5 +77,17 @@ namespace PL.Task
         {
             TaskList = s_bl.Task.ReadAll();
         }
+
+        private void CbFilterByStatus_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            TaskList = Status == BO.Status.Unscheduled ? s_bl.Task.ReadAll() : s_bl.Task.ReadAll(task => task.Status == Status);
+        }
+
+        private void btnFilterByStartDate_Click(object sender, RoutedEventArgs e)
+        {
+            TaskList = s_bl.Task.ReadAll(task => task.StartDate == FilterStartDate);
+        }
+
+     
     }
 }

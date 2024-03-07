@@ -12,7 +12,7 @@
     <!--<DataTemplate x:Key="TaskTemplate" >-->
 
     <!--<Grid>-->
-    <Grid ShowGridLines="True">
+    <Grid ShowGridLines="False">
         <Grid.RowDefinitions>
             <RowDefinition Height="30" />
             <RowDefinition Height="50" />

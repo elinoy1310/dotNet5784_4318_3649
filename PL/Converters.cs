@@ -57,11 +57,28 @@ public class ConvertTaskToVisibility : IValueConverter
         throw new NotImplementedException();
     }
 }
+
+
+public class ConvertBooleanToVisibility : IValueConverter
+{
+    public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+    {
+        if ((bool)value)
+            return Visibility.Visible;
+        return Visibility.Collapsed;
+    }
+
+    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+    {
+        throw new NotImplementedException();
+    }
+}
+
 public class ConvertTaskInEngineerToText : IValueConverter
 {
     public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
     {
-        BO.TaskInEngineer? engTask=(BO.TaskInEngineer)value;
+        BO.TaskInEngineer? engTask = (BO.TaskInEngineer)value;
         return engTask is not null ? engTask.ToString() : "you are not working on any task right now";
     }
 
@@ -88,7 +105,7 @@ public class ConvertTextToVisibility : IValueConverter
         //string strValue = (string)value;
         if (/*strValue=="Add"*/(int)value == 0)
         {
-            return Visibility.Hidden; 
+            return Visibility.Hidden;
         }
         else
         {
@@ -115,7 +132,7 @@ public class ConvertTextToVisibility : IValueConverter
 /// <summary>
 /// Converts text or integer value to a boolean indicating whether an element should be enabled or disabled for UI purposes.
 /// </summary>
-public class ConvertTextToIsEnabled : IValueConverter
+public class ConvertText1ToIsEnabled : IValueConverter
 {
     /// <summary>
     /// Converts the input value to a boolean indicating whether the element should be enabled or disabled.
@@ -153,6 +170,20 @@ public class ConvertTextToIsEnabled : IValueConverter
     }
 }
 
+public class ConvertText2ToIsEnabled : IValueConverter
+{
+
+    public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+    {
+        return (int)value == 1;
+    }
+    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+    {
+        throw new NotImplementedException();
+    }
+
+}
+
 
 /// <summary>
 /// Converts a list of engineers to visibility for UI purposes.
@@ -171,7 +202,7 @@ public class ConvertListToVisibility : IValueConverter
     public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
     {
         IEnumerable<BO.Engineer> lstEng = (IEnumerable<BO.Engineer>)value;
-        if (lstEng.Count()==0)
+        if (lstEng.Count() == 0)
         {
             return Visibility.Visible;
         }
@@ -194,5 +225,7 @@ public class ConvertListToVisibility : IValueConverter
         throw new NotImplementedException();
     }
 }
+
+
 
 

@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="TaskListWindow" Height="550" Width="1000" Icon="/Task/WhatsApp Image 2024-02-29 at 23.18.41.jpeg"
         DataContext="{Binding RelativeSource={RelativeSource Mode=Self}}" Loaded="wLoadTheUpdatedTasksList_Loaded">
-    
+
     <Grid ShowGridLines="False">
         <Grid.RowDefinitions>
             <RowDefinition Height="40*"/>
@@ -15,23 +15,28 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
         <!--Internal, Upper Grid-->
-        <Grid HorizontalAlignment="Stretch" Height="auto" Grid.Row="0" VerticalAlignment="Stretch" Width="auto" ShowGridLines="True">
+        <Grid HorizontalAlignment="Stretch" Height="auto" Grid.Row="0" VerticalAlignment="Stretch" Width="auto" ShowGridLines="False">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            <Label Content="Filter the list by the Task Complexity:" HorizontalAlignment="Left" Margin="43,0,0,0" VerticalAlignment="Center" RenderTransformOrigin="1.127,0.526"  Grid.Column="0" FontFamily="Arial Black" FontSize="14"/>
-            <ComboBox VerticalAlignment="Center" Grid.Column="1"  ItemsSource="{Binding Source={StaticResource LevelCollectionKey}}"  SelectedValue="{Binding Complexity, Mode=TwoWay}" SelectionChanged="CbFilterByLevel_SelectionChanged" FontFamily="Arial" FontSize="16" Height="36" Grid.ColumnSpan="3"/>
+            <Label Content="Filter the list by the Task Complexity:" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Center" RenderTransformOrigin="1.127,0.526"  Grid.Column="0" FontFamily="Arial Black" FontSize="14" Width="308"/>
+            <ComboBox VerticalAlignment="Center" Grid.Column="2"  ItemsSource="{Binding Source={StaticResource LevelCollectionKey}}"  SelectedValue="{Binding Complexity, Mode=TwoWay}" SelectionChanged="CbFilterByLevel_SelectionChanged" FontFamily="Arial" FontSize="16" Height="36" Margin="166,0,10,0"/>
+            <ComboBox Grid.Column="2" HorizontalAlignment="Left" ItemsSource="{Binding Source={StaticResource StatusCollectionKey}}"  SelectedValue="{Binding Status, Mode=TwoWay}" SelectionChanged="CbFilterByStatus_SelectionChanged" VerticalAlignment="Center" Width="154" Height="36" Margin="7,0,0,0"/>
+            <DatePicker Grid.Column="1" HorizontalAlignment="Left" Margin="167,0,0,0" VerticalAlignment="Center" Width="157" Height="35"
+                        SelectedDate="{Binding FilterStartDate, Mode=TwoWay}"/>
+            <Button Grid.Column="1" Content="choose a date and enter" HorizontalAlignment="Left" Margin="23,0,0,1" Width="144"
+                    Click="btnFilterByStartDate_Click"/>
 
         </Grid>
 
-        <ListView Grid.Row="1" ItemsSource="{Binding Path=TaskList}" MouseDoubleClick="lvSelectTaskToUpdate_MouseDoubleClick" >
+        <ListView Grid.Row="1" MouseDoubleClick="lvSelectTaskToUpdate_MouseDoubleClick"  >
             <ListView.View>
                 <GridView>
                     <GridViewColumn/>
                 </GridView>
             </ListView.View>
-
         </ListView>
 
         <Button Content="Add&#x0a;Task"  Grid.Row="2" HorizontalAlignment="Center" Height="50" Width="100" Click="btnAddTask_Click" Foreground="Black" Background="#FFB0E8F3" FontFamily="Cascadia Code" FontSize="15" VerticalContentAlignment="Center"/>

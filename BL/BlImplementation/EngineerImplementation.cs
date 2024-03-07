@@ -11,6 +11,8 @@ internal class EngineerImplementation : BlApi.IEngineer
 {
     private DalApi.IDal _dal = DalApi.Factory.Get;
     private BlApi.IBl _bl = BlApi.Factory.Get();
+    private readonly IBl bl;
+    internal EngineerImplementation(IBl bl) => this.bl = bl;
 
     /// <summary>
     /// Creates a new engineer in the data layer.
@@ -136,7 +138,7 @@ internal class EngineerImplementation : BlApi.IEngineer
     private void updatePreviousTask(int idTask)
     {
         // Retrieve the previous task from the data layer and update its details
-        _dal.Task.Update(_dal.Task.Read(idTask)! with { CompleteDate = DateTime.Now, EngineerId = null });
+        _dal.Task.Update(_dal.Task.Read(idTask)! with { CompleteDate = bl.Clock, EngineerId = null });
     }
 
     /// <summary>
@@ -154,7 +156,7 @@ internal class EngineerImplementation : BlApi.IEngineer
         // Retrieve the task from the data layer
         DO.Task t = _dal.Task.Read(idTask)!;
         // Check if the task can be started
-        if (t.ScheduledDate > DateTime.Now)
+        if (t.ScheduledDate > bl.Clock)
             throw new BlCannotBeUpdatedException("the task can't be started");
         // Check if the task's level is beyond the engineer's level
         if ((int)t.Complexity > (int)engineerLevel)
@@ -162,7 +164,7 @@ internal class EngineerImplementation : BlApi.IEngineer
         // Check if the task already has an assigned engineer
         if (t.EngineerId == null)
             // Update the task with the new engineer and start date
-            _dal.Task.Update(t with { EngineerId = idEngineer, StartDate = DateTime.Now });
+            _dal.Task.Update(t with { EngineerId = idEngineer, StartDate = bl.Clock });
         else
             throw new BlCannotBeUpdatedException("other engineer take care of the new engineer's task");
     }

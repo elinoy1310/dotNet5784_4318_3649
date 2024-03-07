@@ -7,6 +7,8 @@ internal class TaskImplementation : ITask
 {
     private DalApi.IDal _dal = DalApi.Factory.Get;
     private BlApi.IBl _bl = BlApi.Factory.Get();
+    private readonly IBl bl;
+    internal TaskImplementation(IBl bl) => this.bl = bl;
 
     /// <summary>
     /// Creates a new task based on the provided business object and adds it to the system.

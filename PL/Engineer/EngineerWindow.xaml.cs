@@ -119,7 +119,7 @@ namespace PL.Engineer
             }
 
             this.Close();
-            s_bl.Engineer.ReadAll();
+
         }
   
     }

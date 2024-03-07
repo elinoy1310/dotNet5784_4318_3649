@@ -1,5 +1,6 @@
 ﻿using BlApi;
 using BlImplementation;
+using BO;
 using PL.Engineer;
 using PL.Task;
 using System;
@@ -33,7 +34,22 @@ namespace PL
         public MainWindow()
         {
             InitializeComponent();
+            startProject = s_bl.ProjectStartDate;
         }
+
+
+
+        public DateTime? startProject
+        {
+            get { return (DateTime)GetValue(startProjectProperty); }
+            set { SetValue(startProjectProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for startProject.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty startProjectProperty =
+            DependencyProperty.Register("startProject", typeof(DateTime), typeof(MainWindow), new PropertyMetadata(null));
+
+
 
 
         /// <summary>
@@ -84,5 +100,50 @@ namespace PL
         {
             new TaskListWindow().Show();
         }
+
+        private void btnScedule_click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                s_bl.ProjectStartDate = startProject;
+
+
+                MessageBoxResult mbResult = MessageBox.Show("Are you sure you want to create the schedule automatically?", "Create Schedule Option", MessageBoxButton.YesNoCancel, MessageBoxImage.Question);
+                if (mbResult == MessageBoxResult.Yes)
+                {
+                    try
+                    {
+                        s_bl.CreateSchedule(BO.CreateScheduleOption.Automatically);
+                        MessageBox.Show("The scheduled has created successfuly!");
+                    }
+                    catch (BO.BlWrongDataException ex)
+                    {
+                        MessageBoxResult mbResultEx = MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+
+                    }
+                    catch (BO.BlDoesNotExistException ex)
+                    {
+                        MessageBoxResult mbResultEx = MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    }
+                    catch
+                    {
+                        MessageBoxResult mbResultEx = MessageBox.Show("UnKnown error", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    }
+                }
+                if (mbResult == MessageBoxResult.No)
+                {
+                    new ScheduleWindow().ShowDialog();
+                }
+            }
+            catch( BO.BlCannotBeUpdatedException ex)
+
+            {
+                MessageBoxResult mbResultEx = MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
     }
 }
+
+
+
+//Visibility="{Binding IsChecked ,ElementName CreateSchedule, Converter={StaticResource ConvertBooleanToVisibility}}"
