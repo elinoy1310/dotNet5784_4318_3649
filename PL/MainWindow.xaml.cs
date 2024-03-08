@@ -141,6 +141,11 @@ namespace PL
                 MessageBoxResult mbResultEx = MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
+
+        private void btnGant_Click(object sender, RoutedEventArgs e)
+        {
+            new Gant().ShowDialog();
+        }
     }
 }
 

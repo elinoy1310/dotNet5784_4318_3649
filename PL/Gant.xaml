@@ -5,10 +5,17 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL"
         mc:Ignorable="d"
-        Title="Gant" Height="450" Width="800">
-    <Grid>
-        <DataGrid d:ItemsSource="{d:SampleData ItemCount=5}" Margin="81,84,81,84" SelectionChanged="DataGrid_SelectionChanged" />
-        
+        Title="Gant" Height="450" Width="800"
+        DataContext="{Binding RelativeSource={RelativeSource Mode=Self}}">
+    <Canvas>
+        <Canvas.Resources>
+            <Style TargetType="DataGridCell">
+                <Setter Property="Background" Value="{Binding Content.Text, RelativeSource={RelativeSource Mode=Self},Converter={StaticResource ConvertStatusToColor}}"/>
+                <Setter Property="Foreground" Value="{Binding Content.Text, RelativeSource={RelativeSource Mode=Self},Converter={StaticResource ConvertStatusToColor}}"/>
+            </Style>
+        </Canvas.Resources>
+        <DataGrid Initialized="GantGrid_Initialized" GridLinesVisibility="None" IsReadOnly="True" AutoGenerateColumns="False" RowDetailsVisibilityMode="Visible">
+        </DataGrid>
 
-    </Grid>
+    </Canvas>
 </Window>

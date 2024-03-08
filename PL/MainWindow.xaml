@@ -31,5 +31,6 @@
         <DatePicker HorizontalAlignment="Left" Margin="591,140,0,0" VerticalAlignment="Top" Width="131" Height="29" 
                     SelectedDate="{Binding startProject, Mode=TwoWay}" Visibility="{Binding }"/>
         <Button Content="Add date" Margin="589,187,0,0" VerticalAlignment="Top" Width="133" Height="30" Click="btnScedule_click" />
+        <Button Content="Gant" Margin="82,240,0,0" VerticalAlignment="Top" Height="36" Width="109" Click="btnGant_Click"/>
     </Grid>
 </Window>

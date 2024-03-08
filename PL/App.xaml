@@ -2,12 +2,13 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="clr-namespace:PL"
-             StartupUri="StartWindow.xaml">
+             StartupUri="MainWindow.xaml">
     <Application.Resources>
         <local:LevelCollection x:Key="LevelCollectionKey"/>
         <local:StatusCollection x:Key="StatusCollectionKey"/>
         <local:ConvertIdToContent x:Key="ConverIdToContent"/>
         <local:ConvertTextToVisibility x:Key="ConvertTextToVisibility"/>
+        <local:ConvertStatusToColor x:Key="ConvertStatusToColor"/>
         <local:ConvertText1ToIsEnabled x:Key="ConvertText1ToIsEnabled"/>
         <local:ConvertText2ToIsEnabled x:Key="ConvertText2ToIsEnabled"/>
         <local:ConvertListToVisibility x:Key="ConvertListToVisibility"/>

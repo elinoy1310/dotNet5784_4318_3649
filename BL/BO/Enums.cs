@@ -4,7 +4,7 @@ namespace BO;
 
 public enum EngineerExperience { Beginner, AdvancedBeginner, Intermediate, Advanced, Expert,None }
 
-public enum Status { Done, Unscheduled, Scheduled, OnTrack }
+public enum Status { Done, Unscheduled, Scheduled, OnTrack, InJeopredy, None }
 
 public enum MainMenu { Exit, Engineer, Task, CreateSchedule }
 

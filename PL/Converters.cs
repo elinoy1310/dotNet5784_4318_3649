@@ -1,6 +1,7 @@
 ﻿
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Globalization;
 using System.Linq;
 using System.Windows;
@@ -66,6 +67,36 @@ public class ConvertBooleanToVisibility : IValueConverter
         if ((bool)value)
             return Visibility.Visible;
         return Visibility.Collapsed;
+    }
+
+    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+    {
+        throw new NotImplementedException();
+    }
+}
+
+
+public class ConvertStatusToColor : IValueConverter
+{
+    public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+    {
+        if (value is BO.Status)
+        {
+            switch ((BO.Status)value)
+            {
+                case Status.Done:
+                    return Color.LightGreen;
+                case Status.Scheduled:
+                    return Color.LightYellow;
+                case Status.OnTrack:
+                    return Color.BlueViolet;
+                case Status.InJeopredy:
+                    return Color.LightPink;
+                default:
+                    return Color.White;
+            }
+        }
+        return Color.White;
     }
 
     public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
