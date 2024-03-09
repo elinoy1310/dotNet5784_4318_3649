@@ -31,7 +31,7 @@
 
         </Grid>
 
-        <ListView Grid.Row="1" MouseDoubleClick="lvSelectTaskToUpdate_MouseDoubleClick"  >
+        <ListView Grid.Row="1" ItemsSource="{Binding TaskList}" MouseDoubleClick="lvSelectTaskToUpdate_MouseDoubleClick" SelectedItem="{Binding SelectedTask, Mode=TwoWay}"  >
             <ListView.View>
                 <GridView>
                     <GridViewColumn/>
@@ -40,6 +40,7 @@
         </ListView>
 
         <Button Content="Add&#x0a;Task"  Grid.Row="2" HorizontalAlignment="Center" Height="50" Width="100" Click="btnAddTask_Click" Foreground="Black" Background="#FFB0E8F3" FontFamily="Cascadia Code" FontSize="15" VerticalContentAlignment="Center"/>
+        <Button Content="Delete&#x0a;Task" HorizontalAlignment="Left" FontSize="15" Margin="899,0,0,0" Grid.Row="2" VerticalAlignment="Center" Height="50" Width="91" Click="btnDeleteTask_Click" />
 
     </Grid>
 </Window>

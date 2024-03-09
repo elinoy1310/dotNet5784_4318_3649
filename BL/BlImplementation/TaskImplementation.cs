@@ -326,7 +326,10 @@ internal class TaskImplementation : ITask
             status = Status.Unscheduled;
         // Check if the start date is null
         else if (task.StartDate == null)
+        {if (bl.Clock> task.ScheduledDate)
+                status= Status.InJeopredy;
             status = Status.Scheduled;
+        }
         // Check if the completion date is null
         else if (task.CompleteDate == null)
             status = Status.OnTrack;
