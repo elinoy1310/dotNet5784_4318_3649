@@ -30,15 +30,15 @@ namespace PL.Task
 
 
 
-        //public DateTime FilterStartDate
-        //{
-        //    get { return (DateTime)GetValue(FilterStartDateProperty); }
-        //    set { SetValue(FilterStartDateProperty, value); }
-        //}
+        public DateTime FilterStartDate
+        {
+            get { return (DateTime)GetValue(FilterStartDateProperty); }
+            set { SetValue(FilterStartDateProperty, value); }
+        }
 
-        //// Using a DependencyProperty as the backing store for FilterStartDate.  This enables animation, styling, binding, etc...
-        //public static readonly DependencyProperty FilterStartDateProperty =
-        //    DependencyProperty.Register("FilterStartDate", typeof(DateTime), typeof(TaskListWindow), new PropertyMetadata(0));
+        // Using a DependencyProperty as the backing store for FilterStartDate.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty FilterStartDateProperty =
+            DependencyProperty.Register("FilterStartDate", typeof(DateTime), typeof(TaskListWindow), new PropertyMetadata(null));
 
 
 
@@ -54,6 +54,19 @@ namespace PL.Task
 
         public static readonly DependencyProperty TaskInListProperty =
             DependencyProperty.Register("TaskList", typeof(IEnumerable<BO.TaskInList>), typeof(TaskListWindow), new PropertyMetadata(null));
+
+
+
+
+        public BO.Task SelectedTask
+        {
+            get { return (BO.Task)GetValue(SelectedTaskProperty); }
+            set { SetValue(SelectedTaskProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for SelectedTask.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty SelectedTaskProperty =
+            DependencyProperty.Register("SelectedTask", typeof(BO.Task), typeof(TaskListWindow), new PropertyMetadata(null));
 
 
         private void CbFilterByLevel_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -83,11 +96,15 @@ namespace PL.Task
             TaskList = Status == BO.Status.Unscheduled ? s_bl.Task.ReadAll() : s_bl.Task.ReadAll(task => task.Status == Status);
         }
 
-        //private void btnFilterByStartDate_Click(object sender, RoutedEventArgs e)
-        //{
-        //    TaskList = s_bl.Task.ReadAll(task => task.StartDate == FilterStartDate);
-        //}
+        private void btnFilterByStartDate_Click(object sender, RoutedEventArgs e)
+        {
+            TaskList = s_bl.Task.ReadAll(task => task.StartDate == FilterStartDate);
+        }
 
-     
+        private void btnDeleteTask_Click(object sender, RoutedEventArgs e)
+        {
+            s_bl.Task.Delete(SelectedTask.Id);
+            s_bl.Task.ReadAll();
+        }
     }
 }

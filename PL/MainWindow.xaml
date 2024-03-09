@@ -27,10 +27,11 @@
         <Button Content="Handle Task" Margin="82,337,0,0" VerticalAlignment="Top" Height="39" Width="109" Click="btnTaskList_Click" BorderBrush="Black" Foreground="#FF0C083D"/>
         <CheckBox Name="CreateSchedule"  Content="Create Schedule" Margin="591,32,78,0" VerticalAlignment="Top" Height="41" Foreground="White"/>
         <Label Content="Enter start project date" HorizontalAlignment="Left" Margin="591,91,0,0" VerticalAlignment="Top" Width="131" Background="White"
-               />
+              Visibility="{Binding ElementName=CreateSchedule, Path=IsChecked, Converter={StaticResource ConvertBooleanToVisibility}}" />
         <DatePicker HorizontalAlignment="Left" Margin="591,140,0,0" VerticalAlignment="Top" Width="131" Height="29" 
-                    SelectedDate="{Binding startProject, Mode=TwoWay}" Visibility="{Binding }"/>
-        <Button Content="Add date" Margin="589,187,0,0" VerticalAlignment="Top" Width="133" Height="30" Click="btnScedule_click" />
+                    SelectedDate="{Binding startProject, Mode=TwoWay}" Visibility="{Binding ElementName=CreateSchedule, Path=IsChecked, Converter={StaticResource ConvertBooleanToVisibility}}"/>
+        <Button Content="Add date" Margin="589,187,0,0" VerticalAlignment="Top" Width="133" Height="30" Click="btnScedule_click" 
+                Visibility="{Binding ElementName=CreateSchedule, Path=IsChecked, Converter={StaticResource ConvertBooleanToVisibility}}"/>
         <Button Content="Gant" Margin="82,240,0,0" VerticalAlignment="Top" Height="36" Width="109" Click="btnGant_Click"/>
     </Grid>
 </Window>
