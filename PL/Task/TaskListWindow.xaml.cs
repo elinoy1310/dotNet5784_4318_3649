@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -22,10 +23,17 @@ namespace PL.Task
         static readonly BlApi.IBl s_bl = BlApi.Factory.Get();
         public BO.EngineerExperience Complexity { get; set; } = BO.EngineerExperience.None;
         public BO.Status Status { get; set; } = BO.Status.Unscheduled;
+        public Func<BO.Task,bool>? Filter{ get; set; }
 
         public TaskListWindow()
         {
             InitializeComponent();
+        }
+
+        public TaskListWindow(BO.Engineer eng)
+        {
+            InitializeComponent();
+            Filter = item => item.Engineer is null&&s_bl.Task.PreviousTaskDone(item.Id);
         }
 
 
@@ -58,7 +66,8 @@ namespace PL.Task
 
         private void CbFilterByLevel_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            TaskList = Complexity == BO.EngineerExperience.None ? s_bl.Task.ReadAll() : s_bl.Task.ReadAll(task => task.Complexity == Complexity);
+
+            TaskList = Complexity == BO.EngineerExperience.None ? s_bl.Task.ReadAll(Filter) : s_bl.Task.ReadAll( task => (task.Complexity == Complexity&&Filter==null?true:Filter!(task)));
         }
         private void btnAddTask_Click(object sender, RoutedEventArgs e)
         {
@@ -70,22 +79,22 @@ namespace PL.Task
         {
             BO.TaskInList? task = (sender as ListView)?.SelectedItem as BO.TaskInList;
             new TaskWindow(task?.Id ?? 0).ShowDialog();
-            TaskList = s_bl.Task.ReadAll();
+            TaskList = s_bl.Task.ReadAll(Filter);
         }
 
         private void wLoadTheUpdatedTasksList_Loaded(object sender, RoutedEventArgs e)
         {
-            TaskList = s_bl.Task.ReadAll();
+            TaskList = s_bl.Task.ReadAll(Filter);
         }
 
         private void CbFilterByStatus_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            TaskList = Status == BO.Status.Unscheduled ? s_bl.Task.ReadAll() : s_bl.Task.ReadAll(task => task.Status == Status);
+            TaskList = Status == BO.Status.Unscheduled ? s_bl.Task.ReadAll(Filter) : s_bl.Task.ReadAll(task => task.Status == Status && Filter == null ? true : Filter!(task));
         }
 
         private void btnFilterByStartDate_Click(object sender, RoutedEventArgs e)
         {
-            TaskList = s_bl.Task.ReadAll(task => task.StartDate == FilterStartDate);
+            TaskList = s_bl.Task.ReadAll(task => task.StartDate == FilterStartDate&& Filter == null ? true : Filter!(task));
         }
 
      

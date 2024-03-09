@@ -61,7 +61,7 @@ internal class TaskImplementation : ITask
         // Check if all start dates of previous tasks are updated
         var tempListStatus = list.Select(task => task.Status == Status.Unscheduled).ToList();
         if (tempListStatus != null)
-            throw new BlNotUpdatedDataException($"Not all start dates of previous tasks of task with ID={id} updates");
+            throw new BlNotUpdatedDataException($"Not all start dates of previous tasks of task with ID={id} are updated");
         // Find tasks with end dates later than the specified start date
         var findTask = from taskInAllTasks in _dal.Task.ReadAll()
                        from depTask in list
@@ -423,5 +423,18 @@ internal class TaskImplementation : ITask
             Complexity = (BO.EngineerExperience)task.Complexity
         };
         return newTask;
+    }
+
+    public bool PreviousTaskDone(int id)
+    {
+        List<TaskInList> prevTask = returnDepTask(id).ToList();
+        if (prevTask.Count==0)
+            return true;
+        foreach (TaskInList item in prevTask)
+        {
+            if (item.Status != BO.Status.Done)
+                return false;
+        }
+        return true;
     }
 }

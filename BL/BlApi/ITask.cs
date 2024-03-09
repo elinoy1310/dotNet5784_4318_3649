@@ -8,5 +8,6 @@ public interface ITask
     public void Update(BO.Task task);
     public void Delete(int id);
     public void CreateStartDate(int id,DateTime date);
+    public bool PreviousTaskDone(int id);
 }
 

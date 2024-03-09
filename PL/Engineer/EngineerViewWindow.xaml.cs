@@ -74,7 +74,7 @@ namespace PL.Engineer
                 }
                 btnCompleteTask_click(sender, e);
             }
-          //לתקן // new TaskListWindow(User=Engineer).show();
+           new TaskListWindow( EngineerDetails.Id).show();
         }
     }
 }
