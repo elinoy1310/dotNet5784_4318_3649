@@ -24,6 +24,7 @@ namespace PL.Task
         public BO.EngineerExperience Complexity { get; set; } = BO.EngineerExperience.None;
         public BO.Status Status { get; set; } = BO.Status.Unscheduled;
         public Func<BO.Task,bool>? Filter{ get; set; }
+        public int? IdUser { get; set; }
 
         public TaskListWindow()
         {
@@ -33,7 +34,9 @@ namespace PL.Task
         public TaskListWindow(BO.Engineer eng)
         {
             InitializeComponent();
-            Filter = item => item.Engineer is null&&s_bl.Task.PreviousTaskDone(item.Id);
+            Filter = item => item.Engineer is null&&s_bl.Task.PreviousTaskDone(item.Id)&&item.Complexity<=eng.level;
+            IdUser = eng.Id;
+            //לשנות נראות של הכפתור הוספה+ שלא יראו את הכפותר של מחיקה
         }
 
 
@@ -84,6 +87,7 @@ namespace PL.Task
         }
         private void btnAddTask_Click(object sender, RoutedEventArgs e)
         {
+
             new TaskWindow().ShowDialog();
             TaskList = s_bl.Task.ReadAll();
         }
@@ -91,8 +95,20 @@ namespace PL.Task
         private void lvSelectTaskToUpdate_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             BO.TaskInList? task = (sender as ListView)?.SelectedItem as BO.TaskInList;
-            new TaskWindow(task?.Id ?? 0).ShowDialog();
-            TaskList = s_bl.Task.ReadAll(Filter);
+            if (IdUser is not null)
+            {
+                BO.Task updateTask = s_bl.Task.Read(task!.Id);
+                BO.EngineerInTask engInTask= new BO.EngineerInTask() { Id = (int)IdUser };
+                updateTask!.Engineer = engInTask;
+                s_bl.Task.Update(updateTask);
+                this.Close();
+            }
+            else
+            {
+                new TaskWindow(task?.Id ?? 0).ShowDialog();
+                TaskList = s_bl.Task.ReadAll(Filter);
+            }
+
         }
 
         private void wLoadTheUpdatedTasksList_Loaded(object sender, RoutedEventArgs e)

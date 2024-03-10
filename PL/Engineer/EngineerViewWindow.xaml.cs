@@ -1,5 +1,6 @@
 ﻿
 
+using PL.Task;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -74,7 +75,7 @@ namespace PL.Engineer
                 }
                 btnCompleteTask_click(sender, e);
             }
-           new TaskListWindow( EngineerDetails.Id).show();
+           new TaskListWindow( EngineerDetails).ShowDialog();
         }
     }
 }
