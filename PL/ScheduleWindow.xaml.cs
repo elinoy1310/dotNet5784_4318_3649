@@ -20,14 +20,26 @@ namespace PL
     public partial class ScheduleWindow : Window
     {
         static readonly BlApi.IBl s_bl = BlApi.Factory.Get();
-        public IEnumerable<BO.Task> tasks { get; set; } = s_bl.UpdateManuallyList();
-        public BO.Task currentTask { get; set; }
+        public List<BO.Task> tasks { get; set; } = s_bl.UpdateManuallyList().ToList();
+       // public BO.Task currentTask { get; set; }
 
         public ScheduleWindow()
         {
-            currentTask=tasks.First();
+            CurrentTask=tasks.First();
             InitializeComponent();
         }
+
+
+        public BO.Task CurrentTask
+        {
+            get { return (BO.Task)GetValue(CurrentTaskProperty); }
+            set { SetValue(CurrentTaskProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for currentTask.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty CurrentTaskProperty =
+            DependencyProperty.Register("CurrentTask", typeof(BO.Task), typeof(ScheduleWindow), new PropertyMetadata(null));
+
 
         public DateTime ScheduleDate
         {
@@ -37,19 +49,19 @@ namespace PL
 
         // Using a DependencyProperty as the backing store for ScheduleDate.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty ScheduleDateProperty =
-            DependencyProperty.Register("ScheduleDate", typeof(DateTime), typeof(ScheduleWindow), new PropertyMetadata(null));
+            DependencyProperty.Register("ScheduleDate", typeof(DateTime), typeof(ScheduleWindow), new PropertyMetadata(s_bl.Clock));
 
         private void btnUpdateDate_Click(object sender, RoutedEventArgs e)
         {
             try
             {
-                s_bl.CreateSchedule(ScheduleDate, BO.CreateScheduleOption.Manually, currentTask.Id);
+                s_bl.CreateSchedule(ScheduleDate, BO.CreateScheduleOption.Manually, CurrentTask.Id);
                 MessageBox.Show("The task has been updated successfully!");
-                tasks.ToList().RemoveAt(0);
+                tasks.RemoveAt(0);
                 if (tasks.Count() == 0)
                     MessageBox.Show("All the tasks are updated, The Schedule was created successfully!");
                 else
-                currentTask = tasks.First();
+                CurrentTask = tasks.First();
             }
             catch (BO.BlCannotBeUpdatedException ex)
             {

@@ -91,7 +91,7 @@ public class Bl : IBl
                 if (date.Date < temp)
                     throw new BlCannotBeUpdatedException($"Can't set schedule date before {temp}");
                 BO.Task task = Task.Read(taskId);
-                task.ScheduledDate = temp;
+                task.ScheduledDate = date;
                 Task.Update(task);
                 break;
         }
@@ -107,7 +107,7 @@ public class Bl : IBl
     private DateTime? createScheduleOptionManually(int taskId)
     {
         BO.Task task = Task.Read(taskId);
-        if (task.Dependencies == null)
+        if (task.Dependencies?.Count()==0)
         {
             return ProjectStartDate;
         }
@@ -201,14 +201,16 @@ public class Bl : IBl
         while (q.Count > 0)
         {
             BO.Task currentTask = Task.Read(q.First());
-            tasks.Add(currentTask);
-            if (currentTask.Dependencies is not null)
-                foreach (var item in currentTask.Dependencies)
+            IEnumerable<TaskInList> dependOnTasks = Task.ReadAll(boTask => boTask.Dependencies!.FirstOrDefault(item => item.Id == currentTask.Id) != null).ToList();
+            if (dependOnTasks.Count()!=0)
+                foreach (var item in dependOnTasks)
                 {
                     q.Enqueue(item.Id);
                 }
+            tasks.Add(currentTask);
             q.Dequeue();
         }
-        return tasks.GroupBy(x => x).Select(g => g.Last()).ToList();
+        var t = tasks.GroupBy(x => x.Id);
+        return t.Select(g => g.Last()).ToList();
     }
 }
