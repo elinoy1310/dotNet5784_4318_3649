@@ -12,9 +12,8 @@ public interface IBl
     public void ResetClock();
     #endregion 
     public ProjectStatus CheckProjectStatus();
-    public void CreateSchedule(CreateScheduleOption option=CreateScheduleOption.Automatically, int taskId=-1);
+    public void CreateSchedule(DateTime date, CreateScheduleOption option=CreateScheduleOption.Automatically, int taskId=-1);
+    public IEnumerable<BO.Task> UpdateManuallyList();
     public void InitializeDB();
     public void ResetDB();
-
-    
 }

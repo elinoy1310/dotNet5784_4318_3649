@@ -10,8 +10,8 @@
     <Canvas>
         <Canvas.Resources>
             <Style TargetType="DataGridCell">
-                <Setter Property="Background" Value="{Binding Content.Text, RelativeSource={RelativeSource Mode=Self},Converter={StaticResource ConvertStatusToColor}}"/>
-                <Setter Property="Foreground" Value="{Binding Content.Text, RelativeSource={RelativeSource Mode=Self},Converter={StaticResource ConvertStatusToColor}}"/>
+                <Setter Property="Background" Value="{Binding Content.Text, RelativeSource={RelativeSource Mode=Self},Converter={StaticResource ConvertStatusToBackground}}"/>
+                <Setter Property="Foreground" Value="{Binding Content.Text, RelativeSource={RelativeSource Mode=Self},Converter={StaticResource ConvertStatusToForeground}}"/>
             </Style>
         </Canvas.Resources>
         <DataGrid Initialized="GantGrid_Initialized" GridLinesVisibility="None" IsReadOnly="True" AutoGenerateColumns="False" RowDetailsVisibilityMode="Visible">

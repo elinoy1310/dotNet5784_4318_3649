@@ -47,7 +47,7 @@ namespace PL
                       };
             ListGantTasks = lst.OrderBy(task => task.StartDate);
             StartDateColumn = ListGantTasks.First().StartDate;
-            CompleteDateColumn=ListGantTasks.Max(task => task.CompleteDate);
+            CompleteDateColumn = ListGantTasks.Max(task => task.CompleteDate);
             InitializeComponent();
         }
 
@@ -73,6 +73,19 @@ namespace PL
                 return completeDate ?? s_bl.Clock;
         }
 
+        private string dependenciesAsString(IEnumerable<int>? dependencies)
+        {
+            if (dependencies?.Count() == 0)
+                return "";
+            string str = "";
+            foreach (var item in dependencies!)
+            {
+
+                str += $" {item},";
+            }
+            return str.Remove(str.Length-1);
+        }
+
         private void GantGrid_Initialized(object sender, EventArgs e)
         {
             DataGrid? dg = sender as DataGrid;
@@ -86,13 +99,14 @@ namespace PL
                 dg.Columns.Add(new DataGridTextColumn() { Header = "Task Name", Binding = new Binding("[1]") });
                 dt.Columns.Add("Task Name", typeof(string));
                 dg.Columns.Add(new DataGridTextColumn() { Header = "Engineer Id", Binding = new Binding("[2]") });
-                dt.Columns.Add("Engineer Id", typeof(int));
+                dt.Columns.Add("Engineer Id", typeof(string));
                 dg.Columns.Add(new DataGridTextColumn() { Header = "Engineer Name", Binding = new Binding("[3]") });
                 dt.Columns.Add("Engineer Name", typeof(string));
                 dg.Columns.Add(new DataGridTextColumn() { Header = "Task dependencies", Binding = new Binding("[4]") });
-                dt.Columns.Add("Task dependencies", typeof(int/*IEnumerable<int>*/));
+                dt.Columns.Add("Task dependencies", typeof(string));
+
                 int column = 5;
-                for(DateTime date=StartDateColumn.Date; date<=CompleteDateColumn;date= date.AddDays(1))
+                for (DateTime date = StartDateColumn.Date; date <= CompleteDateColumn; date = date.AddDays(1))
                 {
                     string strDate = $"{date.Day}/{date.Month}/{date.Year}";
                     dg.Columns.Add(new DataGridTextColumn() { Header = strDate, Binding = new Binding($"[{column}]") });
@@ -107,9 +121,9 @@ namespace PL
                         DataRow row = dt.NewRow();
                         row[0] = g.TaskId;
                         row[1] = g.TaskAlias;
-                        row[2] = 0;//g.EngineerId;
+                        row[2] = g.EngineerId;
                         row[3] = g.EngineerName;
-                        row[4] = 0;//g.DependentTasks;
+                        row[4] = dependenciesAsString(g.DependentTasks);
 
 
                         int rows = 5;
@@ -117,23 +131,23 @@ namespace PL
                         for (DateTime date = StartDateColumn.Date; date <= CompleteDateColumn; date = date.AddDays(1))
                         {
                             // string strDate = $"{date.Day}/{date.Month}/{date.Year}";
-                            if (date < g.StartDate || date > g.CompleteDate)
+                            if (date.Date < g.StartDate.Date || date.Date > g.CompleteDate.Date)
                                 row[rows] = BO.Status.None;
                             else
                             {
-                                row[rows]= g.Status;
+                                row[rows] = g.Status;
                             }
                             rows++;
                         }
-                       dt.Rows.Add(row);
+                        dt.Rows.Add(row);
                     }
 
-                    if(dt is not null)
+                    if (dt is not null)
                     {
                         dg.ItemsSource = dt.DefaultView;
                     }
                 }
-                
+
             }
         }
     }

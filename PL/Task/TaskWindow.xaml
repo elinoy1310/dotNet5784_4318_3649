@@ -85,8 +85,8 @@
                    Text="{Binding  Status, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}" Grid.Row="4"
                  IsEnabled="False"/>
         <Button Grid.Column="1" Content="Add Dependencies" HorizontalAlignment="Left" Margin="60,0,0,0" Grid.Row="5" VerticalAlignment="Center" Width="107" Height="22"/>
-        <DatePicker Grid.Column="1" HorizontalAlignment="Left" Margin="60,0,0,0" Grid.Row="6" VerticalAlignment="Center" Width="107" Height="23"
-                    IsEnabled="{Binding Id, Mode=OneTime, Converter={StaticResource ConvertText1ToIsEnabled}}" SelectedDate="{Binding RequiredEffortTime, Mode=TwoWay}"/>
+        <TextBox Grid.Column="1" HorizontalAlignment="Left" Margin="60,0,0,0" Grid.Row="6" VerticalAlignment="Center" Width="107" Height="23"
+                    IsEnabled="{Binding Id, Mode=OneTime, Converter={StaticResource ConvertText1ToIsEnabled}}" Text="{Binding RequiredEffortTime, Mode=TwoWay}"/>
         <DatePicker Grid.Column="1" HorizontalAlignment="Left" Margin="60,4,0,0" Grid.Row="7" VerticalAlignment="Top" Width="107" Height="23"
                     IsEnabled="False" SelectedDate="{Binding StartDate, Mode=TwoWay}"/>
         <DatePicker Grid.Column="1" HorizontalAlignment="Left" Margin="60,0,0,0" Grid.Row="8" VerticalAlignment="Center" Width="107" Height="22"
