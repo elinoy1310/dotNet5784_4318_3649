@@ -6,6 +6,7 @@ using System.Globalization;
 using System.Linq;
 using System.Windows;
 using System.Windows.Data;
+using System.Windows.Media;
 using BO;
 
 namespace PL;
@@ -76,27 +77,53 @@ public class ConvertBooleanToVisibility : IValueConverter
 }
 
 
-public class ConvertStatusToColor : IValueConverter
+public class ConvertStatusToBackground : IValueConverter
 {
     public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
     {
-        if (value is BO.Status)
+        switch (value)
         {
-            switch ((BO.Status)value)
-            {
-                case Status.Done:
-                    return Color.LightGreen;
-                case Status.Scheduled:
-                    return Color.LightYellow;
-                case Status.OnTrack:
-                    return Color.BlueViolet;
-                case Status.InJeopredy:
-                    return Color.LightPink;
-                default:
-                    return Color.White;
-            }
+            case "Done":
+                return Brushes.LightGreen;
+            case "Scheduled":
+                return Brushes.Yellow;
+            case "OnTrack":
+                return Brushes.BlueViolet;
+            case "InJeopredy":
+                return Brushes.LightPink;
+            default:
+                return Brushes.White;
         }
-        return Color.White;
+
+    }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+    {
+        throw new NotImplementedException();
+    }
+}
+
+
+public class ConvertStatusToForeground : IValueConverter
+{
+    public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+    {
+        switch (value)
+        {
+            case "Done":
+                return Brushes.LightGreen;
+            case "Scheduled":
+                return Brushes.Yellow;
+            case "OnTrack":
+                return Brushes.BlueViolet;
+            case "InJeopredy":
+                return Brushes.LightPink;
+            case "None":
+                return Brushes.White;
+            default:
+                return Brushes.Black;
+        }
+
     }
 
     public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
@@ -104,6 +131,7 @@ public class ConvertStatusToColor : IValueConverter
         throw new NotImplementedException();
     }
 }
+
 
 public class ConvertTaskInEngineerToText : IValueConverter
 {
@@ -256,6 +284,7 @@ public class ConvertListToVisibility : IValueConverter
         throw new NotImplementedException();
     }
 }
+
 
 
 

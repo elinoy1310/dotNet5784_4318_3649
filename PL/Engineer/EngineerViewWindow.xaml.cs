@@ -13,6 +13,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using PL.Task;
 
 namespace PL.Engineer
 {
@@ -49,11 +50,13 @@ namespace PL.Engineer
 
         // Using a DependencyProperty as the backing store for EngineerDetails.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty EngineerDetailsProperty =
-            DependencyProperty.Register("EngineerDetails", typeof(BO.Engineer), typeof(EngineerViewWindow), new PropertyMetadata(new BO.Engineer()));
+            DependencyProperty.Register(
+                "EngineerDetails", typeof(BO.Engineer), typeof(EngineerViewWindow), new PropertyMetadata(new BO.Engineer()));
 
         private void btnCompleteTask_click(object sender, RoutedEventArgs e)
         {
-            MessageBoxResult mbResult = MessageBox.Show("Have you finished the task completely?", "Validation", MessageBoxButton.YesNo, MessageBoxImage.Question);
+            MessageBoxResult mbResult = MessageBox.Show(
+                "Have you finished the task completely?", "Validation", MessageBoxButton.YesNo, MessageBoxImage.Question);
             if (mbResult == MessageBoxResult.Yes)
             {
                 BO.Engineer updateEng = EngineerDetails;
@@ -67,14 +70,15 @@ namespace PL.Engineer
         {
             if(EngineerDetails.Task is not null)
             {
-                MessageBoxResult mbResult = MessageBox.Show("This action will End your current Mission, are you sure you want to choose new task?", "Validation", MessageBoxButton.YesNo, MessageBoxImage.Warning);
+                MessageBoxResult mbResult = MessageBox.Show(
+                    "This action will End your current Mission, are you sure you want to choose new task?", "Validation", MessageBoxButton.YesNo, MessageBoxImage.Warning);
                 if (mbResult == MessageBoxResult.No)
                 {
                     return;
                 }
                 btnCompleteTask_click(sender, e);
             }
-           new TaskListWindow( EngineerDetails.Id).show();
+            new TaskListWindow(EngineerDetails).Show();
         }
     }
 }

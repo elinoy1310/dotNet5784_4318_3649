@@ -18,7 +18,7 @@ public class Bl : IBl
     private DalApi.IDal _dal = DalApi.Factory.Get;
     public DateTime? ProjectStartDate
     {
-        get => _dal.ProjectStartDate;
+        get => _dal.ProjectStartDate is null ? Clock.Date : _dal.ProjectStartDate;
         set
         {
             if (value <= Clock)
@@ -79,7 +79,7 @@ public class Bl : IBl
     /// <param name="taskId">The ID of the task for manual scheduling (optional, required if option is Manually).</param>
     /// <exception cref="BlWrongInputFormatException">Thrown when the input format is incorrect.</exception>
     /// <exception cref="BlDoesNotExistException">Thrown when a task does not exist.</exception>
-    public void CreateSchedule(CreateScheduleOption option/*=CreateScheduleOption.Manually*/, int taskId)
+    public void CreateSchedule(DateTime date, CreateScheduleOption option/*=CreateScheduleOption.Manually*/, int taskId)
     {
         switch (option)
         {
@@ -87,7 +87,12 @@ public class Bl : IBl
                 createScheduleAuto();
                 break;
             case CreateScheduleOption.Manually:
-                createScheduleOptionManually(taskId);
+                DateTime? temp = createScheduleOptionManually(taskId);
+                if (date.Date < temp)
+                    throw new BlCannotBeUpdatedException($"Can't set schedule date before {temp}");
+                BO.Task task = Task.Read(taskId);
+                task.ScheduledDate = temp;
+                Task.Update(task);
                 break;
         }
 
@@ -99,12 +104,12 @@ public class Bl : IBl
     /// <param name="taskId">The ID of the task for manual scheduling.</param>
     /// <exception cref="BlDoesNotExistException">Thrown when a task or its dependencies do not exist.</exception>
     /// <exception cref="BlCanNotBeNullException">Thrown when a task's forecast date is not set for a dependency.</exception>
-    private void createScheduleOptionManually(int taskId)
+    private DateTime? createScheduleOptionManually(int taskId)
     {
         BO.Task task = Task.Read(taskId);
         if (task.Dependencies == null)
         {
-            task.ScheduledDate = ProjectStartDate;
+            return ProjectStartDate;
         }
         DateTime? maxForecast = Clock;
         foreach (var d in task.Dependencies!)
@@ -115,8 +120,7 @@ public class Bl : IBl
             if (readTask.ForecastDate > maxForecast)
                 maxForecast = readTask.ForecastDate;
         }
-        task.ScheduledDate = maxForecast;
-        Task.Update(task);
+        return maxForecast;
     }
 
     /// <summary>
@@ -177,12 +181,34 @@ public class Bl : IBl
             if (taskTODoStartDate.ScheduledDate is null)
                 taskTODoStartDate.ScheduledDate = dep.ForecastDate;
             else
-                taskTODoStartDate.ScheduledDate = (dep.ScheduledDate > taskTODoStartDate.ScheduledDate) ? dep.ForecastDate : taskTODoStartDate.ScheduledDate;
+                taskTODoStartDate.ScheduledDate = (dep.ForecastDate > taskTODoStartDate.ScheduledDate) ? dep.ForecastDate : taskTODoStartDate.ScheduledDate;
             Task.Update(taskTODoStartDate);
             updateSceduledDateInDep(taskTODoStartDate.Id);
         }
 
     }
 
+    public IEnumerable<BO.Task> UpdateManuallyList()
+    {
+        Queue<int> q = new Queue<int>();
+        List<BO.Task> tasks = new List<BO.Task>();
+        IEnumerable<TaskInList> tasksWithoutDep = Task.ReadAll(boTask => boTask.Dependencies?.Count() == 0).ToList();
+        foreach (TaskInList task in tasksWithoutDep)
+        {
+            q.Enqueue(task.Id);
+        }
 
+        while (q.Count > 0)
+        {
+            BO.Task currentTask = Task.Read(q.First());
+            tasks.Add(currentTask);
+            if (currentTask.Dependencies is not null)
+                foreach (var item in currentTask.Dependencies)
+                {
+                    q.Enqueue(item.Id);
+                }
+            q.Dequeue();
+        }
+        return tasks.GroupBy(x => x).Select(g => g.Last()).ToList();
+    }
 }

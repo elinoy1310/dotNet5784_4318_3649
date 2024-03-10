@@ -113,7 +113,7 @@ namespace PL
                 {
                     try
                     {
-                        s_bl.CreateSchedule(BO.CreateScheduleOption.Automatically);
+                        s_bl.CreateSchedule(s_bl.Clock,BO.CreateScheduleOption.Automatically);
                         MessageBox.Show("The scheduled has created successfuly!");
                     }
                     catch (BO.BlWrongDataException ex)

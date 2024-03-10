@@ -5,10 +5,16 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL"
         mc:Ignorable="d"
-        Title="ScheduleWindow" Height="450" Width="800">
+        Title="ScheduleWindow" Height="450" Width="800"
+        DataContext="{Binding RelativeSource={RelativeSource Mode=Self}}">
+
     <Grid>
         <!--<DataGrid d:ItemsSource="{d:SampleData ItemCount=5}"/>-->
         <DataGrid/>
+        <Label Content="Schedule Date:" HorizontalAlignment="Left" Margin="448,48,0,0" VerticalAlignment="Top" Height="31" Width="93"/>
+        <Button Content="Add Schedule Date" HorizontalAlignment="Left" Margin="440,111,0,0" VerticalAlignment="Top" Height="24" Width="109" Click="btnUpdateDate_Click"/>
+        <DatePicker HorizontalAlignment="Left" Margin="626,48,0,0" VerticalAlignment="Top" SelectedDate="{Binding ScheduleDate, Mode=TwoWay}"/>
+        <TextBlock HorizontalAlignment="Left" Margin="634,110,0,0" TextWrapping="Wrap" Text="{Binding currentTask}" VerticalAlignment="Top" Height="28" Width="85"/>
 
     </Grid>
 </Window>
