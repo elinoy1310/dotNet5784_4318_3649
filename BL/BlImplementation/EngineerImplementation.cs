@@ -35,7 +35,7 @@ internal class EngineerImplementation : BlApi.IEngineer
         {
             // Attempt to create the engineer in the data layer
             int idNewEnginerr = _dal.Engineer.Create(newEngineer);
-
+            _bl.User.Create(new BO.User() { UserId = idNewEnginerr, UserType = BO.UserType.Engineer, passWord = $"{ idNewEnginerr }" });
             return idNewEnginerr;
         }
 
@@ -61,6 +61,7 @@ internal class EngineerImplementation : BlApi.IEngineer
         {
             // Attempt to delete the engineer from the data layer
             _dal.Engineer.Delete(id);
+            _bl.User.Delete(id);
         }
         catch (DO.DalDoesNotExistException ex)
         {

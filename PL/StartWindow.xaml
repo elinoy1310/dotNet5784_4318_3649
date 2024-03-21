@@ -22,6 +22,6 @@
         <Button Content="Add Hour" RenderTransformOrigin="0.62,1.295" Margin="222,213,468,188" Click="btnAddHour_click"  Grid.Row="1" />
         <Button Content="Add Day" RenderTransformOrigin="0.62,1.295" Margin="338,213,350,188" Click="btnAddDay_click"  Grid.Row="1" />
         <Button Content="Add Year" RenderTransformOrigin="0.62,1.295" Margin="454,213,234,188" Click="btnAddYear_click"  Grid.Row="1" />
-        <Button Content="Log in" HorizontalAlignment="Left" Margin="338,13,0,0" VerticalAlignment="Top" Height="37" Width="100"/>
+        <Button Content="Log in" HorizontalAlignment="Left" Margin="338,13,0,0" VerticalAlignment="Top" Height="37" Width="100" Click="BtnLogIn_Click"/>
     </Grid>
 </Window>

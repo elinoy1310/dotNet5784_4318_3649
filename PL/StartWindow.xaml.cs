@@ -61,5 +61,10 @@ namespace PL
             s_bl.PromoteTime(BO.Time.Year);
             CurrentTime = s_bl.Clock;
         }
+
+        private void BtnLogIn_Click(object sender, RoutedEventArgs e)
+        {
+            new UserEntryWindow().Show();
+        }
     }
 }

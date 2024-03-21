@@ -49,7 +49,7 @@
         <Label Content="Task-ID work on :" Margin="45,11,0,0" VerticalAlignment="Top" Visibility="{Binding Id, Mode=OneTime, Converter={StaticResource ConvertTextToVisibility}}" Grid.Row="5" Grid.Column="0"/>
         <TextBox Margin="50,19,0,0" TextWrapping="Wrap" Width="120" VerticalAlignment="Top" Grid.Column="1"
                  Text="{Binding  Id, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}"
-                 IsEnabled="{Binding Id, Mode=OneTime, Converter={StaticResource ConvertTextToIsEnabled}}" 
+                 IsEnabled="{Binding Id, Mode=OneTime, Converter={StaticResource ConvertText1ToIsEnabled}}" 
                  />
 
         <TextBox Margin="49,20,0,0" TextWrapping="Wrap" Width="121" VerticalAlignment="Top" Grid.Column="1"

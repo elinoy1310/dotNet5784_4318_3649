@@ -35,9 +35,9 @@ namespace PL.Task
 
         public bool IsSelected(int id,int idTask)
         {
-            BO.Task task = s_bl.Task.Read(idTask);
-            foreach (var dep in task.Dependencies)
-                if (dep.Id == id)
+            //BO.Task task = s_bl.Task.Read(idTask);
+            //foreach (var dep in task.Dependencies)
+            //    if (dep.Id == id)
                     return false;
             return true;
         }
