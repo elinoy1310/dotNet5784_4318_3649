@@ -15,4 +15,5 @@ public enum ProjectStatus { Planing, Mid, Execution }
 public enum CreateScheduleOption { Automatically, Manually }
 
 public enum Time {Hour, Day, Year }
+
 public enum UserType { Manager,Engineer }

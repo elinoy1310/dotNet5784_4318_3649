@@ -3,16 +3,17 @@
 using BlApi;
 using BO;
 using DalApi;
+using DO;
 
 namespace BlImplementation;
 
-internal class UserImplementation :BlApi.IUser
+internal class UserImplementation : BlApi.IUser
 {
     private DalApi.IDal _dal = DalApi.Factory.Get;
-   // private BlApi.IBl _bl = BlApi.Factory.Get();
-    public int Create(User user)
+    // private BlApi.IBl _bl = BlApi.Factory.Get();
+    public int Create(BO.User user)
     {
-       
+
         try
         {
             DO.User newUser = new DO.User(user.UserId, (DO.UserType)user.UserType, user.passWord);
@@ -24,16 +25,23 @@ internal class UserImplementation :BlApi.IUser
         catch (DO.DalAlreadyExistException ex)
         {
             // Handle the case where an engineer with the same ID already exists
-            throw new BlAlreadyExistException($"User with userName={user.UserId} already exists", ex);
+            throw new BlAlreadyExistException($"User with user name={user.UserId} already exists", ex);
         }
     }
 
     public void Delete(int id)
     {
-        throw new NotImplementedException();
+        try
+        {
+            _dal.User.Delete(id);
+        }
+        catch (DO.DalDoesNotExistException ex)
+        {
+            throw new BlDoesNotExistException($"User with user name={id} does Not exist", ex);
+        }
     }
 
-    public User Read(int id)
+    public BO.User Read(int id)
     {
         // Retrieve the user details from the data layer
         DO.User? doUser = _dal.User.Read(id);
@@ -49,18 +57,31 @@ internal class UserImplementation :BlApi.IUser
         };
     }
 
-    public IEnumerable<User> ReadAll(Func<User, bool>? filter = null)
+    public IEnumerable<BO.User> ReadAll(Func<BO.User, bool>? filter = null)
     {
-        throw new NotImplementedException();
+        var users = from DO.User user in _dal.User.ReadAll()
+                    select Read(user.userId);
+        if (filter == null)
+            return users;
+        else
+            return users.Where(filter);
     }
 
-    public UserType ReadType(int id)
+    public BO.UserType ReadType(int id)
     {
         return Read(id).UserType;
     }
 
-    public void Update(User user)
+    public void Update(BO.User user)
     {
-        throw new NotImplementedException();
+        try
+        {
+            DO.User? updateUser = new DO.User(user.UserId, (DO.UserType)user.UserType, user.passWord);
+            _dal.User.Update(updateUser);
+        }
+        catch (DO.DalDoesNotExistException ex)
+        {
+            throw new BlDoesNotExistException($"User with user name={user.UserId} does Not exist", ex);
+        }
     }
 }
