@@ -18,9 +18,9 @@ internal class EngineerImplementation : IEngineer
     public int Create(Engineer item)
     {
         if (Read(item.Id) is not null)
-        throw new DalAlreadyExistException($"Engineer with ID={item.Id} already exists");
-        DataSource.Engineers.Add(item); 
-        return item.Id; 
+            throw new DalAlreadyExistException($"Engineer with ID={item.Id} already exists");
+        DataSource.Engineers.Add(item);
+        return item.Id;
     }
     /// <summary>
     /// Deleting an existing object with a certain ID from the list
@@ -29,11 +29,11 @@ internal class EngineerImplementation : IEngineer
     /// <exception cref="Exception">Throwing an exception if the ID we were looking for is not found</exception>
     public void Delete(int id)
     {
-        Engineer? found=Read(id);   
-        if (found != null) 
-        { 
+        Engineer? found = Read(id);
+        if (found != null)
+        {
             DataSource.Engineers.Remove(found);
-            
+
             return;
         }
         throw new DalDoesNotExistException($"Engineer with ID = {id} was not found");
@@ -41,7 +41,7 @@ internal class EngineerImplementation : IEngineer
 
     public void DeleteAll()
     {
-       DataSource.Engineers.Clear();
+        DataSource.Engineers.Clear();
     }
 
     /// <summary>
@@ -51,7 +51,7 @@ internal class EngineerImplementation : IEngineer
     /// <returns></returns>
     public Engineer? Read(int id)
     {
-        return DataSource.Engineers.FirstOrDefault(eng => eng?.Id == id);        
+        return DataSource.Engineers.FirstOrDefault(eng => eng?.Id == id);
     }
 
     /// <summary>
