@@ -12,7 +12,9 @@
         <Label Content="Label" HorizontalAlignment="Left" Margin="10,26,0,0" VerticalAlignment="Top" Height="90" Width="739"/>
         <ListBox ItemsSource="{Binding Dependencies}" SelectionMode="Multiple" Height="242" Width="800" HorizontalAlignment="Center" VerticalAlignment="Top" Canvas.Top="116" Initialized="ListBox_Initialized" >
             <!--ItemsSource="{Binding Dependencies}" SelectionMode="Multiple" Height="242" Width="800" HorizontalAlignment="Center" VerticalAlignment="Top" Canvas.Top="116"/>-->
-            <ListBoxItem IsSelected="" Initialized="ListBoxItem_Initialized"/>
+            <!--<ListBoxItem IsSelected="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ListBoxItem}},Converter={StaticResource ConvertByItemIdtoIsSelected},ConverterParameter={Binding Path=Task}" Initialized="ListBoxItem_Initialized"/>-->
+          
+            
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <StackPanel Orientation="Horizontal" >

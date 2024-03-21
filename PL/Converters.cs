@@ -243,6 +243,31 @@ public class ConvertText2ToIsEnabled : IValueConverter
 
 }
 
+public class ConvertByItemIdtoIsSelected : IValueConverter
+{
+    static readonly BlApi.IBl s_bl = BlApi.Factory.Get();
+    public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+    {
+
+        // if (value is TaskInList)
+        // {
+        BO.Task currentTask = s_bl.Task.Read((int)parameter);
+        if (currentTask.Dependencies?.Count() == 0)
+            return false;
+        foreach (var dep in currentTask.Dependencies!)
+            if (dep.Id == (int)value)
+                return true;
+        return false;
+
+        //   }
+    }
+    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+    {
+        throw new NotImplementedException();
+    }
+
+}
+
 
 /// <summary>
 /// Converts a list of engineers to visibility for UI purposes.

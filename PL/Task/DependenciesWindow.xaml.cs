@@ -21,12 +21,12 @@ namespace PL.Task
     public partial class DependenciesWindow : Window
     {
         static readonly BlApi.IBl s_bl = BlApi.Factory.Get();
-        public bool isSelected { get; set; }
+        public  BO.Task Task { get; set; }
         public DependenciesWindow(int idTask)
         {
             InitializeComponent();
             Dependencies= s_bl.Task.ReadAll(task=>task.Id!=idTask);
-            BO.Task task=s_bl.Task.Read(idTask);
+            Task=s_bl.Task.Read(idTask);
             //ListBox lb=new ListBox();
             //foreach(var dep in task.Dependencies)
                 

@@ -12,7 +12,7 @@ namespace BlImplementation;
 public class Bl : IBl
 {
     public BlApi.IEngineer Engineer => new EngineerImplementation(this);
-
+    public BlApi.IUser User => new UserImplementation();
     public BlApi.ITask Task => new TaskImplementation(this);
 
     private DalApi.IDal _dal = DalApi.Factory.Get;
