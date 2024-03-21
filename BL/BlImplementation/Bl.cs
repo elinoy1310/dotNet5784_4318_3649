@@ -207,10 +207,36 @@ public class Bl : IBl
                 {
                     q.Enqueue(item.Id);
                 }
+            tasks.RemoveAll(t => t.Id == q.First());
             tasks.Add(currentTask);
             q.Dequeue();
         }
-        var t = tasks.GroupBy(x => x.Id);
-        return t.Select(g => g.Last()).ToList();
+        //var ts = tasks.ToList();
+        //for (int i = 0; i < ts.Count(); i++)
+        //{
+        //    int index = i;
+        //    for (int j = i+1; j < ts.Count(); j++)
+        //    {
+        //        if(ts.ElementAt(index).Id== ts.ElementAt(j).Id)
+        //        {
+        //            ts.RemoveAt(index);
+        //            index = j;
+        //            i--;
+        //        }
+        //    }
+        //    i = index;
+        //    //if(i!=ts/*.ToList()*/.LastIndexOf(ts.ElementAt(i)))
+        //    //{
+        //    //    ts.RemoveAt(i);
+        //    //    i--;
+        //    //}
+        //}
+        ////return tasks.ToList();
+        //tasks.Reverse();
+        //var t = tasks.GroupBy(x => x.Id);
+        //t.Select(g => g.Last()).ToList();
+        //t.Reverse();
+        //return t.Select(g=>g);
+        return tasks;
     }
 }
