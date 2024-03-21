@@ -5,6 +5,7 @@ public interface IBl
 {
     public IEngineer Engineer { get; }
     public ITask Task { get; }
+    public IUser User { get; }
     public DateTime? ProjectStartDate { get; set; }
     #region Clock
     public DateTime Clock { get; }
