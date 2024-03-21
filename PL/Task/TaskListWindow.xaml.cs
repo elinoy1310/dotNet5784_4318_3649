@@ -128,7 +128,7 @@ namespace PL.Task
         {
             if (SelectedTask is not null)
                 s_bl.Task.Delete(SelectedTask.Id);
-            MessageBoxResult successMsg = MessageBox.Show("The Task created successfully!");
+            MessageBoxResult successMsg = MessageBox.Show("The Task deleted successfully!");
             TaskList = s_bl.Task.ReadAll();
         }
 
