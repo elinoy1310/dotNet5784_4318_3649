@@ -118,5 +118,10 @@ namespace PL.Task
             this.Close();
             s_bl.Task.ReadAll();
         }
+
+        private void BtnDependencies_Click(object sender, RoutedEventArgs e)
+        {
+            new DependenciesWindow(add_updateTask.Id).ShowDialog();
+        }
     }
 }

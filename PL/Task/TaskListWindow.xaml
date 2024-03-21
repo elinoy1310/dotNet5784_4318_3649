@@ -31,7 +31,7 @@
 
         </Grid>
 
-        <ListView Grid.Row="1" ItemsSource="{Binding TaskList}" MouseDoubleClick="lvSelectTaskToUpdate_MouseDoubleClick" SelectionChanged="selectTask" >
+        <ListView Grid.Row="1" ItemsSource="{Binding TaskList}" MouseDoubleClick="lvSelectTaskToUpdate_MouseDoubleClick" SelectionChanged="selectTask" SelectedItem="" >
             <ListView.View>
                 <GridView>
                     <GridViewColumn/>
