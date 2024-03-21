@@ -25,8 +25,8 @@
             <ComboBox HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Column="1"  ItemsSource="{Binding Source={StaticResource LevelCollectionKey}}"  SelectedValue="{Binding Level, Mode=TwoWay}" SelectionChanged="CbFilterByLevel_SelectionChanged" FontFamily="Arial" FontSize="16"/>
 
         </Grid>
-       
-        <ListView Grid.Row="1" ItemsSource="{Binding Path=EngineerList}" MouseDoubleClick="lvSelectEngineerToUpdate_MouseDoubleClick">
+
+        <ListView Grid.Row="1" ItemsSource="{Binding Path=EngineerList}" MouseDoubleClick="lvSelectEngineerToUpdate_MouseDoubleClick" SelectionChanged="selectEngineer">
             <ListView.View>
                 <GridView>
                     <GridViewColumn/>
@@ -36,6 +36,6 @@
         </ListView>
        
         <Button Content="Add&#x0a;Engineer"  Grid.Row="2" HorizontalAlignment="Center" Height="50" Width="100" Click="btnAddEngineer_Click" Foreground="Black" Background="#FFB0E8F3" FontFamily="Cascadia Code" FontSize="15" VerticalContentAlignment="Center"/>
-
+        <Button Content="Delete&#x0a;Engineer" HorizontalAlignment="Left" FontSize="15" Margin="700,0,0,0" Grid.Row="2" VerticalAlignment="Center" Height="50" Width="91" Click="btnDeleteEngineer_Click" />
     </Grid>
 </Window>

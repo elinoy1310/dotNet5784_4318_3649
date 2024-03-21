@@ -49,6 +49,21 @@ namespace PL.Engineer
             DependencyProperty.Register("EngineerList", typeof(IEnumerable<BO.Engineer>), typeof(EngineerListWindow), new PropertyMetadata(null));
 
 
+
+
+        public BO.Engineer SelectedEngineer
+        {
+            get { return (BO.Engineer)GetValue(SelectedEngineerProperty); }
+            set { SetValue(SelectedEngineerProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for selectedEngineer.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty SelectedEngineerProperty =
+            DependencyProperty.Register("SelectedEngineer", typeof(BO.Engineer), typeof(EngineerListWindow), new PropertyMetadata(null));
+
+
+
+
         /// <summary>
         /// Handles the selection changed event of the filter by level combo box.
         /// Updates the EngineerList property based on the selected level.
@@ -59,6 +74,8 @@ namespace PL.Engineer
         {
             EngineerList = Level == BO.EngineerExperience.None ? s_bl.Engineer.ReadAll() : s_bl.Engineer.ReadAll(eng => eng.level == Level);
         }
+
+
 
         /// <summary>
         /// Handles the click event of the "Add Engineer" button.
@@ -71,6 +88,7 @@ namespace PL.Engineer
             new EngineerWindow().ShowDialog();
             EngineerList = s_bl?.Engineer.ReadAll()!;
         }
+
 
 
         /// <summary>
@@ -96,6 +114,21 @@ namespace PL.Engineer
         private void wLoadTheUpdatedEngineersList_Loaded(object sender, RoutedEventArgs e)
         {
             EngineerList = s_bl.Engineer.ReadAll();
+        }
+
+        private void btnDeleteEngineer_Click(object sender, RoutedEventArgs e)
+        {
+            if (SelectedEngineer is not null)
+                s_bl.Engineer.Delete(SelectedEngineer.Id);
+            MessageBoxResult successMsg = MessageBox.Show("The Engineer deleted successfully!");
+            EngineerList = s_bl.Engineer.ReadAll();
+        }
+
+        private void selectEngineer(object sender, SelectionChangedEventArgs e)
+        {
+            BO.Engineer? eng = (sender as ListView)?.SelectedItem as BO.Engineer;
+            if (eng is not null)
+                SelectedEngineer = s_bl.Engineer.Read(eng.Id);
         }
     }
 

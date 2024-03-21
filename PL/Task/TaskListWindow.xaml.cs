@@ -23,7 +23,7 @@ namespace PL.Task
         static readonly BlApi.IBl s_bl = BlApi.Factory.Get();
         public BO.EngineerExperience Complexity { get; set; } = BO.EngineerExperience.None;
         public BO.Status Status { get; set; } = BO.Status.Unscheduled;
-        public Func<BO.Task,bool>? Filter{ get; set; }
+        public Func<BO.Task, bool>? Filter { get; set; }
 
         public TaskListWindow()
         {
@@ -33,7 +33,7 @@ namespace PL.Task
         public TaskListWindow(BO.Engineer eng)
         {
             InitializeComponent();
-            Filter = item => item.Engineer is null&&s_bl.Task.PreviousTaskDone(item.Id);
+            Filter = item => item.Engineer is null && s_bl.Task.PreviousTaskDone(item.Id);
         }
 
 
@@ -80,7 +80,7 @@ namespace PL.Task
         private void CbFilterByLevel_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
 
-            TaskList = Complexity == BO.EngineerExperience.None ? s_bl.Task.ReadAll(Filter) : s_bl.Task.ReadAll( task => (task.Complexity == Complexity&&Filter==null?true:Filter!(task)));
+            TaskList = Complexity == BO.EngineerExperience.None ? s_bl.Task.ReadAll(Filter) : s_bl.Task.ReadAll(task => (task.Complexity == Complexity && Filter == null ? true : Filter!(task)));
         }
         private void btnAddTask_Click(object sender, RoutedEventArgs e)
         {
@@ -107,13 +107,23 @@ namespace PL.Task
 
         private void btnFilterByStartDate_Click(object sender, RoutedEventArgs e)
         {
-            TaskList = s_bl.Task.ReadAll(task => task.StartDate == FilterStartDate&& Filter == null ? true : Filter!(task));
+            TaskList = s_bl.Task.ReadAll(task => task.StartDate == FilterStartDate && Filter == null ? true : Filter!(task));
         }
 
         private void btnDeleteTask_Click(object sender, RoutedEventArgs e)
         {
-            s_bl.Task.Delete(SelectedTask.Id);
-            s_bl.Task.ReadAll();
+            if (SelectedTask is not null)
+                s_bl.Task.Delete(SelectedTask.Id);
+            MessageBoxResult successMsg = MessageBox.Show("The Task created successfully!");
+            TaskList = s_bl.Task.ReadAll();
         }
+
+        private void selectTask(object sender, SelectionChangedEventArgs e)
+        {
+            BO.TaskInList? task = (sender as ListView)?.SelectedItem as BO.TaskInList;
+            if (task is not null)
+                SelectedTask = s_bl.Task.Read(task.Id);
+        }
+
     }
 }
