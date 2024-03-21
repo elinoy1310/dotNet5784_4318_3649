@@ -65,9 +65,9 @@ internal class Program
                     Console.WriteLine("If you want to create a date manually, then enter an ID-Task , if not enter -1");
                     int taskId=int.Parse(Console.ReadLine()!);
                     if (taskId == -1)
-                        s_bl.CreateSchedule();
+                        s_bl.CreateSchedule(s_bl.Clock);
                     else
-                        s_bl.CreateSchedule(BO.CreateScheduleOption.Manually,taskId);
+                        s_bl.CreateSchedule(s_bl.Clock,BO.CreateScheduleOption.Manually,taskId);
                 }
                    
                 else
