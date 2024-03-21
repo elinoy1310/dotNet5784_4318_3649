@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿
 
-namespace DalApi
-{
-    internal class IUser
-    {
-    }
-}
+using DO;
+
+namespace DalApi;
+
+public interface IUser : ICrud<User> { }
+
