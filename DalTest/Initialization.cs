@@ -25,6 +25,7 @@ public static class Initialization
         createEngineer();
         createTasks();
         createDependency();
+        createUsers();
     }
 
 
@@ -131,7 +132,9 @@ public static class Initialization
             double _cost = s_rand.Next(200, 600);  // Generate a random cost between 200 and 600
             EngineerExperience _level = (EngineerExperience)s_rand.Next(0, 4);  // Generate a random EngineerExperience level
             Engineer newEng = new(_id, _email, _cost, EngineerNames[i], _level);  // Create a new Engineer object
+            User newUser = new(_id, UserType.Engineer, $"{EngineerNames[i][0]}{_id}");
             s_dal!.Engineer.Create(newEng);  // Add the new engineer to the data access layer
+            s_dal!.User.Create(newUser);
         }
 
     }
@@ -182,6 +185,12 @@ public static class Initialization
         s_dal!.Dependency.Create(new Dependency(0,1,20));
 
     }
+    private static void createUsers()
+    {
+        s_dal!.User.Create(new User(325984318, UserType.Manager, "eli2812"));
+        s_dal!.User.Create(new User(213203649, UserType.Manager, "hadar0203"));
+        s_dal!.User.Create(new User(123456789, UserType.Engineer, "eng1"));
+    }
 
     public static void Reset()
     {
@@ -189,6 +198,7 @@ public static class Initialization
         s_dal!.Engineer.DeleteAll();
         s_dal!.Task.DeleteAll();
         s_dal!.Dependency.DeleteAll();
+        s_dal!.User.DeleteAll();
     }
 }
 
