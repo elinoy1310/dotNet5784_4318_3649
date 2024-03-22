@@ -30,9 +30,11 @@ namespace PL.Task
         public TaskWindow(int idTask = 0)
         {
             InitializeComponent();
+            
             if (idTask == 0)
             {
                 add_updateTask = new BO.Task();
+                Add_updateEng=new BO.EngineerInTask();
                 State = "Add";
             }
             else
@@ -41,7 +43,7 @@ namespace PL.Task
                 try
                 {
                     add_updateTask = s_bl.Task.Read(idTask);
-
+                    Add_updateEng = add_updateTask.Engineer??new BO.EngineerInTask();
                 }
                 catch (BO.BlDoesNotExistException ex)
                 {
@@ -58,6 +60,18 @@ namespace PL.Task
 
         }
 
+
+        public BO.EngineerInTask Add_updateEng
+        {
+            get { return (BO.EngineerInTask)GetValue(Add_updateEngProperty); }
+            set { SetValue(Add_updateEngProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for Add_updateEng.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty Add_updateEngProperty =
+            DependencyProperty.Register("Add_updateEng", typeof(BO.EngineerInTask), typeof(TaskWindow), new PropertyMetadata(null));
+
+
         public BO.Task add_updateTask
         {
             get { return (BO.Task)GetValue(add_updateTaskProperty); }
@@ -71,6 +85,8 @@ namespace PL.Task
         
         private void AddOrUpdateClick(object sender, RoutedEventArgs e)
         {
+            BO.Engineer eng =s_bl.Engineer.Read(Add_updateEng.Id);
+            add_updateTask.Engineer=new BO.EngineerInTask() { Id=eng.Id, Name=eng.Name };
             if (State == "Add")
             {
                 try

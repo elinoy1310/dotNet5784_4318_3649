@@ -9,6 +9,7 @@
         DataContext="{Binding RelativeSource={RelativeSource Mode=Self}}">
 
     <Canvas>
+        
         <Label Content="Label" HorizontalAlignment="Left" Margin="10,26,0,0" VerticalAlignment="Top" Height="90" Width="739"/>
         <ListBox ItemsSource="{Binding Dependencies}" SelectionMode="Multiple" Height="242" Width="800" HorizontalAlignment="Center" VerticalAlignment="Top" Canvas.Top="116" Initialized="ListBox_Initialized" >
             <!--ItemsSource="{Binding Dependencies}" SelectionMode="Multiple" Height="242" Width="800" HorizontalAlignment="Center" VerticalAlignment="Top" Canvas.Top="116"/>-->

@@ -102,8 +102,7 @@ namespace PL.Engineer
                 }
                 catch (BO.BlDoesNotExistException ex)
                 {
-                    MessageBoxResult mbResult = MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-              
+                    MessageBoxResult mbResult = MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);              
                 }
                 catch (BO.BlWrongDataException ex)
                 {

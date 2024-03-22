@@ -50,8 +50,8 @@ public class ConvertTaskToVisibility : IValueConverter
     {
         BO.TaskInEngineer? engTask = (BO.TaskInEngineer)value;
         if (engTask is null)
-            return Visibility.Visible;
-        return Visibility.Collapsed;
+            return Visibility.Collapsed;
+        return Visibility.Visible;
     }
 
     public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
@@ -88,7 +88,7 @@ public class ConvertStatusToBackground : IValueConverter
             case "Scheduled":
                 return Brushes.Yellow;
             case "OnTrack":
-                return Brushes.BlueViolet;
+                return Brushes.LightSkyBlue;
             case "InJeopredy":
                 return Brushes.LightPink;
             default:
@@ -115,7 +115,7 @@ public class ConvertStatusToForeground : IValueConverter
             case "Scheduled":
                 return Brushes.Yellow;
             case "OnTrack":
-                return Brushes.BlueViolet;
+                return Brushes.LightSkyBlue;
             case "InJeopredy":
                 return Brushes.LightPink;
             case "None":
@@ -203,7 +203,9 @@ public class ConvertText1ToIsEnabled : IValueConverter
     /// <returns>Returns true if the value is 0, indicating "Add"; otherwise, returns false, indicating "Update".</returns>
     public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
     {
-        return (int)value == 0;
+        if(value is not null)
+         return (int)value == 0;
+        return true;
         //string strValue = (string)value;
         //if (strValue == "Add")
         //{

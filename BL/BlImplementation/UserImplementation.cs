@@ -67,9 +67,20 @@ internal class UserImplementation : BlApi.IUser
             return users.Where(filter);
     }
 
-    public BO.UserType ReadType(int id)
+    public BO.UserType ReadType(int id, string password)
     {
-        return Read(id).UserType;
+        try
+        {
+            if (Read(id).passWord == password)
+                return Read(id).UserType;
+            else
+                throw new BlWrongDataException("Wrong password,try again");
+        }
+        catch(BO.BlDoesNotExistException ex)
+        {
+            throw new BlDoesNotExistException($"User with user name={id} does Not exist", ex);
+        }
+
     }
 
     public void Update(BO.User user)

@@ -136,6 +136,10 @@ public static class Initialization
             s_dal!.Engineer.Create(newEng);  // Add the new engineer to the data access layer
             s_dal!.User.Create(newUser);
         }
+        Engineer myNewEng = new(123456789, "my@gmail.com", 100, "myEngineer", DO.EngineerExperience.Expert);  // Create a new Engineer object
+        User myNewUser = new(123456789, UserType.Engineer, "eng123");
+        s_dal!.Engineer.Create(myNewEng);  // Add the new engineer to the data access layer
+        s_dal!.User.Create(myNewUser);
 
     }
     /// <summary>
@@ -187,9 +191,8 @@ public static class Initialization
     }
     private static void createUsers()
     {
-        s_dal!.User.Create(new User(325984318, UserType.Manager, "eli2812"));
-        s_dal!.User.Create(new User(213203649, UserType.Manager, "hadar0203"));
-        s_dal!.User.Create(new User(123456789, UserType.Engineer, "eng1"));
+       
+        //s_dal!.User.Create(new User(123456789, UserType.Engineer, "eng1"));
     }
 
     public static void Reset()
@@ -199,6 +202,8 @@ public static class Initialization
         s_dal!.Task.DeleteAll();
         s_dal!.Dependency.DeleteAll();
         s_dal!.User.DeleteAll();
+        s_dal!.User.Create(new User(325984318, UserType.Manager, "eli2812"));
+        s_dal!.User.Create(new User(213203649, UserType.Manager, "hadar0203"));
     }
 }
 

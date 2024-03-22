@@ -66,7 +66,7 @@ public class Bl : IBl
         if (ProjectStartDate == null)
             return ProjectStatus.Planing;
         // If any task's scheduled date is not set, the project is in execution phase
-        if (Task.ReadAll(item => item.ScheduledDate is null) is null)
+        if (Task.ReadAll(item => item.ScheduledDate is null).Count()==0)
             return ProjectStatus.Execution;
         // Otherwise, the project is in the mid phase
         return ProjectStatus.Mid;

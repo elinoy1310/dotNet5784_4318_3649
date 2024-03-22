@@ -1,3 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ArrayOfUser>
+<ArrayOfUser xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <User>
+    <userId>325984318</userId>
+    <type>Manager</type>
+    <password>eli2812</password>
+  </User>
+  <User>
+    <userId>213203649</userId>
+    <type>Manager</type>
+    <password>hadar0203</password>
+  </User>
+  <User>
+    <userId>368342191</userId>
+    <type>Engineer</type>
+    <password>H368342191</password>
+  </User>
+  <User>
+    <userId>304765142</userId>
+    <type>Engineer</type>
+    <password>E304765142</password>
+  </User>
+  <User>
+    <userId>216550570</userId>
+    <type>Engineer</type>
+    <password>Y216550570</password>
+  </User>
+  <User>
+    <userId>211055652</userId>
+    <type>Engineer</type>
+    <password>S211055652</password>
+  </User>
+  <User>
+    <userId>286144286</userId>
+    <type>Engineer</type>
+    <password>A286144286</password>
+  </User>
+  <User>
+    <userId>252806279</userId>
+    <type>Engineer</type>
+    <password>D252806279</password>
+  </User>
+  <User>
+    <userId>123456789</userId>
+    <type>Engineer</type>
+    <password>eng123</password>
+  </User>
 </ArrayOfUser>
