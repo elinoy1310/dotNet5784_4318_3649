@@ -16,6 +16,7 @@
         <local:ConvertTaskInEngineerToText x:Key="ConvertTaskInEngineerToText"/>
         <local:ConvertTaskToVisibility x:Key="ConvertTaskToVisibility"/>
         <local:ConvertBooleanToVisibility x:Key="ConvertBooleanToVisibility"/>
+        <local:ConvertOppositeBooleanToVisibility x:Key="ConvertOppositeBooleanToVisibility"/>
         <local:ConvertByItemIdtoIsSelected x:Key="ConvertByItemIdtoIsSelected"/>
     </Application.Resources>
 </Application>

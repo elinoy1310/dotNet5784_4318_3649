@@ -37,9 +37,9 @@ namespace PL.Task
         {
             //BO.Task task = s_bl.Task.Read(idTask);
             //foreach (var dep in task.Dependencies)
-            //    if (dep.Id == id)
-                    return false;
-            return true;
+            ////    if (dep.Id == id)
+                   return false;
+            //return true;
         }
 
         public IEnumerable<TaskInList> Dependencies

@@ -7,12 +7,15 @@
         mc:Ignorable="d"
         Title="UserEntryWindow" Height="450" Width="800"
         DataContext="{Binding MyUser , RelativeSource={RelativeSource Mode=Self}}">
+    <Window.Resources>
+        <FontFamily x:Key="myPasswordFont">password-font</FontFamily>
+    </Window.Resources>
     <Canvas>
         <Label Content="user name:" Height="45" Width="80" Margin="100,172,620,217"/>
         <Label Content="password:" Height="45" Width="80" Margin="100,241,620,148"/>
         <TextBox Text="{Binding UserId, Mode=TwoWay}" Height="23" Canvas.Left="185" Canvas.Top="172" HorizontalAlignment="Left" VerticalAlignment="Center" Width="200"  />
         <Button Content="Enter" Height="45" Width="80" Margin="228,297,492,92" Click="btnEnter_Click"/>
         <!--<PasswordBox Password="gfggg"/>-->
-        <TextBox Text="{Binding passWord,Mode=TwoWay}" HorizontalAlignment="Left" Margin="188,246,0,0" VerticalAlignment="Top" Width="197" Height="18"/>
+        <TextBox Text="{Binding passWord,Mode=TwoWay}" HorizontalAlignment="Left" Margin="188,246,0,0" VerticalAlignment="Top" Width="197" Height="18" FontFamily="C:\Users\elino\source\repos\dotNet5784_4318_3649\PL\password-font.ttf#Password-font"/>
     </Canvas>
 </Window>

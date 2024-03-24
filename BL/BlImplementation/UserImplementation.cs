@@ -87,6 +87,8 @@ internal class UserImplementation : BlApi.IUser
     {
         try
         {
+            if (user.passWord is null)
+                throw new BlCannotBeUpdatedException("user must have password");
             DO.User? updateUser = new DO.User(user.UserId, (DO.UserType)user.UserType, user.passWord);
             _dal.User.Update(updateUser);
         }
