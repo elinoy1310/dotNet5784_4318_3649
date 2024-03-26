@@ -10,4 +10,5 @@ public interface IUser
     public int Create(BO.User user);
     public void Delete(int id);
     public void Update(BO.User user);
+  
 }

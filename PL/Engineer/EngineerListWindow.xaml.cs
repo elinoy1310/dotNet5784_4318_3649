@@ -100,8 +100,11 @@ namespace PL.Engineer
         private void lvSelectEngineerToUpdate_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             BO.Engineer? engineer = (sender as ListView)?.SelectedItem as BO.Engineer;
-            new EngineerWindow(engineer?.Id ?? 0).ShowDialog();
-            EngineerList = s_bl?.Engineer.ReadAll()!;
+            if (engineer is not null)
+            {
+                new EngineerWindow(engineer?.Id ?? 0).ShowDialog();
+                EngineerList = s_bl?.Engineer.ReadAll()!;
+            }
         }
 
 

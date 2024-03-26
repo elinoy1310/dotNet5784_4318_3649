@@ -91,6 +91,21 @@ public class ConvertIntToVisibilityForEng : IValueConverter
     }
 }
 
+//public class ConvertEmailToWidth : IValueConverter
+//{
+//    public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+//    {
+//        if ((string)value =="")
+//            return aut;
+//        return Visibility.Collapsed;
+//    }
+
+//    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+//    {
+//        throw new NotImplementedException();
+//    }
+//}
+
 //public class ConvertIntToVisibilityForManager : IValueConverter
 //{
 //    public object Convert(object value, Type targetType, object parameter, CultureInfo culture)

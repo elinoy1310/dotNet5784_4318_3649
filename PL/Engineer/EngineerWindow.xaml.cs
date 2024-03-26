@@ -120,6 +120,29 @@ namespace PL.Engineer
             this.Close();
 
         }
-  
+
+        private void btnPromot_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                MessageBoxResult mbResult = MessageBox.Show("Are you sure you want to promot this engineer, you can't cancel the promotion", "Promotion", MessageBoxButton.YesNo, MessageBoxImage.Warning);
+                if (mbResult == MessageBoxResult.Yes)
+                {
+                    s_bl.Engineer.Promotion(add_updateEngineer.Id);
+                }
+                MessageBox.Show($"{add_updateEngineer.Name} has promoted successfully", "Success");
+                this.Close();
+            }
+            catch (BO.BlDoesNotExistException ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            catch (BO.BlCannotBeUpdatedException ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+
+            }
+
+        }
     }
 }

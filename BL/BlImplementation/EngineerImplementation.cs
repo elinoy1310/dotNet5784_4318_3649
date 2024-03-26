@@ -267,4 +267,22 @@ internal class EngineerImplementation : BlApi.IEngineer
                orderby boEngineer.Name,boEngineer.level,boEngineer.Cost
                select boEngineer;
     }
+
+    public void Promotion(int id)
+    {
+        try
+        {
+            if (Read(id).Task != null)
+                throw new BlCannotBeUpdatedException($"The engineer with id={id} is working on task right now");  
+            BO.User oldUser=_bl.User.Read(id);
+            
+            Delete(id);
+            _bl.User.Create(new BO.User() { UserId = oldUser.UserId, UserType = BO.UserType.Manager, passWord = oldUser.passWord });
+
+        }
+        catch (BlDoesNotExistException ex)
+        {
+            throw new BlDoesNotExistException(ex.Message/*,ex*/);
+        }
+    }
 }

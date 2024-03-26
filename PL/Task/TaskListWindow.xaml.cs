@@ -100,7 +100,7 @@ namespace PL.Task
             BO.TaskInList? task = (sender as ListView)?.SelectedItem as BO.TaskInList;
             if (IdUser !=0)
             {
-                MessageBoxResult mbResult = MessageBox.Show($"Are you sure you want to choose the task with id={task!.Id}?", "Validation", MessageBoxButton.OKCancel, MessageBoxImage.Question);
+                MessageBoxResult mbResult = MessageBox.Show($"Are you sure you want to choose the task {task!.Alias}?", "Validation", MessageBoxButton.OKCancel, MessageBoxImage.Question);
                 if (mbResult == MessageBoxResult.OK)
                 {
                     BO.Task updateTask = s_bl.Task.Read(task!.Id);
