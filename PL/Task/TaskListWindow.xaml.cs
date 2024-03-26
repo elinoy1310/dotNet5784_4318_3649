@@ -28,16 +28,18 @@ namespace PL.Task
         public int IdUser { get; set; }
 
         public TaskListWindow()
-        {
-            InitializeComponent();
+        { 
             IdUser= 0;
+            InitializeComponent();
+           
         }
 
         public TaskListWindow(BO.Engineer eng)
         {
+            Filter = item => item.Engineer is null && s_bl.Task.PreviousTaskDone(item.Id) && item.Status != BO.Status.Done;
+            IdUser = eng.Id;
             InitializeComponent();
-            Filter = item => item.Engineer is null&&s_bl.Task.PreviousTaskDone(item.Id)&&item.Status!=BO.Status.Done;
-            IdUser=eng.Id;
+            
         }
 
 
@@ -98,12 +100,16 @@ namespace PL.Task
             BO.TaskInList? task = (sender as ListView)?.SelectedItem as BO.TaskInList;
             if (IdUser !=0)
             {
-                BO.Task updateTask = s_bl.Task.Read(task!.Id);
-                BO.EngineerInTask engInTask= new BO.EngineerInTask() { Id = (int)IdUser };
-                updateTask!.Engineer = engInTask;
-                s_bl.Task.Update(updateTask);            
-                this.Close();
-                new EngineerViewWindow(IdUser).Show();
+                MessageBoxResult mbResult = MessageBox.Show($"Are you sure you want to choose the task with id={task!.Id}?", "Validation", MessageBoxButton.OKCancel, MessageBoxImage.Question);
+                if (mbResult == MessageBoxResult.OK)
+                {
+                    BO.Task updateTask = s_bl.Task.Read(task!.Id);
+                    BO.EngineerInTask engInTask = new BO.EngineerInTask() { Id = (int)IdUser };
+                    updateTask!.Engineer = engInTask;
+                    s_bl.Task.Update(updateTask);
+                    this.Close();
+                    new EngineerViewWindow(IdUser).Show();
+                }
             }
             else
             {

@@ -27,7 +27,7 @@ namespace PL.Engineer
 
         public bool ShowPreviousPasswordIsClicked { get; set; }
         public EngineerViewWindow(int engineerId)
-        { 
+        {
             ChangePasswordIsClicked = false;
             ShowPreviousPasswordIsClicked = false;
             InitializeComponent();
@@ -44,7 +44,7 @@ namespace PL.Engineer
                     new MainWindow().Show();
                 }
             }
-           
+
         }
 
 
@@ -115,44 +115,50 @@ namespace PL.Engineer
 
         private void ShowPassword_Click(object sender, MouseButtonEventArgs e)
         {
-            if (ShowPreviousPasswordIsClicked)
+            if (!ShowPreviousPasswordIsClicked)
             {
-                ShowPreviousPasswordIsClicked = false;
+                ShowPreviousPasswordIsClicked = true;
                 Password = s_bl.User.Read(EngineerDetails.Id).passWord!;
             }
             else
             {
-                ShowPreviousPasswordIsClicked = true;
+                ShowPreviousPasswordIsClicked = false;
                 Password = "";
             }
 
         }
 
         private void btnChangePassword_Click(object sender, RoutedEventArgs e)
-         {
+        {
             ChangePasswordIsClicked = true;
         }
 
         private void updatePassword_Click(object sender, RoutedEventArgs e)
         {
-            if(Password==s_bl.User.Read(EngineerDetails.Id).passWord)
+            if (Password == s_bl.User.Read(EngineerDetails.Id).passWord)
             {
                 MessageBoxResult mbResultSame = MessageBox.Show("This is the same password as before", "Information", MessageBoxButton.OKCancel, MessageBoxImage.Information);
-                if(mbResultSame==MessageBoxResult.OK)
+                if (mbResultSame == MessageBoxResult.OK)
                     btnCancel_Click(sender, e);
             }
-               
-            MessageBoxResult mbResult = MessageBox.Show($"Are you sure you want to change your password to {Password}?", "Validation", MessageBoxButton.YesNo, MessageBoxImage.Question);
-            if (mbResult == MessageBoxResult.Yes)
+            else
             {
-                s_bl.User.Update(new BO.User() { UserId = EngineerDetails.Id, UserType = BO.UserType.Engineer, passWord = Password });
-                ChangePasswordIsClicked = false;
+                MessageBoxResult mbResult = MessageBox.Show($"Are you sure you want to change your password to {Password}?", "Validation", MessageBoxButton.YesNo, MessageBoxImage.Question);
+                if (mbResult == MessageBoxResult.Yes)
+                {
+                    s_bl.User.Update(new BO.User() { UserId = EngineerDetails.Id, UserType = BO.UserType.Engineer, passWord = Password });
+                    ChangePasswordIsClicked = false;
+                    Password = "";
+                }
+                
             }
+            
         }
 
         private void btnCancel_Click(object sender, RoutedEventArgs e)
         {
             ChangePasswordIsClicked = false;
+            Password = "";
         }
     }
 }

@@ -29,6 +29,7 @@
             <Button Grid.Column="1" Content="choose a date and enter" HorizontalAlignment="Left" Margin="23,0,0,1" Width="144"
                     Click="btnFilterByStartDate_Click"/>
 
+
         </Grid>
 
         <ListView Grid.Row="1" ItemsSource="{Binding TaskList}" MouseDoubleClick="lvSelectTaskToUpdate_MouseDoubleClick" SelectionChanged="selectTask" SelectedItem="" >
@@ -38,9 +39,9 @@
                 </GridView>
             </ListView.View>
         </ListView>
-
-        <Button Content="Add&#x0a;Task"  Grid.Row="2" HorizontalAlignment="Center" Height="50" Width="100" Click="btnAddTask_Click" Foreground="Black" Background="#FFB0E8F3" FontFamily="Cascadia Code" FontSize="15" VerticalContentAlignment="Center"/>
-        <Button Content="Delete&#x0a;Task"   HorizontalAlignment="Left" FontSize="15" Margin="899,0,0,0" Grid.Row="2" VerticalAlignment="Center" Height="50" Width="91" Click="btnDeleteTask_Click" />
+        <Label Content="double click on the task you want to choose" Grid.Row="2" FontSize="16" Margin="48,5,613,-2" Visibility="{Binding IdUser, Converter={StaticResource ConvertIntToVisibilityForEng}}"/>
+        <Button Content="Add&#x0a;Task"  Grid.Row="2" HorizontalAlignment="Center" Height="50" Width="100" Click="btnAddTask_Click" Foreground="Black" Background="#FFB0E8F3" FontFamily="Cascadia Code" FontSize="15" VerticalContentAlignment="Center" Visibility="{Binding IdUser, Converter={StaticResource ConvertTextToVisibility}}" />
+        <Button Content="Delete&#x0a;Task"   HorizontalAlignment="Left" FontSize="15" Margin="899,0,0,0" Grid.Row="2" VerticalAlignment="Center" Height="50" Width="91" Click="btnDeleteTask_Click" Visibility="{Binding IdUser, Converter={StaticResource ConvertTextToVisibility}}" />
 
     </Grid>
 </Window>

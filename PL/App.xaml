@@ -8,6 +8,7 @@
         <local:StatusCollection x:Key="StatusCollectionKey"/>
         <local:ConvertIdToContent x:Key="ConverIdToContent"/>
         <local:ConvertTextToVisibility x:Key="ConvertTextToVisibility"/>
+        <local:ConvertIntToVisibilityForEng x:Key="ConvertIntToVisibilityForEng"/>
         <local:ConvertStatusToBackground x:Key="ConvertStatusToBackground"/>
         <local:ConvertStatusToForeground x:Key="ConvertStatusToForeground"/>
         <local:ConvertText1ToIsEnabled x:Key="ConvertText1ToIsEnabled"/>
