@@ -9,6 +9,7 @@ public interface IEngineer
     public int Create(BO.Engineer engineer);
     public void Delete(int id);
     public void Update(BO.Engineer engineer);
+    public void Promotion(int id);
 
 }
  

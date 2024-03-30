@@ -223,6 +223,10 @@ internal class TaskImplementation : ITask
             CheckingEngineer(task);
             try
             {
+                if (task.Engineer?.Id != Originaltask.Engineer?.Id && Originaltask.StartDate == null)
+                    task.StartDate = bl.Clock.Date;
+
+               
                 // Convert the logic object task to a data object and update in the data layer
                 DO.Task convertFromBOtoDO = new DO.Task(task.Id, task.Alias, task.Description, false, task.RequiredEffortTime, task.CreatedAtDate, task.ScheduledDate, task.StartDate, task.CompleteDate, null, task.Deliverables, task.Remarks, task.Engineer?.Id, (DO.EngineerExperience)task.Complexity);
                 _dal.Task.Update(convertFromBOtoDO);
@@ -326,7 +330,8 @@ internal class TaskImplementation : ITask
             status = Status.Unscheduled;
         // Check if the start date is null
         else if (task.StartDate == null)
-        {if (bl.Clock> task.ScheduledDate)
+        {
+            if (bl.Clock.Date> task.ScheduledDate)
                 status= Status.InJeopredy;
             status = Status.Scheduled;
         }

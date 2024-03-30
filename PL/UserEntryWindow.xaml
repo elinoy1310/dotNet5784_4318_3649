@@ -5,11 +5,19 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL"
         mc:Ignorable="d"
-        Title="UserEntryWindow" Height="450" Width="800">
-    <Grid>
+        Title="UserEntryWindow" Height="450" Width="800"
+        DataContext="{Binding MyUser , RelativeSource={RelativeSource Mode=Self}}">
+    <Window.Resources>
+        <FontFamily x:Key="myPasswordFont">"/password-font.ttf"
+            
+        </FontFamily>
+    </Window.Resources>
+    <Canvas>
         <Label Content="user name:" Height="45" Width="80" Margin="100,172,620,217"/>
         <Label Content="password:" Height="45" Width="80" Margin="100,241,620,148"/>
-        <TextBox Margin="185,172,415,240"/>
-        <TextBox Margin="185,241,415,171"/>
-    </Grid>
+        <TextBox Text="{Binding UserId, Mode=TwoWay}" Height="23" Canvas.Left="185" Canvas.Top="172" HorizontalAlignment="Left" VerticalAlignment="Center" Width="200"  />
+        <Button Content="Enter" Height="45" Width="80" Margin="228,297,492,92" Click="btnEnter_Click"/>
+        <!--<PasswordBox Password="gfggg"/>-->
+        <TextBox Text="{Binding passWord,Mode=TwoWay}" HorizontalAlignment="Left" Margin="188,246,0,0" VerticalAlignment="Top" Width="197" Height="18" FontFamily="/password-font.ttf"/>
+    </Canvas>
 </Window>

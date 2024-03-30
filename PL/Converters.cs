@@ -1,5 +1,6 @@
 ﻿
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Globalization;
@@ -50,8 +51,8 @@ public class ConvertTaskToVisibility : IValueConverter
     {
         BO.TaskInEngineer? engTask = (BO.TaskInEngineer)value;
         if (engTask is null)
-            return Visibility.Visible;
-        return Visibility.Collapsed;
+            return Visibility.Collapsed;
+        return Visibility.Visible;
     }
 
     public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
@@ -76,6 +77,110 @@ public class ConvertBooleanToVisibility : IValueConverter
     }
 }
 
+public class ConvertIntToVisibilityForEng : IValueConverter
+{
+    public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+    {
+        if ((int)value!=0)
+            return Visibility.Visible;
+        return Visibility.Collapsed;
+    }
+
+    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+    {
+        throw new NotImplementedException();
+    }
+}
+public class ListItemSelectionConverter : IMultiValueConverter
+{
+    //public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+    //{
+    //    IEnumerable<TaskInList>? depList=(IEnumerable<TaskInList>)value;
+    //    foreach (TaskInList dep in depList)
+    //        return dep.Select((BO.Task)parameter);
+    //    return false;
+    //}
+
+    public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
+    {
+        // Create a new list to store the selection status of each item
+        var selectionStatus = new List<bool>();
+        if (values != null && values.Length == 2 )
+        {
+            
+            
+
+            // Iterate through each item in the list from the DependencyProperty
+            foreach (var item in (IEnumerable<TaskInList>)values[0])
+            {
+                // Check if the item exists in the list from the non-DependencyProperty
+                bool isSelected = item.Select((BO.Task)values[1]);
+
+                // Add the selection status to the list
+                selectionStatus.Add(isSelected);
+            }
+
+            //return selectionStatus;
+        }
+        return selectionStatus;
+    }
+
+    //public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+    //{
+    //    throw new NotImplementedException();
+    //}
+
+    public object[] ConvertBack(object value, Type[] targetTypes, object parameter, CultureInfo culture)
+    {
+        throw new NotImplementedException();
+    }
+}
+
+//public class ConvertEmailToWidth : IValueConverter
+//{
+//    public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+//    {
+//        if ((string)value =="")
+//            return aut;
+//        return Visibility.Collapsed;
+//    }
+
+//    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+//    {
+//        throw new NotImplementedException();
+//    }
+//}
+
+//public class ConvertIntToVisibilityForManager : IValueConverter
+//{
+//    public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+//    {
+//        if ((int)value == 0)
+//            return Visibility.Visible;
+//        return Visibility.Collapsed;
+//    }
+
+//    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+//    {
+//        throw new NotImplementedException();
+//    }
+//}
+
+
+public class ConvertOppositeBooleanToVisibility : IValueConverter
+{
+    public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+    {
+        if (!(bool)value)
+            return Visibility.Visible;
+        return Visibility.Collapsed;
+    }
+
+    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+    {
+        throw new NotImplementedException();
+    }
+}
 
 public class ConvertStatusToBackground : IValueConverter
 {
@@ -88,7 +193,7 @@ public class ConvertStatusToBackground : IValueConverter
             case "Scheduled":
                 return Brushes.Yellow;
             case "OnTrack":
-                return Brushes.BlueViolet;
+                return Brushes.LightSkyBlue;
             case "InJeopredy":
                 return Brushes.LightPink;
             default:
@@ -115,7 +220,7 @@ public class ConvertStatusToForeground : IValueConverter
             case "Scheduled":
                 return Brushes.Yellow;
             case "OnTrack":
-                return Brushes.BlueViolet;
+                return Brushes.LightSkyBlue;
             case "InJeopredy":
                 return Brushes.LightPink;
             case "None":
@@ -164,11 +269,11 @@ public class ConvertTextToVisibility : IValueConverter
         //string strValue = (string)value;
         if (/*strValue=="Add"*/(int)value == 0)
         {
-            return Visibility.Hidden;
+            return Visibility.Visible;
         }
         else
         {
-            return Visibility.Visible;
+            return Visibility.Collapsed;
         }
     }
 
@@ -203,7 +308,9 @@ public class ConvertText1ToIsEnabled : IValueConverter
     /// <returns>Returns true if the value is 0, indicating "Add"; otherwise, returns false, indicating "Update".</returns>
     public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
     {
-        return (int)value == 0;
+        if(value is not null)
+         return (int)value == 0;
+        return true;
         //string strValue = (string)value;
         //if (strValue == "Add")
         //{

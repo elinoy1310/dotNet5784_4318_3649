@@ -24,17 +24,22 @@ namespace PL
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class ManagerWindow : Window
     {
         static readonly BlApi.IBl s_bl = BlApi.Factory.Get();
 
+        public bool ShowPreviousPasswordIsClicked { get; set; }
+        public int idUser {  get; set; }
         /// <summary>
         /// Initializes a new instance of the MainWindow class.
         /// </summary>
-        public MainWindow()
+        public ManagerWindow(int id)
         {
             InitializeComponent();
             startProject = s_bl.ProjectStartDate;
+            ChangePasswordIsClicked = false;
+            ShowPreviousPasswordIsClicked = false;
+            idUser= id;
         }
 
 
@@ -47,10 +52,73 @@ namespace PL
 
         // Using a DependencyProperty as the backing store for startProject.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty startProjectProperty =
-            DependencyProperty.Register("startProject", typeof(DateTime), typeof(MainWindow), new PropertyMetadata(null));
+            DependencyProperty.Register("startProject", typeof(DateTime), typeof(ManagerWindow), new PropertyMetadata(null));
+
+        public bool ChangePasswordIsClicked
+        {
+            get { return (bool)GetValue(ChangePasswordIsClickedProperty); }
+            set { SetValue(ChangePasswordIsClickedProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for MyProperty.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty ChangePasswordIsClickedProperty =
+            DependencyProperty.Register("ChangePasswordIsClicked", typeof(bool), typeof(ManagerWindow), new PropertyMetadata(false));
 
 
+        public string Password
+        {
+            get { return (string)GetValue(PasswordProperty); }
+            set { SetValue(PasswordProperty, value); }
+        }
 
+        // Using a DependencyProperty as the backing store for Password.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty PasswordProperty =
+            DependencyProperty.Register("Password", typeof(string), typeof(ManagerWindow), new PropertyMetadata(""));
+
+      
+
+       
+        private void ShowPassword_Click(object sender, MouseButtonEventArgs e)
+        {
+            if (!ShowPreviousPasswordIsClicked)
+            {
+                ShowPreviousPasswordIsClicked = true;
+                Password = s_bl.User.Read(idUser).passWord!;
+            }
+            else
+            {
+                ShowPreviousPasswordIsClicked = false;
+                Password = "";
+            }
+
+        }
+
+        private void btnChangePassword_Click(object sender, RoutedEventArgs e)
+        {
+            ChangePasswordIsClicked = true;
+        }
+
+        private void updatePassword_Click(object sender, RoutedEventArgs e)
+        {
+            if (Password == s_bl.User.Read(idUser).passWord)
+            {
+                MessageBoxResult mbResultSame = MessageBox.Show("This is the same password as before", "Information", MessageBoxButton.OKCancel, MessageBoxImage.Information);
+                if (mbResultSame == MessageBoxResult.OK)
+                    btnCancel_Click(sender, e);
+            }
+            else
+            {
+                MessageBoxResult mbResult = MessageBox.Show($"Are you sure you want to change your password to {Password}?", "Validation", MessageBoxButton.YesNo, MessageBoxImage.Question);
+                if (mbResult == MessageBoxResult.Yes)
+                {
+                    s_bl.User.Update(new BO.User() { UserId = idUser, UserType = BO.UserType.Engineer, passWord = Password });
+                    ChangePasswordIsClicked = false;
+                    Password = "";
+                }
+
+            }
+
+        }
 
         /// <summary>
         /// Handles the click event of the "Engineers List" button.
@@ -146,6 +214,27 @@ namespace PL
         {
             new Gant().ShowDialog();
         }
+
+        private void btnCancel_Click(object sender, RoutedEventArgs e)
+        {
+            ChangePasswordIsClicked = false;
+            Password = "";
+        }
+        
+          
+        
+
+
+
+       
+
+
+       
+
+       
+
+       
+        
     }
 }
 

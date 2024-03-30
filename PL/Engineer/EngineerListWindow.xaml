@@ -6,9 +6,9 @@
         xmlns:local="clr-namespace:PL.Engineer"
         mc:Ignorable="d"
         Title="EngineerListWindow" Height="640" Width="800" 
-        DataContext="{Binding RelativeSource={RelativeSource Mode=Self}}" Loaded="wLoadTheUpdatedEngineersList_Loaded">
-
-    <!--Extrnal Grid-->
+        DataContext="{Binding RelativeSource={RelativeSource Mode=Self}}" Loaded="wLoadTheUpdatedEngineersList_Loaded" Icon="/Engineer/engineer list and engineer window icon.jpg">
+    
+        <!--Extrnal Grid-->
     <Grid ShowGridLines="False">
         <Grid.RowDefinitions>
             <RowDefinition Height="40*"/>
@@ -16,7 +16,7 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
         <!--Internal, Upper Grid-->
-        <Grid HorizontalAlignment="Stretch" Height="auto" Grid.Row="0" VerticalAlignment="Stretch" Width="auto" ShowGridLines="True">
+        <Grid HorizontalAlignment="Stretch" Height="auto" Grid.Row="0" VerticalAlignment="Stretch" Width="auto" ShowGridLines="False">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
@@ -32,10 +32,16 @@
                     <GridViewColumn/>
                 </GridView>
             </ListView.View>
-            
+
         </ListView>
-       
-        <Button Content="Add&#x0a;Engineer"  Grid.Row="2" HorizontalAlignment="Center" Height="50" Width="100" Click="btnAddEngineer_Click" Foreground="Black" Background="#FFB0E8F3" FontFamily="Cascadia Code" FontSize="15" VerticalContentAlignment="Center"/>
-        <Button Content="Delete&#x0a;Engineer" HorizontalAlignment="Left" FontSize="15" Margin="700,0,0,0" Grid.Row="2" VerticalAlignment="Center" Height="50" Width="91" Click="btnDeleteEngineer_Click" />
+        <Grid Grid.Row="2" HorizontalAlignment="Stretch" Height="auto" VerticalAlignment="Stretch" Width="auto" ShowGridLines="False">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Button Content="Add&#x0a;Engineer" Grid.Column="0" HorizontalAlignment="Center" Height="50" Width="100" Click="btnAddEngineer_Click" Foreground="Black" Background="#FFB0E8F3" FontFamily="Cascadia Code" FontSize="15" VerticalContentAlignment="Center"/>
+            <Button Content="Delete&#x0a;Engineer" Grid.Column="1" FontSize="15" Margin="149,0,0,0" VerticalAlignment="Center" Height="50" Width="91" Click="btnDeleteEngineer_Click" Background="#FFB0E8F3" FontFamily="Cascadia Code" HorizontalAlignment="Center"  />
+        </Grid>
+
     </Grid>
 </Window>

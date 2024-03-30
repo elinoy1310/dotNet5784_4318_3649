@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PL.Engineer;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Cryptography;
@@ -24,17 +25,21 @@ namespace PL.Task
         public BO.EngineerExperience Complexity { get; set; } = BO.EngineerExperience.None;
         public BO.Status Status { get; set; } = BO.Status.Unscheduled;
         public Func<BO.Task,bool>? Filter{ get; set; }
-        public int? IdUser { get; set; }
+        public int IdUser { get; set; }
 
         public TaskListWindow()
-        {
+        { 
+            IdUser= 0;
             InitializeComponent();
+           
         }
 
         public TaskListWindow(BO.Engineer eng)
         {
+            Filter = item => item.Engineer is null && s_bl.Task.PreviousTaskDone(item.Id) && item.Status != BO.Status.Done;
+            IdUser = eng.Id;
             InitializeComponent();
-            Filter = item => item.Engineer is null&&s_bl.Task.PreviousTaskDone(item.Id);
+            
         }
 
 
@@ -93,13 +98,18 @@ namespace PL.Task
         private void lvSelectTaskToUpdate_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             BO.TaskInList? task = (sender as ListView)?.SelectedItem as BO.TaskInList;
-            if (IdUser is not null)
+            if (IdUser !=0)
             {
-                BO.Task updateTask = s_bl.Task.Read(task!.Id);
-                BO.EngineerInTask engInTask= new BO.EngineerInTask() { Id = (int)IdUser };
-                updateTask!.Engineer = engInTask;
-                s_bl.Task.Update(updateTask);
-                this.Close();
+                MessageBoxResult mbResult = MessageBox.Show($"Are you sure you want to choose the task {task!.Alias}?", "Validation", MessageBoxButton.OKCancel, MessageBoxImage.Question);
+                if (mbResult == MessageBoxResult.OK)
+                {
+                    BO.Task updateTask = s_bl.Task.Read(task!.Id);
+                    BO.EngineerInTask engInTask = new BO.EngineerInTask() { Id = (int)IdUser };
+                    updateTask!.Engineer = engInTask;
+                    s_bl.Task.Update(updateTask);
+                    this.Close();
+                    new EngineerViewWindow(IdUser).Show();
+                }
             }
             else
             {
