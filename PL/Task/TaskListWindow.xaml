@@ -10,7 +10,9 @@
 
     <Grid ShowGridLines="False">
         <Grid.RowDefinitions>
-            <RowDefinition Height="40*"/>
+            <RowDefinition Height="50*"/>
+            <RowDefinition Height="50*"/>
+            <RowDefinition Height="50*"/>
             <RowDefinition Height="500*"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
@@ -21,26 +23,27 @@
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            <Label Content="Filter the list by the Task Complexity:" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Center" RenderTransformOrigin="1.127,0.526"  Grid.Column="0" FontFamily="Arial Black" FontSize="14" Width="308"/>
-            <ComboBox VerticalAlignment="Center" Grid.Column="2"  ItemsSource="{Binding Source={StaticResource LevelCollectionKey}}"  SelectedValue="{Binding Complexity, Mode=TwoWay}" SelectionChanged="CbFilterByLevel_SelectionChanged" FontFamily="Arial" FontSize="16" Height="36" Margin="166,0,10,0"/>
-            <ComboBox Grid.Column="2" HorizontalAlignment="Left" ItemsSource="{Binding Source={StaticResource StatusCollectionKey}}"  SelectedValue="{Binding Status, Mode=TwoWay}" SelectionChanged="CbFilterByStatus_SelectionChanged" VerticalAlignment="Center" Width="154" Height="36" Margin="7,0,0,0"/>
-            <DatePicker Grid.Column="1" HorizontalAlignment="Left" Margin="167,0,0,0" VerticalAlignment="Center" Width="157" Height="35"
-                        SelectedDate="{Binding FilterStartDate, Mode=TwoWay}"/>
-            <Button Grid.Column="1" Content="choose a date and enter" HorizontalAlignment="Left" Margin="23,0,0,1" Width="144"
-                    Click="btnFilterByStartDate_Click"/>
-
+            <Label Content="Filter the list by the Task Complexity:" HorizontalAlignment="Left" VerticalAlignment="Center" RenderTransformOrigin="1.127,0.526"  Grid.Column="0" FontFamily="Arial Black" FontSize="13" Width="318"/>
+            <ComboBox VerticalAlignment="Center" Grid.Column="1" ItemsSource="{Binding Source={StaticResource LevelCollectionKey}}"  SelectedValue="{Binding Complexity, Mode=TwoWay}" SelectionChanged="CbFilterByLevel_SelectionChanged" FontFamily="Arial" FontSize="12" Height="25" Margin="11,0,186,0"/>
+            <Button Content="Enter" HorizontalAlignment="Left" Margin="167,40,0,-32" Width="120" Height="25"
+                    Click="btnFilterByStartDate_Click" Grid.Column="1"/>
+            <Button Content="Reset" HorizontalAlignment="Left" Margin="321,42,0,-30" Width="120" Height="25" Grid.Column="1" Click="wLoadTheUpdatedTasksList_Loaded" Grid.ColumnSpan="2"/>
         </Grid>
 
-        <ListView Grid.Row="1" ItemsSource="{Binding TaskList}" MouseDoubleClick="lvSelectTaskToUpdate_MouseDoubleClick" SelectionChanged="selectTask" SelectedItem="" >
-            <ListView.View>
+        <ListView Grid.Row="3" ItemsSource="{Binding TaskList}" MouseDoubleClick="lvSelectTaskToUpdate_MouseDoubleClick" SelectionChanged="selectTask" SelectedItem="" >
+            <!--<ListView.View>
                 <GridView>
                     <GridViewColumn/>
                 </GridView>
-            </ListView.View>
+            </ListView.View>-->
         </ListView>
 
-        <Button Content="Add&#x0a;Task"  Grid.Row="2" HorizontalAlignment="Center" Height="50" Width="100" Click="btnAddTask_Click" Foreground="Black" Background="#FFB0E8F3" FontFamily="Cascadia Code" FontSize="15" VerticalContentAlignment="Center"/>
-        <Button Content="Delete&#x0a;Task" HorizontalAlignment="Left" FontSize="15" Margin="899,0,0,0" Grid.Row="2" VerticalAlignment="Center" Height="50" Width="91" Click="btnDeleteTask_Click" />
+        <Button Content="Add&#x0a;Task"  Grid.Row="4" HorizontalAlignment="Center" Height="50" Width="100" Click="btnAddTask_Click" Foreground="Black" Background="#FFB0E8F3" FontFamily="Cascadia Code" FontSize="15" VerticalContentAlignment="Center"/>
+        <Button Content="Delete&#x0a;Task" HorizontalAlignment="Left" Foreground="Black" Background="#FFB0E8F3" FontSize="15" Margin="909,0,0,0" Grid.Row="4" VerticalAlignment="Center" Height="50" Width="91" Click="btnDeleteTask_Click" />
+        <Label Content="Filter the list by the Task Start Date:" HorizontalAlignment="Left" VerticalAlignment="Center" RenderTransformOrigin="1.127,0.526"  Grid.Column="0" FontFamily="Arial Black" FontSize="13" Width="318" Grid.Row="1"/>
+        <Label Content="Filter the list by the Task Status:" HorizontalAlignment="Left" VerticalAlignment="Center" RenderTransformOrigin="1.127,0.526"  Grid.Column="0" FontFamily="Arial Black" FontSize="13" Width="318" Grid.Row="2" Height="30"/>
+        <ComboBox VerticalAlignment="Top" ItemsSource="{Binding Source={StaticResource StatusCollectionKey}}"  SelectedValue="{Binding Status, Mode=TwoWay}" SelectionChanged="CbFilterByStatus_SelectionChanged" FontFamily="Arial" FontSize="12" Height="25" Margin="343,4,518,0" Grid.Row="2"/>
+        <DatePicker SelectedDate="{Binding FilterStartDate , Mode=TwoWay}" HorizontalAlignment="Left" Margin="341,0,0,0" VerticalAlignment="Center" Width="139" Height="22" Grid.Row="1"/>
 
     </Grid>
 </Window>
