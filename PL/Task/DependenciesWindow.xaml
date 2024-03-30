@@ -11,12 +11,57 @@
     <Canvas>
         
         <Label Content="Label" HorizontalAlignment="Left" Margin="10,26,0,0" VerticalAlignment="Top" Height="90" Width="739"/>
-        <ListBox ItemsSource="{Binding Dependencies}" SelectionMode="Multiple" Height="242" Width="800" HorizontalAlignment="Center" VerticalAlignment="Top" Canvas.Top="116" Initialized="ListBox_Initialized" >
+        <ListBox ItemsSource="{Binding Path=Dependencies}" SelectionMode="Multiple" Height="242" Width="800" HorizontalAlignment="Center" VerticalAlignment="Top" Canvas.Top="116" Initialized="ListBox_Initialized" >
             <!--ItemsSource="{Binding Dependencies}" SelectionMode="Multiple" Height="242" Width="800" HorizontalAlignment="Center" VerticalAlignment="Top" Canvas.Top="116"/>-->
             <!--<ListBoxItem IsSelected="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ListBoxItem}},Converter={StaticResource ConvertByItemIdtoIsSelected},ConverterParameter={Binding Path=Task}" Initialized="ListBoxItem_Initialized"/>-->
-          
+            <!--<ListBoxItem IsSelected="{Binding Task,  ConverterParameter={Binding Dependencies}}"/>-->
+            <!--<ListBox ItemsSource="{Binding YourListProperty}"V>-->
+                <!--<ListBox.ItemContainerStyle>
+                    <Style TargetType="ListBoxItem">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding Id, ConverterParameter=dependencies }" Value="True">
+                                <Setter Property="IsSelected" Value="True"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>--><!--
+                </ListBox.ItemContainerStyle>-->
+            <!--<ListBoxItem IsSelected="{Binding SelectItems}"/>-->
+            <!--<ListBox.ItemContainerStyle>
+                <Style TargetType="ListBoxItem">
+                    <Setter Property="IsSelected">
+                        <Setter.Value>
+                            <MultiBinding Converter="{StaticResource ListItemSelectionConverter}">
+                                <Binding Path="de"/>
+                                <Binding Path="Task.Dependencies"/>
+                            </MultiBinding>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </ListBox.ItemContainerStyle>-->
             
-            <ListBox.ItemTemplate>
+                <!--<ListBoxItem.IsSelected >
+                    <MultiBinding Converter="{StaticResource ListItemSelectionConverter}">
+                        <Binding Path="Dependencies"/>
+                        <Binding Path="Task"/>
+                    </MultiBinding>
+                </ListBoxItem.IsSelected>
+               
+            </ListBoxItem>-->
+                <ListBox.ItemContainerStyle>
+                    <Style TargetType="ListBoxItem">
+                        <Setter Property="IsSelected">
+                            <Setter.Value>
+                                <MultiBinding Converter="{StaticResource ListItemSelectionConverter}">
+                                    <!-- Binding עבור תכונת IsSelected של ה-ListBoxItem -->
+                                    <Binding Path="Dependencies" RelativeSource="{RelativeSource Mode=Self}"/>
+                                    <!-- Binding עבור תכונה אחרת במודל שלך -->
+                                    <Binding Path="Task"/>
+                                </MultiBinding>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </ListBox.ItemContainerStyle>
+                <ListBox.ItemTemplate>
                 <DataTemplate>
                     <StackPanel Orientation="Horizontal" >
                         <CheckBox IsChecked="{Binding IsSelected, RelativeSource={RelativeSource AncestorType={x:Type ListBoxItem}}}" />

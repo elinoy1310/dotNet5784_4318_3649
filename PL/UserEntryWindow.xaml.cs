@@ -51,7 +51,7 @@ namespace PL
                 switch (type)
                 {
                     case BO.UserType.Manager:
-                        new MainWindow().Show();
+                        new ManagerWindow(MyUser.UserId).Show();
                         break;
                     case BO.UserType.Engineer:
                         new EngineerViewWindow(MyUser.UserId).Show();

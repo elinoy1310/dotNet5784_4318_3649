@@ -22,16 +22,43 @@ namespace PL.Task
     {
         static readonly BlApi.IBl s_bl = BlApi.Factory.Get();
         public  BO.Task Task { get; set; }
+        public List<bool> SelectItems { get; set; }
         public DependenciesWindow(int idTask)
         {
             InitializeComponent();
-            Dependencies= s_bl.Task.ReadAll(task=>task.Id!=idTask);
-            Task=s_bl.Task.Read(idTask);
+           
+          //  CurrentDependencies = Task.Dependencies;
+            Dependencies = s_bl.Task.ReadAll(task => task.Id != idTask);
+            Task = s_bl.Task.Read(idTask);
+            SelectItems = new List<bool>();
+            foreach (var item in Dependencies)
+            {
+                if(item.Select(Task))
+                    SelectItems.Add(true);
+                else
+                    SelectItems.Add(false);
+            }
+         
+            
+            
+  
             //ListBox lb=new ListBox();
             //foreach(var dep in task.Dependencies)
                 
 
         }
+
+
+        public IEnumerable<TaskInList>? CurrentDependencies
+        {
+            get { return (IEnumerable<TaskInList>)GetValue(CurrentDependenciesProperty); }
+            set { SetValue(CurrentDependenciesProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for CurrentDependencies.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty CurrentDependenciesProperty =
+            DependencyProperty.Register("CurrentDependencies", typeof(IEnumerable<TaskInList>), typeof(DependenciesWindow), new PropertyMetadata(null));
+
 
         public bool IsSelected(int id,int idTask)
         {
@@ -54,13 +81,20 @@ namespace PL.Task
 
         private void ListBox_Initialized(object sender, EventArgs e)
         {
-
+            //foreach(var item in (sender as ListBox).Items)
+            //{
+            //    if (item is TaskInList)
+            //    {
+            //        TaskInList taskInList = (TaskInList)item;
+            //        if(taskInList.Select(Task))
+                        
+            //    }
+            //}
         }
 
         private void ListBoxItem_Initialized(object sender, EventArgs e)
         {
-            ListBoxItem? t = sender as ListBoxItem/*)?. as BO.TaskInList;*/;
-         //   t as TaskInList
+        
 
 
         }

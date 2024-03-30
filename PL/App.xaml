@@ -19,5 +19,6 @@
         <local:ConvertBooleanToVisibility x:Key="ConvertBooleanToVisibility"/>
         <local:ConvertOppositeBooleanToVisibility x:Key="ConvertOppositeBooleanToVisibility"/>
         <local:ConvertByItemIdtoIsSelected x:Key="ConvertByItemIdtoIsSelected"/>
+        <local:ListItemSelectionConverter x:Key="ListItemSelectionConverter"/>
     </Application.Resources>
 </Application>

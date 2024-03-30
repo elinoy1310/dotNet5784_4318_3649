@@ -41,7 +41,7 @@ namespace PL.Engineer
                 MessageBoxResult mbResult = MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 if (mbResult == MessageBoxResult.OK)
                 {
-                    new MainWindow().Show();
+                    new StartWindow().Show();
                 }
             }
 

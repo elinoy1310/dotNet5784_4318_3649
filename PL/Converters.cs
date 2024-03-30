@@ -1,5 +1,6 @@
 ﻿
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Globalization;
@@ -86,6 +87,50 @@ public class ConvertIntToVisibilityForEng : IValueConverter
     }
 
     public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+    {
+        throw new NotImplementedException();
+    }
+}
+public class ListItemSelectionConverter : IMultiValueConverter
+{
+    //public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+    //{
+    //    IEnumerable<TaskInList>? depList=(IEnumerable<TaskInList>)value;
+    //    foreach (TaskInList dep in depList)
+    //        return dep.Select((BO.Task)parameter);
+    //    return false;
+    //}
+
+    public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
+    {
+        // Create a new list to store the selection status of each item
+        var selectionStatus = new List<bool>();
+        if (values != null && values.Length == 2 )
+        {
+            
+            
+
+            // Iterate through each item in the list from the DependencyProperty
+            foreach (var item in (IEnumerable<TaskInList>)values[0])
+            {
+                // Check if the item exists in the list from the non-DependencyProperty
+                bool isSelected = item.Select((BO.Task)values[1]);
+
+                // Add the selection status to the list
+                selectionStatus.Add(isSelected);
+            }
+
+            //return selectionStatus;
+        }
+        return selectionStatus;
+    }
+
+    //public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+    //{
+    //    throw new NotImplementedException();
+    //}
+
+    public object[] ConvertBack(object value, Type[] targetTypes, object parameter, CultureInfo culture)
     {
         throw new NotImplementedException();
     }
