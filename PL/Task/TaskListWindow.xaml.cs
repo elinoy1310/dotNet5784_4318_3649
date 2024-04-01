@@ -86,7 +86,7 @@ namespace PL.Task
         private void CbFilterByLevel_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
 
-            TaskList = Complexity == BO.EngineerExperience.None ? s_bl.Task.ReadAll(Filter) : s_bl.Task.ReadAll(task => (task.Complexity == Complexity && Filter == null ? true : Filter!(task)));
+            TaskList = Complexity == BO.EngineerExperience.None ? s_bl.Task.ReadAll(Filter) : s_bl.Task.ReadAll(task => task.Complexity == Complexity );
         }
         private void btnAddTask_Click(object sender, RoutedEventArgs e)
         {
@@ -126,12 +126,12 @@ namespace PL.Task
 
         private void CbFilterByStatus_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            TaskList = Status == BO.Status.Unscheduled ? s_bl.Task.ReadAll(Filter) : s_bl.Task.ReadAll(task => task.Status == Status && Filter == null ? true : Filter!(task));
+            TaskList = Status == BO.Status.Unscheduled ? s_bl.Task.ReadAll(Filter) : s_bl.Task.ReadAll(task => task.Status == Status );
         }
 
         private void btnFilterByStartDate_Click(object sender, RoutedEventArgs e)
         {
-            TaskList = s_bl.Task.ReadAll(task => task.StartDate == FilterStartDate && Filter == null ? true : Filter!(task));
+            TaskList = s_bl.Task.ReadAll(task => task.StartDate == FilterStartDate);
         }
 
         private void btnDeleteTask_Click(object sender, RoutedEventArgs e)

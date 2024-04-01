@@ -111,7 +111,7 @@ namespace PL.Task
                 try
                 {
                     s_bl.Task.Update(add_updateTask);
-                    MessageBoxResult successMsg = MessageBox.Show("The engineer updated successfully!");
+                    MessageBoxResult successMsg = MessageBox.Show("The Task updated successfully!");
                 }
                 catch (BO.BlDoesNotExistException ex)
                 {

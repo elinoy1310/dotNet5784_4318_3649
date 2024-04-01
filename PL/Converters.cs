@@ -107,9 +107,6 @@ public class ListItemSelectionConverter : IMultiValueConverter
         var selectionStatus = new List<bool>();
         if (values != null && values.Length == 2 )
         {
-            
-            
-
             // Iterate through each item in the list from the DependencyProperty
             foreach (var item in (IEnumerable<TaskInList>)values[0])
             {

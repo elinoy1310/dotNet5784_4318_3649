@@ -25,7 +25,7 @@ internal class TaskImplementation : ITask
         {
             int? engineerId = task.Engineer is not null ? task.Engineer.Id : null;
             // Create data object from business object
-            DO.Task doTask = new DO.Task(task.Id, task.Alias, task.Description, false, task.RequiredEffortTime, task.CreatedAtDate, task.ScheduledDate, task.StartDate, task.CompleteDate, null, task.Deliverables, task.Remarks, engineerId,(DO.EngineerExperience)task.Complexity);
+            DO.Task doTask = new DO.Task(task.Id, task.Alias, task.Description, false, task.RequiredEffortTime, task.CreatedAtDate, task.ScheduledDate, task.StartDate, task.CompleteDate, null, task.Deliverables, task.Remarks, engineerId, (DO.EngineerExperience)task.Complexity);
             // Create task in the data layer and get the new task ID
             int idNewTask = _dal.Task.Create(doTask);
             // Create dependencies for the new task
@@ -33,7 +33,7 @@ internal class TaskImplementation : ITask
             {
                 foreach (var d in task.Dependencies)
                 {
-                    _dal.Dependency.Create(new DO.Dependency(0,idNewTask, d.Id));
+                    _dal.Dependency.Create(new DO.Dependency(0, idNewTask, d.Id));
                 }
             }
             return idNewTask;
@@ -71,12 +71,12 @@ internal class TaskImplementation : ITask
                            where date < task.CompleteDate
                            select task;
         // Check if the specified date is earlier than all the estimated end dates of the previous tasks
-        if (tempListDate!=null)
+        if (tempListDate != null)
             throw new BlWrongDataException($"The date is earlier than all the estimated end dates of the previous tasks for the task with ID={id}");
         // Read the task from the data layer
         DO.Task updateTask = _dal.Task.Read(id) ?? throw new NotImplementedException();
         // Update the task's ScheduledDate property with the specified date
-        _dal.Task.Update(updateTask with {ScheduledDate=date});
+        _dal.Task.Update(updateTask with { ScheduledDate = date });
     }
 
     /// <summary>
@@ -92,12 +92,12 @@ internal class TaskImplementation : ITask
     public void Delete(int id)
     {
         // Check if project status allows task deletion
-        if (_bl.CheckProjectStatus()==BO.ProjectStatus.Execution)
+        if (_bl.CheckProjectStatus() == BO.ProjectStatus.Execution)
             throw new BlCannotBeDeletedException($"Task with ID={id} cannot be deleted after the project started");
         // Read the task with the specified ID
         BO.Task DelTask = Read(id);
         // Check if the task has any dependencies
-        if ( _dal.Dependency.ReadAll().FirstOrDefault(d => d?.DependsOnTask == id) != null) 
+        if (_dal.Dependency.ReadAll().FirstOrDefault(d => d?.DependsOnTask == id) != null)
             throw new BlCannotBeDeletedException($"Task with ID={id} cannot be deleted");
         try
         {
@@ -138,7 +138,7 @@ internal class TaskImplementation : ITask
     public BO.Task? Read(Func<BO.Task, bool> filter)
     {
         // Convert all data tasks to logical tasks
-        IEnumerable<BO.Task> convertAll= from item in _dal.Task.ReadAll()
+        IEnumerable<BO.Task> convertAll = from item in _dal.Task.ReadAll()
                                           let convertItem = converFromDOtoBO(item)
                                           select convertItem;
         // Apply the filter to the collection of tasks
@@ -157,7 +157,7 @@ internal class TaskImplementation : ITask
     /// </returns>
     public IEnumerable<BO.TaskInList> ReadAll(Func<BO.Task, bool>? filter = null) //לא מדפיס הכל ולא לזרוק שגיאה אם לא מוצא את המהנדס
     {
-        if (filter!=null)
+        if (filter != null)
         {
             // Apply the filter condition to the collection of tasks
             IEnumerable<BO.Task> isFilter = from item in _dal.Task.ReadAll()
@@ -165,12 +165,12 @@ internal class TaskImplementation : ITask
                                             where filter(convertItem)
                                             select convertItem;
             // Convert filtered tasks to TaskInList objects
-            return (from item in isFilter 
+            return (from item in isFilter
                     select new BO.TaskInList { Id = item.Id, Alias = item.Alias, Description = item.Description, Status = item.Status });
         }
         else
             // Retrieve all tasks from the data layer and convert them to TaskInList objects
-            return (from item in _dal.Task.ReadAll() 
+            return (from item in _dal.Task.ReadAll()
                     let convertItem = converFromDOtoBO(item)
                     select new BO.TaskInList { Id = convertItem.Id, Alias = convertItem.Alias, Description = convertItem.Description, Status = convertItem.Status });
     }
@@ -188,6 +188,7 @@ internal class TaskImplementation : ITask
         if (_bl.CheckProjectStatus() == BO.ProjectStatus.Planing)
         {
             // Update dependencies and task details
+            deleteDependencies(task);
             updateDependencies(task);
             try
             {
@@ -205,6 +206,7 @@ internal class TaskImplementation : ITask
         {
             // Perform additional checks and update logic based on project status
             CheckingEngineer(task);
+            deleteDependencies(task);
             updateDependencies(task);
             try
             {
@@ -218,7 +220,7 @@ internal class TaskImplementation : ITask
                 throw new BlDoesNotExistException($"Task with ID={task.Id} was not found", ex);
             }
         }
-        else if(_bl.CheckProjectStatus() == BO.ProjectStatus.Execution)
+        else if (_bl.CheckProjectStatus() == BO.ProjectStatus.Execution)
         {
             CheckingEngineer(task);
             try
@@ -226,7 +228,7 @@ internal class TaskImplementation : ITask
                 if (task.Engineer?.Id != Originaltask.Engineer?.Id && Originaltask.StartDate == null)
                     task.StartDate = bl.Clock.Date;
 
-               
+
                 // Convert the logic object task to a data object and update in the data layer
                 DO.Task convertFromBOtoDO = new DO.Task(task.Id, task.Alias, task.Description, false, task.RequiredEffortTime, task.CreatedAtDate, task.ScheduledDate, task.StartDate, task.CompleteDate, null, task.Deliverables, task.Remarks, task.Engineer?.Id, (DO.EngineerExperience)task.Complexity);
                 _dal.Task.Update(convertFromBOtoDO);
@@ -237,7 +239,7 @@ internal class TaskImplementation : ITask
                 throw new BlDoesNotExistException($"Task with ID={task.Id} was not found", ex);
             }
         }
-        
+
     }
 
     /// <summary>
@@ -288,34 +290,31 @@ internal class TaskImplementation : ITask
         }
     }
 
-    //private void deleteDependencies(BO.Task task)
-    //{
-    //    if (task.Dependencies is not null)
-    //    {
-    //        foreach (var d in task.Dependencies)
-    //        {
-    //            int dependencyId = 0;
-    //            bool isExist = false;
-    //            {
-    //                    foreach (var dep in _dal.Dependency.ReadAll())
-    //                    {
-    //                        if (dep?.Dependent == task.Id && dep.DependsOnTask == d.Id)
-    //                        {
-    //                            dependencyId = dep.Id;
-    //                            isExist = true;
-    //                        }
-    //                    if (isExist)
-    //                    {
-    //                        _dal.Dependency.Delete(dependencyId);
-    //                    }
-    //                    isExist = false;
-    //                    }
+    private void deleteDependencies(BO.Task task)
+    {
+        BO.Task taskDelDep = Read(task.Id);
+        if (taskDelDep.Dependencies is not null)
+        {
+            foreach (var d in taskDelDep.Dependencies)
+            {
+                int dependencyId = 0;
+                bool isExist = false;
 
-    //            }
-    //        }
-    //        task.Dependencies = returnDepTask(task.Id);
-    //    }
-    //}
+                foreach (var dep in _dal.Dependency.ReadAll())
+                {
+                    if (dep?.Dependent == taskDelDep.Id && dep.DependsOnTask == d.Id)
+                    {
+                        isExist = true;
+                        dependencyId = dep.Id;
+                    }
+                }
+                if (isExist)
+                {
+                    _dal.Dependency.Delete(dependencyId);
+                }
+            }
+        }
+    }
 
     /// <summary>
     /// Calculates the status of the specified task based on its scheduled, start, and completion dates.
@@ -331,8 +330,8 @@ internal class TaskImplementation : ITask
         // Check if the start date is null
         else if (task.StartDate == null)
         {
-            if (bl.Clock.Date> task.ScheduledDate)
-                status= Status.InJeopredy;
+            if (bl.Clock.Date > task.ScheduledDate)
+                status = Status.InJeopredy;
             status = Status.Scheduled;
         }
         // Check if the completion date is null
@@ -394,10 +393,10 @@ internal class TaskImplementation : ITask
     /// <param name="startDate">The actual start date of the task.</param>
     /// <param name="requiredEffortTime">The amount of time required to complete the task.</param>
     /// <returns>The forecasted completion date of the task.</returns>
-    private DateTime? returnForecastDate (DateTime? scheduledDate, DateTime? StartDate, TimeSpan? RequiredEffortTime)
+    private DateTime? returnForecastDate(DateTime? scheduledDate, DateTime? StartDate, TimeSpan? RequiredEffortTime)
     {
         // If the task has not started yet, forecast based on scheduled date
-        if (StartDate==null)
+        if (StartDate == null)
             return (scheduledDate + RequiredEffortTime);
         // Otherwise, forecast based on the later of scheduled date and actual start date
         return ((scheduledDate > StartDate) ? scheduledDate : StartDate) + RequiredEffortTime;
@@ -411,32 +410,32 @@ internal class TaskImplementation : ITask
     private BO.Task converFromDOtoBO(DO.Task task)
     {
         // Create a new business object task instance and populate its properties from the data layer task object
-        BO.Task newTask=
+        BO.Task newTask =
          new BO.Task()
-        {
-            Id = task.Id,
-            Alias = task.Alias,
-            Description = task.Description,
-            CreatedAtDate = task.CreatedInDate,
-            Status = statusCalculation(task),
-            Dependencies = returnDepTask(task.Id),
-            RequiredEffortTime = task.RequiredEffortTime,
-            StartDate = task.StartDate,
-            ScheduledDate = task.ScheduledDate,
-            ForecastDate = returnForecastDate(task.ScheduledDate, task.StartDate, task.RequiredEffortTime),
-            CompleteDate = task.CompleteDate,
-            Deliverables = task.Deliverables,
-            Remarks = task.Remarks,
-            Engineer = returnEngineerOnTask(task),
-            Complexity = (BO.EngineerExperience)task.Complexity
-        };
+         {
+             Id = task.Id,
+             Alias = task.Alias,
+             Description = task.Description,
+             CreatedAtDate = task.CreatedInDate,
+             Status = statusCalculation(task),
+             Dependencies = returnDepTask(task.Id),
+             RequiredEffortTime = task.RequiredEffortTime,
+             StartDate = task.StartDate,
+             ScheduledDate = task.ScheduledDate,
+             ForecastDate = returnForecastDate(task.ScheduledDate, task.StartDate, task.RequiredEffortTime),
+             CompleteDate = task.CompleteDate,
+             Deliverables = task.Deliverables,
+             Remarks = task.Remarks,
+             Engineer = returnEngineerOnTask(task),
+             Complexity = (BO.EngineerExperience)task.Complexity
+         };
         return newTask;
     }
 
     public bool PreviousTaskDone(int id)
     {
         List<TaskInList> prevTask = returnDepTask(id).ToList();
-        if (prevTask.Count==0)
+        if (prevTask.Count == 0)
             return true;
         foreach (TaskInList item in prevTask)
         {
