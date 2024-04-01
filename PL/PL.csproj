@@ -18,6 +18,9 @@
 	  <None Remove="Engineer\engineer view icon.jpg" />
 	  <None Remove="Engineer\engineer window background.png" />
 	  <None Remove="Engineer\צילום מסך 2024-03-24 051307.png" />
+	  <None Remove="manage window icon.png" />
+	  <None Remove="scedle window icon.png" />
+	  <None Remove="scedule window background.jpg" />
 	  <None Remove="Task\WhatsApp Image 2024-02-29 at 23.18.41.jpeg" />
 	  <None Remove="WhatsApp Image 2024-02-29 at 23.18.41.jpeg" />
 	</ItemGroup>
@@ -32,6 +35,9 @@
 	  <Resource Include="Engineer\engineer view icon.jpg" />
 	  <Resource Include="Engineer\engineer window background.png" />
 	  <Resource Include="Engineer\צילום מסך 2024-03-24 051307.png" />
+	  <Resource Include="manage window icon.png" />
+	  <Resource Include="scedle window icon.png" />
+	  <Resource Include="scedule window background.jpg" />
 	  <Resource Include="Task\WhatsApp Image 2024-02-29 at 23.18.41.jpeg" />
 	  <Resource Include="WhatsApp Image 2024-02-29 at 23.18.41.jpeg" />
 	</ItemGroup>

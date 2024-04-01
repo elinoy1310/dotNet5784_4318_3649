@@ -22,13 +22,13 @@ namespace PL
     public partial class UserEntryWindow : Window
     {
         static readonly BlApi.IBl s_bl = BlApi.Factory.Get();
-   
+
         public UserEntryWindow()
         {
             InitializeComponent();
-            MyUser=new BO.User();
+            MyUser = new BO.User();
         }
-       
+
 
 
         public BO.User MyUser
@@ -56,15 +56,20 @@ namespace PL
                     case BO.UserType.Engineer:
                         new EngineerViewWindow(MyUser.UserId).Show();
                         break;
-                  
+
                 }
             }
-            catch(BlWrongDataException ex)
+            catch (BlWrongDataException ex)
             {
                 MessageBoxResult mbResult = MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
 
         }
 
+        private void pbGetPassword(object sender, RoutedEventArgs e)
+        {
+            if ((sender as PasswordBox) is not null)
+                MyUser.passWord =(sender as PasswordBox)!.Password ;
+        }
     }
 }

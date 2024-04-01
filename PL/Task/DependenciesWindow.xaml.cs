@@ -98,5 +98,10 @@ namespace PL.Task
 
 
         }
+
+        private void ListBoxItem_Loaded(object sender, RoutedEventArgs e)
+        {
+            //TaskInList? depTask=(sender as ListBoxItem).;
+        }
     }
 }

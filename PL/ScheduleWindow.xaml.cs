@@ -55,13 +55,21 @@ namespace PL
         {
             try
             {
-                s_bl.CreateSchedule(ScheduleDate, BO.CreateScheduleOption.Manually, CurrentTask.Id);
-                MessageBox.Show("The task has been updated successfully!");
-                tasks.RemoveAt(0);
-                if (tasks.Count() == 0)
-                    MessageBox.Show("All the tasks are updated, The Schedule was created successfully!");
+                MessageBoxResult mbResultEx = MessageBox.Show("Are you sure you want to set the schedule date for this task to "+ScheduleDate+"? you can't go back", "Validation", MessageBoxButton.YesNo, MessageBoxImage.Question);
+                if (mbResultEx == MessageBoxResult.Yes)
+                {
+                    s_bl.CreateSchedule(ScheduleDate, BO.CreateScheduleOption.Manually, CurrentTask.Id);
+                    MessageBox.Show("The task has been updated successfully!");
+                    tasks.RemoveAt(0);
+                    if (tasks.Count() == 0)
+                    {
+                        MessageBox.Show("All the tasks are updated, The Schedule was created successfully!");
+                        this.Close();
+                    }
+                } 
+
                 else
-                CurrentTask = tasks.First();
+                    CurrentTask = tasks.First();
             }
             catch (BO.BlCannotBeUpdatedException ex)
             {

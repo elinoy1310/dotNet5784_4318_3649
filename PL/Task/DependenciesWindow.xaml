@@ -47,7 +47,8 @@
                 </ListBoxItem.IsSelected>
                
             </ListBoxItem>-->
-                <ListBox.ItemContainerStyle>
+            <ListBoxItem Loaded="ListBoxItem_Loaded"/>
+            <ListBox.ItemContainerStyle>
                     <Style TargetType="ListBoxItem">
                         <Setter Property="IsSelected">
                             <Setter.Value>
