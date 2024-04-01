@@ -1,4 +1,6 @@
-﻿namespace Dal;
+﻿using System.Xml.Linq;
+
+namespace Dal;
 
 /// <summary>
 /// Config helps define the running variables
