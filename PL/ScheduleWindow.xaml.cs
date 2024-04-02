@@ -21,13 +21,27 @@ namespace PL
     {
         static readonly BlApi.IBl s_bl = BlApi.Factory.Get();
         public List<BO.Task> tasks { get; set; } = s_bl.UpdateManuallyList().ToList();
-       // public BO.Task currentTask { get; set; }
+        // public BO.Task currentTask { get; set; }
+       // string Time;
 
         public ScheduleWindow()
         {
             CurrentTask=tasks.First();
             InitializeComponent();
+          
         }
+
+
+
+        public TimeSpan ScheduleTime
+        {
+            get { return (TimeSpan)GetValue(ScheduleTimeProperty); }
+            set { SetValue(ScheduleTimeProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for CurrentTime.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty ScheduleTimeProperty =
+            DependencyProperty.Register("ScheduleTime", typeof(TimeSpan), typeof(ScheduleWindow), new PropertyMetadata(null));
 
 
         public BO.Task CurrentTask
@@ -55,9 +69,18 @@ namespace PL
         {
             try
             {
-                MessageBoxResult mbResultEx = MessageBox.Show("Are you sure you want to set the schedule date for this task to "+ScheduleDate+"? you can't go back", "Validation", MessageBoxButton.YesNo, MessageBoxImage.Question);
+                //if(!TimeSpan.TryParse(Time,out TimeSpan sceduleTime))
+                //{
+                //    MessageBox.Show("Invalid time format, please enter time in HH:MM:SS format", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                //    return;
+                //}
+                ScheduleDate= ScheduleDate.AddHours(ScheduleTime.Hours - ScheduleDate.Hour);
+                ScheduleDate = ScheduleDate.AddMinutes(ScheduleTime.Minutes - ScheduleDate.Minute);
+                ScheduleDate= ScheduleDate.AddSeconds(ScheduleTime.Seconds - ScheduleDate.Second);
+                MessageBoxResult mbResultEx = MessageBox.Show("Are you sure you want to set the schedule date for this task to "+ScheduleDate+" ? you can't go back", "Validation", MessageBoxButton.YesNo, MessageBoxImage.Question);
                 if (mbResultEx == MessageBoxResult.Yes)
                 {
+                    
                     s_bl.CreateSchedule(ScheduleDate, BO.CreateScheduleOption.Manually, CurrentTask.Id);
                     MessageBox.Show("The task has been updated successfully!");
                     tasks.RemoveAt(0);
@@ -67,7 +90,11 @@ namespace PL
                         this.Close();
                     }
                     else
+                    {
+                 //       tasks=(from task in tasks select s_bl.Task.Read(task.Id)).ToList();                       
                         CurrentTask = tasks.First();
+                    }
+                        
                 } 
 
                 
@@ -91,5 +118,7 @@ namespace PL
                 MessageBoxResult mbResultEx = MessageBox.Show("UnKnown error", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
+
+
     }
 }

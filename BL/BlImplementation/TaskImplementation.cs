@@ -29,8 +29,11 @@ internal class TaskImplementation : ITask
             // Create task in the data layer and get the new task ID
             int idNewTask = _dal.Task.Create(doTask);
             // Create dependencies for the new task
-            if (task.Dependencies is not null)
+            if (task.Dependencies is not null )
             {
+                //int? invalidDep = isValidDependenciesList(task);
+                //if (invalidDep is not null)
+                //    throw new BlWrongDataException($"The task with id={invalidDep} can't be assign as previous task to the task with id={task.Id}");
                 foreach (var d in task.Dependencies)
                 {
                     _dal.Dependency.Create(new DO.Dependency(0, idNewTask, d.Id));
@@ -182,11 +185,16 @@ internal class TaskImplementation : ITask
     /// <exception cref="BlDoesNotExistException">Thrown when the specified task does not exist.</exception>
     public void Update(BO.Task task)
     {
+        //בדיקת תקינות לתלויות לעדכון
+        int? invalidDep = isValidDependenciesList(task);
+        if (invalidDep is not null)
+            throw new BlWrongDataException($"The task with id={invalidDep} can't be assign as previous task to the task with id={task.Id}");
         // Retrieve the original task from the data layer
         BO.Task Originaltask = Read(task.Id);
         // Check the project status to determine the update logic
         if (_bl.CheckProjectStatus() == BO.ProjectStatus.Planing)
         {
+
             // Update dependencies and task details
             deleteDependencies(task);
             updateDependencies(task);
@@ -475,5 +483,32 @@ internal class TaskImplementation : ITask
                 return false;
         }
         return true;
+    }
+
+    private bool isNotCircularDependency(int originalIdTask,int currentDepTaskId)
+    {
+        if(originalIdTask== currentDepTaskId)
+            return false;
+        var depList = Read(currentDepTaskId).Dependencies;
+        if (depList is null || depList.Count() == 0)//לא תלוי בכלום 
+            return true;
+        foreach( var dep in depList )
+        {
+            if(!isNotCircularDependency(originalIdTask, dep.Id))
+                return false;
+        }
+        return true;
+    }
+
+    private int? isValidDependenciesList(BO.Task task)
+    {
+        if(task.Dependencies is null || task.Dependencies.Count() == 0)
+            return null;//זא שהתלויות תקינות
+        foreach ( var dep in task.Dependencies )
+        {
+            if(!isNotCircularDependency(task.Id,dep.Id))
+                return dep.Id;
+        }
+        return null; 
     }
 }

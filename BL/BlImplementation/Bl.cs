@@ -88,7 +88,7 @@ public class Bl : IBl
                 break;
             case CreateScheduleOption.Manually:
                 DateTime? temp = createScheduleOptionManually(taskId);
-                if (date.Date < temp)
+                if (date < temp)
                     throw new BlCannotBeUpdatedException($"Can't set schedule date before {temp}");
                 BO.Task task = Task.Read(taskId);
                 task.ScheduledDate = date;

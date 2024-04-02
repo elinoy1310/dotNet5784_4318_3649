@@ -134,6 +134,7 @@ namespace PL.Task
     {
         static readonly BlApi.IBl s_bl = BlApi.Factory.Get();
         public BO.Task currentTask { get; set; }
+        public TaskInList DisplayTask { get; set; }
         //public bool isSelected { get; set; }
         public TaskWindow Tw { get; set; }
         //public DependenciesWindow(int idTask,TaskWindow tw)
@@ -148,15 +149,42 @@ namespace PL.Task
 
         //}
         public DependenciesWindow(BO.Task auTask, TaskWindow tw)
-        {
+        {  
+            DisplayTask=new TaskInList() { Id = auTask.Id, Alias=auTask.Alias,Description=auTask.Description,Status=auTask.Status };
             InitializeComponent();
-            Dependencies = s_bl.Task.ReadAll(task => task.Id != auTask.Id);
+            Dependencies = s_bl.Task.ReadAll(task => task.Id != auTask.Id).OrderBy(task=>task.Id);
             currentTask = auTask;
+         
             Tw = tw;
             Add_UpdateDep=new List<TaskInList>();
             //ListBox lb=new ListBox();
             //foreach(var dep in task.Dependencies)
         }
+
+
+
+        public int EditIsClicked
+        { 
+            get { return (int)GetValue(EditIsClickedProperty); }
+            set { SetValue(EditIsClickedProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for EditIsClicked.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty EditIsClickedProperty =
+            DependencyProperty.Register("EditIsClicked", typeof(int), typeof(DependenciesWindow), new PropertyMetadata(1));
+
+
+
+        //public BO.Task CurrentTask
+        //{
+        //    get { return (BO.Task)GetValue(CurrentTaskProperty); }
+        //    set { SetValue(CurrentTaskProperty, value); }
+        //}
+
+        //// Using a DependencyProperty as the backing store for CurrentTask.  This enables animation, styling, binding, etc...
+        //public static readonly DependencyProperty CurrentTaskProperty =
+        //    DependencyProperty.Register("CurrentTask", typeof(BO.Task), typeof(DependenciesWindow), new PropertyMetadata(null));
+
 
 
         public List<TaskInList> Add_UpdateDep { get; set; }
@@ -240,11 +268,17 @@ namespace PL.Task
 
         private void btnAddUpdate_Click(object sender, RoutedEventArgs e)
         {
+            if (EditIsClicked == 1)
+                EditIsClicked = 0;
+            else
+            {
+
             //if (Add_UpdateDep == currentTask.Dependencies)//אם נשאר באותו מצב
             //    return;
            currentTask.Dependencies = Add_UpdateDep;//+updated dep list
             //new TaskWindow(currentTask).Show();//
             this.Close();
+            }
         }
 
         private void lb_selectionChanged(object sender, SelectionChangedEventArgs e)
