@@ -9,10 +9,50 @@
         DataContext="{Binding RelativeSource={RelativeSource Mode=Self}}">
 
     <Canvas>
+        <ListBoxItem Loaded="ListBoxItem_Loaded"/>
+        <Label Content="Label" HorizontalAlignment="Left" Margin="10,26,0,0" VerticalAlignment="Top" Height="90" Width="739"/>
+        <ListBox ItemsSource="{Binding Dependencies}" SelectionMode="Multiple" Height="242" Width="800" HorizontalAlignment="Center" VerticalAlignment="Top" Canvas.Top="116" Initialized="ListBox_Initialized" Loaded="ListBox_Loaded" SelectionChanged="lb_selectionChanged" >
+  
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Horizontal" >
+                        <CheckBox IsChecked="{Binding IsSelected, RelativeSource={RelativeSource AncestorType={x:Type ListBoxItem}}}" />
+
+                        <!--<Label Content="{Binding Dependencies}"/>-->
+                        <StackPanel>
+
+                            <TextBlock Text="{Binding Id}"/>
+                            <TextBlock Text="{Binding Alias}"/>
+                            <TextBlock Text="{Binding Description}"/>
+                            <TextBlock Text="{Binding Status}"/>
+                        </StackPanel>
+                    </StackPanel>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+
+        </ListBox>
+        <Button Content="Update" Canvas.Left="330" Canvas.Top="382" Height="42" Width="100" Click="btnAddUpdate_Click"/>
+    </Canvas>
+</Window>
+
+
+
+
+<!--<Window x:Class="PL.Task.DependenciesWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:PL.Task"
+        mc:Ignorable="d"
+        Title="DependenciesWindow" Height="450" Width="800"
+        DataContext="{Binding RelativeSource={RelativeSource Mode=Self}}">
+
+    <Canvas>
         
         <Label Content="Label" HorizontalAlignment="Left" Margin="10,26,0,0" VerticalAlignment="Top" Height="90" Width="739"/>
-        <ListBox ItemsSource="{Binding Path=Dependencies}" SelectionMode="Multiple" Height="242" Width="800" HorizontalAlignment="Center" VerticalAlignment="Top" Canvas.Top="116" Initialized="ListBox_Initialized" >
-            <!--ItemsSource="{Binding Dependencies}" SelectionMode="Multiple" Height="242" Width="800" HorizontalAlignment="Center" VerticalAlignment="Top" Canvas.Top="116"/>-->
+        --><!--<ListBox ItemsSource="{Binding Path=Dependencies}" SelectionMode="Multiple" Height="242" Width="800" HorizontalAlignment="Center" VerticalAlignment="Top" Canvas.Top="116" Initialized="ListBox_Initialized" >
+            --><!--ItemsSource="{Binding Dependencies}" SelectionMode="Multiple" Height="242" Width="800" HorizontalAlignment="Center" VerticalAlignment="Top" Canvas.Top="116"/>-->
             <!--<ListBoxItem IsSelected="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ListBoxItem}},Converter={StaticResource ConvertByItemIdtoIsSelected},ConverterParameter={Binding Path=Task}" Initialized="ListBoxItem_Initialized"/>-->
             <!--<ListBoxItem IsSelected="{Binding Task,  ConverterParameter={Binding Dependencies}}"/>-->
             <!--<ListBox ItemsSource="{Binding YourListProperty}"V>-->
@@ -46,30 +86,51 @@
                     </MultiBinding>
                 </ListBoxItem.IsSelected>
                
-            </ListBoxItem>-->
+            </ListBoxItem>--><!--
             <ListBoxItem Loaded="ListBoxItem_Loaded"/>
-            <ListBox.ItemContainerStyle>
+            --><!--<ListBox.ItemContainerStyle>
                     <Style TargetType="ListBoxItem">
                         <Setter Property="IsSelected">
                             <Setter.Value>
                                 <MultiBinding Converter="{StaticResource ListItemSelectionConverter}">
-                                    <!-- Binding עבור תכונת IsSelected של ה-ListBoxItem -->
+                                    --><!-- Binding עבור תכונת IsSelected של ה-ListBoxItem --><!--
                                     <Binding Path="Dependencies" RelativeSource="{RelativeSource Mode=Self}"/>
-                                    <!-- Binding עבור תכונה אחרת במודל שלך -->
+                                    --><!-- Binding עבור תכונה אחרת במודל שלך --><!--
                                     <Binding Path="Task"/>
                                 </MultiBinding>
                             </Setter.Value>
                         </Setter>
                     </Style>
-                </ListBox.ItemContainerStyle>
+                </ListBox.ItemContainerStyle>--><!--
                 <ListBox.ItemTemplate>
                 <DataTemplate>
                     <StackPanel Orientation="Horizontal" >
                         <CheckBox IsChecked="{Binding IsSelected, RelativeSource={RelativeSource AncestorType={x:Type ListBoxItem}}}" />
 
-                        <!--<Label Content="{Binding Dependencies}"/>-->
+                        --><!--<Label Content="{Binding Dependencies}"/>--><!--
                         <StackPanel>
                             
+                            <TextBlock Text="{Binding Id}"/>
+                            <TextBlock Text="{Binding Alias}"/>
+                            <TextBlock Text="{Binding Description}"/>
+                            <TextBlock Text="{Binding Status}"/>
+                        </StackPanel>
+                    </StackPanel>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+
+        </ListBox>--><!--
+        <ListBox ItemsSource="{Binding Dependencies}" SelectionMode="Multiple" Height="242" Width="800" HorizontalAlignment="Center" VerticalAlignment="Top" Canvas.Top="116" Initialized="ListBox_Initialized" >
+            --><!--ItemsSource="{Binding Dependencies}" SelectionMode="Multiple" Height="242" Width="800" HorizontalAlignment="Center" VerticalAlignment="Top" Canvas.Top="116"/>--><!--
+            <ListBoxItem Loaded="ListBoxItem_Loaded"/>
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Horizontal" >
+                        <CheckBox IsChecked="{Binding IsSelected, RelativeSource={RelativeSource AncestorType={x:Type ListBoxItem}}}" />
+
+                        --><!--<Label Content="{Binding Dependencies}"/>--><!--
+                        <StackPanel>
+
                             <TextBlock Text="{Binding Id}"/>
                             <TextBlock Text="{Binding Alias}"/>
                             <TextBlock Text="{Binding Description}"/>
@@ -82,4 +143,4 @@
         </ListBox>
         <Button Content="Update" Canvas.Left="330" Canvas.Top="382" Height="42" Width="100"/>
     </Canvas>
-</Window>
+</Window>-->

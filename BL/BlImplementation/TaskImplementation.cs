@@ -330,9 +330,13 @@ internal class TaskImplementation : ITask
         // Check if the start date is null
         else if (task.StartDate == null)
         {
-            if (bl.Clock.Date > task.ScheduledDate)
-                status = Status.InJeopredy;
             status = Status.Scheduled;
+            //if (bl.Clock.Date > task.ScheduledDate || checkInJeoprady(task.Id))
+            //{
+            //   
+            //}
+                
+            
         }
         // Check if the completion date is null
         else if (task.CompleteDate == null)
@@ -340,7 +344,35 @@ internal class TaskImplementation : ITask
         // If all dates are not null, set status to Done
         else
             status = Status.Done;
+        //if(bl.CheckProjectStatus()==ProjectStatus.Execution && checkInJeoprady(task.Id))
+        //    status = Status.InJeopredy;
+
         return status;
+    }
+
+    public bool checkInJeoprady(int id)
+    {
+        //משנים סטטוס לאדום של המשימה הספציפית שקיבלנו וזה עפ המשימות שהיא תלויה בהם(הקודמות) 
+        BO.Task task = Read(id);
+        if (task.ScheduledDate != null && task.StartDate == null )
+        {
+            if (bl.Clock.Date > task.ScheduledDate)
+                return true;
+           else if (task.Dependencies!.Count() == 0)
+                return false;
+            foreach (TaskInList depTask in task.Dependencies!)
+            {
+                BO.Task temp = Read(depTask.Id);
+                if (temp.StartDate!=null && temp.StartDate > temp.ScheduledDate && temp.CompleteDate == null)
+                    return true;
+                if (task.CompleteDate != null && task.CompleteDate > task.ForecastDate)
+                    return true;
+
+            }
+            return false;
+        }
+        return false;  
+
     }
 
     /// <summary>
@@ -348,14 +380,14 @@ internal class TaskImplementation : ITask
     /// </summary>
     /// <param name="id">The ID of the task for which dependent tasks are to be retrieved.</param>
     /// <returns>An enumerable collection of dependent tasks.</returns>
-    public IEnumerable<TaskInList> returnDepTask(int id)
+    public IEnumerable<TaskInList> returnDepTask(int id) //מחזיר את כל המשימות שתהטאסק עם id תלויה בהן
     {
         // Create a list to store dependent tasks
         List<TaskInList> depTaskInLists = new List<TaskInList>();
         // Query dependent tasks from the data layer
         var depList = from dep in _dal.Dependency.ReadAll()
-                      where (dep.Dependent == id)
-                      select dep.DependsOnTask;
+                      where (dep.Dependent == id) //depent= המשימה שתלויה
+                      select dep.DependsOnTask;//dependentonTask= המשימה הקודמת לdependent
         // Iterate through dependent task IDs and retrieve corresponding tasks
         foreach (var item in depList)
         {

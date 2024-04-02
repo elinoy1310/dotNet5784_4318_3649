@@ -11,7 +11,7 @@ public class Task
     public string? Alias { get; set; }
     public DateTime? CreatedAtDate { get; init; }
     public Status Status { get; set; }
-    public IEnumerable<TaskInList>? Dependencies { get; set; }
+    public IEnumerable<TaskInList>? Dependencies { get; set; } //המשימות שהוא תלוי בהן
     public TimeSpan? RequiredEffortTime { get; set; }
     public DateTime? StartDate { get; set; }
     public DateTime? ScheduledDate { get; set; }

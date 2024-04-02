@@ -23,5 +23,7 @@
         <Button Content="Add Day" RenderTransformOrigin="0.62,1.295" Margin="338,213,350,188" Click="btnAddDay_click"  Grid.Row="1" />
         <Button Content="Add Year" RenderTransformOrigin="0.62,1.295" Margin="454,213,234,188" Click="btnAddYear_click"  Grid.Row="1" />
         <Button Content="Log in" HorizontalAlignment="Left" Margin="338,13,0,0" VerticalAlignment="Top" Height="37" Width="100" Click="BtnLogIn_Click"/>
+        <Button Content="Initialize users" HorizontalAlignment="Left" Margin="41,110,0,0" VerticalAlignment="Top" Height="36" Width="100" Click="btnInitUseres_Click" Grid.Row="1"/>
+        
     </Grid>
 </Window>

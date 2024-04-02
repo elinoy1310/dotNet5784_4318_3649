@@ -1,0 +1,15 @@
+﻿<Window x:Class="PL.MessageWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:PL"
+        mc:Ignorable="d"
+        Title="Limited Access" Height="200" Width="200" MaxHeight="200" MaxWidth="200" WindowStyle="SingleBorderWindow">
+    <Grid>
+        <TextBox Height="20" Width="150" />
+        <Label Content="Enter Access Code:" Height="Auto" Width="Auto" Margin="25,56,63,102"/>
+        <Button Content="OK" Width="auto" Height="auto
+" Margin="81,107,82,56" />
+    </Grid>
+</Window>

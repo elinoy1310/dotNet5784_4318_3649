@@ -52,7 +52,7 @@ namespace PL
 
         // Using a DependencyProperty as the backing store for startProject.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty startProjectProperty =
-            DependencyProperty.Register("startProject", typeof(DateTime), typeof(ManagerWindow), new PropertyMetadata(null));
+            DependencyProperty.Register("startProject", typeof(DateTime?), typeof(ManagerWindow), new PropertyMetadata(null));
 
         public bool ChangePasswordIsClicked
         {

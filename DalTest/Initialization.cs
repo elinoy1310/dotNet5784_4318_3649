@@ -191,8 +191,9 @@ public static class Initialization
     }
     private static void createUsers()
     {
-       
-        //s_dal!.User.Create(new User(123456789, UserType.Engineer, "eng1"));
+        //s_bl!.User.Create(new BO.User() { UserId = 325984318, UserType = BO.UserType.Manager, passWord = "eli2812" });
+        //s_bl!.User.Create(new BO.User() { UserId = 213203649, UserType = BO.UserType.Manager, passWord = "hadar0203" });
+        ////s_dal!.User.Create(new User(123456789, UserType.Engineer, "eng1"));
     }
 
     public static void Reset()
@@ -202,8 +203,8 @@ public static class Initialization
         s_dal!.Task.DeleteAll();
         s_dal!.Dependency.DeleteAll();
         s_dal!.User.DeleteAll();
-        s_dal!.User.Create(new User(325984318, UserType.Manager, "eli2812"));
-        s_dal!.User.Create(new User(213203649, UserType.Manager, "hadar0203"));
+        //s_dal!.User.Create(new User(325984318, UserType.Manager, "eli2812"));
+        //s_dal!.User.Create(new User(213203649, UserType.Manager, "hadar0203"));
     }
 }
 

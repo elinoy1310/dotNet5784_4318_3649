@@ -1,4 +1,5 @@
-﻿using DalApi;
+﻿using BO;
+using DalApi;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -32,9 +33,9 @@ namespace PL
         {
             InitializeComponent();
             CurrentTime= s_bl.Clock;
-            s_bl!.User.Create(new BO.User() { UserId = 325984318, UserType = BO.UserType.Manager, passWord = "eli2812" });
-            s_bl!.User.Create(new BO.User() { UserId = 213203649, UserType = BO.UserType.Manager, passWord="hadar0203" });
-         
+            //s_bl!.User.Create(new BO.User() { UserId = 325984318, UserType = BO.UserType.Manager, passWord = "eli2812" });
+            //s_bl!.User.Create(new BO.User() { UserId = 213203649, UserType = BO.UserType.Manager, passWord = "hadar0203" });
+
         }
 
 
@@ -69,6 +70,26 @@ namespace PL
         private void BtnLogIn_Click(object sender, RoutedEventArgs e)
         {
             new UserEntryWindow().Show();
+        }
+
+        private void btnInitUseres_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                s_bl!.User.Create(new BO.User() { UserId = 325984318, UserType = BO.UserType.Manager, passWord = "eli2812" });
+            }
+            catch //כבר קיים
+            {
+
+            }
+            try
+            {
+                s_bl!.User.Create(new BO.User() { UserId = 213203649, UserType = BO.UserType.Manager, passWord = "hadar0203" });
+            
+            }
+            catch /*(BlAlreadyExistException ex)*///כבר קיים
+            {
+            }
         }
     }
 }

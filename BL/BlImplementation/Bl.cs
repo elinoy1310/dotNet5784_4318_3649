@@ -18,7 +18,7 @@ public class Bl : IBl
     private DalApi.IDal _dal = DalApi.Factory.Get;
     public DateTime? ProjectStartDate
     {
-        get => _dal.ProjectStartDate is null ? Clock.Date : _dal.ProjectStartDate;
+        get => _dal.ProjectStartDate /*is null ? Clock.Date : _dal.ProjectStartDate*/;
         set
         {
             if (value <= Clock)

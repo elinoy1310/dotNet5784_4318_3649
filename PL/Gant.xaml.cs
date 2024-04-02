@@ -136,6 +136,8 @@ namespace PL
                             else
                             {
                                 row[rows] = g.Status;
+                                if (s_bl.Task.checkInJeoprady(g.TaskId))
+                                row[rows] = BO.Status.InJeopredy;
                             }
                             rows++;
                         }

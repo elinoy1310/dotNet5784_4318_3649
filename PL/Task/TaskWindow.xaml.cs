@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using BO;
 using PL.Engineer;
 
 namespace PL.Task
@@ -22,15 +23,22 @@ namespace PL.Task
     {
 
         static readonly BlApi.IBl s_bl = BlApi.Factory.Get();
+        public bool flagDependencyUpdated { get; set; }
         public BO.EngineerExperience Level { get; set; } = BO.EngineerExperience.None;
         public string State { get; init; }
 
-      
+      public TaskWindow(BO.Task au_Task)
+        {
+            State = au_Task.Id == 0 ? "Add" : "Update";
+            // flagDependencyUpdated = true;
+            //אם מגיעים לפה אז addupdateTask בטוח מאותחל
+            add_updateTask = au_Task;
+        }
 
         public TaskWindow(int idTask = 0)
         {
             InitializeComponent();
-            
+           // flagDependencyUpdated = false;
             if (idTask == 0)
             {
                 add_updateTask = new BO.Task();
@@ -85,8 +93,12 @@ namespace PL.Task
         
         private void AddOrUpdateClick(object sender, RoutedEventArgs e)
         {
+            if(Add_updateEng.Id!= 0)
+            {
+
             BO.Engineer eng =s_bl.Engineer.Read(Add_updateEng.Id);
             add_updateTask.Engineer=new BO.EngineerInTask() { Id=eng.Id, Name=eng.Name };
+            }
             if (State == "Add")
             {
                 try
@@ -137,7 +149,8 @@ namespace PL.Task
 
         private void BtnDependencies_Click(object sender, RoutedEventArgs e)
         {
-            new DependenciesWindow(add_updateTask.Id).ShowDialog();
+           // new DependenciesWindow(add_updateTask.Id,this).ShowDialog();
+            new DependenciesWindow(add_updateTask, this).ShowDialog();
         }
     }
 }
