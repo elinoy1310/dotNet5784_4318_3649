@@ -18,16 +18,17 @@
             <Setter Property="HorizontalAlignment" Value="Left" />
             <Setter Property="FontWeight" Value="Bold" />
             <Setter Property="FontStyle" Value="Italic" />
-            <Setter Property="Foreground" Value="BlanchedAlmond"/>
-            <Setter Property="Background" Value="Black"/>
+            <Setter Property="Foreground" Value="Black"/>
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="FontFamily" Value="Arial Black"/>
             <Setter Property="Height" Value="35"/>
         </Style>
         <Style TargetType="TextBox">
             <Setter Property="TextWrapping" Value="WrapWithOverflow"/>
-            <Setter Property="FontSize" Value="17" />
+            <Setter Property="FontSize" Value="15" />
             <Setter Property="TextAlignment" Value="Justify"/>
-            <Setter Property="Width" Value="120"/>
-            <Setter Property="Height" Value="auto"/>
+            <Setter Property="Width" Value="170"/>
+            <Setter Property="Height" Value="30"/>
             <Setter Property="VerticalAlignment" Value="Center"/>
             <Setter Property="HorizontalAlignment" Value="Left" />
         </Style>
@@ -77,13 +78,13 @@
             <Label Content="Task's Alias:" Margin="12,4,0,0"  Visibility="{Binding Id, Mode=OneTime, Converter={StaticResource ConvertIntToVisibilityForEng}}" Grid.Row="2"/>
 
         </Grid>-->
-        <TextBox Margin="50,19,0,0" Grid.Column="2"
+        <TextBox Margin="0,0,0,0" Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Center"
                  Text="{Binding  Id, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}"
                  IsEnabled="{Binding Id, Mode=OneTime, Converter={StaticResource ConvertText1ToIsEnabled}}" 
                  />
 
-        <TextBox Margin="49,20,0,0"  Grid.Column="2"
-                 Text="{Binding  Name, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}" Height="28" RenderTransformOrigin="0.5,0.5"  Grid.Row="1" >
+        <TextBox Margin="0,0,0,0"  Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Center"
+                 Text="{Binding  Name, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}" RenderTransformOrigin="0.5,0.5"  Grid.Row="1" >
             <TextBox.RenderTransform>
                 <TransformGroup>
                     <ScaleTransform ScaleY="1"/>
@@ -93,11 +94,11 @@
                 </TransformGroup>
             </TextBox.RenderTransform>
         </TextBox>
-        <TextBox Margin="50,18,0,0"  Grid.Column="2" Grid.Row="2" Width="300" Grid.ColumnSpan="2"
-                 Text="{Binding  Email, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}" Height="26" />
-        <ComboBox HorizontalAlignment="Left" Margin="50,20,0,0" Width="120" VerticalAlignment="Center" Grid.Column="2"
+        <TextBox  Grid.Column="2" Grid.Row="2" VerticalAlignment="Center" HorizontalAlignment="Center"
+                 Text="{Binding  Email, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}" />
+        <ComboBox Margin="0,0,0,0" Width="170" Height="30" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Column="2"
                   ItemsSource="{Binding Source={StaticResource LevelCollectionKey}}" SelectedValue="{Binding level, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" Grid.Row="3"/>
-        <TextBox Margin="50,0,0,0"  Grid.Column="2"
+        <TextBox Margin="0,0,0,0"  Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Center"
                  Text="{Binding  Cost, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}" Grid.Row="4"/>
         <Button Content="{Binding Id, Mode=OneTime, Converter={StaticResource ConverIdToContent}}" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,36,0,0"  Height="40" Width="96" Click="AddOrUpdateClick" Grid.Row="5" Grid.Column="3"/>
         <Button Content="Promot to manager" VerticalAlignment="Center" HorizontalAlignment="Center" Width="140" Height="40"  Click="btnPromot_Click" Grid.Row="4" Grid.Column="3" Visibility="{Binding Id, Mode=OneTime, Converter={StaticResource ConvertIntToVisibilityForEng}}"/>

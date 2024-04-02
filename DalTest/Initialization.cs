@@ -8,6 +8,7 @@ using System.Reflection.Emit;
 using System.Runtime.InteropServices;
 using System.Security.Cryptography;
 using System.Security.Principal;
+using System.Xml.Linq;
 using DalApi;
 using DO;
 using Microsoft.VisualBasic;
@@ -22,6 +23,12 @@ public static class Initialization
     public static void Do() 
     {
         s_dal = DalApi.Factory.Get;
+        //XElement? item = new XElement("config",
+        //    new XElement("NextDependencyId", 1),
+        //    new XElement("NextDependencyId", 1),
+        //    new XElement("NextDependencyId", ""),
+        //    new XElement("NextDependencyId", ""));
+        //XMLTools.SaveListToXMLElement(item, "data-config");
         createEngineer();
         createTasks();
         createDependency();
@@ -203,8 +210,8 @@ public static class Initialization
         s_dal!.Task.DeleteAll();
         s_dal!.Dependency.DeleteAll();
         s_dal!.User.DeleteAll();
-        //s_dal!.User.Create(new User(325984318, UserType.Manager, "eli2812"));
-        //s_dal!.User.Create(new User(213203649, UserType.Manager, "hadar0203"));
+        s_dal!.User.Create(new User(325984318, UserType.Manager, "eli2812"));
+        s_dal!.User.Create(new User(213203649, UserType.Manager, "hadar0203"));
     }
 }
 

@@ -8,8 +8,17 @@ namespace Dal;
 internal static class Config
 {
     static string s_data_config_xml = "data-config";
-    internal static int NextDependencyId { get => XMLTools.GetAndIncreaseNextId(s_data_config_xml, "NextDependencyId"); }
-    internal static int NextTaskId { get => XMLTools.GetAndIncreaseNextId(s_data_config_xml, "NextTaskId"); }
+    internal static int NextDependencyId 
+    {
+        get => XMLTools.GetAndIncreaseNextId(s_data_config_xml, "NextDependencyId");
+        set => XMLTools.SetNextId(s_data_config_xml, "NextDependencyId", value);
+    }
+    internal static int NextTaskId
+    {
+        get => XMLTools.GetAndIncreaseNextId(s_data_config_xml, "NextTaskId");
+        set => XMLTools.SetNextId(s_data_config_xml, "NextTaskId", value);
+    }
+
     public static DateTime? ProjectStartDate
     {
         get
@@ -25,6 +34,6 @@ internal static class Config
             XMLTools.SaveListToXMLElement(root, s_data_config_xml);
         }
     }
-    //public static DateTime? ProjectCompletetDate { get; set; }
+    
 
 }

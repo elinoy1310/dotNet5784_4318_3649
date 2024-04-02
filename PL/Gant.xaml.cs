@@ -32,20 +32,7 @@ namespace PL
 
         public Gant()
         {
-            //var lst = from item in s_bl.Task.ReadAll()
-            //          let task = s_bl.Task.Read(item.Id)
-            //          select new GantTask
-            //          {
-            //              TaskId = task.Id,
-            //              TaskAlias = task.Alias,
-            //              EngineerId = task.Engineer?.Id,
-            //              EngineerName = task.Engineer?.Name,
-            //              StartDate = calculateStartDate(task.StartDate, task.ScheduledDate),
-            //              CompleteDate = calculateCompleteDate(task.ForecastDate, task.CompleteDate),
-            //              DependentTasks = lstDependentId(task.Dependencies),
-            //              Status = task.Status
-            //          };
-            //ListGantTasks = lst.OrderBy(task => task.StartDate);
+       
             ListGantTasks = s_bl.CreateGantList();
             if(ListGantTasks is not null&&ListGantTasks!.Count()!=0)
             {
@@ -61,27 +48,7 @@ namespace PL
             InitializeComponent();
         }
 
-        //private IEnumerable<int> lstDependentId(IEnumerable<TaskInList>? dependencies)
-        //{
-        //    return from dep in dependencies
-        //           select dep.Id;
-        //}
 
-        //private DateTime calculateStartDate(DateTime? startDate, DateTime? scheduledDate)
-        //{
-        //    if (startDate == null)
-        //        return scheduledDate ?? s_bl.Clock;
-        //    else
-        //        return startDate ?? s_bl.Clock;
-        //}
-
-        //private DateTime calculateCompleteDate(DateTime? forecastDate, DateTime? completeDate)
-        //{
-        //    if (completeDate == null)
-        //        return forecastDate ?? s_bl.Clock;
-        //    else
-        //        return completeDate ?? s_bl.Clock;
-        //}
 
         private string dependenciesAsString(IEnumerable<int>? dependencies)
         {

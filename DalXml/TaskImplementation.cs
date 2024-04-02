@@ -108,5 +108,6 @@ internal class TaskImplementation:ITask
         tasks.Clear();
         // Save the empty list back to the XML file using XML serialization
         XMLTools.SaveListToXMLSerializer(tasks, s_tasks_xml);
+        Config.NextTaskId = 1;
     }
 }
