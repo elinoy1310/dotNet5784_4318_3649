@@ -46,9 +46,9 @@
                 </GridView>
             </ListView.View>-->
         </ListView>
-        
+
         <Label Content="double click on the task you want to choose" Grid.Row="4" FontSize="16" Margin="48,5,613,-2" Visibility="{Binding IdUser, Converter={StaticResource ConvertIntToVisibilityForEng}}"/>
-        <Button Content="Add&#x0a;Task"  Grid.Row="4" HorizontalAlignment="Center" Height="50" Width="100" Click="btnAddTask_Click" Foreground="Black" Background="#FFB0E8F3" FontFamily="Cascadia Code" FontSize="15" VerticalContentAlignment="Center"/>
+        <Button Content="Add&#x0a;Task"  Grid.Row="3" HorizontalAlignment="Center" Width="100" Click="btnAddTask_Click" Foreground="Black" Background="#FFB0E8F3" FontFamily="Cascadia Code" FontSize="15" VerticalContentAlignment="Center" Margin="0,372,0,0" Grid.RowSpan="2"/>
         <Button Content="Delete&#x0a;Task" HorizontalAlignment="Left" FontSize="15" Margin="909,0,0,0" Grid.Row="4" VerticalAlignment="Center" Height="50" Width="91" Click="btnDeleteTask_Click" />
         <Label Content="Filter the list by the Task Start Date:" HorizontalAlignment="Left" VerticalAlignment="Center" RenderTransformOrigin="1.127,0.526"  Grid.Column="0" FontFamily="Arial Black" FontSize="13" Width="318" Grid.Row="1"/>
         <Label Content="Filter the list by the Task Status:" HorizontalAlignment="Left" VerticalAlignment="Center" RenderTransformOrigin="1.127,0.526"  Grid.Column="0" FontFamily="Arial Black" FontSize="13" Width="318" Grid.Row="2" Height="30"/>

@@ -37,7 +37,7 @@ namespace PL.Task
 
         public TaskWindow(int idTask = 0)
         {
-            InitializeComponent();
+        
            // flagDependencyUpdated = false;
             if (idTask == 0)
             {
@@ -63,6 +63,7 @@ namespace PL.Task
                 }
 
             }
+            InitializeComponent();
 
 
 

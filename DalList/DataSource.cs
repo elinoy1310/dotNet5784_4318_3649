@@ -21,12 +21,12 @@ internal static class DataSource
         //define running variable for Task.id
         internal const int startTaskId = 1;
         private static int nextTaskId = startTaskId;
-        internal static int NextTaskId { get => nextTaskId++; }
+        internal static int NextTaskId { get => nextTaskId++; set => nextTaskId = value; }
 
         //define running variable for Dependency.id
         internal const int startDependencyId = 1;
         private static int nextDependencyId = startDependencyId;
-        internal static int NextDependencyId { get => nextDependencyId++; }
+        internal static int NextDependencyId { get => nextDependencyId++; set => NextDependencyId = 0; }
         public static DateTime? ProjectStartDate { get; set; }
         public static DateTime? ProjectCompletetDate { get; set; }
 

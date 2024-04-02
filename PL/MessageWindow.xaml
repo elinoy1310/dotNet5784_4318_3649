@@ -14,6 +14,11 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <Label Content="Enter Access Code:" Height="Auto" Width="Auto"  HorizontalAlignment="Center" VerticalAlignment="Bottom" Grid.Row="0"/>
+        <Label  Height="31" Width="38"  HorizontalAlignment="Center" VerticalAlignment="Top" Grid.Row="0" Margin="0,20,0,0">
+            <Label.Background>
+                <ImageBrush ImageSource="/messagewindow icon.png"/>
+            </Label.Background>
+        </Label>
         <Label Grid.Row="2" Visibility="{Binding ShowError, Converter={StaticResource ConvertBooleanToVisibility}}" Height="39" Width="110" HorizontalAlignment="Center" VerticalAlignment="Center" >
             <Label.Background>
                 <ImageBrush ImageSource="/צילום מסך 2024-04-02 211816.png" Stretch="Fill" TileMode="Tile"/>
@@ -24,7 +29,9 @@
                 <Style>
                     <Setter Property="Control.Template">
                         <Setter.Value>
-                            --><!-- הגדרת תבנית עיצוב עבור המוקד --><!--
+                            -->
+            <!-- הגדרת תבנית עיצוב עבור המוקד -->
+            <!--
                             <ControlTemplate>
                                 <TextBox BorderBrush="Black" BorderThickness="0,0,0,3"/>
                             </ControlTemplate>
@@ -32,7 +39,7 @@
                     </Setter>
                 </Style>
             </PasswordBox.FocusVisualStyle>-->
-            
+
         </PasswordBox>
 
         <Button Content="OK" Width="38" Height="auto" HorizontalAlignment="Center" VerticalAlignment="Top" Grid.Row="2" Click="btnOK_Click" Grid.RowSpan="2" FontSize="11" Margin="0,3,0,0" PreviewKeyDown="Enter_Click" />
