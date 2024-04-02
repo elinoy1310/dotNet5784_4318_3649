@@ -150,7 +150,7 @@ namespace PL.Task
         public DependenciesWindow(BO.Task auTask, TaskWindow tw)
         {
             InitializeComponent();
-            Dependencies = s_bl.Task.ReadAll(task => task.Id != auTask.Id);
+            Dependencies = s_bl.Task.ReadAll(task => task.Id != auTask.Id).OrderBy(task=>task.Id);
             currentTask = auTask;
             Tw = tw;
             Add_UpdateDep=new List<TaskInList>();
