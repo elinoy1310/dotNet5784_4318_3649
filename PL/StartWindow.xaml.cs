@@ -74,22 +74,7 @@ namespace PL
 
         private void btnInitUseres_Click(object sender, RoutedEventArgs e)
         {
-            try
-            {
-                s_bl!.User.Create(new BO.User() { UserId = 325984318, UserType = BO.UserType.Manager, passWord = "eli2812" });
-            }
-            catch //כבר קיים
-            {
-
-            }
-            try
-            {
-                s_bl!.User.Create(new BO.User() { UserId = 213203649, UserType = BO.UserType.Manager, passWord = "hadar0203" });
-            
-            }
-            catch /*(BlAlreadyExistException ex)*///כבר קיים
-            {
-            }
+           new MessageWindow().ShowDialog();
         }
     }
 }
