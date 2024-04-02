@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="Limited Access" Height="200" Width="200" MaxHeight="200" MaxWidth="200" WindowStyle="SingleBorderWindow">
     <Grid>
-        <TextBox Height="20" Width="150" />
+        <PasswordBox Height="20" Width="150" PasswordChanged="pb_PasswordChanged" />
         <Label Content="Enter Access Code:" Height="Auto" Width="Auto" Margin="25,56,63,102"/>
         <Button Content="OK" Width="auto" Height="auto
 " Margin="81,107,82,56" />

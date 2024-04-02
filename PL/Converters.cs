@@ -205,6 +205,20 @@ public class ConvertStatusToBackground : IValueConverter
     }
 }
 
+//public class ConvertBoolToBackground : IValueConverter
+//{
+//    public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+//    {
+//        return (bool)value ? Brushes.LightGray : Brushes.White;
+      
+//    }
+
+//    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+//    {
+//        throw new NotImplementedException();
+//    }
+//}
+
 
 public class ConvertStatusToForeground : IValueConverter
 {
@@ -234,6 +248,19 @@ public class ConvertStatusToForeground : IValueConverter
     }
 }
 
+public class ConvertTaskInlIstToText : IValueConverter
+{
+    public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+    {
+        BO.TaskInList? curTask = (BO.TaskInList)value;
+        return curTask is not null && curTask .Id!=0? curTask.ToString() : "Choose the dependencies that the new task is depend on them";
+    }
+
+    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+    {
+        throw new NotImplementedException();
+    }
+}
 
 public class ConvertTaskInEngineerToText : IValueConverter
 {
@@ -241,6 +268,21 @@ public class ConvertTaskInEngineerToText : IValueConverter
     {
         BO.TaskInEngineer? engTask = (BO.TaskInEngineer)value;
         return engTask is not null ? engTask.ToString() : "you are not working on any task right now";
+    }
+
+    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+    {
+        throw new NotImplementedException();
+    }
+}
+
+public class ConvertIntToTextForDepWindow : IValueConverter
+{
+    public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+    {
+        //1=list is not enabled= edit mode
+        //else: add/update
+        return (int)value == 1 ? "Edit the list of dependencies" : "Add / Update Dependencies for this task";
     }
 
     public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

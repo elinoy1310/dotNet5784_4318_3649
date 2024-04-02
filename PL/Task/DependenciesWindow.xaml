@@ -6,24 +6,47 @@
         xmlns:local="clr-namespace:PL.Task"
         mc:Ignorable="d"
         Title="DependenciesWindow" Height="450" Width="800"
-        DataContext="{Binding RelativeSource={RelativeSource Mode=Self}}">
+        DataContext="{Binding RelativeSource={RelativeSource Mode=Self}}" Background="#FFCFCFCF">
+    <Window.Resources>
+        <Style TargetType="ListBoxItem">
+            <Setter Property="FontSize" Value="14" />
+            <Setter Property="FontFamily" Value="Arial" />
+            <Setter Property="FontWeight" Value="Medium" />
+            <Setter Property="Margin" Value="20,5,20,16"/>
+            <Style.Triggers>
+                <Trigger Property="IsSelected" Value="True">
+                    <Setter Property="Background" Value="#FFCFCDC8"/>
+                    
 
-    <Canvas>
-        <ListBoxItem Loaded="ListBoxItem_Loaded"/>
-        <Label Content="Label" HorizontalAlignment="Left" Margin="10,26,0,0" VerticalAlignment="Top" Height="90" Width="739"/>
-        <ListBox ItemsSource="{Binding Dependencies}" SelectionMode="Multiple" Height="242" Width="800" HorizontalAlignment="Center" VerticalAlignment="Top" Canvas.Top="116" Initialized="ListBox_Initialized" Loaded="ListBox_Loaded" SelectionChanged="lb_selectionChanged" >
-  
+                    </Trigger>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#FFCFCDC8"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+            
+    </Window.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="3*"/>
+            <RowDefinition Height="6*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Label Content="{Binding DisplayTask, Converter={StaticResource ConvertTaskInlIstToText}}" Grid.Row="0" HorizontalAlignment="Left" Margin="20,0,0,20" VerticalAlignment="Center" Height="auto" Width="auto" FontSize="16" FontFamily="Calibri"  />
+        <ScrollViewer Margin="20,5,20,16" ScrollViewer.HorizontalScrollBarVisibility="Auto" ScrollViewer.VerticalScrollBarVisibility="Auto"  Grid.Row="1" IsEnabled="True">
+            
+        <ListBox IsEnabled="{Binding EditIsClicked,Converter={StaticResource ConvertText1ToIsEnabled}}" ItemsSource="{Binding Dependencies}" SelectionMode="Multiple" Height="auto" Width="auto" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Row="1" Loaded="ListBox_Loaded" SelectionChanged="lb_selectionChanged"   BorderBrush="Black" >
+              
+                <!--define the template of the items in the listbox as checkbox-->
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <StackPanel Orientation="Horizontal" >
                         <CheckBox IsChecked="{Binding IsSelected, RelativeSource={RelativeSource AncestorType={x:Type ListBoxItem}}}" />
-
-                        <!--<Label Content="{Binding Dependencies}"/>-->
                         <StackPanel>
-
                             <TextBlock Text="{Binding Id}"/>
                             <TextBlock Text="{Binding Alias}"/>
-                            <TextBlock Text="{Binding Description}"/>
+                            <TextBlock Text="{Binding Description}" TextWrapping="Wrap"/>
                             <TextBlock Text="{Binding Status}"/>
                         </StackPanel>
                     </StackPanel>
@@ -31,8 +54,10 @@
             </ListBox.ItemTemplate>
 
         </ListBox>
-        <Button Content="Update" Canvas.Left="330" Canvas.Top="382" Height="42" Width="100" Click="btnAddUpdate_Click"/>
-    </Canvas>
+        </ScrollViewer>
+        <Button Background="White" Content="{Binding EditIsClicked,Converter={StaticResource ConvertIntToTextForDepWindow}}" Grid.Row="2" Height="42" Width="auto" HorizontalAlignment="Center" VerticalAlignment="Center" Click="btnAddUpdate_Click" />
+        
+    </Grid>
 </Window>
 
 

@@ -20,5 +20,7 @@
         <local:ConvertOppositeBooleanToVisibility x:Key="ConvertOppositeBooleanToVisibility"/>
         <local:ConvertByItemIdtoIsSelected x:Key="ConvertByItemIdtoIsSelected"/>
         <local:ListItemSelectionConverter x:Key="ListItemSelectionConverter"/>
+        <local:ConvertTaskInlIstToText x:Key="ConvertTaskInlIstToText"/>
+        <local:ConvertIntToTextForDepWindow x:Key="ConvertIntToTextForDepWindow"/>
     </Application.Resources>
 </Application>

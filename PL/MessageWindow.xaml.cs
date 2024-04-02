@@ -19,9 +19,16 @@ namespace PL
     /// </summary>
     public partial class MessageWindow : Window
     {
+        string code;
         public MessageWindow()
         {
             InitializeComponent();
+        }
+
+        private void pb_PasswordChanged(object sender, RoutedEventArgs e)
+        {
+            if(sender as PasswordBox is not null)
+            code = (sender as PasswordBox)!.Password;
         }
     }
 }
