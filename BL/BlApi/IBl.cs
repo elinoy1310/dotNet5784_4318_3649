@@ -17,4 +17,6 @@ public interface IBl
     public IEnumerable<BO.Task> UpdateManuallyList();
     public void InitializeDB();
     public void ResetDB();
+
+    public IEnumerable<GanttTask>? CreateGantList();
 }

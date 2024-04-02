@@ -136,17 +136,17 @@ namespace PL.Task
         public BO.Task currentTask { get; set; }
         //public bool isSelected { get; set; }
         public TaskWindow Tw { get; set; }
-        public DependenciesWindow(int idTask,TaskWindow tw)
-        {
-            InitializeComponent();
-            Dependencies = s_bl.Task.ReadAll(task => task.Id != idTask);
-            currentTask = s_bl.Task.Read(idTask);
-            Tw= tw;
-            //ListBox lb=new ListBox();
-            //foreach(var dep in task.Dependencies)
+        //public DependenciesWindow(int idTask,TaskWindow tw)
+        //{
+        //    InitializeComponent();
+        //    Dependencies = s_bl.Task.ReadAll(task => task.Id != idTask);
+        //    currentTask = s_bl.Task.Read(idTask);
+        //    Tw= tw;
+        //    //ListBox lb=new ListBox();
+        //    //foreach(var dep in task.Dependencies)
 
 
-        }
+        //}
         public DependenciesWindow(BO.Task auTask, TaskWindow tw)
         {
             InitializeComponent();

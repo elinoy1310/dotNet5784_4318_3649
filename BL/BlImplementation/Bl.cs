@@ -66,7 +66,7 @@ public class Bl : IBl
         if (ProjectStartDate == null)
             return ProjectStatus.Planing;
         // If any task's scheduled date is not set, the project is in execution phase
-        if (Task.ReadAll(item => item.ScheduledDate is null).Count()==0)
+        if (Task.ReadAll(item => item.ScheduledDate is null).Count() == 0)
             return ProjectStatus.Execution;
         // Otherwise, the project is in the mid phase
         return ProjectStatus.Mid;
@@ -107,7 +107,7 @@ public class Bl : IBl
     private DateTime? createScheduleOptionManually(int taskId)
     {
         BO.Task task = Task.Read(taskId);
-        if (task.Dependencies?.Count()==0)
+        if (task.Dependencies?.Count() == 0)
         {
             return ProjectStartDate;
         }
@@ -173,7 +173,7 @@ public class Bl : IBl
     {
         IEnumerable<TaskInList> dependOnTasks = Task.ReadAll(boTask => boTask.Dependencies!.FirstOrDefault(item => item.Id == id) != null).ToList();
         BO.Task dep = Task.Read(id);
-        if (dependOnTasks == null)
+        if (dependOnTasks == null || dependOnTasks.Count() == 0)
             return;
         foreach (TaskInList task in dependOnTasks!)
         {
@@ -202,7 +202,7 @@ public class Bl : IBl
         {
             BO.Task currentTask = Task.Read(q.First());
             IEnumerable<TaskInList> dependOnTasks = Task.ReadAll(boTask => boTask.Dependencies!.FirstOrDefault(item => item.Id == currentTask.Id) != null).ToList();
-            if (dependOnTasks.Count()!=0)
+            if (dependOnTasks.Count() != 0)
                 foreach (var item in dependOnTasks)
                 {
                     q.Enqueue(item.Id);
@@ -239,4 +239,44 @@ public class Bl : IBl
         //return t.Select(g=>g);
         return tasks;
     }
+    public IEnumerable<GanttTask>? CreateGantList()
+    {
+        var lst = from item in Task.ReadAll()
+                  let task = Task.Read(item.Id)
+                  select new GanttTask
+                  {
+                      TaskId = task.Id,
+                      TaskAlias = task.Alias,
+                      EngineerId = task.Engineer?.Id,
+                      EngineerName = task.Engineer?.Name,
+                      StartDate = calculateStartDate(task.StartDate, task.ScheduledDate),
+                      CompleteDate = calculateCompleteDate(task.ForecastDate, task.CompleteDate),
+                      DependentTasks = lstDependentId(task.Dependencies),
+                      Status = task.Status
+                  };
+        return lst.OrderBy(task => task.StartDate);
+
+    }
+    private IEnumerable<int> lstDependentId(IEnumerable<TaskInList>? dependencies)
+    {
+        return from dep in dependencies
+               select dep.Id;
+    }
+
+    private DateTime calculateStartDate(DateTime? startDate, DateTime? scheduledDate)
+    {
+        if (startDate == null)
+            return scheduledDate ?? Clock;
+        else
+            return startDate ?? Clock;
+    }
+
+    private DateTime calculateCompleteDate(DateTime? forecastDate, DateTime? completeDate)
+    {
+        if (completeDate == null)
+            return forecastDate ?? Clock;
+        else
+            return completeDate ?? Clock;
+    }
+
 }

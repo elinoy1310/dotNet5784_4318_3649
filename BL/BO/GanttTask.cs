@@ -1,12 +1,7 @@
-﻿
+﻿namespace BO;
 
-using System.Collections.Generic;
-using System;
-
-namespace PL;
-
-public class GantTask
-{
+    public class GanttTask
+    {
     public int TaskId { get; set; }
     public DateTime StartDate { get; set; }
     public DateTime CompleteDate { get; set; }
@@ -16,4 +11,6 @@ public class GantTask
     public string? EngineerName { get; set; }
     public IEnumerable<int>? DependentTasks { get; set; }
 }
+
+
 

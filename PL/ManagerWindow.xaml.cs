@@ -176,7 +176,7 @@ namespace PL
                 s_bl.ProjectStartDate = startProject;
 
 
-                MessageBoxResult mbResult = MessageBox.Show("Are you sure you want to create the schedule automatically?", "Create Schedule Option", MessageBoxButton.YesNoCancel, MessageBoxImage.Question);
+                MessageBoxResult mbResult = MessageBox.Show("Do you want to create the schedule automatically?", "Create Schedule Option", MessageBoxButton.YesNoCancel, MessageBoxImage.Question);
                 if (mbResult == MessageBoxResult.Yes)
                 {
                     try

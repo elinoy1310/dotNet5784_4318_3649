@@ -88,8 +88,11 @@ internal class TaskImplementation:ITask
     /// <param name="item">Task item with updated values </param>
     public void Update(Task item)
     {
-        List<Task> tasks = XMLTools.LoadListFromXMLSerializer<Task>(s_tasks_xml);//imports the data from the XML file into a list
+       
         Delete(item.Id);
+        List<Task> tasks = XMLTools.LoadListFromXMLSerializer<Task>(s_tasks_xml);//imports the data from the XML file into a list
+        //if (tasks.RemoveAll(x => x.Id == item.Id) == 0)
+        //    throw new DalDoesNotExistException($"Task with ID={item.Id} does Not exist"); //if the item is not in the list           
         tasks.Add(item);
         XMLTools.SaveListToXMLSerializer<Task>(tasks, s_tasks_xml);//save the list in XML file
     }

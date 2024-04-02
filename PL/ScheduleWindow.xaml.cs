@@ -66,10 +66,11 @@ namespace PL
                         MessageBox.Show("All the tasks are updated, The Schedule was created successfully!");
                         this.Close();
                     }
+                    else
+                        CurrentTask = tasks.First();
                 } 
 
-                else
-                    CurrentTask = tasks.First();
+                
             }
             catch (BO.BlCannotBeUpdatedException ex)
             {

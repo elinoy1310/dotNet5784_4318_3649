@@ -19,11 +19,11 @@ sealed internal class DalXml : IDal
         set { Config.ProjectStartDate = value; }
     }
 
-    public DateTime? ProjectCompletetDate
-    {
-        get { return Config.ProjectCompletetDate; }
-        set { Config.ProjectCompletetDate = value; }
-    }
+    //public DateTime? ProjectCompletetDate
+    //{
+    //    get { return Config.ProjectCompletetDate; }
+    //    set { Config.ProjectCompletetDate = value; }
+    //}
 
     private DalXml() { }
 }

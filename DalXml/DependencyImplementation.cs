@@ -90,8 +90,9 @@ internal class DependencyImplementation:IDependency
     /// <param name="item">The object with the updated details</param>
     public void Update(Dependency item)
     {
-        List<Dependency> dependencies = XMLTools.LoadListFromXMLSerializer<Dependency>(s_dependencys_xml);//imports the data from the XML file into a list
+        
         Delete(item.Id);
+        List<Dependency> dependencies = XMLTools.LoadListFromXMLSerializer<Dependency>(s_dependencys_xml);//imports the data from the XML file into a list
         dependencies.Add(item);
         XMLTools.SaveListToXMLSerializer<Dependency>(dependencies, s_dependencys_xml);//save the list in XML file
     }
