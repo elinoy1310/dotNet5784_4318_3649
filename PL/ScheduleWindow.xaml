@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL"
         mc:Ignorable="d"
-        Title="ScheduleWindow" Height="450" Width="800"
+        Title="Schedule Window" Height="450" Width="800"
         DataContext="{Binding RelativeSource={RelativeSource Mode=Self}}" Icon="/scedle window icon.png">
     <Window.Background>
         <ImageBrush ImageSource="/scedule window background.jpg" Stretch="UniformToFill"/>

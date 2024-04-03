@@ -158,7 +158,7 @@ namespace PL.Engineer
         private void btnCancel_Click(object sender, RoutedEventArgs e)
         {
             ChangePasswordIsClicked = false;
-            Password = "";
+            Password = ""; 
         }
     }
 }

@@ -133,7 +133,20 @@ public class ListItemSelectionConverter : IMultiValueConverter
     }
 }
 
+public class ConvertDateToIsEnable : IValueConverter
+{
+    public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+    {
+        if ((DateTime?)value==null)
+            return false;
+        return true;
+    }
 
+    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+    {
+        throw new NotImplementedException();
+    }
+}
 
 public class ConvertOppositeBooleanToVisibility : IValueConverter
 {
@@ -350,19 +363,6 @@ public class ConvertText1ToIsEnabled : IValueConverter
     }
 }
 
-public class ConvertText2ToIsEnabled : IValueConverter
-{
-
-    public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
-    {
-        return (int)value == 1;
-    }
-    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
-    {
-        throw new NotImplementedException();
-    }
-
-}
 
 public class ConvertByItemIdtoIsSelected : IValueConverter
 {

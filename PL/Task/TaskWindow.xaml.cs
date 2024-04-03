@@ -27,7 +27,7 @@ namespace PL.Task
         public BO.EngineerExperience Level { get; set; } = BO.EngineerExperience.None;
         public string State { get; init; }
 
-      public TaskWindow(BO.Task au_Task)
+        public TaskWindow(BO.Task au_Task)
         {
             State = au_Task.Id == 0 ? "Add" : "Update";
             // flagDependencyUpdated = true;
@@ -37,13 +37,13 @@ namespace PL.Task
 
         public TaskWindow(int idTask = 0)
         {
-        
-           // flagDependencyUpdated = false;
+
+            // flagDependencyUpdated = false;
             if (idTask == 0)
             {
                 State = "Add";
                 add_updateTask = new BO.Task();
-                Add_updateEng=new BO.EngineerInTask();
+                Add_updateEng = new BO.EngineerInTask();
             }
             else
             {
@@ -51,7 +51,7 @@ namespace PL.Task
                 try
                 {
                     add_updateTask = s_bl.Task.Read(idTask);
-                    Add_updateEng = add_updateTask.Engineer??new BO.EngineerInTask();
+                    Add_updateEng = add_updateTask.Engineer ?? new BO.EngineerInTask();
                 }
                 catch (BO.BlDoesNotExistException ex)
                 {
@@ -90,8 +90,8 @@ namespace PL.Task
         // Using a DependencyProperty as the backing store for add_updateTask.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty add_updateTaskProperty =
             DependencyProperty.Register("add_updateTask", typeof(BO.Task), typeof(TaskWindow), new PropertyMetadata(new BO.Task()));
-       
-        
+
+
         private void AddOrUpdateClick(object sender, RoutedEventArgs e)
         {
             if (State == "Add")
@@ -101,11 +101,7 @@ namespace PL.Task
                     s_bl.Task.Create(add_updateTask);
                     MessageBoxResult successMsg = MessageBox.Show("The Task created successfully!");
                 }
-                //catch (BO.BlAlreadyExistException ex)
-                //{
-                //    MessageBoxResult mbResult = MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
 
-                //}
                 catch (BO.BlWrongDataException ex)
                 {
                     MessageBoxResult mbResult = MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
@@ -115,13 +111,14 @@ namespace PL.Task
             }
             else // State is "Update"
             {
-                if (Add_updateEng.Id != 0)
-                {
-                    BO.Engineer eng = s_bl.Engineer.Read(Add_updateEng.Id);
-                    add_updateTask.Engineer = new BO.EngineerInTask() { Id = eng.Id, Name = eng.Name };
-                }
                 try
                 {
+                    if (Add_updateEng.Id != 0)
+                    {
+                        BO.Engineer eng = s_bl.Engineer.Read(Add_updateEng.Id);
+                        add_updateTask.Engineer = new BO.EngineerInTask() { Id = eng.Id, Name = eng.Name };
+                    }
+
                     s_bl.Task.Update(add_updateTask);
                     MessageBoxResult successMsg = MessageBox.Show("The Task updated successfully!");
                 }
@@ -130,11 +127,11 @@ namespace PL.Task
                     MessageBoxResult mbResult = MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
 
                 }
-                //catch (BO.BlWrongDataException ex)
-                //{
-                //    MessageBoxResult mbResult = MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                catch (BO.BlWrongDataException ex)
+                {
+                    MessageBoxResult mbResult = MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
 
-                //}
+                }
                 //catch (BO.BlCannotBeUpdatedException ex)
                 //{
                 //    MessageBoxResult mbResult = MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
@@ -149,7 +146,7 @@ namespace PL.Task
 
         private void BtnDependencies_Click(object sender, RoutedEventArgs e)
         {
-           // new DependenciesWindow(add_updateTask.Id,this).ShowDialog();
+            // new DependenciesWindow(add_updateTask.Id,this).ShowDialog();
             new DependenciesWindow(add_updateTask, this).ShowDialog();
         }
     }

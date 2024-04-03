@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using BO;
 
 namespace PL
 {
@@ -53,8 +54,9 @@ namespace PL
                 {
                     s_bl!.User.Create(new BO.User() { UserId = 325984318, UserType = BO.UserType.Manager, passWord = "eli2812" });
                 }
-                catch //כבר קיים
+                catch (BlAlreadyExistException ex)
                 {
+                    MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
 
                 }
                 try
@@ -62,8 +64,10 @@ namespace PL
                     s_bl!.User.Create(new BO.User() { UserId = 213203649, UserType = BO.UserType.Manager, passWord = "hadar0203" });
 
                 }
-                catch /*(BlAlreadyExistException ex)*///כבר קיים
+                catch (BlAlreadyExistException ex)
                 {
+                    MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+
                 }
                 this.Close();
                 MessageBox.Show("the users was initialize succesfuly", "Access Granted", MessageBoxButton.OK);

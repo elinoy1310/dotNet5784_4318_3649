@@ -103,12 +103,26 @@ namespace PL.Task
                 MessageBoxResult mbResult = MessageBox.Show($"Are you sure you want to choose the task {task!.Alias}?", "Validation", MessageBoxButton.OKCancel, MessageBoxImage.Question);
                 if (mbResult == MessageBoxResult.OK)
                 {
-                    BO.Task updateTask = s_bl.Task.Read(task!.Id);
-                    BO.EngineerInTask engInTask = new BO.EngineerInTask() { Id = (int)IdUser };
-                    updateTask!.Engineer = engInTask;
-                    s_bl.Task.Update(updateTask);
-                    this.Close();
-                    new EngineerViewWindow(IdUser).Show();
+                    try
+                    {
+                        BO.Task updateTask = s_bl.Task.Read(task!.Id);
+                        BO.EngineerInTask engInTask = new BO.EngineerInTask() { Id = (int)IdUser };
+                        updateTask!.Engineer = engInTask;
+                        s_bl.Task.Update(updateTask);
+                        this.Close();
+                        new EngineerViewWindow(IdUser).Show();
+                    }
+                    catch (BO.BlDoesNotExistException ex)
+                    {
+                        MessageBoxResult mbError = MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+
+                    }
+                    catch (BO.BlWrongDataException ex)
+                    {
+                        MessageBoxResult mbError = MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+
+                    }
+
                 }
             }
             else
@@ -136,8 +150,16 @@ namespace PL.Task
 
         private void btnDeleteTask_Click(object sender, RoutedEventArgs e)
         {
-            if (SelectedTask is not null)
-                s_bl.Task.Delete(SelectedTask.Id);
+            try
+            {
+                if (SelectedTask is not null)
+                    s_bl.Task.Delete(SelectedTask.Id);
+            }
+            catch (BO.BlCannotBeDeletedException ex)
+            {
+                MessageBoxResult mbResult = MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+
+            }
             MessageBoxResult successMsg = MessageBox.Show("The Task deleted successfully!");
             TaskList = s_bl.Task.ReadAll();
         }

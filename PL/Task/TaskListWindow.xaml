@@ -5,8 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL.Task"
         mc:Ignorable="d"
-        Title="TaskListWindow" Height="550" Width="1000"
-        DataContext="{Binding RelativeSource={RelativeSource Mode=Self}}" Loaded="wLoadTheUpdatedTasksList_Loaded">
+        Title="Task List Window" Height="550" Width="1000"
+        DataContext="{Binding RelativeSource={RelativeSource Mode=Self}}" Loaded="wLoadTheUpdatedTasksList_Loaded" Icon="/Task/listTasksIcon.jpg">
 
     <Window.Resources>
         <Style TargetType="Button">

@@ -26,6 +26,9 @@
 	  <None Remove="password box icon.png" />
 	  <None Remove="scedle window icon.png" />
 	  <None Remove="scedule window background.jpg" />
+	  <None Remove="Task\dependenciesIcon.jpg" />
+	  <None Remove="Task\listTasksIcon.jpg" />
+	  <None Remove="Task\taskIcon.png" />
 	  <None Remove="Task\WhatsApp Image 2024-02-29 at 23.18.41.jpeg" />
 	  <None Remove="Task\צילום מסך 2024-04-02 174416.png" />
 	  <None Remove="use entrance pic.png" />
@@ -56,6 +59,9 @@
 	  <Resource Include="password box icon.png" />
 	  <Resource Include="scedle window icon.png" />
 	  <Resource Include="scedule window background.jpg" />
+	  <Resource Include="Task\dependenciesIcon.jpg" />
+	  <Resource Include="Task\listTasksIcon.jpg" />
+	  <Resource Include="Task\taskIcon.png" />
 	  <Resource Include="Task\צילום מסך 2024-04-02 174416.png" />
 	  <Resource Include="use entrance pic.png" />
 	  <Resource Include="user entrance backgrond.jpg" />

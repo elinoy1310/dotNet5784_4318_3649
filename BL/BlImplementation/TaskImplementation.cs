@@ -25,7 +25,7 @@ internal class TaskImplementation : ITask
         {
             int? engineerId = task.Engineer is not null ? task.Engineer.Id : null;
             // Create data object from business object
-            DO.Task doTask = new DO.Task(task.Id, task.Alias, task.Description, false, task.RequiredEffortTime, task.CreatedAtDate, task.ScheduledDate, task.StartDate, task.CompleteDate, null, task.Deliverables, task.Remarks, engineerId, (DO.EngineerExperience)task.Complexity);
+            DO.Task doTask = new DO.Task(task.Id, task.Alias, task.Description, task.RequiredEffortTime, task.CreatedAtDate, task.ScheduledDate, task.StartDate, task.CompleteDate, task.Deliverables, task.Remarks, engineerId, (DO.EngineerExperience)task.Complexity);
             // Create task in the data layer and get the new task ID
             int idNewTask = _dal.Task.Create(doTask);
             // Create dependencies for the new task
@@ -210,7 +210,7 @@ internal class TaskImplementation : ITask
             try
             {
                 // Convert the logic object task to a data object and update in the data layer
-                DO.Task convertFromBOtoDO = new DO.Task(task.Id, task.Alias, task.Description, false, task.RequiredEffortTime, Originaltask.CreatedAtDate, Originaltask.ScheduledDate, Originaltask.StartDate, Originaltask.CompleteDate, null, task.Deliverables, task.Remarks, Originaltask.Engineer?.Id, (DO.EngineerExperience)task.Complexity);
+                DO.Task convertFromBOtoDO = new DO.Task(task.Id, task.Alias, task.Description, task.RequiredEffortTime, Originaltask.CreatedAtDate, Originaltask.ScheduledDate, Originaltask.StartDate, Originaltask.CompleteDate, task.Deliverables, task.Remarks, Originaltask.Engineer?.Id, (DO.EngineerExperience)task.Complexity);
                 _dal.Task.Update(convertFromBOtoDO);
             }
             catch (DO.DalDoesNotExistException ex)
@@ -233,7 +233,7 @@ internal class TaskImplementation : ITask
             try
             {
                 // Convert the logic object task to a data object and update in the data layer
-                DO.Task convertFromBOtoDO = new DO.Task(task.Id, task.Alias, task.Description, false, task.RequiredEffortTime, task.CreatedAtDate, task.ScheduledDate, task.StartDate, task.CompleteDate, null, task.Deliverables, task.Remarks, task.Engineer?.Id, (DO.EngineerExperience)task.Complexity);
+                DO.Task convertFromBOtoDO = new DO.Task(task.Id, task.Alias, task.Description, task.RequiredEffortTime, task.CreatedAtDate, task.ScheduledDate, task.StartDate, task.CompleteDate, task.Deliverables, task.Remarks, task.Engineer?.Id, (DO.EngineerExperience)task.Complexity);
                 _dal.Task.Update(convertFromBOtoDO);
             }
             catch (DO.DalDoesNotExistException ex)
@@ -252,7 +252,7 @@ internal class TaskImplementation : ITask
 
 
                 // Convert the logic object task to a data object and update in the data layer
-                DO.Task convertFromBOtoDO = new DO.Task(task.Id, task.Alias, task.Description, false, task.RequiredEffortTime, task.CreatedAtDate, task.ScheduledDate, task.StartDate, task.CompleteDate, null, task.Deliverables, task.Remarks, task.Engineer?.Id, (DO.EngineerExperience)task.Complexity);
+                DO.Task convertFromBOtoDO = new DO.Task(task.Id, task.Alias, task.Description, task.RequiredEffortTime, task.CreatedAtDate, task.ScheduledDate, task.StartDate, task.CompleteDate, task.Deliverables, task.Remarks, task.Engineer?.Id, (DO.EngineerExperience)task.Complexity);
                 _dal.Task.Update(convertFromBOtoDO);
             }
             catch (DO.DalDoesNotExistException ex)
@@ -277,9 +277,12 @@ internal class TaskImplementation : ITask
         {
             // Retrieve the engineer from the data layer
             DO.Engineer? engInTask = _dal.Engineer.ReadAll().FirstOrDefault(e => e?.Id == task.Engineer?.Id);
+            DO.Task? checkTask = _dal.Task.ReadAll().FirstOrDefault(t => t?.EngineerId == task.Engineer.Id);
             // Check if the engineer exists
             if (engInTask == null)
                 throw new BlDoesNotExistException($"Engineer with ID={task.Engineer?.Id} was not found");
+            if (checkTask != null)
+                throw new BlWrongInputFormatException($"Engineer with ID={checkTask.EngineerId} already working on this task");
             // Compare the engineer's level with the task's complexity level
             if ((int)engInTask.Level < (int)task.Complexity)
                 throw new BlWrongDataException("The level of the engineer is too low for the level of the task");
