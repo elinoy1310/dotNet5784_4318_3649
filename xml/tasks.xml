@@ -84,17 +84,6 @@
     <Complexity>AdvancedBeginner</Complexity>
   </Task>
   <Task>
-    <Id>14</Id>
-    <Alias>i.p.</Alias>
-    <Description>(Installation plan) Planning the installation process, including sequence, logistics and coordination with the installation teams.</Description>
-    <IsMileStone>false</IsMileStone>
-    <RequiredEffortTime>P1DT8H</RequiredEffortTime>
-    <CreatedInDate>2024-03-26T00:00:00</CreatedInDate>
-    <ScheduledDate>2024-04-11T00:00:00</ScheduledDate>
-    <Deadline xsi:nil="true" />
-    <Complexity>Advanced</Complexity>
-  </Task>
-  <Task>
     <Id>15</Id>
     <Alias>q.a.p.</Alias>
     <Description>(Quality assurance protocol) Development and implementation of a quality assurance protocol to ensure compliance with design specifications.</Description>
@@ -225,5 +214,17 @@
     <ScheduledDate>2024-04-18T21:00:00</ScheduledDate>
     <Deadline xsi:nil="true" />
     <Complexity>AdvancedBeginner</Complexity>
+  </Task>
+  <Task>
+    <Id>14</Id>
+    <Alias>i.p.</Alias>
+    <Description>(Installation plan) Planning the installation process, including sequence, logistics and coordination with the installation teams.</Description>
+    <IsMileStone>false</IsMileStone>
+    <RequiredEffortTime>P1DT8H</RequiredEffortTime>
+    <CreatedInDate>2024-03-26T00:00:00</CreatedInDate>
+    <ScheduledDate>2024-04-11T00:00:00</ScheduledDate>
+    <CompleteDate>2024-04-03T03:54:32.6616762+03:00</CompleteDate>
+    <Deadline xsi:nil="true" />
+    <Complexity>Advanced</Complexity>
   </Task>
 </ArrayOfTask>

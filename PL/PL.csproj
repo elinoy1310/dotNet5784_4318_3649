@@ -19,14 +19,23 @@
 	  <None Remove="Engineer\engineer window background.png" />
 	  <None Remove="Engineer\צילום מסך 2024-03-24 051307.png" />
 	  <None Remove="error icon.jpg" />
+	  <None Remove="main background.png" />
+	  <None Remove="main icon.jpg" />
 	  <None Remove="manage window icon.png" />
 	  <None Remove="messagewindow icon.png" />
+	  <None Remove="password box icon.png" />
 	  <None Remove="scedle window icon.png" />
 	  <None Remove="scedule window background.jpg" />
 	  <None Remove="Task\WhatsApp Image 2024-02-29 at 23.18.41.jpeg" />
 	  <None Remove="Task\צילום מסך 2024-04-02 174416.png" />
+	  <None Remove="use entrance pic.png" />
+	  <None Remove="user entrance backgrond.jpg" />
+	  <None Remove="user entry icon.jpg" />
+	  <None Remove="userentry backgrou.png" />
+	  <None Remove="usertext box icon.jpg" />
 	  <None Remove="WhatsApp Image 2024-02-29 at 23.18.41.jpeg" />
 	  <None Remove="צילום מסך 2024-04-02 211816.png" />
+	  <None Remove="תמונה2.png" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -40,12 +49,21 @@
 	  <Resource Include="Engineer\engineer window background.png" />
 	  <Resource Include="Engineer\צילום מסך 2024-03-24 051307.png" />
 	  <Resource Include="error icon.jpg" />
+	  <Resource Include="main background.png" />
+	  <Resource Include="main icon.jpg" />
 	  <Resource Include="manage window icon.png" />
 	  <Resource Include="messagewindow icon.png" />
+	  <Resource Include="password box icon.png" />
 	  <Resource Include="scedle window icon.png" />
 	  <Resource Include="scedule window background.jpg" />
 	  <Resource Include="Task\צילום מסך 2024-04-02 174416.png" />
+	  <Resource Include="use entrance pic.png" />
+	  <Resource Include="user entrance backgrond.jpg" />
+	  <Resource Include="user entry icon.jpg" />
+	  <Resource Include="userentry backgrou.png" />
+	  <Resource Include="usertext box icon.jpg" />
 	  <Resource Include="צילום מסך 2024-04-02 211816.png" />
+	  <Resource Include="תמונה2.png" />
 	</ItemGroup>
 
 </Project>

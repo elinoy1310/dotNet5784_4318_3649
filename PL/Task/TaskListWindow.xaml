@@ -51,13 +51,13 @@
                 </GridView>
             </ListView.View>-->
         </ListView>
-        <Label Content="double click on the task you want to choose" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Row="2" FontSize="16" Margin="0,0,0,0" Visibility="{Binding IdUser, Converter={StaticResource ConvertIntToVisibilityForEng}}"/>
-        <Button Content="Add&#x0a;Task"  Grid.Row="2" HorizontalAlignment="Center" Height="50" Width="100" Click="btnAddTask_Click" FontFamily="Cascadia Code" FontSize="15" VerticalContentAlignment="Center">
+        <Label Visibility="{Binding IdUser, Converter={StaticResource ConvertIntToVisibilityForEng}}" Content="double click on the task you want to choose" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Row="2" FontSize="16" Margin="0,0,0,0" />
+        <Button Content="Add&#x0a;Task" Visibility="{Binding IdUser, Converter={StaticResource ConvertTextToVisibility}}" Grid.Row="2" HorizontalAlignment="Center" Height="50" Width="100" Click="btnAddTask_Click" FontFamily="Cascadia Code" FontSize="15" VerticalContentAlignment="Center">
             <Button.Background>
                 <ImageBrush/>
             </Button.Background>
         </Button>
-        <Button Content="Delete&#x0a;Task" HorizontalAlignment="Right" FontSize="15" Margin="0,0,0,0" Grid.Row="2" VerticalAlignment="Center" Height="50" Width="91" Click="btnDeleteTask_Click" />
+        <Button Content="Delete&#x0a;Task" Visibility="{Binding IdUser, Converter={StaticResource ConvertTextToVisibility}}" HorizontalAlignment="Right" FontSize="15" Margin="0,0,0,0" Grid.Row="2" VerticalAlignment="Center" Height="50" Width="91" Click="btnDeleteTask_Click" />
 
     </Grid>
 </Window>
