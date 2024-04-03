@@ -31,7 +31,7 @@ namespace PL.Task
         { 
             IdUser= 0;
             InitializeComponent();
-           
+            FilterStartDate = s_bl.Clock;
         }
 
         public TaskListWindow(BO.Engineer eng)
@@ -39,7 +39,7 @@ namespace PL.Task
             Filter = item => item.Engineer is null && s_bl.Task.PreviousTaskDone(item.Id) && item.Status != BO.Status.Done;
             IdUser = eng.Id;
             InitializeComponent();
-            
+            FilterStartDate = s_bl.Clock;
         }
 
 
