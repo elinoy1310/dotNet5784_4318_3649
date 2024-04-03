@@ -35,4 +35,14 @@
     <type>Engineer</type>
     <password>eng123</password>
   </User>
+  <User>
+    <userId>325984318</userId>
+    <type>Manager</type>
+    <password>eli2812</password>
+  </User>
+  <User>
+    <userId>213203649</userId>
+    <type>Manager</type>
+    <password>hadar0203</password>
+  </User>
 </ArrayOfUser>

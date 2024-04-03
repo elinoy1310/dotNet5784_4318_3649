@@ -186,11 +186,20 @@ internal class TaskImplementation : ITask
     public void Update(BO.Task task)
     {
         //בדיקת תקינות לתלויות לעדכון
-        int? invalidDep = isValidDependenciesList(task);
-        if (invalidDep is not null)
-            throw new BlWrongDataException($"The task with id={invalidDep} can't be assign as previous task to the task with id={task.Id}");
+        bool flagUpdateDep = true;
         // Retrieve the original task from the data layer
         BO.Task Originaltask = Read(task.Id);
+        if (Originaltask.Dependencies == task.Dependencies)
+            flagUpdateDep = false;
+        if (flagUpdateDep)
+        {
+
+            int? invalidDep = isValidDependenciesList(task);
+        if (invalidDep is not null)
+            throw new BlWrongDataException($"The task with id={invalidDep} can't be assign as previous task to the task with id={task.Id}");
+        }
+       
+            
         // Check the project status to determine the update logic
         if (_bl.CheckProjectStatus() == BO.ProjectStatus.Planing)
         {
@@ -213,9 +222,14 @@ internal class TaskImplementation : ITask
         else if (_bl.CheckProjectStatus() == BO.ProjectStatus.Mid)
         {
             // Perform additional checks and update logic based on project status
+
             CheckingEngineer(task);
+            if(flagUpdateDep)
+            {
+
             deleteDependencies(task);
             updateDependencies(task);
+            }
             try
             {
                 // Convert the logic object task to a data object and update in the data layer
