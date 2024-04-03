@@ -5,25 +5,51 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL"
         mc:Ignorable="d"
-        Title="Start Window" Height="450" Width="800"
-         DataContext="{Binding RelativeSource={RelativeSource Mode=Self}}">
+        Title="StartWindow" Height="450" Width="800"
+         DataContext="{Binding RelativeSource={RelativeSource Mode=Self}}" Icon="/main icon.jpg">
+    <Window.Resources>
+        <Style TargetType="Button">
+            <Setter Property="Margin" Value="5,5,5,5" />
+            <Setter Property="Background" Value="White" />
+            <Setter Property="Foreground" Value="#FF45AEFF" />
+            <Setter Property="FontWeight" Value="Bold" />
+            <Setter Property="FontSize" Value="20" />
+            <Setter Property="FontFamily" Value="Rockwell Extra Bold"/>
+        </Style>
+    </Window.Resources>
+    <Window.Background>
+        <ImageBrush ImageSource="/main background.png"/>
+    </Window.Background>
     <Grid ShowGridLines="False">
         <Grid.RowDefinitions>
-            <RowDefinition Height="50" />
-            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="3*" />
+            <RowDefinition Height="*" />
+
 
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
 
         </Grid.ColumnDefinitions>
+        <Grid Grid.Row="1" VerticalAlignment="Stretch" Width="auto" Margin="20,0,20,0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="3*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Label Content="{Binding CurrentTime }" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center" Height="130" Width="566" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="3" FontSize="48" FontWeight="Bold" FontFamily="Cooper Black"/>
 
-        <Label Content="{Binding CurrentTime }" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Left" VerticalAlignment="Top" Height="129" Width="274" Grid.Row="1" Margin="257,45,0,0"/>
 
-        <Button Content="Add Hour" RenderTransformOrigin="0.62,1.295" Margin="222,213,468,188" Click="btnAddHour_click"  Grid.Row="1" />
-        <Button Content="Add Day" RenderTransformOrigin="0.62,1.295" Margin="338,213,350,188" Click="btnAddDay_click"  Grid.Row="1" />
-        <Button Content="Add Year" RenderTransformOrigin="0.62,1.295" Margin="454,213,234,188" Click="btnAddYear_click"  Grid.Row="1" />
-        <Button Content="Log in" HorizontalAlignment="Left" Margin="338,13,0,0" VerticalAlignment="Top" Height="37" Width="100" Click="BtnLogIn_Click"/>
-        <Button Content="Initialize users" HorizontalAlignment="Left" Margin="41,110,0,0" VerticalAlignment="Top" Height="36" Width="100" Click="btnInitUseres_Click" Grid.Row="1"/>
-        
+            <Button Content="Add Hour" Grid.Column="0" Grid.Row="1" RenderTransformOrigin="0.62,1.295" Click="btnAddHour_click"   />
+            <Button Content="Add Day" RenderTransformOrigin="0.62,1.295"  Click="btnAddDay_click"  Grid.Column="1" Grid.Row="1" />
+            <Button Content="Add Year" RenderTransformOrigin="0.62,1.295" Click="btnAddYear_click"  Grid.Row="1" Grid.Column="2" />
+        </Grid>
+        <Button Width="220" Background="#FFAFD7F6" Foreground="White" Height="40" Content="Log in" HorizontalAlignment="Center" VerticalAlignment="Center" Click="BtnLogIn_Click" BorderBrush="{x:Null}"/>
+        <Button Width="220" Background="#FFAFD7F6" Foreground="White" Height="50" Content="Initialize users" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center"  Click="btnInitUseres_Click" BorderBrush="{x:Null}" />
+
     </Grid>
 </Window>

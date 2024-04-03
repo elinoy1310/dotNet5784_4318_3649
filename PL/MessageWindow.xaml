@@ -24,7 +24,7 @@
                 <ImageBrush ImageSource="/צילום מסך 2024-04-02 211816.png" Stretch="Fill" TileMode="Tile"/>
             </Label.Background>
         </Label>
-        <PasswordBox  Height="20" Width="138" PasswordChanged="pb_PasswordChanged" PreviewKeyDown="Enter_Click" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center">
+        <PasswordBox PasswordChar="#"  Height="20" Width="138" PasswordChanged="pb_PasswordChanged" PreviewKeyDown="Enter_Click" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center">
             <!--<PasswordBox.FocusVisualStyle>
                 <Style>
                     <Setter Property="Control.Template">
