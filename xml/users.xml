@@ -1,34 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ArrayOfUser xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <User>
-    <userId>352060754</userId>
-    <type>Engineer</type>
-    <password>H352060754</password>
+    <userId>325984318</userId>
+    <type>Manager</type>
+    <password>eli2812</password>
   </User>
   <User>
-    <userId>335442469</userId>
-    <type>Engineer</type>
-    <password>E335442469</password>
+    <userId>213203649</userId>
+    <type>Manager</type>
+    <password>hadar0203</password>
   </User>
   <User>
-    <userId>307286778</userId>
+    <userId>256722658</userId>
     <type>Engineer</type>
-    <password>Y307286778</password>
+    <password>H256722658</password>
   </User>
   <User>
-    <userId>388515698</userId>
+    <userId>396214602</userId>
     <type>Engineer</type>
-    <password>S388515698</password>
+    <password>E396214602</password>
   </User>
   <User>
-    <userId>262925744</userId>
+    <userId>326253220</userId>
     <type>Engineer</type>
-    <password>A262925744</password>
+    <password>Y326253220</password>
   </User>
   <User>
-    <userId>320245654</userId>
+    <userId>306197028</userId>
     <type>Engineer</type>
-    <password>D320245654</password>
+    <password>S306197028</password>
+  </User>
+  <User>
+    <userId>229840667</userId>
+    <type>Engineer</type>
+    <password>A229840667</password>
+  </User>
+  <User>
+    <userId>291097722</userId>
+    <type>Engineer</type>
+    <password>D291097722</password>
   </User>
   <User>
     <userId>123456789</userId>

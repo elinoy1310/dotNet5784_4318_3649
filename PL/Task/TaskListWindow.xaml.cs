@@ -126,7 +126,7 @@ namespace PL.Task
 
         private void CbFilterByStatus_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            TaskList = Status == BO.Status.Unscheduled ? s_bl.Task.ReadAll(Filter) : s_bl.Task.ReadAll(task => task.Status == Status );
+            TaskList = Status == BO.Status.None ? s_bl.Task.ReadAll(Filter) : s_bl.Task.ReadAll(task => task.Status == Status );
         }
 
         private void btnFilterByStartDate_Click(object sender, RoutedEventArgs e)

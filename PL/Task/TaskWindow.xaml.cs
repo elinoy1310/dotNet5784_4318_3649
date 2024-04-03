@@ -41,9 +41,9 @@ namespace PL.Task
            // flagDependencyUpdated = false;
             if (idTask == 0)
             {
+                State = "Add";
                 add_updateTask = new BO.Task();
                 Add_updateEng=new BO.EngineerInTask();
-                State = "Add";
             }
             else
             {
@@ -94,12 +94,6 @@ namespace PL.Task
         
         private void AddOrUpdateClick(object sender, RoutedEventArgs e)
         {
-            if(Add_updateEng.Id!= 0)
-            {
-
-            BO.Engineer eng =s_bl.Engineer.Read(Add_updateEng.Id);
-            add_updateTask.Engineer=new BO.EngineerInTask() { Id=eng.Id, Name=eng.Name };
-            }
             if (State == "Add")
             {
                 try
@@ -121,6 +115,11 @@ namespace PL.Task
             }
             else // State is "Update"
             {
+                if (Add_updateEng.Id != 0)
+                {
+                    BO.Engineer eng = s_bl.Engineer.Read(Add_updateEng.Id);
+                    add_updateTask.Engineer = new BO.EngineerInTask() { Id = eng.Id, Name = eng.Name };
+                }
                 try
                 {
                     s_bl.Task.Update(add_updateTask);

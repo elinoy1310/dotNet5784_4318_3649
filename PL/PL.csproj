@@ -24,6 +24,7 @@
 	  <None Remove="scedle window icon.png" />
 	  <None Remove="scedule window background.jpg" />
 	  <None Remove="Task\WhatsApp Image 2024-02-29 at 23.18.41.jpeg" />
+	  <None Remove="Task\צילום מסך 2024-04-02 174416.png" />
 	  <None Remove="WhatsApp Image 2024-02-29 at 23.18.41.jpeg" />
 	  <None Remove="צילום מסך 2024-04-02 211816.png" />
 	</ItemGroup>
@@ -43,8 +44,7 @@
 	  <Resource Include="messagewindow icon.png" />
 	  <Resource Include="scedle window icon.png" />
 	  <Resource Include="scedule window background.jpg" />
-	  <Resource Include="Task\WhatsApp Image 2024-02-29 at 23.18.41.jpeg" />
-	  <Resource Include="WhatsApp Image 2024-02-29 at 23.18.41.jpeg" />
+	  <Resource Include="Task\צילום מסך 2024-04-02 174416.png" />
 	  <Resource Include="צילום מסך 2024-04-02 211816.png" />
 	</ItemGroup>
 

@@ -133,35 +133,6 @@ public class ListItemSelectionConverter : IMultiValueConverter
     }
 }
 
-//public class ConvertEmailToWidth : IValueConverter
-//{
-//    public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
-//    {
-//        if ((string)value =="")
-//            return aut;
-//        return Visibility.Collapsed;
-//    }
-
-//    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
-//    {
-//        throw new NotImplementedException();
-//    }
-//}
-
-//public class ConvertIntToVisibilityForManager : IValueConverter
-//{
-//    public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
-//    {
-//        if ((int)value == 0)
-//            return Visibility.Visible;
-//        return Visibility.Collapsed;
-//    }
-
-//    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
-//    {
-//        throw new NotImplementedException();
-//    }
-//}
 
 
 public class ConvertOppositeBooleanToVisibility : IValueConverter
@@ -185,6 +156,8 @@ public class ConvertStatusToBackground : IValueConverter
     {
         switch (value)
         {
+            case "Unscheduled":
+                return Brushes.Gray;
             case "Done":
                 return Brushes.LightGreen;
             case "Scheduled":
@@ -226,6 +199,8 @@ public class ConvertStatusToForeground : IValueConverter
     {
         switch (value)
         {
+            case "Unscheduled":
+                return Brushes.Gray;
             case "Done":
                 return Brushes.LightGreen;
             case "Scheduled":
