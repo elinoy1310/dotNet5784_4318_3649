@@ -56,8 +56,8 @@ namespace PL
                 }
                 catch (BlAlreadyExistException ex)
                 {
-                    MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-
+                    // MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    string temp = ex.Message;
                 }
                 try
                 {
@@ -66,7 +66,8 @@ namespace PL
                 }
                 catch (BlAlreadyExistException ex)
                 {
-                    MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                   string temp= ex.Message;
+                    //MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
 
                 }
                 this.Close();

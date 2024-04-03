@@ -36,7 +36,7 @@ namespace PL.Task
 
         public TaskListWindow(BO.Engineer eng)
         {
-            Filter = item => item.Engineer is null && s_bl.Task.PreviousTaskDone(item.Id) && item.Status != BO.Status.Done;
+            Filter = item => item.Engineer is null && s_bl.Task.PreviousTaskDone(item.Id) && item.Status != BO.Status.Done && item.Status != BO.Status.Unscheduled;
             IdUser = eng.Id;
             InitializeComponent();
             FilterStartDate = s_bl.Clock;

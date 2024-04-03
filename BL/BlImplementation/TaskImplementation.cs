@@ -189,7 +189,7 @@ internal class TaskImplementation : ITask
         bool flagUpdateDep = true;
         // Retrieve the original task from the data layer
         BO.Task Originaltask = Read(task.Id);
-        if (Originaltask.Dependencies is not null &&Originaltask.Dependencies.Equals( task.Dependencies))
+        if (Originaltask.Dependencies is not null &&Originaltask.Dependencies.Equals( task.Dependencies) ||(Originaltask.Dependencies is null && task.Dependencies is null))
             flagUpdateDep = false; 
         if (flagUpdateDep)
         {
