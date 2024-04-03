@@ -32,13 +32,20 @@ namespace PL
 
         public Gant()
         {
-       
-            ListGantTasks = s_bl.CreateGantList();
-            if(ListGantTasks is not null&&ListGantTasks!.Count()!=0)
+            try
+            {
+                ListGantTasks = s_bl.CreateGantList();
+            }
+            catch (BlDoesNotExistException ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+
+            if (ListGantTasks is not null && ListGantTasks!.Count() != 0)
             {
 
-            StartDateColumn = ListGantTasks!.First().StartDate;
-            CompleteDateColumn = ListGantTasks!.Max(task => task.CompleteDate);
+                StartDateColumn = ListGantTasks!.First().StartDate;
+                CompleteDateColumn = ListGantTasks!.Max(task => task.CompleteDate);
             }
             else
             {
@@ -57,10 +64,9 @@ namespace PL
             string str = "";
             foreach (var item in dependencies!)
             {
-
                 str += $" {item},";
             }
-            return str.Remove(str.Length-1);
+            return str.Remove(str.Length - 1);
         }
 
         private void GantGrid_Initialized(object sender, EventArgs e)
@@ -114,7 +120,7 @@ namespace PL
                             {
                                 row[rows] = g.Status;
                                 if (s_bl.Task.checkInJeoprady(g.TaskId))
-                                row[rows] = BO.Status.InJeopredy;
+                                    row[rows] = BO.Status.InJeopredy;
                             }
                             rows++;
                         }

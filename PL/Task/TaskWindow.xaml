@@ -5,8 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL.Task"
         mc:Ignorable="d"
-        Title="TaskWindow" Height="450" Width="800"
-        DataContext="{Binding RelativeSource={RelativeSource Mode=Self}}" >
+        Title="Task Window" Height="450" Width="800"
+        DataContext="{Binding RelativeSource={RelativeSource Mode=Self}}" Icon="/Task/taskIcon.png" >
 
 
     <Window.Resources>
@@ -104,7 +104,7 @@
         <TextBox Margin="0,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Column="1"
                    Text="{Binding  add_updateTask.Status, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}" Grid.Row="4"
                  IsEnabled="False"/>
-        <Button Grid.Column="1" Content="Add Dependencies" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,0,0,0" Grid.Row="5" Width="130" Height="28" Click="BtnDependencies_Click" Background="AliceBlue" Foreground="Blue"/>
+        <Button Grid.Column="1" Content="Show Dependencies" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,0,0,0" Grid.Row="5" Width="130" Height="28" Click="BtnDependencies_Click" Background="AliceBlue" Foreground="Blue"/>
         <TextBox Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,0,0,0" Grid.Row="6"
                     IsEnabled="{Binding add_updateTask.Id, Mode=OneTime, Converter={StaticResource ConvertText1ToIsEnabled}}" Text="{Binding add_updateTask.RequiredEffortTime, Mode=TwoWay}"/>
         <DatePicker Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,0,0,0" Grid.Row="7" 
@@ -120,8 +120,8 @@
         <TextBox Margin="0,0,0,0" TextWrapping="Wrap" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Column="3"
                  Text="{Binding  add_updateTask.Remarks, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}" Grid.Row="4"/>
         <TextBox Grid.Column="3" Margin="0,0,0,0" Grid.Row="5" TextWrapping="Wrap" VerticalAlignment="Center" HorizontalAlignment="Center"
-                 Text="{Binding  add_updateTask.Engineer.Id, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}"
-                 IsEnabled="{Binding add_updateTask.Id, Mode=OneTime, Converter={StaticResource ConvertText2ToIsEnabled}}"/>
+                 Text="{Binding  Add_updateEng.Id, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}"
+                 IsEnabled="{Binding add_updateTask.ScheduledDate, Mode=OneTime, Converter={StaticResource ConvertDateToIsEnable}}"  />
         <ComboBox Grid.Column="3" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,0,0,0"  Background="AliceBlue" Foreground="Blue" Grid.Row="6" Width="130" Height="28" ItemsSource="{Binding Source={StaticResource LevelCollectionKey}}" SelectedValue="{Binding add_updateTask.Complexity, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" />
         <Button Content="{Binding add_updateTask.Id, Mode=OneTime, Converter={StaticResource ConverIdToContent}}"  Background="AliceBlue" Foreground="Blue" VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="0,0,0,0"  Height="40" Width="96" Click="AddOrUpdateClick" Grid.Row="8" Grid.Column="3"/>
     </Grid>

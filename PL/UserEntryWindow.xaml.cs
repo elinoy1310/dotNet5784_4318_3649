@@ -63,6 +63,11 @@ namespace PL
             {
                 MessageBoxResult mbResult = MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
+            catch (BlDoesNotExistException ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+
+            }
 
         }
 

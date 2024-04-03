@@ -7,17 +7,44 @@
         mc:Ignorable="d"
         Title="Gant" Height="450" Width="800"
         DataContext="{Binding RelativeSource={RelativeSource Mode=Self}}">
-    <Canvas>
-        <Canvas.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="3*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid.Resources>
             <Style TargetType="DataGridCell">
                 <Setter Property="Background"
                         Value="{Binding Content.Text, RelativeSource={RelativeSource Mode=Self},Converter={StaticResource ConvertStatusToBackground}}"/>
                 <Setter Property="Foreground" 
                         Value="{Binding Content.Text, RelativeSource={RelativeSource Mode=Self},Converter={StaticResource ConvertStatusToForeground}}"/>
             </Style>
-        </Canvas.Resources>
-        <DataGrid Initialized="GantGrid_Initialized" GridLinesVisibility="None" IsReadOnly="True" AutoGenerateColumns="False" RowDetailsVisibilityMode="Visible" ScrollViewer.CanContentScroll="True">
+        </Grid.Resources>
+        <DataGrid Initialized="GantGrid_Initialized" GridLinesVisibility="None" IsReadOnly="True" AutoGenerateColumns="False" RowDetailsVisibilityMode="Visible" ScrollViewer.CanContentScroll="True" Grid.Row="0">
         </DataGrid>
+        <Grid Grid.Row="1" Width="300" Height="90" VerticalAlignment="Center" HorizontalAlignment="Center">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <TextBlock Grid.Column="0" Grid.Row="0" Text="UnScheduled - "/>
+            <TextBlock Grid.Column="0" Grid.Row="1" Text="Scheduled - "/>
+            <TextBlock Grid.Column="0" Grid.Row="2" Text="OnTrack - "/>
+            <TextBlock Grid.Column="0" Grid.Row="3" Text="Done - "/>
+            <TextBlock Grid.Column="0" Grid.Row="4" Text="InJeopardy - "/>
+            <TextBlock Grid.Column="1" Grid.Row="0" Background="Gray"/>
+            <TextBlock Grid.Column="1" Grid.Row="1" Background="Yellow"/>
+            <TextBlock Grid.Column="1" Grid.Row="2" Background="LightSkyBlue"/>
+            <TextBlock Grid.Column="1" Grid.Row="3" Background="LightGreen"/>
+            <TextBlock Grid.Column="1" Grid.Row="4" Background="LightPink"/>
+        </Grid>
 
-    </Canvas>
+    </Grid>
 </Window>

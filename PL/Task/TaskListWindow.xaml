@@ -5,8 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL.Task"
         mc:Ignorable="d"
-        Title="TaskListWindow" Height="550" Width="1000"
-        DataContext="{Binding RelativeSource={RelativeSource Mode=Self}}" Loaded="wLoadTheUpdatedTasksList_Loaded">
+        Title="Task List Window" Height="550" Width="1000"
+        DataContext="{Binding RelativeSource={RelativeSource Mode=Self}}" Loaded="wLoadTheUpdatedTasksList_Loaded" Icon="/Task/listTasksIcon.jpg">
 
     <Window.Resources>
         <Style TargetType="Button">
@@ -57,7 +57,7 @@
                 <ImageBrush/>
             </Button.Background>
         </Button>
-        <Button Content="Delete&#x0a;Task" HorizontalAlignment="Right" FontSize="15" Margin="0,0,0,0" Grid.Row="2" VerticalAlignment="Center" Height="50" Width="91" Click="btnDeleteTask_Click" />
+        <Button Content="Delete&#x0a;Task" HorizontalAlignment="Right" FontSize="15" Margin="0,0,0,0" Grid.Row="2" FontFamily="Cascadia Code" VerticalAlignment="Center" Height="50" Width="91" Click="btnDeleteTask_Click" />
 
     </Grid>
 </Window>

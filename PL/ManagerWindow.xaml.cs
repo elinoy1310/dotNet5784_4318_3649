@@ -29,7 +29,7 @@ namespace PL
         static readonly BlApi.IBl s_bl = BlApi.Factory.Get();
 
         public bool ShowPreviousPasswordIsClicked { get; set; }
-        public int idUser {  get; set; }
+        public int idUser { get; set; }
         /// <summary>
         /// Initializes a new instance of the MainWindow class.
         /// </summary>
@@ -39,7 +39,7 @@ namespace PL
             startProject = s_bl.ProjectStartDate;
             ChangePasswordIsClicked = false;
             ShowPreviousPasswordIsClicked = false;
-            idUser= id;
+            idUser = id;
         }
 
 
@@ -75,15 +75,23 @@ namespace PL
         public static readonly DependencyProperty PasswordProperty =
             DependencyProperty.Register("Password", typeof(string), typeof(ManagerWindow), new PropertyMetadata(""));
 
-      
 
-       
+
+
         private void ShowPassword_Click(object sender, MouseButtonEventArgs e)
         {
             if (!ShowPreviousPasswordIsClicked)
             {
                 ShowPreviousPasswordIsClicked = true;
-                Password = s_bl.User.Read(idUser).passWord!;
+                try
+                {
+                    Password = s_bl.User.Read(idUser).passWord!;
+                }
+                catch (BlDoesNotExistException ex)
+                {
+                    MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+
+                }
             }
             else
             {
@@ -100,24 +108,37 @@ namespace PL
 
         private void updatePassword_Click(object sender, RoutedEventArgs e)
         {
-            if (Password == s_bl.User.Read(idUser).passWord)
+            try
             {
-                MessageBoxResult mbResultSame = MessageBox.Show("This is the same password as before", "Information", MessageBoxButton.OKCancel, MessageBoxImage.Information);
-                if (mbResultSame == MessageBoxResult.OK)
-                    btnCancel_Click(sender, e);
-            }
-            else
-            {
-                MessageBoxResult mbResult = MessageBox.Show($"Are you sure you want to change your password to {Password}?", "Validation", MessageBoxButton.YesNo, MessageBoxImage.Question);
-                if (mbResult == MessageBoxResult.Yes)
+                if (Password == s_bl.User.Read(idUser).passWord)
                 {
-                    s_bl.User.Update(new BO.User() { UserId = idUser, UserType = BO.UserType.Engineer, passWord = Password });
-                    ChangePasswordIsClicked = false;
-                    Password = "";
+                    MessageBoxResult mbResultSame = MessageBox.Show("This is the same password as before", "Information", MessageBoxButton.OKCancel, MessageBoxImage.Information);
+                    if (mbResultSame == MessageBoxResult.OK)
+                        btnCancel_Click(sender, e);
                 }
 
+
+                else
+                {
+                    MessageBoxResult mbResult = MessageBox.Show($"Are you sure you want to change your password to {Password}?", "Validation", MessageBoxButton.YesNo, MessageBoxImage.Question);
+                    if (mbResult == MessageBoxResult.Yes)
+                    {
+                        s_bl.User.Update(new BO.User() { UserId = idUser, UserType = BO.UserType.Engineer, passWord = Password });
+                        ChangePasswordIsClicked = false;
+                        Password = "";
+                    }
+
+                }
+            }
+            catch (BlDoesNotExistException ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
 
+            catch (BlCannotBeUpdatedException ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
 
         /// <summary>
@@ -141,10 +162,10 @@ namespace PL
         private void btnInitialization_Click(object sender, RoutedEventArgs e)
         {
             MessageBoxResult mbResult = MessageBox.Show("Are you sure you want to initialize all the data?", "Initialization", MessageBoxButton.YesNo, MessageBoxImage.Question);
-            if(mbResult == MessageBoxResult.Yes) 
+            if (mbResult == MessageBoxResult.Yes)
             {
-               s_bl.ResetDB();
-               s_bl.InitializeDB();
+                s_bl.ResetDB();
+                s_bl.InitializeDB();
             }
         }
 
@@ -181,7 +202,7 @@ namespace PL
                 {
                     try
                     {
-                        s_bl.CreateSchedule(s_bl.Clock,BO.CreateScheduleOption.Automatically);
+                        s_bl.CreateSchedule(s_bl.Clock, BO.CreateScheduleOption.Automatically);
                         MessageBox.Show("The scheduled has created successfuly!");
                     }
                     catch (BO.BlWrongDataException ex)
@@ -203,7 +224,7 @@ namespace PL
                     new ScheduleWindow().ShowDialog();
                 }
             }
-            catch( BO.BlCannotBeUpdatedException ex)
+            catch (BO.BlCannotBeUpdatedException ex)
 
             {
                 MessageBoxResult mbResultEx = MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
@@ -220,21 +241,8 @@ namespace PL
             ChangePasswordIsClicked = false;
             Password = "";
         }
-        
-          
-        
 
 
-
-       
-
-
-       
-
-       
-
-       
-        
     }
 }
 

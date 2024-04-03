@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL.Engineer"
         mc:Ignorable="d"
-        Title="EngineerViewWindow" Height="450" Width="800"
+        Title="Engineer View Window" Height="450" Width="800"
         DataContext="{Binding RelativeSource={RelativeSource Self}}" Icon="/Engineer/engineer view icon.jpg"
         >
     <Window.Background>

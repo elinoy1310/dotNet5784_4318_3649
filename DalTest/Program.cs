@@ -276,11 +276,9 @@ internal class Program
     private static Task newTask()
     {
         //user input
-        Console.WriteLine("enter alias,description,if the task is mile stone=false, required effort time, created in date,scheduled date=null,start date, complete date, dead line, deliverables,remarks,engineer id, engineer's experience,complexity");
+        Console.WriteLine("enter alias,description, required effort time, created in date,scheduled date=null,start date, complete date, dead line, deliverables,remarks,engineer id, engineer's experience,complexity");
         string alias = Console.ReadLine() ?? "";
         string description = Console.ReadLine() ?? "";
-        if (!bool.TryParse(Console.ReadLine(), out bool isMileStone))
-            throw new DalWrongInputFormatException("input not in bool format");
         if(!TimeSpan.TryParse(Console.ReadLine(), out TimeSpan requiredEffortTime))
             throw new DalWrongInputFormatException("input not in TimeSpan format");
         if(DateTime.TryParse(Console.ReadLine(), out DateTime createdInDate))
@@ -291,14 +289,12 @@ internal class Program
             throw new DalWrongInputFormatException("input not in DateTime format");
         if (DateTime.TryParse(Console.ReadLine(), out DateTime completeDate))
             throw new DalWrongInputFormatException("input not in DateTime format");
-        if (DateTime.TryParse(Console.ReadLine(), out DateTime deadline))
-            throw new DalWrongInputFormatException("input not in DateTime format");
         string deliverables = Console.ReadLine() ?? "";
         string remarks = Console.ReadLine() ?? "";
         int engineerId = int.Parse(Console.ReadLine() ?? "");
         EngineerExperience complexity = (EngineerExperience)int.Parse(Console.ReadLine() ?? "0");
         //create new Task and returns it
-        Task newTask = new Task(0, alias, description, isMileStone, requiredEffortTime, createdInDate, scheduledDate, startDate, completeDate, deadline, deliverables, remarks, engineerId, complexity);
+        Task newTask = new Task(0, alias, description, requiredEffortTime, createdInDate, scheduledDate, startDate, completeDate, deliverables, remarks, engineerId, complexity);
         return newTask;
     }
 

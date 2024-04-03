@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL.Engineer"
         mc:Ignorable="d"
-        Title="EngineerWindow" Height="450" Width="800"
+        Title="Engineer Window" Height="450" Width="800"
         DataContext="{Binding add_updateEngineer , RelativeSource={RelativeSource Self}, Mode=TwoWay}" Icon="/Engineer/engineer list and engineer window icon.jpg">
 
 
