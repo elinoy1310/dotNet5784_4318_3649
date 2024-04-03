@@ -20,7 +20,7 @@
                         Value="{Binding Content.Text, RelativeSource={RelativeSource Mode=Self},Converter={StaticResource ConvertStatusToForeground}}"/>
             </Style>
         </Grid.Resources>
-        <DataGrid Initialized="GantGrid_Initialized" GridLinesVisibility="None" IsReadOnly="True" AutoGenerateColumns="False" RowDetailsVisibilityMode="Visible" ScrollViewer.CanContentScroll="True" Grid.Row="0" Height="NaN" MinHeight="5">
+        <DataGrid Initialized="GantGrid_Initialized" HorizontalAlignment="Center" VerticalAlignment="Center" GridLinesVisibility="None" IsReadOnly="True" AutoGenerateColumns="False" RowDetailsVisibilityMode="Visible" ScrollViewer.CanContentScroll="True" Grid.Row="0" Height="auto" Width="auto" MinHeight="5">
         </DataGrid>
         <Grid Grid.Row="1" Width="300" Height="90" VerticalAlignment="Center" HorizontalAlignment="Center">
             <Grid.ColumnDefinitions>
