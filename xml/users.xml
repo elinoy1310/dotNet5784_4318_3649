@@ -10,49 +10,4 @@
     <type>Manager</type>
     <password>hadar0203</password>
   </User>
-  <User>
-    <userId>253888582</userId>
-    <type>Engineer</type>
-    <password>H253888582</password>
-  </User>
-  <User>
-    <userId>256428844</userId>
-    <type>Engineer</type>
-    <password>E256428844</password>
-  </User>
-  <User>
-    <userId>339797056</userId>
-    <type>Engineer</type>
-    <password>Y339797056</password>
-  </User>
-  <User>
-    <userId>307275577</userId>
-    <type>Engineer</type>
-    <password>S307275577</password>
-  </User>
-  <User>
-    <userId>249985274</userId>
-    <type>Engineer</type>
-    <password>A249985274</password>
-  </User>
-  <User>
-    <userId>340933721</userId>
-    <type>Engineer</type>
-    <password>D340933721</password>
-  </User>
-  <User>
-    <userId>123456789</userId>
-    <type>Engineer</type>
-    <password>eng123</password>
-  </User>
-  <User>
-    <userId>325984318</userId>
-    <type>Manager</type>
-    <password>eli2812</password>
-  </User>
-  <User>
-    <userId>213203649</userId>
-    <type>Manager</type>
-    <password>hadar0203</password>
-  </User>
 </ArrayOfUser>
