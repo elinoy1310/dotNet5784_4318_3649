@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:PL"
         mc:Ignorable="d"
         DataContext="{Binding RelativeSource={RelativeSource Mode=Self}}"
-        Title="Limited Access" Height="200" Width="200" MaxHeight="200" MaxWidth="200" WindowStyle="ToolWindow"  WindowStartupLocation="CenterScreen" Icon="/messagewindow icon.png">
+        Title="Limited Access" Height="200" Width="200" MaxHeight="200" MaxWidth="200" WindowStyle="ToolWindow"  WindowStartupLocation="CenterScreen" Icon="/messagewindow icon.png" BorderBrush="Black">
     <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>

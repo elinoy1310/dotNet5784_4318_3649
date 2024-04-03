@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="TaskWindow" Height="450" Width="800"
         DataContext="{Binding RelativeSource={RelativeSource Mode=Self}}" >
-    <!--DataContext="{Binding add_updateTask , RelativeSource={RelativeSource Self}, Mode=TwoWay}">-->
+
 
     <Window.Resources>
         <Style TargetType="Label">
@@ -39,9 +39,6 @@
     <Window.Background>
         <ImageBrush ImageSource="/Task/צילום מסך 2024-04-02 174416.png"/>
     </Window.Background>
-
-
-
 
     <Grid >
         <Grid.RowDefinitions>

@@ -15,7 +15,7 @@
         </Style>
     </Window.Resources>
 
-    <Grid ShowGridLines="False">
+    <Grid ShowGridLines="false">
         <Grid.RowDefinitions>
             <RowDefinition Height="150*"/>
             <RowDefinition Height="500*"/>
@@ -44,21 +44,20 @@
             <ComboBox VerticalAlignment="Center" HorizontalAlignment="Center" ItemsSource="{Binding Source={StaticResource StatusCollectionKey}}"  SelectedValue="{Binding Status, Mode=TwoWay}" SelectionChanged="CbFilterByStatus_SelectionChanged" FontFamily="Arial" FontSize="12" Height="28" Width="170" Margin="0,0,0,0" Grid.Row="2" Grid.Column="1"/>
             <DatePicker SelectedDate="{Binding FilterStartDate , Mode=TwoWay}" HorizontalAlignment="Center" VerticalAlignment="Center" Width="170" Height="28" Grid.Row="1" Grid.Column="1"/>
         </Grid>
-        <ListView Grid.Row="3" ItemsSource="{Binding TaskList}" MouseDoubleClick="lvSelectTaskToUpdate_MouseDoubleClick" SelectionChanged="selectTask" SelectedItem="" >
+        <ListView Grid.Row="1" ItemsSource="{Binding TaskList}" MouseDoubleClick="lvSelectTaskToUpdate_MouseDoubleClick" SelectionChanged="selectTask" SelectedItem="" >
             <!--<ListView.View>
                 <GridView>
                     <GridViewColumn/>
                 </GridView>
             </ListView.View>-->
         </ListView>
-
-        <Label Content="double click on the task you want to choose" Grid.Row="4" FontSize="16" Margin="48,5,613,-2" Visibility="{Binding IdUser, Converter={StaticResource ConvertIntToVisibilityForEng}}"/>
-        <Button Content="Add&#x0a;Task"  Grid.Row="3" HorizontalAlignment="Center" Width="100" Click="btnAddTask_Click" Foreground="Black" Background="#FFB0E8F3" FontFamily="Cascadia Code" FontSize="15" VerticalContentAlignment="Center" Margin="0,372,0,0" Grid.RowSpan="2"/>
-        <Button Content="Delete&#x0a;Task" HorizontalAlignment="Left" FontSize="15" Margin="909,0,0,0" Grid.Row="4" VerticalAlignment="Center" Height="50" Width="91" Click="btnDeleteTask_Click" />
-        <Label Content="Filter the list by the Task Start Date:" HorizontalAlignment="Left" VerticalAlignment="Center" RenderTransformOrigin="1.127,0.526"  Grid.Column="0" FontFamily="Arial Black" FontSize="13" Width="318" Grid.Row="1"/>
-        <Label Content="Filter the list by the Task Status:" HorizontalAlignment="Left" VerticalAlignment="Center" RenderTransformOrigin="1.127,0.526"  Grid.Column="0" FontFamily="Arial Black" FontSize="13" Width="318" Grid.Row="2" Height="30"/>
-        <ComboBox VerticalAlignment="Top" ItemsSource="{Binding Source={StaticResource StatusCollectionKey}}"  SelectedValue="{Binding Status, Mode=TwoWay}" SelectionChanged="CbFilterByStatus_SelectionChanged" FontFamily="Arial" FontSize="12" Height="25" Margin="343,4,518,0" Grid.Row="2"/>
-        <DatePicker SelectedDate="{Binding FilterStartDate , Mode=TwoWay}" HorizontalAlignment="Left" Margin="341,0,0,0" VerticalAlignment="Center" Width="139" Height="22" Grid.Row="1"/>
+        <Label Content="double click on the task you want to choose" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Row="2" FontSize="16" Margin="0,0,0,0" Visibility="{Binding IdUser, Converter={StaticResource ConvertIntToVisibilityForEng}}"/>
+        <Button Content="Add&#x0a;Task"  Grid.Row="2" HorizontalAlignment="Center" Height="50" Width="100" Click="btnAddTask_Click" FontFamily="Cascadia Code" FontSize="15" VerticalContentAlignment="Center">
+            <Button.Background>
+                <ImageBrush/>
+            </Button.Background>
+        </Button>
+        <Button Content="Delete&#x0a;Task" HorizontalAlignment="Right" FontSize="15" Margin="0,0,0,0" Grid.Row="2" VerticalAlignment="Center" Height="50" Width="91" Click="btnDeleteTask_Click" />
 
     </Grid>
 </Window>
